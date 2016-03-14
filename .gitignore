@@ -1,0 +1,8 @@
+*.pyc
+*.*~
+*.egg-info
+.ipynb_checkpoints
+.*
+!.gitignore
+!.travis.yml
+
