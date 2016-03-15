@@ -1,1 +1,3 @@
-git+https://github.com/sertansenturk/predominantmelodymakam.git#egg=predominantmelodymakam
+git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2#egg=predominantmelodymakam
+git+https://github.com/hsercanatli/pitch-post-filter.git@v1.2#egg=pitchfilter
+
