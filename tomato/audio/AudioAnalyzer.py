@@ -39,6 +39,12 @@ class AudioAnalyzer(object):
 
         return tonic
 
+    def identify_ahenk(self, tonic, makamstr):
+        ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
+        ahenk['source'] = tonic['source']
+
+        return ahenk
+
     def compute_pitch_distribution(self, pitch, tonic):
         if self.verbose:
             print("Computing pitch distribution of ", pitch['source'])
@@ -54,11 +60,12 @@ class AudioAnalyzer(object):
 
         return self.compute_pitch_distribution(pitch, tonic).to_pcd()
 
-    def identify_ahenk(self, tonic, makamstr):
-        ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
-        ahenk['source'] = tonic['source']
+    def get_stable_notes(self, pitch_distribution, tonic, makamstr):
+        if self.verbose:
+            print("Computing pitch class distribution of ", tonic['source'])
 
-        return ahenk
+        return self._noteModeler.calculate_notes(pitch_distribution,
+                                                 tonic['value'], makamstr)
 
     def set_pitch_extractor_params(self, **kwargs):
         if any(key not in self._pitchExtractor.__dict__.keys()
