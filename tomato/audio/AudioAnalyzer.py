@@ -71,7 +71,7 @@ class AudioAnalyzer(object):
         if any(key not in self._pitchExtractor.__dict__.keys()
                for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(
-                self._pitchExtractor.__dict__.keys()) + ".")
+                self._pitchExtractor.__dict__.keys()))
 
         for key, value in kwargs.items():
             setattr(self._pitchExtractor, key, value)
@@ -80,7 +80,7 @@ class AudioAnalyzer(object):
         if any(key not in self._tonicIdentifier.__dict__.keys()
                for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(
-                self._tonicIdentifier.__dict__.keys()) + ".")
+                self._tonicIdentifier.__dict__.keys()))
 
         for key, value in kwargs.items():
             setattr(self._tonicIdentifier, key, value)
@@ -88,7 +88,16 @@ class AudioAnalyzer(object):
     def set_pitch_distibution_params(self, **kwargs):
         if any(key not in self._pd_params.keys() for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(
-                self._pd_params.keys()) + ".")
+                self._pd_params.keys()))
 
         for key, value in kwargs.items():
             self._pd_params[key] = value
+
+    def set_note_modeler_params(self, **kwargs):
+        if any(key not in self._noteModeler.__dict__.keys()
+               for key in kwargs.keys()):
+            raise KeyError("Possible parameters are: " + ', '.join(
+                self._noteModeler.__dict__.keys()))
+
+        for key, value in kwargs.items():
+            setattr(self._noteModeler, key, value)
