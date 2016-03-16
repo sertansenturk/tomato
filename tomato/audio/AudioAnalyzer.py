@@ -58,6 +58,7 @@ class AudioAnalyzer(object):
         :return:
         '''
         ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
+        ahenk['source'] = tonic['source']
 
         return ahenk
 
