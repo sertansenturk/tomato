@@ -3,6 +3,7 @@ from predominantmelodymakam.PredominantMelodyMakam import \
 
 class Audio(object):
     '''
+
     '''
     def __init__(self, filename, verbose=False):
         '''
@@ -13,11 +14,24 @@ class Audio(object):
         self.verbose = verbose
 
         # extractors
-        self.melodyExtractor = PredominantMelodyMakam()
+        self._melodyExtractor = PredominantMelodyMakam()
 
     def extract_pitch(self):
-        results = self.melodyExtractor.run(self.filename)
+        '''
+
+        :return:
+        '''
+        results = self._melodyExtractor.run(self.filename)
         pitch = results['settings']  # collapse the keys in settings
         pitch['pitch'] = results['pitch']
 
         return pitch
+
+    def set_pitch_extractor_params(self, **kwargs):
+        '''
+
+        :param kwargs:
+        :return:
+        '''
+        for key, value in kwargs.items():
+            setattr(self._melodyExtractor, key, value)
