@@ -39,10 +39,13 @@ class AudioAnalyzer(object):
         :return:
         '''
         if self.verbose:
-            print("Identifying tonic from the predominant melody")
+            print("Identifying tonic from the predominant melody of ",
+                  pitch['source'])
 
         tonic, pitch, pitch_chunks, pitch_distribution, stable_pitches = \
-            self._tonicIdentifier.identify(pitch)
+            self._tonicIdentifier.identify(pitch['pitch'])
+
+        tonic['source'] = pitch['source']
 
         return tonic
 
