@@ -17,6 +17,35 @@ class AudioAnalyzer(object):
         self._noteModeler = NoteModel()
         self._pd_params = {'smooth_factor': 7.5, 'step_size': 7.5}
 
+    def analyze(self, filepath, makam=None):
+        # predominant melody extraction
+        # There is no need to run pitch filter as it is run in extract_pitch
+        # by default
+        pitch = self.extract_pitch(filepath)
+
+        # Tonic identification
+        tonic = self.identify_tonic(pitch)
+
+        # histogram computation
+        pitch_distribution = self.compute_pitch_distribution(pitch, tonic)
+        pitch_class_distribution = pitch_distribution.to_pcd()
+
+        # makam recognition
+        if makam is None:
+            raise NotImplementedError('Makam recognition is not integrated.')
+
+        # transposition (ahenk) identification
+        ahenk = self.identify_ahenk(tonic, makam)
+
+        # tuning analysis and stable pitch extraction
+        stable_notes = self.get_stable_notes(pitch_distribution, tonic, makam)
+
+        # return as a dictionary
+        return {'pitch': pitch, 'tonic': tonic, 'ahenk': ahenk, 'makam': makam,
+                'pitch_distribution': pitch_distribution,
+                'pitch_class_distribution': pitch_class_distribution,
+                'stable_notes': stable_notes}
+
     def extract_pitch(self, filename):
         if self.verbose:
             print("Extracting predominant melody of ", filename)
@@ -39,7 +68,8 @@ class AudioAnalyzer(object):
 
         return tonic
 
-    def identify_ahenk(self, tonic, makamstr):
+    @staticmethod
+    def identify_ahenk(tonic, makamstr):
         ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
         ahenk['source'] = tonic['source']
 
