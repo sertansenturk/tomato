@@ -1,6 +1,7 @@
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 
+
 class Audio(object):
     '''
 
