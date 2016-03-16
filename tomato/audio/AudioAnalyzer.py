@@ -2,7 +2,9 @@ from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 from tonicidentifier.TonicLastNote import TonicLastNote
 from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
-
+from notemodel.NoteModel import NoteModel
+from modetonicestimation.PitchDistribution import PitchDistribution
+import numpy as np
 
 class AudioAnalyzer(object):
     '''
@@ -18,6 +20,9 @@ class AudioAnalyzer(object):
         # extractors
         self._pitchExtractor = PredominantMelodyMakam()
         self._tonicIdentifier = TonicLastNote()
+        self._noteModeler = NoteModel()
+        self._pd_smooth_factor = 7.5
+        self._pd_step_size = 7.5
 
     def extract_pitch(self, filename):
         '''
@@ -49,6 +54,20 @@ class AudioAnalyzer(object):
         tonic['source'] = pitch['source']
 
         return tonic
+
+    def compute_pitch_distribution(self, pitch, tonic):
+        '''
+        
+        :param pitch:
+        :param tonic:
+        :return:
+        '''
+        if self.verbose:
+            print("Computing pitch distribution of ", pitch['source'])
+
+        return PitchDistribution.from_hz_pitch(
+            np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
+            smooth_factor=self._pd_smooth_factor, step_size=self._pd_step_size)
 
     def identify_ahenk(self, tonic, makamstr):
         '''

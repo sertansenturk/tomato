@@ -4,7 +4,7 @@ git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2#egg=predomi
 git+https://github.com/hsercanatli/pitch-post-filter.git@v1.2#egg=pitchfilter
 
 # tonic and transposition identification
-git+https://github.com/hsercanatli/tonicidentifier_makam@v1.1#egg=makamtonicidentifier
+git+https://github.com/hsercanatli/tonicidentifier_makam@v1.2#egg=makamtonicidentifier
 git+https://github.com/sertansenturk/ahenkidentifier.git@v1.3#ahenkidentifier
 
 # histogram analysis and note models
