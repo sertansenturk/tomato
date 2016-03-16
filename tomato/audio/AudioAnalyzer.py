@@ -7,32 +7,37 @@ class AudioAnalyzer(object):
     '''
 
     '''
-    def __init__(self, filename, verbose=False):
+    def __init__(self, verbose=False):
         '''
 
         :return:
         '''
-        self.filename = filename
         self.verbose = verbose
 
         # extractors
-        self._melodyExtractor = PredominantMelodyMakam()
-        self._tonic_identifier = TonicLastNote()
+        self._pitchExtractor = PredominantMelodyMakam()
+        self._tonicIdentifier = TonicLastNote()
 
-    def extract_pitch(self):
+    def extract_pitch(self, filename):
         '''
 
         :return:
         '''
-        results = self._melodyExtractor.run(self.filename)
+        if self.verbose:
+            print("Extracting predominant melody of ", filename)
+
+        results = self._pitchExtractor.run(filename)
         pitch = results['settings']  # collapse the keys in settings
         pitch['pitch'] = results['pitch']
 
         return pitch
 
     def identify_tonic(self, pitch):
+        if self.verbose:
+            print("Identifying tonic from the predominant melody")
+
         tonic, pitch, pitch_chunks, pitch_distribution, stable_pitches = \
-            self._tonic_identifier.identify(pitch)
+            self._tonicIdentifier.identify(pitch)
 
         return tonic
 
@@ -43,4 +48,13 @@ class AudioAnalyzer(object):
         :return:
         '''
         for key, value in kwargs.items():
-            setattr(self._melodyExtractor, key, value)
+            setattr(self._pitchExtractor, key, value)
+
+    def set_tonic_identifier_params(self, **kwargs):
+        '''
+
+        :param kwargs:
+        :return:
+        '''
+        for key, value in kwargs.items():
+            setattr(self._tonicIdentifier, key, value)
