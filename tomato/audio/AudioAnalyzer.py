@@ -1,6 +1,7 @@
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 from tonicidentifier.TonicLastNote import TonicLastNote
+from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 
 
 class AudioAnalyzer(object):
@@ -42,12 +43,23 @@ class AudioAnalyzer(object):
             print("Identifying tonic from the predominant melody of ",
                   pitch['source'])
 
-        tonic, pitch, pitch_chunks, pitch_distribution, stable_pitches = \
-            self._tonicIdentifier.identify(pitch['pitch'])
+        tonic = self._tonicIdentifier.identify(pitch['pitch'])[0]
 
+        # add the source audio file
         tonic['source'] = pitch['source']
 
         return tonic
+
+    def identify_ahenk(self, tonic, makamstr):
+        '''
+
+        :param tonic:
+        :param makam:
+        :return:
+        '''
+        ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
+
+        return ahenk
 
     def set_pitch_extractor_params(self, **kwargs):
         '''
