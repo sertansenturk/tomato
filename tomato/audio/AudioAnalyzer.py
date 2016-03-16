@@ -33,6 +33,11 @@ class AudioAnalyzer(object):
         return pitch
 
     def identify_tonic(self, pitch):
+        '''
+
+        :param pitch:
+        :return:
+        '''
         if self.verbose:
             print("Identifying tonic from the predominant melody")
 
