@@ -1,4 +1,5 @@
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
+from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 
 
 class SymbTrAnalyzer(object):
@@ -7,19 +8,35 @@ class SymbTrAnalyzer(object):
 
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
+        self._symbTrReader = SymbTrReader()
 
     def get_mbid_from_name(self):
         pass
 
-    def extract_data_from_txt(self, txt_filename, symbtr_name=None, mbid=None,
-                              segment_note_bound_idx=None):
+    def extract_data(self, txt_filename, mu2_filename, symbtr_name=None,
+                     mbid=None, segment_note_bound_idx=None):
         if self.verbose:
             print("- Extracting (meta)data from the SymbTr-txt file: " +
                   txt_filename)
 
-        return self._dataExtractor.extract(
+        txt_data, is_txt_valid = self._dataExtractor.extract(
             txt_filename, symbtr_name=symbtr_name, mbid=mbid,
             segment_note_bound_idx=segment_note_bound_idx)
+
+        if self.verbose:
+            print("- Extracting metadata from the SymbTr-mu2 file: " +
+                  mu2_filename)
+
+        mu2_header, header_row, is_mu2_header_valid = \
+            self._symbTrReader.read_mu2_header(
+                mu2_filename, symbtr_name=symbtr_name)
+
+        data = SymbTrDataExtractor.merge(txt_data, mu2_header)
+        is_data_valid = {'results': is_mu2_header_valid and is_txt_valid,
+                         'is_txt_valid': is_txt_valid,
+                         'is_mu2_header_valid': is_mu2_header_valid}
+
+        return data, is_data_valid
 
     def set_data_extractor_params(self, **kwargs):
         if any(key not in self._dataExtractor.__dict__.keys()
@@ -29,3 +46,5 @@ class SymbTrAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._dataExtractor, key, value)
+
+
