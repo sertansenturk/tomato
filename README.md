@@ -20,14 +20,19 @@ Coming soon...
 Installation
 -------
 
-If you want to install tomato, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
+If you want to install **tomato**, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
 
     virtualenv env
     source env/bin/activate
+    
+To install change the current directory to the repository folder and install by:
+
+    cd path/to/tomato
     python setup.py install
 
 If you want to be able to edit files and have the changes be reflected, then install the repository like this instead:
 
+    cd path/to/tomato
     pip install -e .
 
 The algorithm uses several modules in Essentia. Follow the [instructions](essentia.upf.edu/documentation/installing.html) to install the library. Then you should link the python bindings of Essentia in the virtual environment:
@@ -38,11 +43,10 @@ Now you can install the rest of the dependencies:
 
     pip install -r requirements
 
-
 Basic Usage
 -------
 
-Below you can find some basic calls for analysis using the the package.
+Below you can find some basic calls:
 
 ##### Audio Analysis
 ```python
@@ -59,7 +63,7 @@ import pylab
 audioAnalyzer.plot(features)
 pylab.show()
 
-# save features to json file
+# save features to a json file
 audioAnalyzer.save_features(features, 'save_filename.json')
 ```
 
