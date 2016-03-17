@@ -12,6 +12,7 @@ setup(name='tomato',
     packages=['tomato'],
     install_requires=[
         "numpy",
+        "matplotlib"
     ],
 )
 

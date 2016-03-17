@@ -7,8 +7,9 @@ from notemodel.NoteModel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
 import numpy as np
 from copy import deepcopy
-import matplotlib.pyplot as plt
 import json
+from matplotlib import gridspec
+import matplotlib.pyplot as plt
 
 
 class AudioAnalyzer(object):
@@ -201,4 +202,90 @@ class AudioAnalyzer(object):
 
     @staticmethod
     def plot(features):
-        pass
+        pitch = np.array(deepcopy(features['pitch']['pitch']))
+        pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
+        pitch_distibution = features['pitch_distribution']
+        stable_notes = deepcopy(features['stable_notes'])
+
+        # create the figure with two subplots with different size and share-y
+        fig = plt.figure()
+        gs = gridspec.GridSpec(1, 2, width_ratios=[6, 1])
+        ax1 = fig.add_subplot(gs[0])
+        ax2 = fig.add_subplot(gs[1], sharey=ax1)
+        plt.setp(ax2.get_yticklabels(), visible=False)
+
+        # plot pitch track
+        ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
+        fig.subplots_adjust(wspace=0)
+
+        # set xlim to the last time in the pitch track
+        ax1.set_xlim([pitch[0, 0], pitch[-1, 0]])
+        ax1.set_ylim([np.min(pitch_distibution.bins),
+                      np.max(pitch_distibution.bins)])
+
+        # Labels
+        ax1.set_xlabel('Time (sec)')
+        ax1.set_ylabel('Frequency (Hz)')
+
+        # plot pitch distribution to the second subplot
+        ax2.plot(pitch_distibution.vals, pitch_distibution.bins)
+
+        # plot stable pitches to the second subplot
+        max_rel_occur = 0
+        for note_symbol, note in stable_notes.iteritems():
+            # get the relative occurence of each note from the pitch
+            # distribution
+            dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
+                              for dist_bin in pitch_distibution.bins])
+            peak_ind = np.argmin(dists)
+            note['rel_occur'] = pitch_distibution.vals[peak_ind]
+            max_rel_occur = max([max_rel_occur, note['rel_occur']])
+
+        ytick_vals = []
+        for note_symbol, note in stable_notes.iteritems():
+            if note['rel_occur'] > max_rel_occur * 0.1:
+                ytick_vals.append(note['stable_pitch']['value'])
+
+                # plot the performed frequency as a dashed line
+                ax2.hlines(y=note['theoretical_pitch']['value'], xmin=0,
+                           xmax=note['rel_occur'], linestyles='dashed')
+
+                # mark notes
+                if note['performed_interval']['value'] == 0.0:  # tonic
+                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
+                             'cD', ms=10)
+                else:
+                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
+                             'cD', ms=6, c='r')
+
+                # print note name, lift the text a little bit
+                txt_x_val = (note['rel_occur'] +
+                             0.03 * max(pitch_distibution.vals))
+                txt_str = ', '.join(
+                    [note_symbol,
+                     str(int(round(note['performed_interval']['value']))) +
+                     ' cents'])
+                ax2.text(txt_x_val, note['stable_pitch']['value'], txt_str,
+                         style='italic', horizontalalignment='left',
+                         verticalalignment='center')
+
+        # define xlim higher than the highest peak so the note names have space
+        ax2.set_xlim([0, 1.2 * max(pitch_distibution.vals)])
+
+        # remove the axis of the subplot 2
+        ax2.axis('off')
+
+        # set the frequency ticks and grids
+        ax1.set_yticks(ytick_vals)
+        ax1.yaxis.grid(True)
+
+        ax2.set_yticks(ytick_vals)
+        ax2.yaxis.grid(True)
+
+        # remove spines from the second subplot
+        ax2.spines['top'].set_visible(False)
+        ax2.spines['right'].set_visible(False)
+        ax2.spines['bottom'].set_visible(False)
+        ax2.spines['left'].set_visible(False)
+
+        return fig, (ax1, ax2)
