@@ -10,6 +10,7 @@ setup(name='tomato',
     description='Turkish-Ottoman Makam Music Analysis Toolbox',
     url='http://sertansenturk.com',
     packages=['tomato'],
+    include_package_data=True,
     install_requires=[
         "numpy",
         "matplotlib"
