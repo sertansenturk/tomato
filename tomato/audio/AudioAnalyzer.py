@@ -27,7 +27,8 @@ class AudioAnalyzer(object):
         tonic = self.identify_tonic(pitch)
 
         # histogram computation
-        pitch_distribution = self.compute_pitch_distribution(pitch, tonic)
+        pitch_distribution = self.compute_pitch_distribution(
+            np.array(pitch), tonic)
         pitch_class_distribution = pitch_distribution.to_pcd()
 
         # makam recognition
@@ -131,3 +132,7 @@ class AudioAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._noteModeler, key, value)
+
+    @staticmethod
+    def plot(features):
+        pass
