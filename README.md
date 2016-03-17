@@ -25,7 +25,7 @@ If you want to install **tomato**, it is recommended to install the package and 
     virtualenv env
     source env/bin/activate
     
-To install change the current directory to the repository folder and install by:
+Then change the current directory to the repository folder and install by:
 
     cd path/to/tomato
     python setup.py install
