@@ -7,8 +7,23 @@ git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
 git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3#egg=tonicidentifier_makam
 git+https://github.com/sertansenturk/ahenkidentifier.git@v1.3#ahenkidentifier
 
-# histogram analysis and note models
+# histogram analysis and tuning analysis
 git+https://github.com/altugkarakurt/ModeTonicEstimation.git#egg=modetonicestimation
 git+https://github.com/miracatici/notemodel.git@v1.2#egg=notemodel
 
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
+# (meta)data extractor, including section extraction and semiotic analysis
+git+https://github.com/sertansenturk/symbtrdataextractor.git#symbtrdataextractor
+
+# extra tools such as SymbTr score manipulation and basic stats
+git+https://github.com/MTG/SymbTr-extras.git#egg=symbtrextras
+
+# ---------------------------------- EXTRAS -----------------------------------
+# metadata crawling from musicbrainz
+git+https://github.com/alastair/python-musicbrainzngs.git
+
+# basic file manipulations and Turkish string slugification
+git+https://github.com/sertansenturk/fileoperations_python.git@v1.1#egg=fileoperations_python
+
+# score conversion
+git+https://github.com/burakuyar/MusicXMLConverter.git@v1.1#egg=musicxmlconverter
