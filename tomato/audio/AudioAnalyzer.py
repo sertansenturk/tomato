@@ -56,7 +56,7 @@ class AudioAnalyzer(object):
 
     def extract_pitch(self, filename):
         if self.verbose:
-            print("Extracting predominant melody of " + filename)
+            print("- Extracting predominant melody of " + filename)
 
         results = self._pitchExtractor.run(filename)
         pitch = results['settings']  # collapse the keys in settings
@@ -66,7 +66,7 @@ class AudioAnalyzer(object):
 
     def filter_pitch(self, pitch):
         if self.verbose:
-            print("Filtering predominant melody of " + pitch['source'])
+            print("- Filtering predominant melody of " + pitch['source'])
 
         pitch_filt = deepcopy(pitch)
         pitch_filt['pitch'] = self._pitchFilter.run(pitch_filt['pitch'])
@@ -75,7 +75,7 @@ class AudioAnalyzer(object):
 
     def identify_tonic(self, pitch):
         if self.verbose:
-            print("Identifying tonic from the predominant melody of " +
+            print("- Identifying tonic from the predominant melody of " +
                   pitch['source'])
 
         tonic = self._tonicIdentifier.identify(pitch['pitch'])[0]
@@ -87,7 +87,7 @@ class AudioAnalyzer(object):
 
     def identify_ahenk(self, tonic, makamstr):
         if self.verbose:
-            print("Identifying ahenk of " + tonic['source'])
+            print("- Identifying ahenk of " + tonic['source'])
         ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
         ahenk['source'] = tonic['source']
 
@@ -95,7 +95,7 @@ class AudioAnalyzer(object):
 
     def compute_pitch_distribution(self, pitch, tonic):
         if self.verbose:
-            print("Computing pitch distribution of " + pitch['source'])
+            print("- Computing pitch distribution of " + pitch['source'])
 
         return PitchDistribution.from_hz_pitch(
             np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
@@ -104,13 +104,13 @@ class AudioAnalyzer(object):
 
     def compute_class_pitch_distribution(self, pitch, tonic):
         if self.verbose:
-            print("Computing pitch class distribution of " + pitch['source'])
+            print("- Computing pitch class distribution of " + pitch['source'])
 
         return self.compute_pitch_distribution(pitch, tonic).to_pcd()
 
     def get_stable_notes(self, pitch_distribution, tonic, makamstr):
         if self.verbose:
-            print("Computing pitch class distribution of " + tonic['source'])
+            print("- Computing pitch class distribution of " + tonic['source'])
 
         return self._noteModeler.calculate_notes(pitch_distribution,
                                                  tonic['value'], makamstr)
