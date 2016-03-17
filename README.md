@@ -1,6 +1,8 @@
 # tomato
 **T**urkish-**O**ttoman **M**akam (M)usic **A**nalysis **TO**olbox
 
+Introduction
+------
 **tomato** is a comprehensive and easy-to-use toolbox for the analysis of audio recordings and music scores of Turkish-Ottoman makam music.  The toolbox showcases the state of art methodologies applied on this music tradition. The analysis tasks include:
 
 - **Audio Analysis:** predominant melody extraction, tonic and transposition identification, histogram analysis, tuning analysis, (makam recognition is coming soon)
