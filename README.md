@@ -7,7 +7,7 @@
 - **Symbolic Analysis:** (coming soon) score metadata extraction, score section extraction, score phase segmentation, semiotic section and phrase analysis
 - **Score-Informed Audio Analysis:** (coming soon) partial audio-score alignment, joint tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models, usul tracking
 
-The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Ottoman-Turkish makam, using the state of the art methodologies specifically designed for the necessities of this music tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
+The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the necessities of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
 
 For the methodologies and their implementations in the toolbox, please refer to the References (coming soon).
 
