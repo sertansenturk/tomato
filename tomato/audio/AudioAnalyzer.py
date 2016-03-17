@@ -185,5 +185,20 @@ class AudioAnalyzer(object):
             json.dump(save_features, open(filepath, 'w'), indent=4)
 
     @staticmethod
+    def load_features(filepath):
+        try:
+            features = json.load(open(filepath, 'r'))
+        except IOError:
+            features = json.loads(filepath)
+
+        # instantiate pitch distribution objects
+        features['pitch_distribution'] = PitchDistribution.from_dict(
+            features['pitch_distribution'])
+        features['pitch_class_distribution'] = PitchDistribution.from_dict(
+            features['pitch_class_distribution'])
+
+        return features
+
+    @staticmethod
     def plot(features):
         pass
