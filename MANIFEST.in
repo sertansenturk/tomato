@@ -1,1 +1,1 @@
-recursive-include tomato/symbolic/models *.json
+recursive-include tomato/ *.json
