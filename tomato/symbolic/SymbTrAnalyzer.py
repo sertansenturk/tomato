@@ -46,5 +46,3 @@ class SymbTrAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._dataExtractor, key, value)
-
-
