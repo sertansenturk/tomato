@@ -16,7 +16,7 @@ def _get_mcr_binaries():
     import ConfigParser
     import urllib
 
-    binary_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tomato', '_mcr_binaries')
+    binary_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tomato', '_binaries')
 
     # find os, linux or macosx
     process_out = subprocess.check_output(['uname']).lower()
@@ -28,7 +28,7 @@ def _get_mcr_binaries():
         raise OSError("Unsupported OS.")
 
     # read configuration file
-    config_file = os.path.join('config', 'mcr_binaries.cfg')
+    config_file = os.path.join('config', 'binaries.cfg')
     config = ConfigParser.ConfigParser()
     config.optionxform = str
     config.read(config_file)
@@ -36,7 +36,7 @@ def _get_mcr_binaries():
     # Download binaries
     for bin_pair in config.items(sys_os):
         fpath = os.path.join(binary_folder, bin_pair[0])
-        print("Downloading binary: " + bin_pair[0])
+        print("- Downloading binary: " + bin_pair[0])
         urllib.urlretrieve(bin_pair[1], fpath)
 
 
@@ -44,7 +44,7 @@ class CustomInstall(_install):
     def run(self):
         _install.run(self)
         self.execute(_get_mcr_binaries, (),
-                     msg="Downloading the MATLAB binaries from tomato_binaries.")
+                     msg="Downloading the binaries from tomato_binaries.")
 
 setup(name='tomato',
       version='0.1',
