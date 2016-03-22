@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os, sys
+import subprocess
 try:
     from setuptools import setup
     from setuptools.command.install import install as _install
@@ -12,7 +13,6 @@ def _get_mcr_binaries():
     """
     Downloads the binaries compiled by MATLAB Runtime Compiler from tomato_binaries
     """
-    import subprocess
     import ConfigParser
     import urllib
 
@@ -42,7 +42,12 @@ def _get_mcr_binaries():
 
 class CustomInstall(_install):
     def run(self):
-        _install.run(self)
+        _install.run(self)  # install tomato
+
+        # install requirements
+        subprocess.call(["pip install -r requirements"], shell=True)
+
+        # download the binaries
         self.execute(_get_mcr_binaries, (),
                      msg="Downloading the binaries from tomato_binaries.")
 
