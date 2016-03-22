@@ -6,7 +6,7 @@ Introduction
 **tomato** is a comprehensive and easy-to-use toolbox for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied on this music tradition. The analysis tasks include:
 
 - **Audio Analysis:** predominant melody extraction, tonic and transposition identification, histogram analysis, tuning analysis, (makam recognition is coming soon)
-- **Symbolic Analysis:** (coming soon) score metadata extraction, score section extraction, score phase segmentation, semiotic section and phrase analysis
+- **Symbolic Analysis:** (coming soon) score metadata extraction, score section extraction, score phrase segmentation, semiotic section and phrase analysis
 - **Score-Informed Audio Analysis:** (coming soon) partial audio-score alignment, joint tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models, usul tracking
 
 The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the necessities of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
@@ -42,6 +42,8 @@ The algorithm uses several modules in Essentia. Follow the [instructions](essent
 Now you can install the rest of the dependencies:
 
     pip install -r requirements
+    
+The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime Compiler for R2015a (8.5)** to run. You should download (links for [Linux](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip) and [Max OSX](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip)) and install this specific version. We recommend you to install MCR in the default installation path as **tomato** searches the default path automatically. Otherwise you have to specify your own path in the MCR configuration file.
 
 Basic Usage
 -------
@@ -74,6 +76,16 @@ Coming soon...
 
 ##### Score-Informed Audio Analysis
 Coming soon...
+
+FAQ
+-------
+1. Which operationg systems are suppported?
+The algorithms, which are written purely in Python are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
+
+If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please submit an [issue](https://github.com/sertansenturk/tomato/issues) for requests.
+
+2. What are the supported Python versions?
+Currently we only support 2.7. We will start working on Python 3+ support, as soon as Essentia bindings for Python 3+ are available.
 
 Authors
 -------
