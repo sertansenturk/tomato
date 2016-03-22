@@ -18,6 +18,13 @@ git+https://github.com/sertansenturk/symbtrdataextractor.git#symbtrdataextractor
 # extra tools such as SymbTr score manipulation and basic stats
 git+https://github.com/MTG/SymbTr-extras.git#egg=symbtrextras
 
+# phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/_binaries/phraseSeg
+
+# ------------------- JOINT ANALYSIS REPOSITORIES --------------------------
+# score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/_binaries/extractTonicTempoTuning
+
+# audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/_binaries/alignAudioScore
+
 # ---------------------------------- EXTRAS -----------------------------------
 # metadata crawling from musicbrainz
 git+https://github.com/alastair/python-musicbrainzngs.git
