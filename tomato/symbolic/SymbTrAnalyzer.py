@@ -38,6 +38,13 @@ class SymbTrAnalyzer(object):
 
         return data, is_data_valid
 
+    def segment_phrase(self, txt_filename):
+        if self.verbose:
+            print("- Automatic phrase segmentation on the SymbTr-txt file: " +
+                  txt_filename)
+
+        return None
+
     def set_data_extractor_params(self, **kwargs):
         if any(key not in self._dataExtractor.__dict__.keys()
                for key in kwargs.keys()):

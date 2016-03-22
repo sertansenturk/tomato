@@ -21,9 +21,9 @@ def _get_mcr_binaries():
     # find os, linux or macosx
     process_out = subprocess.check_output(['uname']).lower()
     if any(ss in process_out for ss in ['darwin', 'macosx']):
-        sys_os = 'MacOSX'
+        sys_os = 'macosx'
     elif 'linux' in process_out:
-        sys_os = 'Linux'
+        sys_os = 'linux'
     else:
         raise OSError("Unsupported OS.")
 
