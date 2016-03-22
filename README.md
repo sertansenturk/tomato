@@ -79,19 +79,18 @@ Coming soon...
 
 FAQ
 -------
-1. Which operationg systems are suppported?
+1. **Which operating systems are suppported?**
 
-The algorithms, which are written purely in Python are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
+    The algorithms, which are written purely in Python are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
+    If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please submit an [issue](https://github.com/sertansenturk/tomato/issues) for requests.
 
-If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please submit an [issue](https://github.com/sertansenturk/tomato/issues) for requests.
+2. **What are the supported Python versions?**
 
-2. What are the supported Python versions?
+    Currently we only support 2.7. We will start working on Python 3+ support, as soon as Essentia bindings for Python 3+ are available.
 
-Currently we only support 2.7. We will start working on Python 3+ support, as soon as Essentia bindings for Python 3+ are available.
+3. **Where are the MATLAB binaries?**
 
-3. Where are the MATLAB binaries?
-
-The binaries are not stored in **tomato**, because they relatively big and it would take too much space to store them in the repository including the versions introduced in each modification. Instead the binaries are hosted in [tomato_binaries](https://github.com/sertansenturk/tomato_binaries). The binaries are downloaded from this repository during the installation process of tomato.
+    The binaries are not stored in **tomato**, because they relatively big and it would take too much space to store them in the repository including the versions introduced in each modification. Instead the binaries are hosted in [tomato_binaries](https://github.com/sertansenturk/tomato_binaries). The binaries are downloaded from this repository during the installation process of tomato.
 
 Authors
 -------
