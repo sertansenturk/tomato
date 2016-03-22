@@ -7,11 +7,11 @@ class MCRCaller(object):
     def __init__(self):
         self.filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', '..', 'config', 'mcr_path,cfg')
+            '..', '..', 'config', 'mcr_path.cfg')
         self.env = self.set_environment()
 
     def set_environment(self):
-        config = ConfigParser.SafeConfigParser
+        config = ConfigParser.SafeConfigParser()
         config.read(self.filepath)
         try:
             op_sys, env_var, mcr_path, set_paths = \
@@ -46,5 +46,7 @@ class MCRCaller(object):
             raise ValueError('One of the custom fields for the MCR '
                              'path is empty in "config/mcr_path.cfg". '
                              'Please reconfigure manually.')
+        else:
+            raise ValueError('Empty fields in the section')
 
         return op_sys, env_var, mcr_path, set_paths
