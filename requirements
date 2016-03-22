@@ -26,6 +26,9 @@ git+https://github.com/MTG/SymbTr-extras.git#egg=symbtrextras
 # audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/_binaries/alignAudioScore
 
 # ---------------------------------- EXTRAS -----------------------------------
+numpy  # numerical operations
+matplotlib  # plotting
+
 # metadata crawling from musicbrainz
 git+https://github.com/alastair/python-musicbrainzngs.git
 
