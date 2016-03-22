@@ -1,1 +1,2 @@
 recursive-include tomato/ *.json
+recursive-include tomato/_binaries *

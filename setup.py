@@ -42,14 +42,16 @@ def _get_mcr_binaries():
 
 class CustomInstall(_install):
     def run(self):
-        _install.run(self)  # install tomato
+        # download the binaries
+        self.execute(_get_mcr_binaries, (),
+                     msg="Downloading the binaries from tomato_binaries.")
+
+        # install tomato
+        _install.run(self)
 
         # install requirements
         subprocess.call(["pip install -r requirements"], shell=True)
 
-        # download the binaries
-        self.execute(_get_mcr_binaries, (),
-                     msg="Downloading the binaries from tomato_binaries.")
 
 setup(name='tomato',
       version='0.1',
