@@ -8,7 +8,7 @@ class MCRCaller(object):
         self.filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             '..', '..', 'config', 'mcr_path.cfg')
-        self.env, self.op_sys = self.set_environment()
+        self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
         config = ConfigParser.SafeConfigParser()
@@ -32,7 +32,7 @@ class MCRCaller(object):
 
     @classmethod
     def _get_mcr_config(cls, config, section_str):
-        op_sys = config.get(section_str, 'op_sys')
+        op_sys = config.get(section_str, 'sys_os')
         env_var = config.get(section_str, 'env_var')
         mcr_path = config.get(section_str, 'mcr_path')
         set_paths = config.get(section_str, 'set_paths')

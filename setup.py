@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import os
 import subprocess
-import tempfile
 import ConfigParser
 import urllib2
 import zipfile

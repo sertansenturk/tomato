@@ -23,11 +23,11 @@ class SymbTrAnalyzer(object):
 
     @staticmethod
     def _get_phrase_segmentor_path():
-        if _mcr_caller.op_sys == 'linux':
+        if _mcr_caller.sys_os == 'linux':
             phrase_seg_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), '..',
                 '_binaries', 'phraseSeg')
-        elif _mcr_caller.op_sys == 'macosx':
+        elif _mcr_caller.sys_os == 'macosx':
             phrase_seg_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), '..',
                 '_binaries', 'phraseSeg.app', 'Contents', 'MacOS', 'phraseSeg')
