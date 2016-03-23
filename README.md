@@ -71,7 +71,19 @@ audioAnalyzer.save_features(features, 'save_filename.json')
 You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) for an interactive demo.
 
 ##### Symbolic Analysis
-Coming soon...
+```python
+from tomato.symbolic.SymbTrAnalyzer import SymbTrAnalyzer
+
+txt_filepath = 'path/to/symbtr_txt_score'
+mu2_filepath = 'path/to/symbtr_mu2_score'
+
+# only needed if the filename is modified from the SymbTr naming convention
+symbtr_name = 'makam--form--usul--name--composer'
+
+scoreAnalyzer = SymbTrAnalyzer()
+score_data, is_data_valid = scoreAnalyzer.analyze(
+    txt_filepath, mu2_filepath, symbtr_name=symbtr_name)
+```
 
 ##### Score-Informed Audio Analysis
 Coming soon...
