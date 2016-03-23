@@ -3,7 +3,7 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from .. _binaries.MCRCaller import MCRCaller
 import os
 import subprocess
-import tempfile
+# import tempfile
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -71,7 +71,9 @@ class SymbTrAnalyzer(object):
         # proc = subprocess.Popen(["/srv/dunya/phraseSeg segmentWrapper %s
         # %s %s %s" % (boundstat, fldmodel, files_json, out_json)],
         # stdout=subprocess.PIPE, shell=True, env=subprocess_env)
-        proc = subprocess.Popen(["%s unitTest" % (self._phraseSegmentor)],stdout=subprocess.PIPE, shell=True,env=_mcr_caller.env)
+        proc = subprocess.Popen(["%s unitTest" % (self._phraseSegmentor)],
+                                stdout=subprocess.PIPE, shell=True,
+                                env=_mcr_caller.env)
 
         (out, err) = proc.communicate()
 
