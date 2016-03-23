@@ -7,7 +7,7 @@ class MCRCaller(object):
     def __init__(self):
         self.filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', '..', 'config', 'mcr_path.cfg')
+            '..', 'config', 'mcr_path.cfg')
         self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
@@ -46,10 +46,10 @@ class MCRCaller(object):
             if not os.path.exists(mcr_path):
                 raise IOError('The mcr path is not found. Please '
                               'fill the custom section in '
-                              '"config/mcr_path.cfg" manually.')
+                              '"tomato/config/mcr_path.cfg" manually.')
         elif env_var or mcr_path:  # The configuration is wrong
             raise ValueError('One of the custom fields for the MCR '
-                             'path is empty in "config/mcr_path.cfg". '
+                             'path is empty in "tomato/config/mcr_path.cfg". '
                              'Please reconfigure manually.')
         else:
             raise ValueError('Empty fields in the section')

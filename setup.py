@@ -31,7 +31,8 @@ def _get_mcr_binaries():
         raise OSError("Unsupported OS.")
 
     # read configuration file
-    config_file = os.path.join('config', 'binaries.cfg')
+    config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               'tomato', 'config', 'binaries.cfg')
     config = ConfigParser.ConfigParser()
     config.optionxform = str
     config.read(config_file)
