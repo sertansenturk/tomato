@@ -7,6 +7,6 @@
 !.travis.yml
 build/
 dist/
-*alignAudioScore
-*extractTonicTempoTuning
-*phraseSeg
+*alignAudioScore*
+*extractTonicTempoTuning*
+*phraseSeg*
