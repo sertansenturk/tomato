@@ -36,7 +36,7 @@ def _get_mcr_binaries():
     # Download binaries
     for bin_pair in config.items(sys_os):
         fpath = os.path.join(binary_folder, bin_pair[0])
-        print("- Downloading binary: " + bin_pair[0])
+        print("- Downloading binary: " + bin_pair[1])
         urllib.urlretrieve(bin_pair[1], fpath)
 
 
