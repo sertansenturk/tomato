@@ -6,7 +6,7 @@ Introduction
 **tomato** is a comprehensive and easy-to-use toolbox for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied on this music tradition. The analysis tasks include:
 
 - **Audio Analysis:** predominant melody extraction, tonic and transposition identification, histogram analysis, tuning analysis, (makam recognition is coming soon)
-- **Symbolic Analysis:** (coming soon) score metadata extraction, score section extraction, score phrase segmentation, semiotic section and phrase analysis
+- **Symbolic Analysis:** score metadata extraction, score section extraction, score phrase segmentation, semiotic section and phrase analysis
 - **Score-Informed Audio Analysis:** (coming soon) partial audio-score alignment, joint tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models, usul tracking
 
 The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the necessities of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
@@ -90,7 +90,8 @@ FAQ
 
 3. **Where are the MATLAB binaries?**
 
-    The binaries are not stored in **tomato**, because they relatively big and it would take too much space to store them in the repository including the versions introduced in each modification. Instead the binaries are hosted in [tomato_binaries](https://github.com/sertansenturk/tomato_binaries). The binaries are downloaded from this repository during the installation process of tomato.
+    The binaries are not stored in **tomato**, because they relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead the binaries are provided within the releases of the relevant packages. The binaries are downloaded to this folder during the installation process of tomato.
+    Please refer to [config/binaries.cfg](https://github.com/sertansenturk/tomato/blob/master/config/binaries.cfg) for the relevant releases.
 
 Authors
 -------
