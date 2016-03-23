@@ -8,7 +8,7 @@ class MCRCaller(object):
         self.filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             '..', '..', 'config', 'mcr_path.cfg')
-        self.env = self.set_environment()
+        self.env, self.op_sys = self.set_environment()
 
     def set_environment(self):
         config = ConfigParser.SafeConfigParser()
@@ -28,7 +28,7 @@ class MCRCaller(object):
         subprocess_env["MCR_CACHE_ROOT"] = "/tmp/emptydir"
         subprocess_env[env_var] = set_paths
 
-        return subprocess_env
+        return subprocess_env, op_sys
 
     @classmethod
     def _get_mcr_config(cls, config, section_str):

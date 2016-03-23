@@ -1,5 +1,12 @@
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
+from .. _binaries.MCRCaller import MCRCaller
+import os
+import subprocess
+import tempfile
+
+# instantiate a mcr_caller
+_mcr_caller = MCRCaller()
 
 
 class SymbTrAnalyzer(object):
@@ -9,9 +16,25 @@ class SymbTrAnalyzer(object):
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
         self._symbTrReader = SymbTrReader()
+        self._phraseSegmentor = self._get_phrase_segmentor_path()
 
     def get_mbid_from_name(self):
         pass
+
+    @staticmethod
+    def _get_phrase_segmentor_path():
+        if _mcr_caller.op_sys == 'linux':
+            phrase_seg_path = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), '..',
+                '_binaries', 'phraseSeg')
+        elif _mcr_caller.op_sys == 'macosx':
+            phrase_seg_path = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), '..',
+                '_binaries', 'phraseSeg.app', 'Contents', 'MacOS', 'phraseSeg')
+        else:
+            raise ValueError('Unsupported OS.')
+
+        return phrase_seg_path
 
     def extract_data(self, txt_filename, mu2_filename, symbtr_name=None,
                      mbid=None, segment_note_bound_idx=None):
@@ -43,7 +66,27 @@ class SymbTrAnalyzer(object):
             print("- Automatic phrase segmentation on the SymbTr-txt file: " +
                   txt_filename)
 
+        bound_stat_file, fld_model_file = self._get_phrase_seg_training()
+
+        # proc = subprocess.Popen(["/srv/dunya/phraseSeg segmentWrapper %s
+        # %s %s %s" % (boundstat, fldmodel, files_json, out_json)],
+        # stdout=subprocess.PIPE, shell=True, env=subprocess_env)
+        proc = subprocess.Popen(["%s unitTest" % (self._phraseSegmentor)],stdout=subprocess.PIPE, shell=True,env=_mcr_caller.env)
+
+        (out, err) = proc.communicate()
+
         return None
+
+    @staticmethod
+    def _get_phrase_seg_training():
+        bound_stat_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '_models', 'phrase_segmentation', 'boundStat.mat')
+        fld_model_file = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '_models', 'phrase_segmentation', 'FLDModel.mat')
+
+        return bound_stat_file, fld_model_file
 
     def set_data_extractor_params(self, **kwargs):
         if any(key not in self._dataExtractor.__dict__.keys()
