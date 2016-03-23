@@ -34,10 +34,12 @@ def _get_mcr_binaries():
     config.read(config_file)
 
     # Download binaries
-    for bin_pair in config.items(sys_os):
-        fpath = os.path.join(binary_folder, bin_pair[0])
-        print("- Downloading binary: " + bin_pair[1])
-        urllib.urlretrieve(bin_pair[1], fpath)
+    for (bin_name, bin_url) in config.items(sys_os):
+        fpath = os.path.join(binary_folder, bin_name)
+
+        # download
+        print("- Downloading binary: " + bin_url)
+        urllib.urlretrieve(bin_url, fpath)
 
         # make the binaries executalbe
         subprocess.call(["chmod +x " + fpath], shell=True)
