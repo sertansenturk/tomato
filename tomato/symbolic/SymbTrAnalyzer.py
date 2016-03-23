@@ -85,7 +85,16 @@ class SymbTrAnalyzer(object):
         callstr = ["%s segmentWrapper %s %s %s %s" %
                    (self._phraseSegmenter, bound_stat_file, fld_model_file,
                     temp_in_file, temp_out_file)]
+
         out, err = _mcr_caller.call(callstr)
+
+        # check the MATLAB output,
+        # The prints are in segmentWrapper function in the MATLAB code
+        if "segmentation complete!" not in out:
+            os.unlink(temp_in_file)  # unlink the temporary files
+            os.unlink(temp_out_file)
+            raise IOError("The phrase segmentation is unsuccessful. Please "
+                          "check/report the error in the terminal.")
 
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))
@@ -93,12 +102,6 @@ class SymbTrAnalyzer(object):
         # unlink the temporary files
         os.unlink(temp_in_file)
         os.unlink(temp_out_file)
-
-        # check the MATLAB output,
-        # The prints are in segmentWrapper function in the MATLAB code
-        if "segmentation complete!" not in out:
-            raise IOError("The phrase segmentation is unsuccessful. Please "
-                          "check/report the error in the terminal.")
 
         return phrase_boundaries
 
@@ -118,7 +121,7 @@ class SymbTrAnalyzer(object):
             '..', 'models', 'phrase_segmentation', 'boundStat.mat')
         fld_model_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'phrase_segmentation', 'FLDModel.mat')
+            '..', 'models', 'phrase_segmentation', 'FLDmodel.mat')
 
         return bound_stat_file, fld_model_file
 
