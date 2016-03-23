@@ -3,7 +3,6 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from .. _binaries.MCRCaller import MCRCaller
 from symbtrextras.ScoreExtras import ScoreExtras
 import os
-import subprocess
 import tempfile
 import json
 
@@ -81,13 +80,10 @@ class SymbTrAnalyzer(object):
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
 
         # call the binary
-        proc = subprocess.Popen(
-            ["%s segmentWrapper %s %s %s %s" %
-             (self._phraseSegmenter, bound_stat_file, fld_model_file,
-              temp_in_file, temp_out_file)],
-            stdout=subprocess.PIPE, shell=True, env=_mcr_caller.env)
-
-        (out, err) = proc.communicate()
+        callstr = ["%s segmentWrapper %s %s %s %s" %
+                   (self._phraseSegmenter, bound_stat_file, fld_model_file,
+                    temp_in_file, temp_out_file)]
+        out, err = _mcr_caller.call(callstr)
 
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))
@@ -117,10 +113,10 @@ class SymbTrAnalyzer(object):
     def _get_phrase_seg_training():
         bound_stat_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', '_models', 'phrase_segmentation', 'boundStat.mat')
+            '..', 'models', 'phrase_segmentation', 'boundStat.mat')
         fld_model_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', '_models', 'phrase_segmentation', 'FLDModel.mat')
+            '..', 'models', 'phrase_segmentation', 'FLDModel.mat')
 
         return bound_stat_file, fld_model_file
 

@@ -1,6 +1,6 @@
 import ConfigParser
 import os
-# import subprocess
+import subprocess
 
 
 class MCRCaller(object):
@@ -29,6 +29,11 @@ class MCRCaller(object):
         subprocess_env[env_var] = set_paths
 
         return subprocess_env, op_sys
+
+    def call(self, callstr):
+        proc = subprocess.Popen(callstr, stdout=subprocess.PIPE, shell=True,
+                                env=self.env)
+        return proc.communicate()
 
     @classmethod
     def _get_mcr_config(cls, config, section_str):
