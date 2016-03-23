@@ -81,8 +81,11 @@ mu2_filepath = 'path/to/symbtr_mu2_score'
 symbtr_name = 'makam--form--usul--name--composer'
 
 scoreAnalyzer = SymbTrAnalyzer()
-score_data, is_data_valid = scoreAnalyzer.analyze(
+features, is_data_valid = scoreAnalyzer.analyze(
     txt_filepath, mu2_filepath, symbtr_name=symbtr_name)
+    
+# save features to a json file
+scoreAnalyzer.save_features(features, 'save_filename.json')
 ```
 
 ##### Score-Informed Audio Analysis
