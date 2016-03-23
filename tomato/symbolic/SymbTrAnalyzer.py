@@ -1,6 +1,7 @@
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from .. _binaries.MCRCaller import MCRCaller
+from symbtrextras.ScoreExtras import ScoreExtras
 import os
 import subprocess
 import tempfile
@@ -33,6 +34,27 @@ class SymbTrAnalyzer(object):
             raise ValueError('Unsupported OS.')
 
         return phrase_seg_path
+
+    def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
+        # attempt to get the symbtrname from the filename, if it is not given
+        if symbtr_name is None:
+            symbtr_name = os.path.basename(txt_filepath)
+
+        # Automatic phrase segmentation on the SymbTr-txt score
+        phrase_bounds = self.segment_phrase(
+            txt_filepath, symbtr_name=symbtr_name)
+
+        # relevant recording or work mbid
+        # Note: very rare but there can be more that one mbid returned.
+        #       We are going to use the first work to get fetch the metadata
+        mbid = ScoreExtras.get_mbids(symbtr_name)[0]
+
+        # Extract the (meta)data from the SymbTr scores
+        score_data, is_data_valid = self.extract_data(
+            txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
+            segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
+
+        return score_data, is_data_valid
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:
@@ -114,7 +136,8 @@ class SymbTrAnalyzer(object):
                 mu2_filename, symbtr_name=symbtr_name)
 
         data = SymbTrDataExtractor.merge(txt_data, mu2_header)
-        is_data_valid = {'results': is_mu2_header_valid and is_txt_valid,
+        is_data_valid = {'is_all_valid': (is_mu2_header_valid and
+                                          is_txt_valid),
                          'is_txt_valid': is_txt_valid,
                          'is_mu2_header_valid': is_mu2_header_valid}
 
