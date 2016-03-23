@@ -1,3 +1,3 @@
-recursive-include tomato/ *.json
-recursive-include tomato/_binaries *
-recursive-include tomato/config/ *.cfg
+recursive-include tomato *.json
+recursive-include tomato/bin *
+recursive-include tomato/config *.cfg
