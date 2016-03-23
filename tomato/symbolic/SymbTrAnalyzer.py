@@ -56,6 +56,13 @@ class SymbTrAnalyzer(object):
 
         return score_data, is_data_valid
 
+    @staticmethod
+    def save_features(features, filepath=None):
+        if filepath is None:
+            json.dumps(features, indent=4)
+        else:
+            json.dump(features, open(filepath, 'w'), indent=4)
+
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:
             print("- Automatic phrase segmentation on the SymbTr-txt file: " +
