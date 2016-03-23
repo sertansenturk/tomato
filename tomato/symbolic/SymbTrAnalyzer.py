@@ -1,10 +1,12 @@
-from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
-from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
-from .. _binaries.MCRCaller import MCRCaller
-from symbtrextras.ScoreExtras import ScoreExtras
+import json
 import os
 import tempfile
-import json
+
+from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
+from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
+from symbtrextras.ScoreExtras import ScoreExtras
+
+from tomato.MCRCaller import MCRCaller
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -24,11 +26,11 @@ class SymbTrAnalyzer(object):
         if _mcr_caller.sys_os == 'linux':
             phrase_seg_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), '..',
-                '_binaries', 'phraseSeg')
+                'bin', 'phraseSeg')
         elif _mcr_caller.sys_os == 'macosx':
             phrase_seg_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), '..',
-                '_binaries', 'phraseSeg.app', 'Contents', 'MacOS', 'phraseSeg')
+                'bin', 'phraseSeg.app', 'Contents', 'MacOS', 'phraseSeg')
         else:
             raise ValueError('Unsupported OS.')
 

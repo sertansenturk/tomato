@@ -19,7 +19,7 @@ def _get_mcr_binaries():
     tomato_binaries
     """
     binary_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 'tomato', '_binaries')
+                                 'tomato', 'bin')
 
     # find os, linux or macosx
     process_out = subprocess.check_output(['uname']).lower()
@@ -32,7 +32,7 @@ def _get_mcr_binaries():
 
     # read configuration file
     config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'tomato', 'config', 'binaries.cfg')
+                               'tomato', 'config', 'bin.cfg')
     config = ConfigParser.ConfigParser()
     config.optionxform = str
     config.read(config_file)

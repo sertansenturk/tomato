@@ -7,7 +7,7 @@ class MCRCaller(object):
     def __init__(self):
         self.filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
-            '..', 'config', 'mcr_path.cfg')
+            'config', 'mcr_path.cfg')
         self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
