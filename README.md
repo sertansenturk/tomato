@@ -112,6 +112,6 @@ Authors
 Sertan Şentürk
 contact@sertansenturk.com
 
-Reference
+References
 -------
 Thesis
