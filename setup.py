@@ -39,6 +39,9 @@ def _get_mcr_binaries():
         print("- Downloading binary: " + bin_pair[1])
         urllib.urlretrieve(bin_pair[1], fpath)
 
+        # make the binaries executalbe
+        subprocess.call(["chmod +x " + fpath], shell=True)
+
 
 class CustomInstall(_install):
     def run(self):
