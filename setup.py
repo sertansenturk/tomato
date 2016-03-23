@@ -69,12 +69,46 @@ class CustomInstall(_install):
 
 
 setup(name='tomato',
-      version='0.1',
+      version='0.2',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
-      license='agpl 3.0',
-      description='Turkish-Ottoman Makam Music Analysis Toolbox',
+      maintainer='Sertan Senturk',
+      maintainer_email='contact AT sertansenturk DOT com',
       url='http://sertansenturk.com',
+      description='Turkish-Ottoman Makam (M)usic Analysis TOolbox',
+      long_description="""\
+Turkish-Ottoman Makam (M)usic Analysis TOolbox
+----------------------------------------------
+
+tomato is a comprehensive and easy-to-use toolbox for the analysis of audio
+recordings and music scores of Turkish-Ottoman makam music.
+
+The aim of the toolbox is to allow the user to easily analyze large-scale
+audio recording and music score collections of Turkish-Ottoman makam music,
+using the state of the art methodologies specifically designed for the
+necessities of this tradition. The analysis results can then be further used
+for several tasks such as automatic content description, music
+discovery/recommendation and musicological analysis.
+      """,
+      download_url='https://github.com/sertansenturk/tomato/releases/tag/v0.2',
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Environment :: Console',
+          'Intended Audience :: Science/Research',
+          'Intended Audience :: Information Technology',
+          'License :: OSI Approved :: GNU Affero General Public License v3 or '
+          'later (AGPLv3+)',
+          'Natural Language :: English'
+          'Operating System :: MacOS :: MacOS X',
+          'Operating System :: POSIX :: Linux',
+          'Programming Language :: Python',
+          'Topic :: Multimedia :: Sound/Audio :: Analysis',
+          'Topic :: Scientific/Engineering :: Information Analysis',
+          'Topic :: Software Development :: Libraries :: '
+          'Application Frameworks',
+          ],
+      platforms='Linux, MacOS X',
+      license='agpl 3.0',
       packages=['tomato'],
       include_package_data=True,
       install_requires=[
