@@ -47,7 +47,10 @@ def _get_mcr_binaries():
         if fpath.endswith('.zip'):
             with zipfile.ZipFile(StringIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))
-            fpath = os.path.splitext(fpath)[0] + '.app'
+            if sys_os == 'macosx':  # mac executables are actually in an app
+                fpath = os.path.splitext(fpath)[0] + '.app'
+            else:  # remove the zip extension
+                fpath = os.path.splitext(fpath)[0]
         else:
             with open(fpath, 'w+') as fp:
                 fp.write(response.read())
