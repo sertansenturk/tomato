@@ -108,8 +108,6 @@ discovery/recommendation and musicological analysis.
           'Programming Language :: Python',
           'Topic :: Multimedia :: Sound/Audio :: Analysis',
           'Topic :: Scientific/Engineering :: Information Analysis',
-          'Topic :: Software Development :: Libraries :: '
-          'Application Frameworks',
           ],
       platforms='Linux, MacOS X',
       license='agpl 3.0',
