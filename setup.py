@@ -44,18 +44,18 @@ def _get_mcr_binaries():
         # download
         print("- Downloading binary: " + bin_url)
         response = urllib2.urlopen(bin_url)
-        if fpath.endswith('.zip'):
+        if fpath.endswith('.zip'):  # binary in zip
             with zipfile.ZipFile(StringIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))
             if sys_os == 'macosx':  # mac executables are actually in an app
                 fpath = os.path.splitext(fpath)[0] + '.app'
             else:  # remove the zip extension
                 fpath = os.path.splitext(fpath)[0]
-        else:
+        else:  # binary itself
             with open(fpath, 'w+') as fp:
                 fp.write(response.read())
 
-        # make the binaries executalbe
+        # make the binary executalbe
         subprocess.call(["chmod -R +x " + fpath], shell=True)
 
 
