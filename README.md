@@ -87,6 +87,7 @@ features, is_data_valid = scoreAnalyzer.analyze(
 # save features to a json file
 scoreAnalyzer.save_features(features, 'save_filename.json')
 ```
+You can refer to [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb) for an interactive demo.
 
 ##### Score-Informed Audio Analysis
 Coming soon...
