@@ -3,6 +3,9 @@
 git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2#egg=predominantmelodymakam
 git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
 
+# melody progression analysis
+git+https://github.com/sertansenturk/seyiranalyzer.git#egg=seyiranalyzer
+
 # tonic and transposition identification
 git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3#egg=tonicidentifier_makam
 git+https://github.com/sertansenturk/ahenkidentifier.git@v1.3#egg=ahenkidentifier
@@ -20,10 +23,10 @@ git+https://github.com/MTG/SymbTr-extras.git@0.2.dev#egg=symbtrextras
 
 # phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
 
-# ------------------- JOINT ANALYSIS REPOSITORIES --------------------------
-# score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin
+# ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
+# score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
 
-# audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin
+# audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy  # numerical operations

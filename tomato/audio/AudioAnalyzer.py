@@ -1,6 +1,7 @@
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 from pitchfilter.PitchFilter import PitchFilter
+from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
 from tonicidentifier.TonicLastNote import TonicLastNote
 from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 from notemodel.NoteModel import NoteModel
@@ -16,12 +17,20 @@ class AudioAnalyzer(object):
     def __init__(self, verbose=False):
         self.verbose = verbose
 
+        # settings that are not defined in the respective classes
+        self._pd_params = {'kernel_width': 7.5, 'step_size': 7.5}
+        # - for melodic progression None means, applying the rule of thumb
+        #   defined in the method "get_melodic_progression". This class has
+        #   two parameters defined in init and the other two defined in the
+        #   method call. Here we only store the ones called in the method call.
+        self._mel_prog_params = {'frame_size': None, 'hop_ratio': 0.5}
+
         # extractors
         self._pitchExtractor = PredominantMelodyMakam()
         self._pitchFilter = PitchFilter()
+        self._melodicProgressionAnalyzer = AudioSeyirAnalyzer()
         self._tonicIdentifier = TonicLastNote()
         self._noteModeler = NoteModel()
-        self._pd_params = {'smooth_factor': 7.5, 'step_size': 7.5}
 
     def analyze(self, filepath, makam=None):
         # predominant melody extraction
@@ -30,6 +39,9 @@ class AudioAnalyzer(object):
         # even though predominant melody calls pitch filter in Essentia,
         # it is not as goot as Sercan Atli's implementation in Python.
         pitch = self.filter_pitch(pitch)
+
+        # get the melodic prograssion model
+        melodic_progression = self.get_melodic_progression(pitch)
 
         # tonic identification
         tonic = self.identify_tonic(pitch)
@@ -50,6 +62,7 @@ class AudioAnalyzer(object):
 
         # return as a dictionary
         return {'pitch': pitch, 'tonic': tonic, 'ahenk': ahenk, 'makam': makam,
+                'melodic_progression': melodic_progression,
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution,
                 'stable_notes': stable_notes}
@@ -72,6 +85,22 @@ class AudioAnalyzer(object):
         pitch_filt['pitch'] = self._pitchFilter.run(pitch_filt['pitch'])
 
         return pitch_filt
+
+    def get_melodic_progression(self, pitch):
+        if self.verbose:
+            print("- Obtaining the melodic proression model of ") #+ pitch[
+            # 'source'])
+
+        # compute number of frames from some simple "rule of thumb"
+        duration = pitch['pitch'][-1][0]
+        min_num_frames = 40
+        max_frame_dur = 30
+        frame_size = min([duration / min_num_frames, max_frame_dur])
+        frame_size = int(5 * round(float(frame_size) / 5))  # round to 5 secs
+
+        return self._melodicProgressionAnalyzer.analyze(
+            pitch['pitch'], frame_size=frame_size,
+            hop_ratio=self._mel_prog_params['hop_ratio'])
 
     def identify_tonic(self, pitch):
         if self.verbose:
@@ -99,7 +128,7 @@ class AudioAnalyzer(object):
 
         return PitchDistribution.from_hz_pitch(
             np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
-            smooth_factor=self._pd_params['smooth_factor'],
+            smooth_factor=self._pd_params['kernel_width'],
             step_size=self._pd_params['step_size'])
 
     def compute_class_pitch_distribution(self, pitch, tonic):
@@ -110,7 +139,7 @@ class AudioAnalyzer(object):
 
     def get_stable_notes(self, pitch_distribution, tonic, makamstr):
         if self.verbose:
-            print("- Computing pitch class distribution of " + tonic['source'])
+            print("- Obtaining the stable notes of " + tonic['source'])
 
         return self._noteModeler.calculate_notes(pitch_distribution,
                                                  tonic['value'], makamstr)
@@ -133,6 +162,14 @@ class AudioAnalyzer(object):
         for key, value in kwargs.items():
             setattr(self._pitchFilter, key, value)
 
+    def set_pitch_distibution_params(self, **kwargs):
+        if any(key not in self._pd_params.keys() for key in kwargs.keys()):
+            raise KeyError("Possible parameters are: " + ', '.join(
+                self._pd_params.keys()))
+
+        for key, value in kwargs.items():
+            self._pd_params[key] = value
+
     def set_tonic_identifier_params(self, **kwargs):
         if any(key not in self._tonicIdentifier.__dict__.keys()
                for key in kwargs.keys()):
@@ -142,13 +179,21 @@ class AudioAnalyzer(object):
         for key, value in kwargs.items():
             setattr(self._tonicIdentifier, key, value)
 
-    def set_pitch_distibution_params(self, **kwargs):
-        if any(key not in self._pd_params.keys() for key in kwargs.keys()):
+    def set_melody_progression_params(self, **kwargs):
+        method_params = self._mel_prog_params.keys()  # imput parameters
+        obj_params = self._melodicProgressionAnalyzer.__dict__.keys()
+        if any(key not in (method_params + obj_params)
+               for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(
-                self._pd_params.keys()))
+                method_params + obj_params))
 
         for key, value in kwargs.items():
-            self._pd_params[key] = value
+            if key in method_params:
+                self._mel_prog_params[key] = value
+            elif key in obj_params:
+                setattr(self._melodicProgressionAnalyzer, key, value)
+            else:
+                raise KeyError("Unexpected key error")
 
     def set_note_modeler_params(self, **kwargs):
         if any(key not in self._noteModeler.__dict__.keys()
