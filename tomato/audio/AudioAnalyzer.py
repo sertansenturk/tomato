@@ -23,7 +23,8 @@ class AudioAnalyzer(object):
         #   defined in the method "get_melodic_progression". This class has
         #   two parameters defined in init and the other two defined in the
         #   method call. Here we only store the ones called in the method call.
-        self._mel_prog_params = {'frame_size': None, 'hop_ratio': 0.5}
+        self._mel_prog_params = {'frame_dur': None, 'hop_ratio': 0.5,
+                                 'min_num_frames': 40, 'max_frame_dur': 30}
 
         # extractors
         self._pitchExtractor = PredominantMelodyMakam()
@@ -91,15 +92,22 @@ class AudioAnalyzer(object):
             print("- Obtaining the melodic proression model of " +
                   pitch['source'])
 
-        # compute number of frames from some simple "rule of thumb"
-        duration = pitch['pitch'][-1][0]
-        min_num_frames = 40
-        max_frame_dur = 30
-        frame_size = min([duration / min_num_frames, max_frame_dur])
-        frame_size = int(5 * round(float(frame_size) / 5))  # round to 5 secs
+        if self._mel_prog_params['frame_dur'] is None:
+            # compute number of frames from some simple "rule of thumb"
+            duration = pitch['pitch'][-1][0]
+            frame_dur = duration / self._mel_prog_params['min_num_frames']
+            frame_dur = int(5 * round(float(frame_dur) / 5))  # round to 5sec
+
+            # force to be between 5 and max_frame_dur
+            if frame_dur < 5:
+                frame_dur = 5
+            elif frame_dur > self._mel_prog_params['max_frame_dur']:
+                frame_dur = self._mel_prog_params['max_frame_dur']
+        else:
+            frame_dur = self._mel_prog_params['frame_dur']
 
         return self._melodicProgressionAnalyzer.analyze(
-            pitch['pitch'], frame_size=frame_size,
+            pitch['pitch'], frame_dur=frame_dur,
             hop_ratio=self._mel_prog_params['hop_ratio'])
 
     def identify_tonic(self, pitch):
