@@ -88,8 +88,8 @@ class AudioAnalyzer(object):
 
     def get_melodic_progression(self, pitch):
         if self.verbose:
-            print("- Obtaining the melodic proression model of ") #+ pitch[
-            # 'source'])
+            print("- Obtaining the melodic proression model of " +
+                  pitch['source'])
 
         # compute number of frames from some simple "rule of thumb"
         duration = pitch['pitch'][-1][0]
@@ -207,11 +207,18 @@ class AudioAnalyzer(object):
     @staticmethod
     def save_features(features, filepath=None):
         save_features = deepcopy(features)
+
+        for mp in save_features['melodic_progression']:
+            try:
+                mp['pitch_distribution'] = mp['pitch_distribution'].to_dict()
+            except AttributeError:
+                pass  # already converted to dict
+
         try:
             save_features['pitch_distribution'] = \
                 save_features['pitch_distribution'].to_dict()
         except AttributeError:
-            pass  # already converted to dict devoid of numpy stuff
+            pass  # already converted to dict
 
         try:
             save_features['pitch_class_distribution'] = \
@@ -225,8 +232,8 @@ class AudioAnalyzer(object):
         except AttributeError:
             pass  # already converted to list of lists
 
-        if filepath is None:
-            json.dumps(save_features, indent=4)
+        if filepath is None:  # dump string
+            return json.dumps(save_features, indent=4)
         else:
             json.dump(save_features, open(filepath, 'w'), indent=4)
 
@@ -234,7 +241,7 @@ class AudioAnalyzer(object):
     def load_features(filepath):
         try:
             features = json.load(open(filepath, 'r'))
-        except IOError:
+        except IOError:  # string given
             features = json.loads(filepath)
 
         # instantiate pitch distribution objects
@@ -242,7 +249,16 @@ class AudioAnalyzer(object):
             features['pitch_distribution'])
         features['pitch_class_distribution'] = PitchDistribution.from_dict(
             features['pitch_class_distribution'])
-
+        for mp in features['melodic_progression']:
+            try:
+                mp['pitch_distribution'] = PitchDistribution.from_dict(
+                    mp['pitch_distribution'])
+            except TypeError:
+                # the slice does not have the pitch distribution computed
+                # because there was no pitch value in the slice. This
+                # usually occurs in the last slice, which is typically short
+                # and silent
+                pass
         return features
 
     @staticmethod
@@ -254,9 +270,11 @@ class AudioAnalyzer(object):
 
         # create the figure with two subplots with different size and share-y
         fig = plt.figure()
-        gs = gridspec.GridSpec(1, 2, width_ratios=[6, 1])
+        gs = gridspec.GridSpec(2, 2, width_ratios=[6, 1], height_ratios=[4, 1])
         ax1 = fig.add_subplot(gs[0])
         ax2 = fig.add_subplot(gs[1], sharey=ax1)
+        ax3 = fig.add_subplot(gs[2], sharex=ax1)
+
         plt.setp(ax2.get_yticklabels(), visible=False)
 
         # plot pitch track
