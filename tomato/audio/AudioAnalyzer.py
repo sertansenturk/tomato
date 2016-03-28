@@ -268,27 +268,24 @@ class AudioAnalyzer(object):
         pitch_distibution = features['pitch_distribution']
         stable_notes = deepcopy(features['stable_notes'])
 
-        # create the figure with two subplots with different size and share-y
+        # create the figure with four subplots with different size
+        # first is for the predominant melody
+        # second is the pitch distribution, it shares the y axis with the first
+        # third is the melodic progression, it shares the x axis with the first
+        # fourth is not used
         fig = plt.figure()
         gs = gridspec.GridSpec(2, 2, width_ratios=[6, 1], height_ratios=[4, 1])
         ax1 = fig.add_subplot(gs[0])
         ax2 = fig.add_subplot(gs[1], sharey=ax1)
         ax3 = fig.add_subplot(gs[2], sharex=ax1)
 
+        plt.setp(ax1.get_xticklabels(), visible=False)
         plt.setp(ax2.get_yticklabels(), visible=False)
+        plt.setp(ax3.get_yticklabels(), visible=False)
 
         # plot pitch track
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
-        fig.subplots_adjust(wspace=0)
-
-        # set xlim to the last time in the pitch track
-        ax1.set_xlim([pitch[0, 0], pitch[-1, 0]])
-        ax1.set_ylim([np.min(pitch_distibution.bins),
-                      np.max(pitch_distibution.bins)])
-
-        # Labels
-        ax1.set_xlabel('Time (sec)')
-        ax1.set_ylabel('Frequency (Hz)')
+        fig.subplots_adjust(hspace=0, wspace=0)
 
         # plot pitch distribution to the second subplot
         ax2.plot(pitch_distibution.vals, pitch_distibution.bins)
@@ -332,6 +329,18 @@ class AudioAnalyzer(object):
                          style='italic', horizontalalignment='left',
                          verticalalignment='center')
 
+        # plot melodic progression
+        AudioSeyirAnalyzer.plot(features['melodic_progression'], ax3)
+
+        # ylabel
+        ax1.set_ylabel('Frequency (Hz)')
+        ax3.set_ylabel('')  # remove the automatically given ylabel (frequency)
+
+        # set time xticks
+        if pitch[-1, 0] > 60:
+            xtick_vals = np.arange(pitch[0, 0], pitch[-1, 0], 30)  # 30 sec
+            ax3.set_xticks(xtick_vals)
+
         # define xlim higher than the highest peak so the note names have space
         ax2.set_xlim([0, 1.2 * max(pitch_distibution.vals)])
 
@@ -339,16 +348,31 @@ class AudioAnalyzer(object):
         ax2.axis('off')
 
         # set the frequency ticks and grids
+        ax1.xaxis.grid(True)
+
         ax1.set_yticks(ytick_vals)
         ax1.yaxis.grid(True)
 
         ax2.set_yticks(ytick_vals)
         ax2.yaxis.grid(True)
 
+        ax3.xaxis.grid(True)
+
         # remove spines from the second subplot
         ax2.spines['top'].set_visible(False)
-        ax2.spines['right'].set_visible(False)
         ax2.spines['bottom'].set_visible(False)
         ax2.spines['left'].set_visible(False)
+        ax2.spines['right'].set_visible(False)
 
-        return fig, (ax1, ax2)
+        # set xlim to the last time in the pitch track
+        ax3.set_xlim([pitch[0, 0], pitch[-1, 0]])
+        ax3.set_ylim([np.min(pitch_distibution.bins),
+                      np.max(pitch_distibution.bins)])
+
+        # remove the spines from the third subplot
+        ax3.spines['bottom'].set_visible(False)
+        ax3.spines['left'].set_visible(False)
+        ax3.spines['right'].set_visible(False)
+        ax3.get_yaxis().set_ticks([])
+
+        return fig, (ax1, ax2, ax3)
