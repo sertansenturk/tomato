@@ -1,4 +1,5 @@
 import json
+import pickle
 import os
 import tempfile
 
@@ -70,6 +71,20 @@ class SymbTrAnalyzer(object):
             return json.load(open(filepath, 'r'))
         except IOError:  # string given
             return json.loads(filepath)
+
+    @staticmethod
+    def to_pickle(features, filepath=None):
+        if filepath is None:
+            pickle.dumps(features)
+        else:
+            pickle.dump(features, open(filepath, 'wb'))
+
+    @staticmethod
+    def from_pickle(filepath):
+        try:
+            return pickle.load(open(filepath, 'rb'))
+        except IOError:  # string given
+            return pickle.loads(filepath)
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:

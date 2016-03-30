@@ -64,8 +64,13 @@ import pylab
 audioAnalyzer.plot(features)
 pylab.show()
 
-# save features to a json file
-audioAnalyzer.save_features(features, 'save_filename.json')
+# save features
+audioAnalyzer.to_json(features, 'save_filename.json')
+audioAnalyzer.to_pickle_(features, 'save_filename.pkl')
+
+# load features
+features = audioAnalyzer.from_json('load_filename.json')
+features = audioAnalyzer.from_pickle('load_filename.pkl')
 ```
 
 You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) for an interactive demo.
@@ -84,8 +89,14 @@ scoreAnalyzer = SymbTrAnalyzer()
 features, is_data_valid = scoreAnalyzer.analyze(
     txt_filepath, mu2_filepath, symbtr_name=symbtr_name)
     
-# save features to a json file
-scoreAnalyzer.save_features(features, 'save_filename.json')
+# save features
+scoreAnalyzer.to_json(features, 'save_filename.json')
+scoreAnalyzer.to_pickle(features, 'save_filename.pkl')
+
+# load features
+features = scoreAnalyzer.from_json('load_filename.json')
+features = scoreAnalyzer.from_pickle('load_filename.pkl')
+
 ```
 You can refer to [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb) for an interactive demo.
 
