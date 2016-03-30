@@ -58,11 +58,18 @@ class SymbTrAnalyzer(object):
         return score_data, is_data_valid
 
     @staticmethod
-    def save_features(features, filepath=None):
+    def to_json(features, filepath=None):
         if filepath is None:
             json.dumps(features, indent=4)
         else:
             json.dump(features, open(filepath, 'w'), indent=4)
+
+    @staticmethod
+    def from_json(filepath):
+        try:
+            return json.load(open(filepath, 'r'))
+        except IOError:  # string given
+            return json.loads(filepath)
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:

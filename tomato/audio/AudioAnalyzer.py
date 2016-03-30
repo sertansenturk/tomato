@@ -9,6 +9,7 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 import numpy as np
 from copy import deepcopy
 import json
+import pickle
 from matplotlib import gridspec
 import matplotlib.pyplot as plt
 
@@ -213,7 +214,7 @@ class AudioAnalyzer(object):
             setattr(self._noteModeler, key, value)
 
     @staticmethod
-    def save_features(features, filepath=None):
+    def to_json(features, filepath=None):
         save_features = deepcopy(features)
 
         for mp in save_features['melodic_progression']:
@@ -246,7 +247,7 @@ class AudioAnalyzer(object):
             json.dump(save_features, open(filepath, 'w'), indent=4)
 
     @staticmethod
-    def load_features(filepath):
+    def from_json(filepath):
         try:
             features = json.load(open(filepath, 'r'))
         except IOError:  # string given
