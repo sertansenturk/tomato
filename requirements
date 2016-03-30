@@ -30,6 +30,7 @@ git+https://github.com/MTG/SymbTr-extras.git@0.2.dev#egg=symbtrextras
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy  # numerical operations
+scipy  # temporary mat file saving for MCR binary inputs
 matplotlib  # plotting
 
 # metadata crawling from musicbrainz
