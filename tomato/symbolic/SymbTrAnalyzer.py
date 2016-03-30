@@ -1,7 +1,6 @@
 import json
 import pickle
 import os
-import tempfile
 
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
@@ -81,9 +80,9 @@ class SymbTrAnalyzer(object):
             symbtr_name = os.path.basename(txt_filename)
 
         # create the temporary input and output files wanted by the binary
-        temp_in_file = self._create_temp_file(
+        temp_in_file = _mcr_caller.create_temp_file(
             '.json', json.dumps([{'path': txt_filename, 'name': symbtr_name}]))
-        temp_out_file = self._create_temp_file('.json', '')
+        temp_out_file = _mcr_caller.create_temp_file('.json', '')
 
         # get the pretrained model
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
@@ -111,15 +110,6 @@ class SymbTrAnalyzer(object):
         os.unlink(temp_out_file)
 
         return phrase_boundaries
-
-    @staticmethod
-    def _create_temp_file(extension, contentstr):
-        fd, temp_path = tempfile.mkstemp(extension)
-        with open(temp_path, 'w') as f:
-            f.write(contentstr)
-        os.close(fd)
-
-        return temp_path
 
     @staticmethod
     def _get_phrase_seg_training():

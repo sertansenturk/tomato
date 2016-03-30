@@ -1,7 +1,7 @@
 import ConfigParser
 import os
 import subprocess
-
+import tempfile
 
 class MCRCaller(object):
     def __init__(self):
@@ -71,3 +71,12 @@ class MCRCaller(object):
             raise IOError('Binary does not exist: ' + bin_path)
 
         return bin_path
+
+    @staticmethod
+    def create_temp_file(extension, contentstr):
+        fd, temp_path = tempfile.mkstemp(extension)
+        with open(temp_path, 'w') as f:
+            f.write(contentstr)
+        os.close(fd)
+
+        return temp_path
