@@ -4,6 +4,7 @@ import cStringIO
 import tempfile
 # import pickle
 import os
+from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
 
 # instantiate a mcr_caller
@@ -20,8 +21,8 @@ class JointAnalyzer(object):
         self._audio_score_aligner = _mcr_caller.get_binary_path(
             'alignAudioScore')
 
-    def extract_tonic_tempo(self, score_filename, score_data,
-                            audio_filename, audio_pitch):
+    def extract_tonic_tempo(self, score_filename='', score_data=None,
+                            audio_filename='', audio_pitch=None):
         if self.verbose:
             print("- Extracting score-informed tonic and tempo" +
                   audio_filename)
@@ -49,8 +50,6 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Tonic-Tempo-Tuning Extraction took" not in out:
-            import pdb
-            pdb.set_trace()
             os.unlink(temp_score_data_file)  # unlink the temporary files
             os.unlink(temp_pitch_file)
             os.rmdir(temp_out_folder)
@@ -72,24 +71,90 @@ class JointAnalyzer(object):
         procedure = 'Score informed joint tonic and tempo extraction'
 
         tonic = out_dict['tonic']['scoreInformed']
-        tonic = dict((k[:1].lower() + k[1:], v) for k, v in tonic.iteritems())
+        tonic = _mcr_caller.lower_key_first_letter(tonic)
         tonic['procedure'] = procedure
         tonic['source'] = audio_filename
 
         tempo = out_dict['tempo']['scoreInformed']
-        tempo['average'] = dict((k[:1].lower() + k[1:], v)
-                                for k, v in tempo['average'].iteritems())
+        tempo['average'] = _mcr_caller.lower_key_first_letter(tempo['average'])
         tempo['average']['procedure'] = procedure
         tempo['average']['source'] = audio_filename
         tempo['average'].pop("method", None)
 
-        tempo['relative'] = dict((k[:1].lower() + k[1:], v)
-                                 for k, v in tempo['relative'].iteritems())
+        tempo['relative'] = _mcr_caller.lower_key_first_letter(
+            tempo['relative'])
         tempo['relative']['procedure'] = procedure
         tempo['relative']['source'] = audio_filename
         tempo['relative'].pop("method", None)
 
         return tonic, tempo
 
-    def align_audio_score(self):
-        pass
+    def align_audio_score(self, score_filename='', score_data=None,
+                          audio_filename='', audio_pitch=None,
+                          audio_tonic=None, audio_tempo=None):
+        if self.verbose:
+            print("- Aligning audio recording %s and music score %s"
+                  % (audio_filename, score_filename))
+
+        # create the temporary input and output files wanted by the binary
+        temp_score_data_file = _mcr_caller.create_temp_file(
+            '.json', json.dumps(score_data))
+
+        # tonic has to be enclosed in the key 'score_informed' and all the
+        # keys have to start with a capital letter
+        audio_tonic_ = _mcr_caller.upper_key_first_letter(audio_tonic)
+        temp_tonic_file = _mcr_caller.create_temp_file(
+            '.json', json.dumps({'scoreInformed': audio_tonic_}))
+
+        # tempo has to be enclosed in the key 'score_informed' and all the
+        # keys have to start with a capital letter
+        audio_tempo_ = deepcopy(audio_tempo)
+        audio_tempo_['relative'] = _mcr_caller.upper_key_first_letter(
+            audio_tempo['relative'])
+        audio_tempo_['average'] = _mcr_caller.upper_key_first_letter(
+            audio_tempo['average'])
+        temp_tempo_file = _mcr_caller.create_temp_file(
+            '.json', json.dumps({'scoreInformed': audio_tempo_}))
+
+        # matlab
+        matout = cStringIO.StringIO()
+        savemat(matout, audio_pitch)
+
+        temp_pitch_file = _mcr_caller.create_temp_file(
+            '.mat', matout.getvalue())
+
+        temp_out_folder = tempfile.mkdtemp()
+
+        # call the binary
+        callstr = ["%s %s %s '' %s %s %s %s '' %s" %
+                   (self._audio_score_aligner, score_filename,
+                    temp_score_data_file, audio_filename, temp_pitch_file,
+                    temp_tonic_file, temp_tempo_file, temp_out_folder)]
+
+        out, err = _mcr_caller.call(callstr)
+
+        # check the MATLAB output
+        if "Audio-score alignment took" not in out:
+            os.unlink(temp_score_data_file)  # unlink the temporary files
+            os.unlink(temp_tonic_file)
+            os.unlink(temp_tempo_file)
+            os.unlink(temp_pitch_file)
+            os.rmdir(temp_out_folder)
+            raise IOError("Audio score alignment is not successful. Please "
+                          "check and report the error in the terminal.")
+
+        out_dict = _mcr_caller.load_json_from_temp_folder(
+            temp_out_folder, ['sectionLinks', 'alignedNotes'])
+
+        # unlink the temporary files
+        os.unlink(temp_score_data_file)
+        os.unlink(temp_tonic_file)
+        os.unlink(temp_tempo_file)
+        os.unlink(temp_pitch_file)
+        os.rmdir(temp_out_folder)
+
+        section_links = out_dict['sectionLinks']['links']
+        section_candidates = out_dict['sectionLinks']['candidates']
+        aligned_notes = out_dict['alignedNotes']['notes']
+
+        return section_links, aligned_notes, section_candidates
