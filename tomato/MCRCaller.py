@@ -84,7 +84,6 @@ class MCRCaller(object):
 
         return temp_path
 
-
     @staticmethod
     def load_json_from_temp_folder(temp_out_folder, expected):
         # load the results from the temporary folder

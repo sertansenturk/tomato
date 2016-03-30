@@ -4,7 +4,6 @@ import cStringIO
 import tempfile
 # import pickle
 import os
-from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
 
 # instantiate a mcr_caller
@@ -27,16 +26,13 @@ class JointAnalyzer(object):
             print("- Extracting score-informed tonic and tempo" +
                   audio_filename)
 
-        audio_pitch_ = deepcopy(audio_pitch)
-        audio_pitch_['pitch'] = audio_pitch_['pitch'].tolist()
-
         # create the temporary input and output files wanted by the binary
         temp_score_data_file = _mcr_caller.create_temp_file(
             '.json', json.dumps(score_data))
 
         # matlab
         matout = cStringIO.StringIO()
-        savemat(matout, audio_pitch_)
+        savemat(matout, audio_pitch)
 
         temp_pitch_file = _mcr_caller.create_temp_file(
             '.mat', matout.getvalue())
