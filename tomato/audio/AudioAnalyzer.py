@@ -40,16 +40,17 @@ class AudioAnalyzer(object):
 
         # even though predominant melody calls pitch filter in Essentia,
         # it is not as goot as Sercan Atli's implementation in Python.
-        pitch = self.filter_pitch(pitch)
+        pitch_filtered = self.filter_pitch(pitch)
 
         # get the melodic prograssion model
-        melodic_progression = self.get_melodic_progression(pitch)
+        melodic_progression = self.get_melodic_progression(pitch_filtered)
 
         # tonic identification
-        tonic = self.identify_tonic(pitch)
+        tonic = self.identify_tonic(pitch_filtered)
 
         # histogram computation
-        pitch_distribution = self.compute_pitch_distribution(pitch, tonic)
+        pitch_distribution = self.compute_pitch_distribution(
+            pitch_filtered, tonic)
         pitch_class_distribution = pitch_distribution.to_pcd()
 
         # makam recognition
@@ -63,7 +64,8 @@ class AudioAnalyzer(object):
         stable_notes = self.get_stable_notes(pitch_distribution, tonic, makam)
 
         # return as a dictionary
-        return {'pitch': pitch, 'tonic': tonic, 'ahenk': ahenk, 'makam': makam,
+        return {'pitch': pitch, 'pitch_filtered': pitch_filtered,
+                'tonic': tonic, 'ahenk': ahenk, 'makam': makam,
                 'melodic_progression': melodic_progression,
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution,
