@@ -55,3 +55,19 @@ class MCRCaller(object):
             raise ValueError('Empty fields in the section')
 
         return op_sys, env_var, mcr_path, set_paths
+
+    def get_binary_path(self, bin_name):
+        if self.sys_os == 'linux':
+            bin_path = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), 'bin', bin_name)
+        elif self.sys_os == 'macosx':
+            bin_path = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)),
+                'bin', bin_name + '.app', 'Contents', 'MacOS', bin_name)
+        else:
+            raise ValueError('Unsupported OS.')
+
+        if not os.path.exists(bin_path):
+            raise IOError('Binary does not exist: ' + bin_path)
+
+        return bin_path

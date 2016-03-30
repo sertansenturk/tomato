@@ -20,22 +20,7 @@ class SymbTrAnalyzer(object):
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
         self._symbTrReader = SymbTrReader()
-        self._phraseSegmenter = self._get_phrase_segmenter_path()
-
-    @staticmethod
-    def _get_phrase_segmenter_path():
-        if _mcr_caller.sys_os == 'linux':
-            phrase_seg_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), '..',
-                'bin', 'phraseSeg')
-        elif _mcr_caller.sys_os == 'macosx':
-            phrase_seg_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), '..',
-                'bin', 'phraseSeg.app', 'Contents', 'MacOS', 'phraseSeg')
-        else:
-            raise ValueError('Unsupported OS.')
-
-        return phrase_seg_path
+        self._phraseSegmenter = _mcr_caller.get_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
         # attempt to get the symbtrname from the filename, if it is not given
