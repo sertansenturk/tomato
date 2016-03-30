@@ -3,6 +3,7 @@ import os
 import subprocess
 import tempfile
 
+
 class MCRCaller(object):
     def __init__(self):
         self.filepath = os.path.join(
@@ -75,7 +76,8 @@ class MCRCaller(object):
     @staticmethod
     def create_temp_file(extension, contentstr):
         fd, temp_path = tempfile.mkstemp(extension)
-        with open(temp_path, 'w') as f:
+        open_mode = 'wb' if extension in ['.mat'] else 'w'
+        with open(temp_path, open_mode) as f:
             f.write(contentstr)
         os.close(fd)
 

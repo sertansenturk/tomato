@@ -99,8 +99,8 @@ class SymbTrAnalyzer(object):
         if "segmentation complete!" not in out:
             os.unlink(temp_in_file)  # unlink the temporary files
             os.unlink(temp_out_file)
-            raise IOError("The phrase segmentation is unsuccessful. Please "
-                          "check/report the error in the terminal.")
+            raise IOError("Phrase segmentation is not successful. Please "
+                          "check and report the error in the terminal.")
 
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))
