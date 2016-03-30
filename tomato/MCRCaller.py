@@ -2,6 +2,7 @@ import ConfigParser
 import os
 import subprocess
 import tempfile
+import json
 
 
 class MCRCaller(object):
@@ -82,3 +83,19 @@ class MCRCaller(object):
         os.close(fd)
 
         return temp_path
+
+
+    @staticmethod
+    def load_json_from_temp_folder(temp_out_folder, expected):
+        # load the results from the temporary folder
+        out_dict = {}
+        for exp in expected:
+            fpath = os.path.join(temp_out_folder, exp + '.json')
+            if os.path.isfile(fpath):
+                out_dict[exp] = json.load(open(fpath, 'r'))
+                os.remove(fpath)  # remove file created in the temporary folder
+            else:
+                raise Exception(
+                    'Missing output %s file' % (exp))
+
+        return out_dict
