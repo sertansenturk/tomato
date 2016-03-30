@@ -98,3 +98,13 @@ class MCRCaller(object):
                     'Missing output %s file' % (exp))
 
         return out_dict
+
+    @staticmethod
+    def upper_key_first_letter(upper_dict):
+        return dict((k[:1].upper() + k[1:], v)
+                    for k, v in upper_dict.iteritems())
+
+    @staticmethod
+    def lower_key_first_letter(lower_dict):
+        return dict((k[:1].lower() + k[1:], v)
+                    for k, v in lower_dict.iteritems())
