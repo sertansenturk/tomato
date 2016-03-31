@@ -7,6 +7,8 @@ import os
 from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
+from alignednotemodel.AlignedNoteModel import AlignedNoteModel
+
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -22,6 +24,7 @@ class JointAnalyzer(object):
         self._audioScoreAligner = _mcr_caller.get_binary_path(
             'alignAudioScore')
         self._alignedPitchFilter = AlignedPitchFilter()
+        self._alignedNoteModel = AlignedNoteModel()
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
@@ -52,9 +55,7 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Tonic-Tempo-Tuning Extraction took" not in out:
-            os.unlink(temp_score_data_file)  # unlink the temporary files
-            os.unlink(temp_pitch_file)
-            os.rmdir(temp_out_folder)
+            _mcr_caller.remove_temp_files(temp_score_data_file, temp_pitch_file, temp_out_folder)
             raise IOError("Score-informed tonic, tonic and tuning "
                           "extraction is not successful. Please "
                           "check and report the error in the terminal.")
@@ -63,9 +64,7 @@ class JointAnalyzer(object):
             temp_out_folder, ['tempo', 'tonic', 'tuning'])
 
         # unlink the temporary files
-        os.unlink(temp_score_data_file)
-        os.unlink(temp_pitch_file)
-        os.rmdir(temp_out_folder)
+        _mcr_caller.remove_temp_files(temp_score_data_file, temp_pitch_file, temp_out_folder)
 
         # tidy outouts
         # We omit the tuning output in the binary because
@@ -137,11 +136,8 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Audio-score alignment took" not in out:
-            os.unlink(temp_score_data_file)  # unlink the temporary files
-            os.unlink(temp_tonic_file)
-            os.unlink(temp_tempo_file)
-            os.unlink(temp_pitch_file)
-            os.rmdir(temp_out_folder)
+            _mcr_caller.remove_temp_files(temp_score_data_file, temp_tonic_file,
+                                          temp_tempo_file, temp_pitch_file, temp_out_folder)
             raise IOError("Audio score alignment is not successful. Please "
                           "check and report the error in the terminal.")
 
@@ -149,17 +145,11 @@ class JointAnalyzer(object):
             temp_out_folder, ['sectionLinks', 'alignedNotes'])
 
         # unlink the temporary files
-        os.unlink(temp_score_data_file)
-        os.unlink(temp_tonic_file)
-        os.unlink(temp_tempo_file)
-        os.unlink(temp_pitch_file)
-        os.rmdir(temp_out_folder)
+        _mcr_caller.remove_temp_files(temp_score_data_file, temp_tonic_file,
+                                      temp_tempo_file, temp_pitch_file, temp_out_folder)
 
-        section_links = out_dict['sectionLinks']['links']
-        section_candidates = out_dict['sectionLinks']['candidates']
-        aligned_notes = out_dict['alignedNotes']['notes']
-
-        return section_links, aligned_notes, section_candidates
+        return (out_dict['sectionLinks']['links'], out_dict['alignedNotes']['notes'],
+                out_dict['sectionLinks']['candidates'])
 
     def filter_pitch(self, pitch, aligned_notes):
         if self.verbose:
@@ -182,3 +172,12 @@ class JointAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._alignedPitchFilter, key, value)
+
+    def set_note_model_params(self, **kwargs):
+        if any(key not in self._alignedNoteModel.__dict__.keys()
+               for key in kwargs.keys()):
+            raise KeyError("Possible parameters are: " + ', '.join(
+                self._alignedNoteModel.__dict__.keys()))
+
+        for key, value in kwargs.items():
+            setattr(self._alignedNoteModel, key, value)

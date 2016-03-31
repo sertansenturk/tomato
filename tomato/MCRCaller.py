@@ -85,6 +85,14 @@ class MCRCaller(object):
         return temp_path
 
     @staticmethod
+    def remove_temp_files(*argv):
+        for path in argv:
+            try:
+                os.unlink(path)
+            except OSError:  # directory
+                os.rmdir(path)
+
+    @staticmethod
     def load_json_from_temp_folder(temp_out_folder, expected):
         # load the results from the temporary folder
         out_dict = {}
@@ -92,7 +100,7 @@ class MCRCaller(object):
             fpath = os.path.join(temp_out_folder, exp + '.json')
             if os.path.isfile(fpath):
                 out_dict[exp] = json.load(open(fpath, 'r'))
-                os.remove(fpath)  # remove file created in the temporary folder
+                os.unlink(fpath)  # remove file created in the temporary folder
             else:
                 raise Exception(
                     'Missing output %s file' % (exp))

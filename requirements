@@ -29,6 +29,7 @@ git+https://github.com/MTG/SymbTr-extras.git@0.2.dev#egg=symbtrextras
 
 # predominant melody filtering after alignment
 git+https://github.com/sertansenturk/alignedpitchfilter.git@v1.1#egg=alignedpitchfilter
+git+https://github.com/sertansenturk/alignednotemodel.git#egg=alignednotemodel
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy  # numerical operations

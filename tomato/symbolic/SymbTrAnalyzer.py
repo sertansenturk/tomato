@@ -97,8 +97,7 @@ class SymbTrAnalyzer(object):
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code
         if "segmentation complete!" not in out:
-            os.unlink(temp_in_file)  # unlink the temporary files
-            os.unlink(temp_out_file)
+            _mcr_caller.remove_temp_files(temp_in_file, temp_out_file)
             raise IOError("Phrase segmentation is not successful. Please "
                           "check and report the error in the terminal.")
 
@@ -106,8 +105,7 @@ class SymbTrAnalyzer(object):
         phrase_boundaries = json.load(open(temp_out_file))
 
         # unlink the temporary files
-        os.unlink(temp_in_file)
-        os.unlink(temp_out_file)
+        _mcr_caller.remove_temp_files(temp_in_file, temp_out_file)
 
         return phrase_boundaries
 
