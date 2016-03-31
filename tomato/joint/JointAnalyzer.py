@@ -135,8 +135,9 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Audio-score alignment took" not in out:
-            _mcr_caller.remove_temp_files(temp_score_data_file, temp_tonic_file,
-                                          temp_tempo_file, temp_pitch_file, temp_out_folder)
+            _mcr_caller.remove_temp_files(
+                temp_score_data_file, temp_tonic_file, temp_tempo_file,
+                temp_pitch_file, temp_out_folder)
             raise IOError("Audio score alignment is not successful. Please "
                           "check and report the error in the terminal.")
 
@@ -144,19 +145,25 @@ class JointAnalyzer(object):
             temp_out_folder, ['sectionLinks', 'alignedNotes'])
 
         # unlink the temporary files
-        _mcr_caller.remove_temp_files(temp_score_data_file, temp_tonic_file,
-                                      temp_tempo_file, temp_pitch_file, temp_out_folder)
+        _mcr_caller.remove_temp_files(
+            temp_score_data_file, temp_tonic_file, temp_tempo_file,
+            temp_pitch_file, temp_out_folder)
 
-        return (out_dict['sectionLinks']['links'], out_dict['alignedNotes']['notes'],
+        notes = [_mcr_caller.lower_key_first_letter(n)
+                 for n in out_dict['alignedNotes']['notes']]
+
+        return (out_dict['sectionLinks']['links'], notes,
                 out_dict['sectionLinks']['candidates'])
 
     def filter_pitch(self, pitch, aligned_notes):
         if self.verbose:
             print("- Filtering predominant melody of %s after audio-score "
                   "alignment." % (pitch['source']))
+        aligned_notes_ = [_mcr_caller.upper_key_first_letter(n)
+                          for n in deepcopy(aligned_notes)]
 
         pitch_temp, notes_filtered, synth_pitch = \
-            self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes)
+            self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
 
         pitch_filtered = deepcopy(pitch)
         pitch_filtered['pitch'] = pitch_temp

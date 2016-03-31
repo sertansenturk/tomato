@@ -103,16 +103,29 @@ class MCRCaller(object):
                 os.unlink(fpath)  # remove file created in the temporary folder
             else:
                 raise Exception(
-                    'Missing output %s file' % (exp))
+                    'Missing output %s file' % exp)
 
         return out_dict
 
     @staticmethod
     def upper_key_first_letter(upper_dict):
-        return dict((k[:1].upper() + k[1:], v)
-                    for k, v in upper_dict.iteritems())
+        udict = {}
+        try:
+            for k, v in upper_dict.iteritems():
+                udict[k[:1].upper() + k[1:]] = \
+                    MCRCaller.upper_key_first_letter(v)
+        except AttributeError:  # input is not a dict, return
+            udict = upper_dict
+        return udict
 
     @staticmethod
     def lower_key_first_letter(lower_dict):
-        return dict((k[:1].lower() + k[1:], v)
-                    for k, v in lower_dict.iteritems())
+        ldict = {}
+        try:
+            for k, v in lower_dict.iteritems():
+                ldict[k[:1].lower() + k[1:]] = \
+                    MCRCaller.lower_key_first_letter(v)
+        except AttributeError:  # input is not a dict, return
+            ldict = lower_dict
+
+        return ldict
