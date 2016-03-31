@@ -173,3 +173,12 @@ class JointAnalyzer(object):
         pitch_filtered['pitch'] = pitch
 
         return pitch, notes_corrected
+
+    def set_pitch_filter_params(self, **kwargs):
+        if any(key not in self._alignedPitchFilter.__dict__.keys()
+               for key in kwargs.keys()):
+            raise KeyError("Possible parameters are: " + ', '.join(
+                self._alignedPitchFilter.__dict__.keys()))
+
+        for key, value in kwargs.items():
+            setattr(self._alignedPitchFilter, key, value)
