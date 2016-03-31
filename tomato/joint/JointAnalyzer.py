@@ -166,7 +166,7 @@ class JointAnalyzer(object):
             print("- Filtering predominant melody of %s after audio-score "
                   "alignment." % (pitch['source']))
 
-        pitch_corr, synth_pitch, notes_corrected = \
+        pitch_corr, notes_corrected, synth_pitch = \
             self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes)
 
         pitch_filtered = deepcopy(pitch)
