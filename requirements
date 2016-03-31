@@ -28,7 +28,7 @@ git+https://github.com/MTG/SymbTr-extras.git@0.2.dev#egg=symbtrextras
 # audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
 
 # predominant melody filtering after alignment
-git+https://github.com/sertansenturk/alignedpitchfilter.git#egg=alignedpitchfilter
+git+https://github.com/sertansenturk/alignedpitchfilter.git@v1.1#egg=alignedpitchfilter
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy  # numerical operations
