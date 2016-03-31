@@ -164,6 +164,18 @@ class JointAnalyzer(object):
 
         return pitch_filtered, notes_filtered
 
+    def get_note_models(self, pitch, aligned_notes, tonic_symbol):
+        if self.verbose:
+            print("- Computing the note models for " + pitch['source'])
+
+        note_models, pitch_distibution, tonic = self._alignedNoteModel.get_models(
+            pitch['pitch'], aligned_notes, tonic_symbol)
+
+        tonic = _mcr_caller.lower_key_first_letter(tonic['alignment'])
+        tonic['source'] = pitch['source']
+
+        return note_models, pitch_distibution, tonic
+
     def set_pitch_filter_params(self, **kwargs):
         if any(key not in self._alignedPitchFilter.__dict__.keys()
                for key in kwargs.keys()):

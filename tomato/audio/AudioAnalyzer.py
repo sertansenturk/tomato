@@ -92,7 +92,7 @@ class AudioAnalyzer(object):
 
     def get_melodic_progression(self, pitch):
         if self.verbose:
-            print("- Obtaining the melodic proression model of " +
+            print("- Obtaining the melodic progression model of " +
                   pitch['source'])
 
         if self._mel_prog_params['frame_dur'] is None:
