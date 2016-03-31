@@ -6,6 +6,7 @@ import tempfile
 import os
 from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
+from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -16,15 +17,16 @@ class JointAnalyzer(object):
         self.verbose = verbose
 
         # extractors
-        self._tonic_tempo_tuning_extractor = _mcr_caller.get_binary_path(
+        self._tonicTempoExtractor = _mcr_caller.get_binary_path(
             'extractTonicTempoTuning')
-        self._audio_score_aligner = _mcr_caller.get_binary_path(
+        self._audioScoreAligner = _mcr_caller.get_binary_path(
             'alignAudioScore')
+        self._alignedPitchFilter = AlignedPitchFilter()
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
         if self.verbose:
-            print("- Extracting score-informed tonic and tempo" +
+            print("- Extracting score-informed tonic and tempo of " +
                   audio_filename)
 
         # create the temporary input and output files wanted by the binary
@@ -42,7 +44,7 @@ class JointAnalyzer(object):
 
         # call the binary
         callstr = ["%s %s %s %s %s %s" %
-                   (self._tonic_tempo_tuning_extractor, score_filename,
+                   (self._tonicTempoExtractor, score_filename,
                     temp_score_data_file, audio_filename, temp_pitch_file,
                     temp_out_folder)]
 
@@ -93,7 +95,7 @@ class JointAnalyzer(object):
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
         if self.verbose:
-            print("- Aligning audio recording %s and music score %s"
+            print("- Aligning audio recording %s and music score %s."
                   % (audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
@@ -127,7 +129,7 @@ class JointAnalyzer(object):
 
         # call the binary
         callstr = ["%s %s %s '' %s %s %s %s '' %s" %
-                   (self._audio_score_aligner, score_filename,
+                   (self._audioScoreAligner, score_filename,
                     temp_score_data_file, audio_filename, temp_pitch_file,
                     temp_tonic_file, temp_tempo_file, temp_out_folder)]
 
@@ -158,3 +160,15 @@ class JointAnalyzer(object):
         aligned_notes = out_dict['alignedNotes']['notes']
 
         return section_links, aligned_notes, section_candidates
+
+    def filter_pitch(self, pitch, aligned_notes):
+        if self.verbose:
+            print("- Filtering predominant melody of %s after audio-score "
+                  "alignment." % (pitch['source']))
+
+        pitch_corr, synth_pitch, notes_corrected = AlignedPitchFilter.\
+            filter(pitch['pitch'], aligned_notes)
+        pitch_filtered = deepcopy(pitch)
+        pitch_filtered['pitch'] = pitch
+
+        return pitch, notes_corrected
