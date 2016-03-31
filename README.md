@@ -19,6 +19,10 @@ Documentation
 ------
 Coming soon...
 
+License
+------
+Coming soon...
+
 Installation
 -------
 
