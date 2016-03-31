@@ -28,7 +28,7 @@ class AudioAnalyzer(object):
                                  'min_num_frames': 40, 'max_frame_dur': 30}
 
         # extractors
-        self._pitchExtractor = PredominantMelodyMakam()
+        self._pitchExtractor = PredominantMelodyMakam(filter_pitch=False)
         self._pitchFilter = PitchFilter()
         self._melodicProgressionAnalyzer = AudioSeyirAnalyzer()
         self._tonicIdentifier = TonicLastNote()
@@ -288,7 +288,7 @@ class AudioAnalyzer(object):
 
     @staticmethod
     def plot(features):
-        pitch = np.array(deepcopy(features['pitch']['pitch']))
+        pitch = np.array(deepcopy(features['pitch_filtered']['pitch']))
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
         pitch_distibution = features['pitch_distribution']
         stable_notes = deepcopy(features['stable_notes'])
