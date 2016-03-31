@@ -3,7 +3,6 @@ from scipy.io import savemat
 import cStringIO
 import tempfile
 # import pickle
-import os
 from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
