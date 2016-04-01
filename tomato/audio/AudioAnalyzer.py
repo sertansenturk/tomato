@@ -87,6 +87,9 @@ class AudioAnalyzer(object):
 
         pitch_filt = deepcopy(pitch)
         pitch_filt['pitch'] = self._pitchFilter.run(pitch_filt['pitch'])
+        pitch_filt['citation'] = 'Bozkurt, B. (2008). An automatic pitch ' \
+                                 'analysis method for Turkish maqam music. ' \
+                                 'Journal of New Music Research, 37(1), 1-13.'
 
         return pitch_filt
 
