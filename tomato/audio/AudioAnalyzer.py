@@ -38,8 +38,7 @@ class AudioAnalyzer(object):
         # predominant melody extraction
         pitch = self.extract_pitch(filepath)
 
-        # even though predominant melody calls pitch filter in Essentia,
-        # it is not as goot as Sercan Atli's implementation in Python.
+        # pitch filtering
         pitch_filtered = self.filter_pitch(pitch)
 
         # get the melodic prograssion model
@@ -128,10 +127,10 @@ class AudioAnalyzer(object):
 
         return tonic
 
-    def identify_ahenk(self, tonic, makamstr):
+    def identify_ahenk(self, tonic, makam_tonic_str):
         if self.verbose:
             print("- Identifying ahenk of " + tonic['source'])
-        ahenk = AhenkIdentifier.identify(tonic['value'], makamstr)
+        ahenk = AhenkIdentifier.identify(tonic['value'], makam_tonic_str)
         ahenk['source'] = tonic['source']
 
         return ahenk
