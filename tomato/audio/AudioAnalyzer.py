@@ -57,14 +57,14 @@ class AudioAnalyzer(object):
             raise NotImplementedError('Makam recognition is not integrated.')
 
         # transposition (ahenk) identification
-        ahenk = self.identify_ahenk(tonic, makam)
+        transposition = self.identify_transposition(tonic, makam)
 
         # tuning analysis and stable pitch extraction
         stable_notes = self.get_stable_notes(pitch_distribution, tonic, makam)
 
         # return as a dictionary
         return {'pitch': pitch, 'pitch_filtered': pitch_filtered,
-                'tonic': tonic, 'ahenk': ahenk, 'makam': makam,
+                'tonic': tonic, 'transposition': transposition, 'makam': makam,
                 'melodic_progression': melodic_progression,
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution,
@@ -79,10 +79,10 @@ class AudioAnalyzer(object):
         pitch_class_distribution = pitch_distribution.to_pcd()
 
         # transposition (ahenk) identification
-        ahenk = self.identify_ahenk(tonic, tonic['symbol'])
+        transposition = self.identify_transposition(tonic, tonic['symbol'])
 
         # return as a dictionary
-        return {'pitch': pitch, 'tonic': tonic, 'ahenk': ahenk,
+        return {'transposition': transposition,
                 'melodic_progression': melodic_progression,
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution}
@@ -144,13 +144,14 @@ class AudioAnalyzer(object):
 
         return tonic
 
-    def identify_ahenk(self, tonic, makam_tonic_str):
+    def identify_transposition(self, tonic, makam_tonic_str):
         if self.verbose:
-            print("- Identifying ahenk of " + tonic['source'])
-        ahenk = AhenkIdentifier.identify(tonic['value'], makam_tonic_str)
-        ahenk['source'] = tonic['source']
+            print("- Identifying the transposition of " + tonic['source'])
+        transposition = AhenkIdentifier.identify(
+            tonic['value'], makam_tonic_str)
+        transposition['source'] = tonic['source']
 
-        return ahenk
+        return transposition
 
     def compute_pitch_distribution(self, pitch, tonic):
         if self.verbose:
