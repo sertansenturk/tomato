@@ -2,7 +2,7 @@ import json
 from scipy.io import savemat
 import cStringIO
 import tempfile
-# import pickle
+import pickle
 from copy import deepcopy
 from tomato.MCRCaller import MCRCaller
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
@@ -46,6 +46,34 @@ class JointAnalyzer(object):
         return {'pitch': aligned_pitch, 'tonic': aligned_tonic, 'tempo': tempo,
                 'sections': sections, 'notes': aligned_notes,
                 'note_models': note_models}
+
+    @staticmethod
+    def to_json(features, filepath=None):
+        if filepath is None:
+            json.dumps(features, indent=4)
+        else:
+            json.dump(features, open(filepath, 'w'), indent=4)
+
+    @staticmethod
+    def from_json(filepath):
+        try:
+            return json.load(open(filepath, 'r'))
+        except IOError:  # string given
+            return json.loads(filepath)
+
+    @staticmethod
+    def to_pickle(features, filepath=None):
+        if filepath is None:
+            pickle.dumps(features)
+        else:
+            pickle.dump(features, open(filepath, 'wb'))
+
+    @staticmethod
+    def from_pickle(filepath):
+        try:
+            return pickle.load(open(filepath, 'rb'))
+        except IOError:  # string given
+            return pickle.loads(filepath)
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
