@@ -43,9 +43,56 @@ class JointAnalyzer(object):
         note_models, pitch_distribution, aligned_tonic = self.get_note_models(
             aligned_pitch, notes, tonic['symbol'])
 
-        return {'pitch': aligned_pitch, 'tonic': aligned_tonic, 'tempo': tempo,
-                'sections': sections, 'notes': aligned_notes,
-                'note_models': note_models}
+        joint_features = {'sections': sections, 'notes': aligned_notes,
+                          'note_models': note_models}
+        audio_features = {'pitch': aligned_pitch, 'tonic': aligned_tonic,
+                          'tempo': tempo}
+
+        return joint_features, audio_features
+
+    @staticmethod
+    def summarize(audio_features=None, score_features=None,
+                  joint_features=None, score_informed_audio_features=None):
+        # initialize
+        sdict = {'audio': {}, 'score': score_features, 'joint': {}}
+
+        if score_informed_audio_features is not None:
+            sdict['audio']['pitch'] = score_informed_audio_features['pitch']
+            sdict['audio']['tonic'] = score_informed_audio_features['tonic']
+            sdict['audio']['tempo'] = score_informed_audio_features['tempo']
+            sdict['audio']['melodic_progression'] = \
+                score_informed_audio_features['melodic_progression']
+            sdict['audio']['transposition'] = score_informed_audio_features[
+                'transposition']
+            sdict['audio']['pitch_distribution'] = \
+                score_informed_audio_features['pitch_distribution']
+            sdict['audio']['pitch_class_distribution'] = \
+                score_informed_audio_features['pitch_class_distribution']
+        else:
+            sdict['audio']['pitch'] = audio_features['pitch_filtered']
+            sdict['audio']['tonic'] = audio_features['tonic']
+            sdict['audio']['melodic_progression'] = audio_features[
+                'melodic_progression']
+            sdict['audio']['transposition'] = audio_features['transposition']
+            sdict['audio']['pitch_distribution'] = \
+                audio_features['pitch_distribution']
+            sdict['audio']['pitch_class_distribution'] = \
+                audio_features['pitch_class_distribution']
+            # only add stable_notes if the joint features, hence the note
+            # models are not given
+            sdict['audio']['stable_notes'] = audio_features['stable_notes']
+
+        if score_features is not None:
+            sdict['audio']['makam'] = score_features['makam']['symbtr_slug']
+        else:
+            sdict['audio']['makam'] = audio_features['makam']
+
+        # accumulate joint dict
+        sdict['joint']['sections'] = joint_features['sections']
+        sdict['joint']['notes'] = joint_features['notes']
+        sdict['joint']['note_models'] = joint_features['note_models']
+
+        return sdict
 
     @staticmethod
     def to_json(features, filepath=None):

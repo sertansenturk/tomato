@@ -70,7 +70,12 @@ class AudioAnalyzer(object):
                 'pitch_class_distribution': pitch_class_distribution,
                 'stable_notes': stable_notes}
 
-    def analyze_from_pitch_tonic(self, pitch=None, tonic=None):
+    def update_analysis(self, audio_features):
+        # make a copy of the existing analysis
+        updated_audio_features = deepcopy(audio_features)
+        pitch = updated_audio_features['pitch']
+        tonic = updated_audio_features['tonic']
+
         # get the melodic prograssion model
         melodic_progression = self.get_melodic_progression(pitch)
 
@@ -81,11 +86,14 @@ class AudioAnalyzer(object):
         # transposition (ahenk) identification
         transposition = self.identify_transposition(tonic, tonic['symbol'])
 
-        # return as a dictionary
-        return {'transposition': transposition,
-                'melodic_progression': melodic_progression,
-                'pitch_distribution': pitch_distribution,
-                'pitch_class_distribution': pitch_class_distribution}
+        # add/raplace with the computed features
+        updated_audio_features['transposition'] = transposition,
+        updated_audio_features['melodic_progression'] = melodic_progression
+        updated_audio_features['pitch_distribution'] = pitch_distribution,
+        updated_audio_features['pitch_class_distribution'] =  \
+            pitch_class_distribution
+
+        return updated_audio_features
 
     def extract_pitch(self, filename):
         if self.verbose:
