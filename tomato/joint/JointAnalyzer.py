@@ -49,10 +49,19 @@ class JointAnalyzer(object):
 
     @staticmethod
     def to_json(features, filepath=None):
+        save_features = deepcopy(features)
+        try:
+            save_features['pitch']['pitch'] = save_features['pitch'][
+                'pitch'].tolist()
+        except AttributeError:
+            import pdb
+            pdb.set_trace()
+            pass  # already converted to list of lists
+
         if filepath is None:
-            json.dumps(features, indent=4)
+            json.dumps(save_features, indent=4)
         else:
-            json.dump(features, open(filepath, 'w'), indent=4)
+            json.dump(save_features, open(filepath, 'w'), indent=4)
 
     @staticmethod
     def from_json(filepath):
@@ -219,6 +228,9 @@ class JointAnalyzer(object):
 
         pitch_filtered = deepcopy(pitch)
         pitch_filtered['pitch'] = pitch_temp
+        pitch_filtered['citation'] = 'SenturkThesis'
+        pitch_filtered['procedure'] = 'Pitch filtering according to ' \
+                                      'audio-score alignment'
 
         return pitch_filtered, notes_filtered
 
