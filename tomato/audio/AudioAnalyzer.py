@@ -70,6 +70,23 @@ class AudioAnalyzer(object):
                 'pitch_class_distribution': pitch_class_distribution,
                 'stable_notes': stable_notes}
 
+    def analyze_from_pitch_tonic(self, pitch=None, tonic=None):
+        # get the melodic prograssion model
+        melodic_progression = self.get_melodic_progression(pitch)
+
+        # histogram computation
+        pitch_distribution = self.compute_pitch_distribution(pitch, tonic)
+        pitch_class_distribution = pitch_distribution.to_pcd()
+
+        # transposition (ahenk) identification
+        ahenk = self.identify_ahenk(tonic, tonic['symbol'])
+
+        # return as a dictionary
+        return {'pitch': pitch, 'tonic': tonic, 'ahenk': ahenk,
+                'melodic_progression': melodic_progression,
+                'pitch_distribution': pitch_distribution,
+                'pitch_class_distribution': pitch_class_distribution}
+
     def extract_pitch(self, filename):
         if self.verbose:
             print("- Extracting predominant melody of " + filename)
@@ -221,6 +238,12 @@ class AudioAnalyzer(object):
     def to_json(features, filepath=None):
         save_features = deepcopy(features)
 
+        try:
+            save_features['pitch']['pitch'] = save_features['pitch'][
+                'pitch'].tolist()
+        except AttributeError:
+            pass  # already converted to list of lists
+
         for mp in save_features['melodic_progression']:
             try:
                 mp['pitch_distribution'] = mp['pitch_distribution'].to_dict()
@@ -238,12 +261,6 @@ class AudioAnalyzer(object):
                 save_features['pitch_class_distribution'].to_dict()
         except AttributeError:
             pass  # already converted to dict devoid of numpy stuff
-
-        try:
-            save_features['pitch']['pitch'] = save_features['pitch'][
-                'pitch'].tolist()
-        except AttributeError:
-            pass  # already converted to list of lists
 
         if filepath is None:  # dump string
             return json.dumps(save_features, indent=4)
