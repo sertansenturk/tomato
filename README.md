@@ -53,61 +53,46 @@ The score phrase segmentation, score-informed joint tonic identification and tem
 Basic Usage
 -------
 
-Below you can find some basic calls:
-
-##### Audio Analysis
 ```python
 from tomato.audio.AudioAnalyzer import AudioAnalyzer
-
-audio_filepath = 'path/to/audio'
-makam = 'makam_name'  # the makam slug. See the documentation for possible values
-
-audioAnalyzer = AudioAnalyzer()
-features = audioAnalyzer.analyze(audio_filepath, makam=makam)
-
-# plot the features
-import pylab
-audioAnalyzer.plot(features)
-pylab.show()
-
-# save features
-audioAnalyzer.to_json(features, 'save_filename.json')
-audioAnalyzer.to_pickle_(features, 'save_filename.pkl')
-
-# load features
-features = audioAnalyzer.from_json('load_filename.json')
-features = audioAnalyzer.from_pickle('load_filename.pkl')
-```
-
-You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) for an interactive demo.
-
-##### Symbolic Analysis
-```python
 from tomato.symbolic.SymbTrAnalyzer import SymbTrAnalyzer
+from tomato.joint.JointAnalyzer import JointAnalyzer
 
-txt_filepath = 'path/to/symbtr_txt_score'
-mu2_filepath = 'path/to/symbtr_mu2_score'
-
-# only needed if the filename is modified from the SymbTr naming convention
+# score filepaths
 symbtr_name = 'makam--form--usul--name--composer'
+txt_score_filepath = 'path/to/txt_score'
+mu2_score_filepath = 'path/to/mu2_score'
 
-scoreAnalyzer = SymbTrAnalyzer()
-features = scoreAnalyzer.analyze(
-    txt_filepath, mu2_filepath, symbtr_name=symbtr_name)
-    
-# save features
-scoreAnalyzer.to_json(features, 'save_filename.json')
-scoreAnalyzer.to_pickle(features, 'save_filename.pkl')
+# instantiate
+audio_filepath = 'path/to/audio'
 
-# load features
-features = scoreAnalyzer.from_json('load_filename.json')
-features = scoreAnalyzer.from_pickle('load_filename.pkl')
+# instantiate analyzer objects
+scoreAnalyzer = SymbTrAnalyzer(verbose=True)
+audioAnalyzer = AudioAnalyzer(verbose=True)
+jointAnalyzer = JointAnalyzer(verbose=True)
 
+# score analysis
+score_features = scoreAnalyzer.analyze(
+    txt_score_filepath, mu2_score_filepath, symbtr_name=symbtr_name)
+
+# audio analysis
+audio_features = audioAnalyzer.analyze(
+    audio_filepath, makam=score_features['makam']['symbtr_slug'])
+
+# joint analysis
+joint_features, score_informed_audio_features = jointAnalyzer.analyze(
+    txt_score_filepath, score_features, audio_filepath, audio_features['pitch'])
+
+# redo some steps in audio analysis
+score_informed_audio_features = audioAnalyzer.update_analysis(
+    score_informed_audio_features)
+
+# summarize all the features extracted from all sources
+summarized_features = jointAnalyzer.summarize(
+    audio_features, score_features, joint_features, score_informed_audio_features)
 ```
-You can refer to [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb) for an interactive demo.
 
-##### Score-Informed Audio Analysis
-Coming soon...
+You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb), [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb), [joint_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/joint_analysis_demo.ipynb) and [complete_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/complete_analysis_demo.ipynb) for interactive demos.
 
 FAQ
 -------
@@ -118,7 +103,7 @@ FAQ
 
 2. **What are the supported Python versions?**
 
-    Currently we only support 2.7. We will start working on Python 3+ support, as soon as Essentia bindings for Python 3+ are available.
+    Currently we only support 2.7. We will start working on Python 3+ support, as soon as [Essentia bindings for Python 3](https://github.com/MTG/essentia/issues/138) are available.
 
 3. **Where are the MATLAB binaries?**
 
