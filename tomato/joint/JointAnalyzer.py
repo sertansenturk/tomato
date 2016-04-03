@@ -101,8 +101,6 @@ class JointAnalyzer(object):
             save_features['pitch']['pitch'] = save_features['pitch'][
                 'pitch'].tolist()
         except AttributeError:
-            import pdb
-            pdb.set_trace()
             pass  # already converted to list of lists
 
         if filepath is None:
@@ -313,3 +311,7 @@ class JointAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._alignedNoteModel, key, value)
+
+    @staticmethod
+    def plot(summarized_features):
+        pass

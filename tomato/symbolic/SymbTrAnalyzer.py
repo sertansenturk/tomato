@@ -1,10 +1,12 @@
 import json
 import pickle
 import os
+import warnings
 
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
+from musicbrainzngs import NetworkError
 
 from tomato.MCRCaller import MCRCaller
 
@@ -24,7 +26,7 @@ class SymbTrAnalyzer(object):
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
         # attempt to get the symbtrname from the filename, if it is not given
         if symbtr_name is None:
-            symbtr_name = os.path.basename(txt_filepath)
+            symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
         # Automatic phrase segmentation on the SymbTr-txt score
         phrase_bounds = self.segment_phrase(
@@ -34,13 +36,27 @@ class SymbTrAnalyzer(object):
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first work to get fetch the metadata
         mbid = ScoreExtras.get_mbids(symbtr_name)[0]
+        if not mbid:
+            warnings.warn("No MBID returned for %s" % symbtr_name,
+                          RuntimeWarning)
 
         # Extract the (meta)data from the SymbTr scores
-        score_data, is_data_valid = self.extract_data(
-            txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
-            segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
+        try:
+            score_data, is_data_valid = self.extract_data(
+                txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
+                segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
+        except NetworkError, e:  # musicbrainz is not available
+            warnings.warn('Musicbrainz website is not available. The '
+                          'metadata stored there is not crawled right now.',
+                          RuntimeWarning)
+            score_data, is_data_valid = self.extract_data(
+                txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
+                segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
 
-        return score_data, is_data_valid
+        if not is_data_valid:
+            warnings.warn(symbtr_name + ' has validation problems.')
+
+        return score_data
 
     @staticmethod
     def to_json(features, filepath=None):

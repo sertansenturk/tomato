@@ -76,7 +76,7 @@ class AudioAnalyzer(object):
         pitch = updated_audio_features['pitch']
         tonic = updated_audio_features['tonic']
 
-        # get the melodic prograssion model
+        # get the melodic progression model
         melodic_progression = self.get_melodic_progression(pitch)
 
         # histogram computation
