@@ -89,7 +89,7 @@ class AudioAnalyzer(object):
         # add/raplace with the computed features
         updated_audio_features['transposition'] = transposition,
         updated_audio_features['melodic_progression'] = melodic_progression
-        updated_audio_features['pitch_distribution'] = pitch_distribution,
+        updated_audio_features['pitch_distribution'] = pitch_distribution
         updated_audio_features['pitch_class_distribution'] =  \
             pitch_class_distribution
 
@@ -318,7 +318,7 @@ class AudioAnalyzer(object):
     def plot(features):
         pitch = np.array(deepcopy(features['pitch_filtered']['pitch']))
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
-        pitch_distibution = features['pitch_distribution']
+        pitch_distribution = features['pitch_distribution']
         stable_notes = deepcopy(features['stable_notes'])
 
         # create the figure with four subplots with different size
@@ -341,7 +341,7 @@ class AudioAnalyzer(object):
         fig.subplots_adjust(hspace=0, wspace=0)
 
         # plot pitch distribution to the second subplot
-        ax2.plot(pitch_distibution.vals, pitch_distibution.bins)
+        ax2.plot(pitch_distribution.vals, pitch_distribution.bins)
 
         # plot stable pitches to the second subplot
         max_rel_occur = 0
@@ -349,9 +349,9 @@ class AudioAnalyzer(object):
             # get the relative occurence of each note from the pitch
             # distribution
             dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
-                              for dist_bin in pitch_distibution.bins])
+                              for dist_bin in pitch_distribution.bins])
             peak_ind = np.argmin(dists)
-            note['rel_occur'] = pitch_distibution.vals[peak_ind]
+            note['rel_occur'] = pitch_distribution.vals[peak_ind]
             max_rel_occur = max([max_rel_occur, note['rel_occur']])
 
         ytick_vals = []
@@ -373,7 +373,7 @@ class AudioAnalyzer(object):
 
                 # print note name, lift the text a little bit
                 txt_x_val = (note['rel_occur'] +
-                             0.03 * max(pitch_distibution.vals))
+                             0.03 * max(pitch_distribution.vals))
                 txt_str = ', '.join(
                     [note_symbol,
                      str(int(round(note['performed_interval']['value']))) +
@@ -395,7 +395,7 @@ class AudioAnalyzer(object):
             ax3.set_xticks(xtick_vals)
 
         # define xlim higher than the highest peak so the note names have space
-        ax2.set_xlim([0, 1.2 * max(pitch_distibution.vals)])
+        ax2.set_xlim([0, 1.2 * max(pitch_distribution.vals)])
 
         # remove the axis of the subplot 2
         ax2.axis('off')
@@ -419,8 +419,8 @@ class AudioAnalyzer(object):
 
         # set xlim to the last time in the pitch track
         ax3.set_xlim([pitch[0, 0], pitch[-1, 0]])
-        ax3.set_ylim([np.min(pitch_distibution.bins),
-                      np.max(pitch_distibution.bins)])
+        ax3.set_ylim([np.min(pitch_distribution.bins),
+                      np.max(pitch_distribution.bins)])
 
         # remove the spines from the third subplot
         ax3.spines['bottom'].set_visible(False)

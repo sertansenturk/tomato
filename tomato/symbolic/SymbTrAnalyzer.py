@@ -45,9 +45,9 @@ class SymbTrAnalyzer(object):
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
-        except NetworkError, e:  # musicbrainz is not available
-            warnings.warn('Musicbrainz website is not available. The '
-                          'metadata stored there is not crawled right now.',
+        except NetworkError:  # musicbrainz is not available
+            warnings.warn('Unable to reach http://musicbrainz.org/. '
+                          'The metadata stored there is not available.',
                           RuntimeWarning)
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
