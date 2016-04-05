@@ -4,9 +4,6 @@ class ParamSetter(object):
         attribs = [name for name in analyzer.__dict__.keys()
                    if not name.startswith('_')]
 
-        import pdb
-        pdb.set_trace()
-
         if any(key not in attribs for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(attribs))
 

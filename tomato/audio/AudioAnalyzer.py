@@ -12,8 +12,10 @@ from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 from notemodel.NoteModel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
 
+from tomato.ParamSetter import ParamSetter
 
-class AudioAnalyzer(object):
+
+class AudioAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
         self.verbose = verbose
 
@@ -185,39 +187,16 @@ class AudioAnalyzer(object):
                                                  tonic['value'], makamstr)
 
     def set_pitch_extractor_params(self, **kwargs):
-        if any(key not in self._pitchExtractor.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._pitchExtractor.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._pitchExtractor, key, value)
+        self.set_params('_pitchExtractor', **kwargs)
 
     def set_pitch_filter_params(self, **kwargs):
-        if any(key not in self._pitchFilter.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._pitchFilter.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._pitchFilter, key, value)
+        self.set_params('_pitchFilter', **kwargs)
 
     def set_pitch_distibution_params(self, **kwargs):
-        if any(key not in self._pd_params.keys() for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._pd_params.keys()))
-
-        for key, value in kwargs.items():
-            self._pd_params[key] = value
+        self.set_params('_pd_params', **kwargs)
 
     def set_tonic_identifier_params(self, **kwargs):
-        if any(key not in self._tonicIdentifier.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._tonicIdentifier.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._tonicIdentifier, key, value)
+        self.set_params('_tonicIdentifier', **kwargs)
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
@@ -236,13 +215,7 @@ class AudioAnalyzer(object):
                 raise KeyError("Unexpected key error")
 
     def set_note_modeler_params(self, **kwargs):
-        if any(key not in self._noteModeler.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._noteModeler.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._noteModeler, key, value)
+        self.set_params('_noteModeler', **kwargs)
 
     @staticmethod
     def plot(features):
