@@ -1,6 +1,6 @@
 #### tomato v0.3
  - Added joint audio-score analysis
- - Minor improvement and bugfixes in SymbTrAnalyzer and AudioAnalyzer classes
+ - Minor improvement and bug fixes in SymbTrAnalyzer and AudioAnalyzer classes
 
 #### tomato v0.2
  - Added SymbTr-score analysis
