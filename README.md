@@ -63,7 +63,7 @@ symbtr_name = 'makam--form--usul--name--composer'
 txt_score_filepath = 'path/to/txt_score'
 mu2_score_filepath = 'path/to/mu2_score'
 
-# instantiate
+# audio filepath
 audio_filepath = 'path/to/audio'
 
 # instantiate analyzer objects
