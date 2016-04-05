@@ -40,26 +40,23 @@ class IO(object):
 
     @staticmethod
     def upper_key_first_letter(upper_dict):
-        udict = {}
-        try:
-            for k, v in upper_dict.iteritems():
-                udict[k[:1].upper() + k[1:]] = \
-                    IO.upper_key_first_letter(v)
-        except AttributeError:  # input is not a dict, return
-            udict = upper_dict
-        return udict
+        return IO._change_key_first_letter(upper_dict, "upper")
 
     @staticmethod
     def lower_key_first_letter(lower_dict):
-        ldict = {}
-        try:
-            for k, v in lower_dict.iteritems():
-                ldict[k[:1].lower() + k[1:]] = \
-                    IO.lower_key_first_letter(v)
-        except AttributeError:  # input is not a dict, return
-            ldict = lower_dict
+        return IO._change_key_first_letter(lower_dict, "lower")
 
-        return ldict
+    @staticmethod
+    def _change_key_first_letter(change_dict, operation):
+        cdict = {}
+        try:
+            for k, v in change_dict.iteritems():
+                cdict[getattr(k[:1], operation) + k[1:]] = \
+                    IO._change_key_first_letter(v, operation)
+        except AttributeError:  # input is not a dict, return
+            cdict = change_dict
+
+        return cdict
 
     @staticmethod
     def to_pickle(features, filepath=None):
