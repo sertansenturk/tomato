@@ -101,11 +101,12 @@ class MCRSetup(object):
         config.read(config_file)
 
         # Download binaries
-        MCRSetup._download_binaries(binary_folder, config, operating_system)
+        for bin_name, bin_url in config.items(operating_system):
+            MCRSetup._download_binary(binary_folder, bin_name, bin_url,
+                                      operating_system)
 
     @staticmethod
-    def _download_binaries(binary_folder, config, sys_os):
-        for bin_name, bin_url in config.items(sys_os):
+    def _download_binary(binary_folder, bin_name, bin_url, op_sys):
             fpath = os.path.join(binary_folder, bin_name)
 
             # download
@@ -114,7 +115,7 @@ class MCRSetup(object):
             if fpath.endswith('.zip'):  # binary in zip
                 with zipfile.ZipFile(StringIO(response.read())) as z:
                     z.extractall(os.path.dirname(fpath))
-                if sys_os == 'macosx':  # actual mac executable is in .app
+                if op_sys == 'macosx':  # actual mac executable is in .app
                     fpath = os.path.splitext(fpath)[0] + '.app'
                 else:  # remove the zip extension
                     fpath = os.path.splitext(fpath)[0]

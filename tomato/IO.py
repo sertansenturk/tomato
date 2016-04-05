@@ -77,16 +77,16 @@ class IO(object):
             json.dump(features, open(filepath, 'w'), indent=4)
 
     @staticmethod
-    def _from_format(input, input_format):
+    def _from_format(input_str, input_format):
         try:  # file given
             return eval(input_format + ".load(open(input))")
         except IOError:  # string given
             return eval(input_format + ".load(input)")
 
     @staticmethod
-    def from_pickle(input):
-        return IO._from_format(input, 'pickle')
+    def from_pickle(input_str):
+        return IO._from_format(input_str, 'pickle')
 
     @staticmethod
-    def from_json(input):
-        return IO._from_format(input, 'json')
+    def from_json(input_str):
+        return IO._from_format(input_str, 'json')
