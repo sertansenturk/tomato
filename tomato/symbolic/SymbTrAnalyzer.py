@@ -61,7 +61,7 @@ class SymbTrAnalyzer(object):
     @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
-            json.dumps(features, indent=4)
+            return json.dumps(features, indent=4)
         else:
             json.dump(features, open(filepath, 'w'), indent=4)
 
@@ -75,7 +75,7 @@ class SymbTrAnalyzer(object):
     @staticmethod
     def to_pickle(features, filepath=None):
         if filepath is None:
-            pickle.dumps(features)
+            return  pickle.dumps(features)
         else:
             pickle.dump(features, open(filepath, 'wb'))
 
