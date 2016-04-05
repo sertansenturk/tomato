@@ -7,7 +7,7 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from musicbrainzngs import NetworkError
 
-from tomato.MCRCaller import MCRCaller
+from tomato.MCR import MCRCaller
 from tomato.IO import IO
 from tomato.ParamSetter import ParamSetter
 

@@ -1,10 +1,7 @@
 #!/usr/bin/env python
-import os
 import subprocess
-import ConfigParser
-import urllib2
-import zipfile
-from StringIO import StringIO
+from tomato.MCR import MCRSetup
+
 try:
     from setuptools import setup
     from setuptools.command.install import install as _install
@@ -13,56 +10,10 @@ except ImportError:
     from distutils.command.install import install as _install
 
 
-def _get_mcr_binaries():
-    """
-    Downloads the binaries compiled by MATLAB Runtime Compiler from
-    tomato_binaries
-    """
-    binary_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 'tomato', 'bin')
-
-    # find os, linux or macosx
-    process_out = subprocess.check_output(['uname']).lower()
-    if any(ss in process_out for ss in ['darwin', 'macosx']):
-        sys_os = 'macosx'
-    elif 'linux' in process_out:
-        sys_os = 'linux'
-    else:
-        raise OSError("Unsupported OS.")
-
-    # read configuration file
-    config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'tomato', 'config', 'bin.cfg')
-    config = ConfigParser.ConfigParser()
-    config.optionxform = str
-    config.read(config_file)
-
-    # Download binaries
-    for bin_name, bin_url in config.items(sys_os):
-        fpath = os.path.join(binary_folder, bin_name)
-
-        # download
-        print("- Downloading binary: " + bin_url)
-        response = urllib2.urlopen(bin_url)
-        if fpath.endswith('.zip'):  # binary in zip
-            with zipfile.ZipFile(StringIO(response.read())) as z:
-                z.extractall(os.path.dirname(fpath))
-            if sys_os == 'macosx':  # mac executables are actually in an app
-                fpath = os.path.splitext(fpath)[0] + '.app'
-            else:  # remove the zip extension
-                fpath = os.path.splitext(fpath)[0]
-        else:  # binary itself
-            with open(fpath, 'w+') as fp:
-                fp.write(response.read())
-
-        # make the binary executalbe
-        subprocess.call(["chmod -R +x " + fpath], shell=True)
-
-
 class CustomInstall(_install):
     def run(self):
         # download the binaries
-        self.execute(_get_mcr_binaries, (),
+        self.execute(MCRSetup.setup_binaries(), (),
                      msg="Downloading the binaries from tomato_binaries.")
 
         # install tomato

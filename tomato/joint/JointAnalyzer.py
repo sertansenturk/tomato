@@ -8,7 +8,7 @@ from copy import deepcopy
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
-from tomato.MCRCaller import MCRCaller
+from tomato.MCR import MCRCaller
 from tomato.IO import IO
 from tomato.ParamSetter import ParamSetter
 from tomato.Plotter import Plotter

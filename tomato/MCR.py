@@ -1,6 +1,9 @@
 import ConfigParser
 import os
 import subprocess
+import urllib2
+import zipfile
+from StringIO import StringIO
 
 
 class MCRCaller(object):
@@ -41,6 +44,12 @@ class MCRCaller(object):
         env_var = config.get(section_str, 'env_var')
         mcr_path = config.get(section_str, 'mcr_path')
         set_paths = config.get(section_str, 'set_paths')
+        cls._check_mcr_config(env_var, mcr_path)
+
+        return op_sys, env_var, mcr_path, set_paths
+
+    @classmethod
+    def _check_mcr_config(cls, env_var, mcr_path):
         if env_var and mcr_path:
             # MCR installation path is not found
             if not os.path.exists(mcr_path):
@@ -53,8 +62,6 @@ class MCRCaller(object):
                              'Please reconfigure manually.')
         else:
             raise ValueError('Empty fields in the section')
-
-        return op_sys, env_var, mcr_path, set_paths
 
     def get_binary_path(self, bin_name):
         if self.sys_os == 'linux':
@@ -71,3 +78,61 @@ class MCRCaller(object):
             raise IOError('Binary does not exist: ' + bin_path)
 
         return bin_path
+
+
+class MCRSetup(object):
+    @staticmethod
+    def setup_binaries():
+        """
+        Downloads the binaries compiled by MATLAB Runtime Compiler from
+        tomato_binaries
+        """
+        binary_folder = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'tomato', 'bin')
+
+        operating_system = MCRSetup._get_os()
+
+        # read configuration file
+        config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                   'tomato', 'config', 'bin.cfg')
+        config = ConfigParser.ConfigParser()
+        config.optionxform = str
+        config.read(config_file)
+
+        # Download binaries
+        MCRSetup._download_binaries(binary_folder, config, operating_system)
+
+    @staticmethod
+    def _download_binaries(binary_folder, config, sys_os):
+        for bin_name, bin_url in config.items(sys_os):
+            fpath = os.path.join(binary_folder, bin_name)
+
+            # download
+            print("- Downloading binary: " + bin_url)
+            response = urllib2.urlopen(bin_url)
+            if fpath.endswith('.zip'):  # binary in zip
+                with zipfile.ZipFile(StringIO(response.read())) as z:
+                    z.extractall(os.path.dirname(fpath))
+                if sys_os == 'macosx':  # actual mac executable is in .app
+                    fpath = os.path.splitext(fpath)[0] + '.app'
+                else:  # remove the zip extension
+                    fpath = os.path.splitext(fpath)[0]
+            else:  # binary itself
+                with open(fpath, 'w+') as fp:
+                    fp.write(response.read())
+
+            # make the binary executalbe
+            subprocess.call(["chmod -R +x " + fpath], shell=True)
+
+    @staticmethod
+    def _get_os():
+        # find os, linux or macosx
+        process_out = subprocess.check_output(['uname']).lower()
+        if any(ss in process_out for ss in ['darwin', 'macosx']):
+            sys_os = 'macosx'
+        elif 'linux' in process_out:
+            sys_os = 'linux'
+        else:
+            raise OSError("Unsupported OS.")
+
+        return sys_os
