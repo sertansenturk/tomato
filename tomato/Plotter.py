@@ -28,15 +28,15 @@ class Plotter(object):
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
         fig.subplots_adjust(hspace=0, wspace=0)
 
-        # plot pitch distribution to the second subplot
-        ax2.plot(pitch_distribution.vals, pitch_distribution.bins)
-
         # plot notes
         if notes is not None:
             for note in notes:
                 ax1.plot(note['interval'], [note['performedPitch']['value'],
                                             note['performedPitch']['value']],
                          'r', alpha=0.4, linewidth=4)
+
+        # plot pitch distribution to the second subplot
+        ax2.plot(pitch_distribution.vals, pitch_distribution.bins)
 
         # plot stable pitches to the second subplot
         max_rel_occur = 0

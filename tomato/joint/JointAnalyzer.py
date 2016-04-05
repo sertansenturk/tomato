@@ -4,11 +4,8 @@ import cStringIO
 import tempfile
 import numpy as np
 from copy import deepcopy
-from matplotlib import gridspec
-import matplotlib.pyplot as plt
 
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
-from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
 from tomato.MCRCaller import MCRCaller
