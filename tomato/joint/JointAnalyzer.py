@@ -14,6 +14,7 @@ from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
 from tomato.ParamSetter import ParamSetter
+from tomato.Plotter import Plotter
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -288,131 +289,18 @@ class JointAnalyzer(ParamSetter):
         pitch = np.array(deepcopy(
             summarized_features['audio']['pitch']['pitch']))
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
-        pd_copy = summarized_features['audio']['pitch_distribution']
+        pitch_distribution = deepcopy(
+            summarized_features['audio']['pitch_distribution'])
         try:  # convert the bins to hz, if they are given in cents
-            pd_copy.cent_to_hz()
+            pitch_distribution.cent_to_hz()
         except ValueError:
             pass
         note_models = deepcopy(summarized_features['joint']['note_models'])
+        melodic_progression = deepcopy(
+            summarized_features['audio']['melodic_progression'])
         aligned_notes = deepcopy(summarized_features['joint']['notes'])
 
-        # create the figure with four subplots with different size
-        # first is for the predominant melody
-        # second is the pitch distribution, it shares the y axis with the first
-        # third is the melodic progression, it shares the x axis with the first
-        # fourth is not used
-        fig = plt.figure()
-        gs = gridspec.GridSpec(2, 2, width_ratios=[6, 1], height_ratios=[4, 1])
-        ax1 = fig.add_subplot(gs[0])
-        ax2 = fig.add_subplot(gs[1], sharey=ax1)
-        ax3 = fig.add_subplot(gs[2], sharex=ax1)
-
-        plt.setp(ax1.get_xticklabels(), visible=False)
-        plt.setp(ax2.get_yticklabels(), visible=False)
-        plt.setp(ax3.get_yticklabels(), visible=False)
-
-        # plot pitch track
-        ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
-        fig.subplots_adjust(hspace=0, wspace=0)
-
-        # plot pitch distribution to the second subplot
-        ax2.plot(pd_copy.vals, pd_copy.bins,
-                 '-.', color='#000000', alpha=0.9)
-
-        # plot aligned notes
-        for note in aligned_notes:
-            ax1.plot(note['interval'], [note['performedPitch']['value'],
-                                        note['performedPitch']['value']],
-                     'r', alpha=0.4, linewidth=4)
-
-        # plot stable pitches to the second subplot
-        max_rel_occur = 0
-        for note_symbol, note in note_models.iteritems():
-            # get the relative occurence of each note from the pitch
-            # distribution
-            dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
-                              for dist_bin in pd_copy.bins])
-            peak_ind = np.argmin(dists)
-            note['rel_occur'] = pd_copy.vals[peak_ind]
-            max_rel_occur = max([max_rel_occur, note['rel_occur']])
-
-        for key in note_models.keys():
-            ax2.plot(note_models[key]['distribution'].vals,
-                     note_models[key]['distribution'].bins, label=key)
-
-        ytick_vals = []
-        for note_symbol, note in note_models.iteritems():
-            if note['rel_occur'] > max_rel_occur * 0.1:
-                ytick_vals.append(note['stable_pitch']['value'])
-
-                # plot the performed frequency as a dashed line
-                ax2.hlines(y=note['theoretical_pitch']['value'], xmin=0,
-                           xmax=note['rel_occur'], linestyles='dashed')
-
-                # mark notes
-                if note['performed_interval']['value'] == 0.0:  # tonic
-                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
-                             'cD', ms=10)
-                else:
-                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
-                             'cD', ms=6, c='r')
-
-                # print note name, lift the text a little bit
-                txt_x_val = (note['rel_occur'] +
-                             0.03 * max(pd_copy.vals))
-                txt_str = ', '.join(
-                    [note_symbol,
-                     str(int(round(note['performed_interval']['value']))) +
-                     ' cents'])
-                ax2.text(txt_x_val, note['stable_pitch']['value'], txt_str,
-                         style='italic', horizontalalignment='left',
-                         verticalalignment='center')
-
-        # plot melodic progression
-        AudioSeyirAnalyzer.plot(
-            summarized_features['audio']['melodic_progression'], ax3)
-
-        # ylabel
-        ax1.set_ylabel('Frequency (Hz)')
-        ax3.set_ylabel('')  # remove the automatically given ylabel (frequency)
-
-        # set time xticks
-        if pitch[-1, 0] > 60:
-            xtick_vals = np.arange(pitch[0, 0], pitch[-1, 0], 30)  # 30 sec
-            ax3.set_xticks(xtick_vals)
-
-        # define xlim higher than the highest peak so the note names have space
-        ax2.set_xlim([0, 1.2 * max(pd_copy.vals)])
-
-        # remove the axis of the subplot 2
-        ax2.axis('off')
-
-        # set the frequency ticks and grids
-        ax1.xaxis.grid(True)
-
-        ax1.set_yticks(ytick_vals)
-        ax1.yaxis.grid(True)
-
-        ax2.set_yticks(ytick_vals)
-        ax2.yaxis.grid(True)
-
-        ax3.xaxis.grid(True)
-
-        # remove spines from the second subplot
-        ax2.spines['top'].set_visible(False)
-        ax2.spines['bottom'].set_visible(False)
-        ax2.spines['left'].set_visible(False)
-        ax2.spines['right'].set_visible(False)
-
-        # set xlim to the last time in the pitch track
-        ax3.set_xlim([pitch[0, 0], pitch[-1, 0]])
-        ax3.set_ylim([np.min(pd_copy.bins),
-                      np.max(pd_copy.bins)])
-
-        # remove the spines from the third subplot
-        ax3.spines['bottom'].set_visible(False)
-        ax3.spines['left'].set_visible(False)
-        ax3.spines['right'].set_visible(False)
-        ax3.get_yaxis().set_ticks([])
-
-        return fig, (ax1, ax2, ax3)
+        return Plotter.plot_audio_features(
+            pitch=pitch, pitch_distribution=pitch_distribution,
+            notes=aligned_notes, note_models=note_models,
+            melodic_progression=melodic_progression)
