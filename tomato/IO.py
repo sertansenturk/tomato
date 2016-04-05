@@ -1,7 +1,7 @@
 import tempfile
 import os
 import pickle
-import json
+from json_tricks import np as json
 
 
 class IO(object):
@@ -74,3 +74,17 @@ class IO(object):
             return pickle.load(open(filepath, 'rb'))
         except IOError:  # string given
             return pickle.loads(filepath)
+
+    @staticmethod
+    def to_json(features, filepath=None):
+        if filepath is None:
+            return json.dumps(features, indent=4)
+        else:
+            json.dump(features, open(filepath, 'w'), indent=4)
+
+    @staticmethod
+    def from_json(filepath):
+        try:
+            return json.load(open(filepath, 'r'))
+        except IOError:  # string given
+            return json.loads(filepath)

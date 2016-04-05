@@ -1,5 +1,4 @@
 import json
-import pickle
 import os
 import warnings
 
@@ -58,20 +57,6 @@ class SymbTrAnalyzer(object):
             warnings.warn(symbtr_name + ' has validation problems.')
 
         return score_data
-
-    @staticmethod
-    def to_json(features, filepath=None):
-        if filepath is None:
-            return json.dumps(features, indent=4)
-        else:
-            json.dump(features, open(filepath, 'w'), indent=4)
-
-    @staticmethod
-    def from_json(filepath):
-        try:
-            return json.load(open(filepath, 'r'))
-        except IOError:  # string given
-            return json.loads(filepath)
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:

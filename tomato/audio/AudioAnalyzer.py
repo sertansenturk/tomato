@@ -9,7 +9,6 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 import numpy as np
 from copy import deepcopy
 import json
-import pickle
 from matplotlib import gridspec
 import matplotlib.pyplot as plt
 
@@ -244,63 +243,6 @@ class AudioAnalyzer(object):
 
         for key, value in kwargs.items():
             setattr(self._noteModeler, key, value)
-
-    @staticmethod
-    def to_json(features, filepath=None):
-        save_features = deepcopy(features)
-
-        try:
-            save_features['pitch']['pitch'] = save_features['pitch'][
-                'pitch'].tolist()
-        except AttributeError:
-            pass  # already converted to list of lists
-
-        for mp in save_features['melodic_progression']:
-            try:
-                mp['pitch_distribution'] = mp['pitch_distribution'].to_dict()
-            except AttributeError:
-                pass  # already converted to dict
-
-        try:
-            save_features['pitch_distribution'] = \
-                save_features['pitch_distribution'].to_dict()
-        except AttributeError:
-            pass  # already converted to dict
-
-        try:
-            save_features['pitch_class_distribution'] = \
-                save_features['pitch_class_distribution'].to_dict()
-        except AttributeError:
-            pass  # already converted to dict devoid of numpy stuff
-
-        if filepath is None:  # dump string
-            return json.dumps(save_features, indent=4)
-        else:
-            json.dump(save_features, open(filepath, 'w'), indent=4)
-
-    @staticmethod
-    def from_json(filepath):
-        try:
-            features = json.load(open(filepath, 'r'))
-        except IOError:  # string given
-            features = json.loads(filepath)
-
-        # instantiate pitch distribution objects
-        features['pitch_distribution'] = PitchDistribution.from_dict(
-            features['pitch_distribution'])
-        features['pitch_class_distribution'] = PitchDistribution.from_dict(
-            features['pitch_class_distribution'])
-        for mp in features['melodic_progression']:
-            try:
-                mp['pitch_distribution'] = PitchDistribution.from_dict(
-                    mp['pitch_distribution'])
-            except TypeError:
-                # the slice does not have the pitch distribution computed
-                # because there was no pitch value in the slice. This
-                # usually occurs in the last slice, which is typically short
-                # and silent
-                pass
-        return features
 
     @staticmethod
     def plot(features):

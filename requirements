@@ -35,6 +35,7 @@ git+https://github.com/sertansenturk/alignednotemodel.git@v1.1#egg=alignednotemo
 numpy  # numerical operations
 scipy  # temporary mat file saving for MCR binary inputs
 matplotlib  # plotting
+json-tricks  # saving json files with classes and numpy arrays
 
 # metadata crawling from musicbrainz
 git+https://github.com/alastair/python-musicbrainzngs.git

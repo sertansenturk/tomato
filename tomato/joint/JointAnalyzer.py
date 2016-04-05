@@ -2,7 +2,6 @@ import json
 from scipy.io import savemat
 import cStringIO
 import tempfile
-import pickle
 import numpy as np
 from copy import deepcopy
 from matplotlib import gridspec
@@ -99,27 +98,6 @@ class JointAnalyzer(object):
         sdict['joint']['note_models'] = joint_features['note_models']
 
         return sdict
-
-    @staticmethod
-    def to_json(features, filepath=None):
-        save_features = deepcopy(features)
-        try:
-            save_features['pitch']['pitch'] = save_features['pitch'][
-                'pitch'].tolist()
-        except AttributeError:
-            pass  # already converted to list of lists
-
-        if filepath is None:
-            return json.dumps(save_features, indent=4)
-        else:
-            json.dump(save_features, open(filepath, 'w'), indent=4)
-
-    @staticmethod
-    def from_json(filepath):
-        try:
-            return json.load(open(filepath, 'r'))
-        except IOError:  # string given
-            return json.loads(filepath)
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
