@@ -9,12 +9,13 @@ from musicbrainzngs import NetworkError
 
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
+from tomato.ParamSetter import ParamSetter
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
 
 
-class SymbTrAnalyzer(object):
+class SymbTrAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
         self.verbose = verbose
 
@@ -136,10 +137,4 @@ class SymbTrAnalyzer(object):
         return data, is_data_valid
 
     def set_data_extractor_params(self, **kwargs):
-        if any(key not in self._dataExtractor.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._dataExtractor.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._dataExtractor, key, value)
+        self.set_params('_dataExtractor', **kwargs)
