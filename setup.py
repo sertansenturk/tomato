@@ -73,7 +73,7 @@ class CustomInstall(_install):
 
 
 setup(name='tomato',
-      version='0.2',
+      version='0.3',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
