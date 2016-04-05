@@ -13,12 +13,13 @@ from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
+from tomato.ParamSetter import ParamSetter
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
 
 
-class JointAnalyzer(object):
+class JointAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
         self.verbose = verbose
 
@@ -270,23 +271,17 @@ class JointAnalyzer(object):
 
         return note_models, pitch_distibution, tonic
 
-    def set_pitch_filter_params(self, **kwargs):
-        if any(key not in self._alignedPitchFilter.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._alignedPitchFilter.__dict__.keys()))
+    def set_tonic_tempo_extractor_params(self, **kwargs):
+        raise NotImplementedError
 
-        for key, value in kwargs.items():
-            setattr(self._alignedPitchFilter, key, value)
+    def set_audio_score_aligner_params(self, **kwargs):
+        raise NotImplementedError
+
+    def set_pitch_filter_params(self, **kwargs):
+        self._set_params('_alignedPitchFilter', **kwargs)
 
     def set_note_model_params(self, **kwargs):
-        if any(key not in self._alignedNoteModel.__dict__.keys()
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                self._alignedNoteModel.__dict__.keys()))
-
-        for key, value in kwargs.items():
-            setattr(self._alignedNoteModel, key, value)
+        self._set_params('_alignedNoteModel', **kwargs)
 
     @staticmethod
     def plot(summarized_features):
