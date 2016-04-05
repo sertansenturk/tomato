@@ -6,6 +6,10 @@ import pickle
 
 class IO(object):
     @staticmethod
+    def get_abspath_from_relpath_in_tomato(*args):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), *args)
+
+    @staticmethod
     def create_temp_file(extension, contentstr):
         fd, temp_path = tempfile.mkstemp(extension)
         open_mode = 'wb' if extension in ['.mat'] else 'w'

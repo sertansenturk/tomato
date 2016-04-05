@@ -5,6 +5,8 @@ import urllib2
 import zipfile
 from StringIO import StringIO
 
+from tomato.IO import IO
+
 
 class MCRCaller(object):
     def __init__(self):
@@ -87,8 +89,7 @@ class MCRSetup(object):
         Downloads the binaries compiled by MATLAB Runtime Compiler from
         tomato_binaries
         """
-        binary_folder = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'tomato', 'bin')
+        binary_folder = IO.get_abspath_from_relpath_in_tomato('bin')
 
         operating_system = MCRSetup._get_os()
 

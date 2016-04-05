@@ -100,9 +100,8 @@ class SymbTrAnalyzer(ParamSetter):
 
     @staticmethod
     def _get_phrase_seg_training():
-        phrase_seg_training_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'phrase_segmentation')
+        phrase_seg_training_path = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'phrase_segmentation')
         bound_stat_file = os.path.join(
             phrase_seg_training_path, 'boundStat.mat')
         fld_model_file = os.path.join(
