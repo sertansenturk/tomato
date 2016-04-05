@@ -1,3 +1,8 @@
+import numpy as np
+from copy import deepcopy
+from matplotlib import gridspec
+import matplotlib.pyplot as plt
+
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 from pitchfilter.PitchFilter import PitchFilter
@@ -6,11 +11,6 @@ from tonicidentifier.TonicLastNote import TonicLastNote
 from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 from notemodel.NoteModel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
-import numpy as np
-from copy import deepcopy
-import json
-from matplotlib import gridspec
-import matplotlib.pyplot as plt
 
 
 class AudioAnalyzer(object):
