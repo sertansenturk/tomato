@@ -28,61 +28,16 @@ class Plotter(object):
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
         fig.subplots_adjust(hspace=0, wspace=0)
 
-        # plot notes
+        # plot performed notes
         if notes is not None:
-            for note in notes:
-                ax1.plot(note['interval'], [note['performedPitch']['value'],
-                                            note['performedPitch']['value']],
-                         'r', alpha=0.4, linewidth=4)
+            Plotter._plot_notes(ax1, notes)
 
         # plot pitch distribution to the second subplot
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins)
 
-        # plot stable pitches to the second subplot
-        max_rel_occur = 0
-        for note_symbol, note in note_models.iteritems():
-            # get the relative occurence of each note from the pitch
-            # distribution
-            dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
-                              for dist_bin in pitch_distribution.bins])
-            peak_ind = np.argmin(dists)
-            note['rel_occur'] = pitch_distribution.vals[peak_ind]
-            max_rel_occur = max([max_rel_occur, note['rel_occur']])
-
-        ytick_vals = []
-        for note_symbol, note in note_models.iteritems():
-            try:
-                ax2.plot(note_models[note_symbol]['distribution'].vals,
-                         note_models[note_symbol]['distribution'].bins,
-                         label=note_symbol)
-            except KeyError:
-                pass  # note model is not available
-
-            if note['rel_occur'] > max_rel_occur * 0.1:
-                ytick_vals.append(note['stable_pitch']['value'])
-
-                # plot the performed frequency as a dashed line
-                ax2.hlines(y=note['theoretical_pitch']['value'], xmin=0,
-                           xmax=note['rel_occur'], linestyles='dashed')
-
-                # mark notes
-                if note['performed_interval']['value'] == 0.0:  # tonic
-                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
-                             'cD', ms=10)
-                else:
-                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
-                             'cD', ms=6, c='r')
-
-                # print note name, lift the text a little bit
-                txt_x_val = (note['rel_occur'] +
-                             0.03 * max(pitch_distribution.vals))
-                txt_str = ', '.join(
-                    [note_symbol,
-                     str(int(round(note['performed_interval']['value']))) +
-                     ' cents'])
-                ax2.text(txt_x_val, note['stable_pitch']['value'], txt_str,
-                         style='italic', horizontalalignment='left',
-                         verticalalignment='center')
+        # note models
+        ytick_vals = Plotter._plot_note_models(
+            ax2, note_models, pitch_distribution)
 
         # plot melodic progression
         AudioSeyirAnalyzer.plot(melodic_progression, ax3)
@@ -131,3 +86,63 @@ class Plotter(object):
         ax3.get_yaxis().set_ticks([])
 
         return fig, (ax1, ax2, ax3)
+
+    @staticmethod
+    def _plot_note_models(ax2, note_models, pitch_distribution):
+        # plot stable pitches to the second subplot
+        max_rel_occur = 0
+        for note_symbol, note in note_models.iteritems():
+            # get the relative occurence of each note from the pitch
+            # distribution
+            dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
+                              for dist_bin in pitch_distribution.bins])
+            peak_ind = np.argmin(dists)
+            note['rel_occur'] = pitch_distribution.vals[peak_ind]
+            max_rel_occur = max([max_rel_occur, note['rel_occur']])
+        Plotter._plot_note_distributions(ax2, note_models)
+        ytick_vals = []
+        for note_symbol, note in note_models.iteritems():
+            if note['rel_occur'] > max_rel_occur * 0.1:
+                ytick_vals.append(note['stable_pitch']['value'])
+
+                # plot the performed frequency as a dashed line
+                ax2.hlines(y=note['theoretical_pitch']['value'], xmin=0,
+                           xmax=note['rel_occur'], linestyles='dashed')
+
+                # mark notes
+                if note['performed_interval']['value'] == 0.0:  # tonic
+                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
+                             'cD', ms=10)
+                else:
+                    ax2.plot(note['rel_occur'], note['stable_pitch']['value'],
+                             'cD', ms=6, c='r')
+
+                # print note name, lift the text a little bit
+                txt_x_val = (note['rel_occur'] +
+                             0.03 * max(pitch_distribution.vals))
+                txt_str = ', '.join(
+                    [note_symbol,
+                     str(int(round(note['performed_interval']['value']))) +
+                     ' cents'])
+                ax2.text(txt_x_val, note['stable_pitch']['value'], txt_str,
+                         style='italic', horizontalalignment='left',
+                         verticalalignment='center')
+
+        return ytick_vals
+
+    @staticmethod
+    def _plot_note_distributions(ax, note_models):
+        for note_symbol, note in note_models.iteritems():
+            try:
+                ax.plot(note_models[note_symbol]['distribution'].vals,
+                        note_models[note_symbol]['distribution'].bins,
+                        label=note_symbol)
+            except KeyError:
+                pass  # note model is not available
+
+    @staticmethod
+    def _plot_notes(ax, notes):
+        for note in notes:
+            ax.plot(note['interval'], [note['performedPitch']['value'],
+                                       note['performedPitch']['value']],
+                    'r', alpha=0.4, linewidth=4)
