@@ -99,12 +99,13 @@ class SymbTrAnalyzer(object):
 
     @staticmethod
     def _get_phrase_seg_training():
+        phrase_seg_training_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', 'models', 'phrase_segmentation')
         bound_stat_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'phrase_segmentation', 'boundStat.mat')
+            phrase_seg_training_path, 'boundStat.mat')
         fld_model_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'phrase_segmentation', 'FLDmodel.mat')
+            phrase_seg_training_path, 'FLDmodel.mat')
 
         return bound_stat_file, fld_model_file
 
