@@ -5,12 +5,15 @@ import tempfile
 import pickle
 import numpy as np
 from copy import deepcopy
-from tomato.MCRCaller import MCRCaller
+from matplotlib import gridspec
+import matplotlib.pyplot as plt
+
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
-from matplotlib import gridspec
-import matplotlib.pyplot as plt
+
+from tomato.MCRCaller import MCRCaller
+from tomato.IO import IO
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -139,14 +142,14 @@ class JointAnalyzer(object):
                   audio_filename)
 
         # create the temporary input and output files wanted by the binary
-        temp_score_data_file = _mcr_caller.create_temp_file(
+        temp_score_data_file = IO.create_temp_file(
             '.json', json.dumps(score_data))
 
         # matlab
         matout = cStringIO.StringIO()
         savemat(matout, audio_pitch)
 
-        temp_pitch_file = _mcr_caller.create_temp_file(
+        temp_pitch_file = IO.create_temp_file(
             '.mat', matout.getvalue())
 
         temp_out_folder = tempfile.mkdtemp()
@@ -161,17 +164,17 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Tonic-Tempo-Tuning Extraction took" not in out:
-            _mcr_caller.remove_temp_files(
+            IO.remove_temp_files(
                 temp_score_data_file, temp_pitch_file, temp_out_folder)
             raise IOError("Score-informed tonic, tonic and tuning "
                           "extraction is not successful. Please "
                           "check and report the error in the terminal.")
 
-        out_dict = _mcr_caller.load_json_from_temp_folder(
+        out_dict = IO.load_json_from_temp_folder(
             temp_out_folder, ['tempo', 'tonic', 'tuning'])
 
         # unlink the temporary files
-        _mcr_caller.remove_temp_files(
+        IO.remove_temp_files(
             temp_score_data_file, temp_pitch_file, temp_out_folder)
 
         # tidy outouts
@@ -180,17 +183,17 @@ class JointAnalyzer(object):
         procedure = 'Score informed joint tonic and tempo extraction'
 
         tonic = out_dict['tonic']['scoreInformed']
-        tonic = _mcr_caller.lower_key_first_letter(tonic)
+        tonic = IO.lower_key_first_letter(tonic)
         tonic['procedure'] = procedure
         tonic['source'] = audio_filename
 
         tempo = out_dict['tempo']['scoreInformed']
-        tempo['average'] = _mcr_caller.lower_key_first_letter(tempo['average'])
+        tempo['average'] = IO.lower_key_first_letter(tempo['average'])
         tempo['average']['procedure'] = procedure
         tempo['average']['source'] = audio_filename
         tempo['average'].pop("method", None)
 
-        tempo['relative'] = _mcr_caller.lower_key_first_letter(
+        tempo['relative'] = IO.lower_key_first_letter(
             tempo['relative'])
         tempo['relative']['procedure'] = procedure
         tempo['relative']['source'] = audio_filename
@@ -206,30 +209,30 @@ class JointAnalyzer(object):
                   % (audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
-        temp_score_data_file = _mcr_caller.create_temp_file(
+        temp_score_data_file = IO.create_temp_file(
             '.json', json.dumps(score_data))
 
         # tonic has to be enclosed in the key 'score_informed' and all the
         # keys have to start with a capital letter
-        audio_tonic_ = _mcr_caller.upper_key_first_letter(audio_tonic)
-        temp_tonic_file = _mcr_caller.create_temp_file(
+        audio_tonic_ = IO.upper_key_first_letter(audio_tonic)
+        temp_tonic_file = IO.create_temp_file(
             '.json', json.dumps({'scoreInformed': audio_tonic_}))
 
         # tempo has to be enclosed in the key 'score_informed' and all the
         # keys have to start with a capital letter
         audio_tempo_ = deepcopy(audio_tempo)
-        audio_tempo_['relative'] = _mcr_caller.upper_key_first_letter(
+        audio_tempo_['relative'] = IO.upper_key_first_letter(
             audio_tempo['relative'])
-        audio_tempo_['average'] = _mcr_caller.upper_key_first_letter(
+        audio_tempo_['average'] = IO.upper_key_first_letter(
             audio_tempo['average'])
-        temp_tempo_file = _mcr_caller.create_temp_file(
+        temp_tempo_file = IO.create_temp_file(
             '.json', json.dumps({'scoreInformed': audio_tempo_}))
 
         # matlab
         matout = cStringIO.StringIO()
         savemat(matout, audio_pitch)
 
-        temp_pitch_file = _mcr_caller.create_temp_file(
+        temp_pitch_file = IO.create_temp_file(
             '.mat', matout.getvalue())
 
         temp_out_folder = tempfile.mkdtemp()
@@ -244,21 +247,20 @@ class JointAnalyzer(object):
 
         # check the MATLAB output
         if "Audio-score alignment took" not in out:
-            _mcr_caller.remove_temp_files(
+            IO.remove_temp_files(
                 temp_score_data_file, temp_tonic_file, temp_tempo_file,
                 temp_pitch_file, temp_out_folder)
             raise IOError("Audio score alignment is not successful. Please "
                           "check and report the error in the terminal.")
 
-        out_dict = _mcr_caller.load_json_from_temp_folder(
+        out_dict = IO.load_json_from_temp_folder(
             temp_out_folder, ['sectionLinks', 'alignedNotes'])
 
         # unlink the temporary files
-        _mcr_caller.remove_temp_files(
-            temp_score_data_file, temp_tonic_file, temp_tempo_file,
-            temp_pitch_file, temp_out_folder)
+        IO.remove_temp_files(temp_score_data_file, temp_tonic_file,
+                             temp_tempo_file, temp_pitch_file, temp_out_folder)
 
-        notes = [_mcr_caller.lower_key_first_letter(n)
+        notes = [IO.lower_key_first_letter(n)
                  for n in out_dict['alignedNotes']['notes']]
 
         return (out_dict['sectionLinks']['links'], notes,
@@ -268,13 +270,13 @@ class JointAnalyzer(object):
         if self.verbose:
             print("- Filtering predominant melody of %s after audio-score "
                   "alignment." % (pitch['source']))
-        aligned_notes_ = [_mcr_caller.upper_key_first_letter(n)
+        aligned_notes_ = [IO.upper_key_first_letter(n)
                           for n in deepcopy(aligned_notes)]
 
         pitch_temp, notes_filtered, synth_pitch = \
             self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
 
-        notes_filtered = [_mcr_caller.lower_key_first_letter(n)
+        notes_filtered = [IO.lower_key_first_letter(n)
                           for n in notes_filtered]
 
         pitch_filtered = deepcopy(pitch)
@@ -289,17 +291,17 @@ class JointAnalyzer(object):
         if self.verbose:
             print("- Computing the note models for " + pitch['source'])
 
-        aligned_notes_ = [_mcr_caller.upper_key_first_letter(n)
+        aligned_notes_ = [IO.upper_key_first_letter(n)
                           for n in deepcopy(aligned_notes)]
 
         note_models, pitch_distibution, tonic = self._alignedNoteModel.\
             get_models(pitch['pitch'], aligned_notes_, tonic_symbol)
 
         for note in note_models.keys():
-            note_models[note] = _mcr_caller.lower_key_first_letter(
+            note_models[note] = IO.lower_key_first_letter(
                 note_models[note])
 
-        tonic = _mcr_caller.lower_key_first_letter(tonic['alignment'])
+        tonic = IO.lower_key_first_letter(tonic['alignment'])
         tonic['source'] = pitch['source']
 
         return note_models, pitch_distibution, tonic
@@ -356,7 +358,7 @@ class JointAnalyzer(object):
 
         # plot pitch distribution to the second subplot
         ax2.plot(pd_copy.vals, pd_copy.bins,
-                 '-.', color = '#000000', alpha = 0.9)
+                 '-.', color='#000000', alpha=0.9)
 
         # plot aligned notes
         for note in aligned_notes:

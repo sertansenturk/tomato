@@ -9,6 +9,7 @@ from symbtrextras.ScoreExtras import ScoreExtras
 from musicbrainzngs import NetworkError
 
 from tomato.MCRCaller import MCRCaller
+from tomato.IO import IO
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
@@ -75,7 +76,7 @@ class SymbTrAnalyzer(object):
     @staticmethod
     def to_pickle(features, filepath=None):
         if filepath is None:
-            return  pickle.dumps(features)
+            return pickle.dumps(features)
         else:
             pickle.dump(features, open(filepath, 'wb'))
 
@@ -96,9 +97,9 @@ class SymbTrAnalyzer(object):
             symbtr_name = os.path.basename(txt_filename)
 
         # create the temporary input and output files wanted by the binary
-        temp_in_file = _mcr_caller.create_temp_file(
+        temp_in_file = IO.create_temp_file(
             '.json', json.dumps([{'path': txt_filename, 'name': symbtr_name}]))
-        temp_out_file = _mcr_caller.create_temp_file('.json', '')
+        temp_out_file = IO.create_temp_file('.json', '')
 
         # get the pretrained model
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
@@ -113,7 +114,7 @@ class SymbTrAnalyzer(object):
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code
         if "segmentation complete!" not in out:
-            _mcr_caller.remove_temp_files(temp_in_file, temp_out_file)
+            IO.remove_temp_files(temp_in_file, temp_out_file)
             raise IOError("Phrase segmentation is not successful. Please "
                           "check and report the error in the terminal.")
 
@@ -121,7 +122,7 @@ class SymbTrAnalyzer(object):
         phrase_boundaries = json.load(open(temp_out_file))
 
         # unlink the temporary files
-        _mcr_caller.remove_temp_files(temp_in_file, temp_out_file)
+        IO.remove_temp_files(temp_in_file, temp_out_file)
 
         return phrase_boundaries
 
