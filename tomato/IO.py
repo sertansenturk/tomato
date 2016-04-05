@@ -60,3 +60,17 @@ class IO(object):
             ldict = lower_dict
 
         return ldict
+
+    @staticmethod
+    def to_pickle(features, filepath=None):
+        if filepath is None:
+            return pickle.dumps(features)
+        else:
+            pickle.dump(features, open(filepath, 'wb'))
+
+    @staticmethod
+    def from_pickle(filepath):
+        try:
+            return pickle.load(open(filepath, 'rb'))
+        except IOError:  # string given
+            return pickle.loads(filepath)

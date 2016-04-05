@@ -303,20 +303,6 @@ class AudioAnalyzer(object):
         return features
 
     @staticmethod
-    def to_pickle(features, filepath=None):
-        if filepath is None:
-            pickle.dumps(features)
-        else:
-            pickle.dump(features, open(filepath, 'wb'))
-
-    @staticmethod
-    def from_pickle(filepath):
-        try:
-            return pickle.load(open(filepath, 'rb'))
-        except IOError:  # string given
-            return pickle.loads(filepath)
-
-    @staticmethod
     def plot(features):
         pitch = np.array(deepcopy(features['pitch_filtered']['pitch']))
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
