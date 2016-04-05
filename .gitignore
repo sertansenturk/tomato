@@ -5,6 +5,7 @@
 .*
 !.gitignore
 !.travis.yml
+!.codeclimate.yml
 build/
 dist/
 *alignAudioScore*
