@@ -1,7 +1,7 @@
 import tempfile
 import os
-import pickle
 from json_tricks import np as json
+import pickle
 
 
 class IO(object):
