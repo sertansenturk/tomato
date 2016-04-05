@@ -187,16 +187,16 @@ class AudioAnalyzer(ParamSetter):
                                                  tonic['value'], makamstr)
 
     def set_pitch_extractor_params(self, **kwargs):
-        self.set_params('_pitchExtractor', **kwargs)
+        self._set_params('_pitchExtractor', **kwargs)
 
     def set_pitch_filter_params(self, **kwargs):
-        self.set_params('_pitchFilter', **kwargs)
+        self._set_params('_pitchFilter', **kwargs)
 
     def set_pitch_distibution_params(self, **kwargs):
-        self.set_params('_pd_params', **kwargs)
+        self._set_params('_pd_params', **kwargs)
 
     def set_tonic_identifier_params(self, **kwargs):
-        self.set_params('_tonicIdentifier', **kwargs)
+        self._set_params('_tonicIdentifier', **kwargs)
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
@@ -215,7 +215,7 @@ class AudioAnalyzer(ParamSetter):
                 raise KeyError("Unexpected key error")
 
     def set_note_modeler_params(self, **kwargs):
-        self.set_params('_noteModeler', **kwargs)
+        self._set_params('_noteModeler', **kwargs)
 
     @staticmethod
     def plot(features):

@@ -137,4 +137,4 @@ class SymbTrAnalyzer(ParamSetter):
         return data, is_data_valid
 
     def set_data_extractor_params(self, **kwargs):
-        self.set_params('_dataExtractor', **kwargs)
+        self._set_params('_dataExtractor', **kwargs)

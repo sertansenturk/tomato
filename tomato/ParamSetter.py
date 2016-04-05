@@ -1,5 +1,5 @@
 class ParamSetter(object):
-    def set_params(self, analyzer_str, **kwargs):
+    def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
         attribs = [name for name in analyzer.__dict__.keys()
                    if not name.startswith('_')]
