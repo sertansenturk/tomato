@@ -51,7 +51,7 @@ class IO(object):
         cdict = {}
         try:
             for k, v in change_dict.iteritems():
-                cdict[getattr(k[:1], operation) + k[1:]] = \
+                cdict[getattr(k[:1], operation)() + k[1:]] = \
                     IO._change_key_first_letter(v, operation)
         except AttributeError:  # input is not a dict, return
             cdict = change_dict
@@ -66,13 +66,6 @@ class IO(object):
             pickle.dump(features, open(filepath, 'wb'))
 
     @staticmethod
-    def from_pickle(filepath):
-        try:
-            return pickle.load(open(filepath, 'rb'))
-        except IOError:  # string given
-            return pickle.loads(filepath)
-
-    @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
             return json.dumps(features, indent=4)
@@ -80,8 +73,16 @@ class IO(object):
             json.dump(features, open(filepath, 'w'), indent=4)
 
     @staticmethod
-    def from_json(filepath):
-        try:
-            return json.load(open(filepath, 'r'))
+    def _from_format(input, input_format):
+        try:  # file given
+            return eval(input_format + ".load(open(input))")
         except IOError:  # string given
-            return json.loads(filepath)
+            return eval(input_format + ".load(input)")
+
+    @staticmethod
+    def from_pickle(input):
+        return IO._from_format(input, 'pickle')
+
+    @staticmethod
+    def from_json(input):
+        return IO._from_format(input, 'json')
