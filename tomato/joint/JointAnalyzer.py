@@ -146,17 +146,17 @@ class JointAnalyzer(ParamSetter):
         procedure = 'Score informed joint tonic and tempo extraction'
 
         tonic = out_dict['tonic']['scoreInformed']
-        tonic = IO.lower_key_first_letter(tonic)
+        tonic = IO.dict_keys_to_snake_case(tonic)
         tonic['procedure'] = procedure
         tonic['source'] = audio_filename
 
         tempo = out_dict['tempo']['scoreInformed']
-        tempo['average'] = IO.lower_key_first_letter(tempo['average'])
+        tempo['average'] = IO.dict_keys_to_snake_case(tempo['average'])
         tempo['average']['procedure'] = procedure
         tempo['average']['source'] = audio_filename
         tempo['average'].pop("method", None)
 
-        tempo['relative'] = IO.lower_key_first_letter(
+        tempo['relative'] = IO.dict_keys_to_snake_case(
             tempo['relative'])
         tempo['relative']['procedure'] = procedure
         tempo['relative']['source'] = audio_filename
@@ -177,16 +177,16 @@ class JointAnalyzer(ParamSetter):
 
         # tonic has to be enclosed in the key 'score_informed' and all the
         # keys have to start with a capital letter
-        audio_tonic_ = IO.upper_key_first_letter(audio_tonic)
+        audio_tonic_ = IO.dict_keys_to_camel_case(audio_tonic)
         temp_tonic_file = IO.create_temp_file(
             '.json', json.dumps({'scoreInformed': audio_tonic_}))
 
         # tempo has to be enclosed in the key 'score_informed' and all the
         # keys have to start with a capital letter
         audio_tempo_ = deepcopy(audio_tempo)
-        audio_tempo_['relative'] = IO.upper_key_first_letter(
+        audio_tempo_['relative'] = IO.dict_keys_to_camel_case(
             audio_tempo['relative'])
-        audio_tempo_['average'] = IO.upper_key_first_letter(
+        audio_tempo_['average'] = IO.dict_keys_to_camel_case(
             audio_tempo['average'])
         temp_tempo_file = IO.create_temp_file(
             '.json', json.dumps({'scoreInformed': audio_tempo_}))
@@ -223,7 +223,7 @@ class JointAnalyzer(ParamSetter):
         IO.remove_temp_files(temp_score_data_file, temp_tonic_file,
                              temp_tempo_file, temp_pitch_file, temp_out_folder)
 
-        notes = [IO.lower_key_first_letter(n)
+        notes = [IO.dict_keys_to_snake_case(n)
                  for n in out_dict['alignedNotes']['notes']]
 
         return (out_dict['sectionLinks']['links'], notes,
@@ -233,13 +233,12 @@ class JointAnalyzer(ParamSetter):
         if self.verbose:
             print("- Filtering predominant melody of %s after audio-score "
                   "alignment." % (pitch['source']))
-        aligned_notes_ = [IO.upper_key_first_letter(n)
+        aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
-        pitch_temp, notes_filtered, synth_pitch = \
-            self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
+        pitch_temp, notes_filtered, synth_pitch = self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
 
-        notes_filtered = [IO.lower_key_first_letter(n)
+        notes_filtered = [IO.dict_keys_to_snake_case(n)
                           for n in notes_filtered]
 
         pitch_filtered = deepcopy(pitch)
@@ -254,17 +253,17 @@ class JointAnalyzer(ParamSetter):
         if self.verbose:
             print("- Computing the note models for " + pitch['source'])
 
-        aligned_notes_ = [IO.upper_key_first_letter(n)
+        aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
         note_models, pitch_distibution, tonic = self._alignedNoteModel.\
             get_models(pitch['pitch'], aligned_notes_, tonic_symbol)
 
         for note in note_models.keys():
-            note_models[note] = IO.lower_key_first_letter(
+            note_models[note] = IO.dict_keys_to_snake_case(
                 note_models[note])
 
-        tonic = IO.lower_key_first_letter(tonic['alignment'])
+        tonic = IO.dict_keys_to_snake_case(tonic['alignment'])
         tonic['source'] = pitch['source']
 
         return note_models, pitch_distibution, tonic

@@ -2,6 +2,7 @@ import tempfile
 import os
 from json_tricks import np as json
 import pickle
+import re
 
 
 class IO(object):
@@ -42,13 +43,37 @@ class IO(object):
 
         return out_dict
 
-    @staticmethod
-    def upper_key_first_letter(upper_dict):
-        return IO._change_key_first_letter(upper_dict, "upper")
+    # compiled regular expressions for dict_keys_to_snake_case
+    first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+    all_cap_re = re.compile('([a-z0-9])([A-Z])')
 
     @staticmethod
-    def lower_key_first_letter(lower_dict):
-        return IO._change_key_first_letter(lower_dict, "lower")
+    def dict_keys_to_snake_case(camel_case_dict):
+        sdict = {}
+        try:
+            for k, v in camel_case_dict.iteritems():
+                key = IO.first_cap_re.sub(r'\1_\2', k)
+                key = IO.all_cap_re.sub(r'\1_\2', key).lower()
+
+                sdict[key] = IO.dict_keys_to_snake_case(v)
+        except AttributeError:  # input is not a dict, return
+            sdict = camel_case_dict
+
+        return sdict
+
+    @staticmethod
+    def dict_keys_to_camel_case(snake_case_dict):
+        cdict = {}
+        try:
+            for k, v in snake_case_dict.iteritems():
+                components = k.split('_')
+                key = "".join(x.title() for x in components)
+
+                cdict[key] = IO.dict_keys_to_camel_case(v)
+        except AttributeError:  # input is not a dict, return
+            cdict = snake_case_dict
+
+        return cdict
 
     @staticmethod
     def _change_key_first_letter(change_dict, operation):
@@ -79,9 +104,9 @@ class IO(object):
     @staticmethod
     def _from_format(input_str, input_format):
         try:  # file given
-            return eval(input_format + ".load(open(input))")
+            return eval(input_format + ".load(open(input_str))")
         except IOError:  # string given
-            return eval(input_format + ".load(input)")
+            return eval(input_format + ".load(input_str)")
 
     @staticmethod
     def from_pickle(input_str):

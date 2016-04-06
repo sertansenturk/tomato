@@ -155,6 +155,6 @@ class Plotter(object):
     @staticmethod
     def _plot_performed_notes(ax, notes):
         for note in notes:
-            ax.plot(note['interval'], [note['performedPitch']['value'],
-                                       note['performedPitch']['value']],
+            ax.plot(note['interval'], [note['performed_pitch']['value'],
+                                       note['performed_pitch']['value']],
                     'r', alpha=0.4, linewidth=4)
