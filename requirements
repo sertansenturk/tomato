@@ -42,6 +42,3 @@ git+https://github.com/alastair/python-musicbrainzngs.git
 
 # basic file manipulations and Turkish string slugification
 git+https://github.com/sertansenturk/fileoperations_python.git@v1.1#egg=fileoperations_python
-
-# score conversion
-git+https://github.com/burakuyar/MusicXMLConverter.git@v1.1#egg=musicxmlconverter
