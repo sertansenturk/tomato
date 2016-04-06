@@ -1,7 +1,8 @@
 #### tomato v0.4
  - Created IO, Plotter and ParamSetter classes
  - Refactored the code to use the methods from above classes for shared processes
- - Better analysis saving and loading
+ - All output variables are now in snake_case
+ - Better saving and loading
  - Improved code quality
 
 #### tomato v0.3

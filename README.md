@@ -11,9 +11,9 @@ Introduction
 - **Symbolic Analysis:** score metadata extraction, score section extraction, score phrase segmentation, semiotic section and phrase analysis
 - **Joint Analysis:** score-informed tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models, (usul tracking is coming soon)
 
-The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the necessities of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
+The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the culture-specific characteristics of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
 
-For the methodologies and their implementations in the toolbox, please refer to the References (coming soon).
+For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
 
 Documentation
 ------
@@ -26,6 +26,13 @@ Coming soon...
 Installation
 -------
 
+There are three steps in installation:
+
+1. [Installing tomato](#tomato_install)
+2. [Installing Essentia](#essentia_install)
+3. [Installing MATLAB Runtime](#mcr_install)
+
+#### <a name="tomato_install"></a>Installing tomato
 If you want to install **tomato**, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
 
     virtualenv env
@@ -36,22 +43,28 @@ Then change the current directory to the repository folder and install by:
     cd path/to/tomato
     python setup.py install
     
-The algorithm uses several modules in Essentia. Follow the [instructions](essentia.upf.edu/documentation/installing.html) to install the library. Then you should link the python bindings of Essentia in the virtual environment:
-
-    ln -s path_to_essentia_bindings path_to_env/lib/python2.7/site-packages
-    
-Don't forget to change the `path_to_essentia_bindings` and `path_to_env` with the actual path of the installed Essentia Python bindings and your virtual environment, respectively. Depending on the Essentia version the default installation path of The Essentia bindings is either `/usr/local/lib/python2.7/dist-packages/essentia` or `/usr/local/lib/python2.7/site-packages/essentia`.
-    
-The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime Compiler for R2015a (8.5)** to run. You should download (links for [Linux](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip) and [Mac OSX](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip)) and install this specific version. We recommend you to install MCR in the default installation path as **tomato** searches them automatically. Otherwise, you have to specify your own path in the MCR configuration file, [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg).
-
-The requirements are also installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
+The requirements are installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
 
     pip install -r requirements
-    
-If you want to be able to edit files in the package and have the changes be reflected, you should call:
+
+If you want to edit files in the package and want the changes reflected, you should call:
 
     cd path/to/tomato
     pip install -e .
+
+#### <a name="essentia_install"></a>Installing Essentia
+
+__tomato__ uses several modules in Essentia. Follow the [instructions](essentia.upf.edu/documentation/installing.html) to install the library. Then you should link the python bindings of Essentia in the virtual environment:
+
+    ln -s path_to_essentia_bindings path_to_env/lib/python2.7/site-packages
+    
+Don't forget to change the `path_to_essentia_bindings` and `path_to_env` with the actual path of the installed Essentia Python bindings and the path of your virtualenv, respectively. Depending on the Essentia version, the default installation path of the Essentia bindings is either `/usr/local/lib/python2.7/dist-packages/essentia` or `/usr/local/lib/python2.7/site-packages/essentia`.
+
+#### <a name="mcr_install"></a>Installing MATLAB Runtime
+
+The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime for R2015a (8.5)** to run. You should download and install this specific version  (links for [Linux](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip) and [Mac OSX](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip)). 
+
+We recommend you to install MATLAB Runtime in the default installation path, as **tomato** searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
 Basic Usage
 -------
@@ -101,7 +114,7 @@ FAQ
 -------
 1. **Which operating systems are suppported?**
 
-    The algorithms, which are written purely in Python are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
+    The algorithms, which are written purely in Python, are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
     If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please submit an [issue](https://github.com/sertansenturk/tomato/issues).
 
 2. **What are the supported Python versions?**
@@ -118,6 +131,6 @@ Authors
 Sertan Şentürk
 contact@sertansenturk.com
 
-References
+<a name="references"></a>References
 -------
 Thesis
