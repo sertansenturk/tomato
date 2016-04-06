@@ -17,7 +17,7 @@ class CustomInstall(_install):
     def run(self):
         # download the binaries
         self.execute(CustomInstall._setup_binaries, (),
-                     msg="Downloading the binaries from tomato_binaries.")
+                     msg="Downloaded the binaries from tomato_binaries.")
 
         # install tomato
         _install.run(self)
@@ -82,7 +82,7 @@ class CustomInstall(_install):
 
 
 setup(name='tomato',
-      version='0.3',
+      version='0.4',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
