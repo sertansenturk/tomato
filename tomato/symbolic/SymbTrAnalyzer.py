@@ -30,29 +30,37 @@ class SymbTrAnalyzer(ParamSetter):
             symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
         # Automatic phrase segmentation on the SymbTr-txt score
-        phrase_bounds = self.segment_phrase(
-            txt_filepath, symbtr_name=symbtr_name)
+        try:
+            phrase_bounds = self.segment_phrase(
+                txt_filepath, symbtr_name=symbtr_name)
+            boundary_note_idx = phrase_bounds['boundary_note_idx']
+        except IOError, e:
+            phrase_bounds = None
+            boundary_note_idx = None
+            warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
-        # Note: very rare but there can be more that one mbid returned.
-        #       We are going to use the first work to get fetch the metadata
-        mbid = ScoreExtras.get_mbids(symbtr_name)[0]
+        mbid = ScoreExtras.get_mbids(symbtr_name)
         if not mbid:
             warnings.warn("No MBID returned for %s" % symbtr_name,
                           RuntimeWarning)
+        else:
+            # Note: very rare but there can be more that one mbid returned.
+            #       We are going to use the first work to fetch the metadata
+            mbid = mbid[0]
 
         # Extract the (meta)data from the SymbTr scores
         try:
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
-                segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
+                segment_note_bound_idx=boundary_note_idx)
         except NetworkError:  # musicbrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not available.',
                           RuntimeWarning)
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                segment_note_bound_idx=phrase_bounds['boundary_note_idx'])
+                segment_note_bound_idx=boundary_note_idx)
 
         if not is_data_valid:
             warnings.warn(symbtr_name + ' has validation problems.')
