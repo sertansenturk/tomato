@@ -30,7 +30,7 @@ There are three steps in installation:
 
 1. [Installing tomato](#tomato_install)
 2. [Installing Essentia](#essentia_install)
-3. [Installing MATLAB Runtime](mcr_install)
+3. [Installing MATLAB Runtime](#mcr_install)
 
 #### <a name="tomato_install"></a>Installing tomato
 If you want to install **tomato**, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
