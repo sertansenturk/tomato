@@ -236,7 +236,8 @@ class JointAnalyzer(ParamSetter):
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
-        pitch_temp, notes_filtered, synth_pitch = self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
+        pitch_temp, notes_filtered, synth_pitch = \
+            self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
 
         notes_filtered = [IO.dict_keys_to_snake_case(n)
                           for n in notes_filtered]
