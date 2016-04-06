@@ -31,17 +31,16 @@ class SymbTrAnalyzer(ParamSetter):
 
         # Automatic phrase segmentation on the SymbTr-txt score
         try:
-            phrase_bounds = self.segment_phrase(
-                txt_filepath, symbtr_name=symbtr_name)
-            boundary_note_idx = phrase_bounds['boundary_note_idx']
-        except IOError, e:
-            phrase_bounds = None
+            boundary_note_idx = self.segment_phrase(
+                txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
+        except IOError as e:
             boundary_note_idx = None
-            warnings.warn(e.message, RuntimeWarning)
+            if self.verbose:
+                warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
         mbid = ScoreExtras.get_mbids(symbtr_name)
-        if not mbid:
+        if not mbid and self.verbose:
             warnings.warn("No MBID returned for %s" % symbtr_name,
                           RuntimeWarning)
         else:
@@ -55,14 +54,15 @@ class SymbTrAnalyzer(ParamSetter):
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=boundary_note_idx)
         except NetworkError:  # musicbrainz is not available
-            warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The metadata stored there is not available.',
-                          RuntimeWarning)
+            if self.verbose:
+                warnings.warn('Unable to reach http://musicbrainz.org/. '
+                              'The metadata stored there is not available.',
+                              RuntimeWarning)
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
                 segment_note_bound_idx=boundary_note_idx)
 
-        if not is_data_valid:
+        if not is_data_valid and self.verbose:
             warnings.warn(symbtr_name + ' has validation problems.')
 
         return score_data
