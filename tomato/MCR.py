@@ -1,11 +1,6 @@
 import ConfigParser
 import os
 import subprocess
-import urllib2
-import zipfile
-from StringIO import StringIO
-
-from tomato.IO import IO
 
 
 class MCRCaller(object):
@@ -79,61 +74,3 @@ class MCRCaller(object):
             raise IOError('Binary does not exist: ' + bin_path)
 
         return bin_path
-
-
-class MCRSetup(object):
-    @staticmethod
-    def setup_binaries():
-        """
-        Downloads the binaries compiled by MATLAB Runtime Compiler from
-        tomato_binaries
-        """
-        binary_folder = IO.get_abspath_from_relpath_in_tomato('bin')
-
-        operating_system = MCRSetup._get_os()
-
-        # read configuration file
-        config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                   'tomato', 'config', 'bin.cfg')
-        config = ConfigParser.ConfigParser()
-        config.optionxform = str
-        config.read(config_file)
-
-        # Download binaries
-        for bin_name, bin_url in config.items(operating_system):
-            MCRSetup._download_binary(binary_folder, bin_name, bin_url,
-                                      operating_system)
-
-    @staticmethod
-    def _download_binary(binary_folder, bin_name, bin_url, op_sys):
-            fpath = os.path.join(binary_folder, bin_name)
-
-            # download
-            print("- Downloading binary: " + bin_url)
-            response = urllib2.urlopen(bin_url)
-            if fpath.endswith('.zip'):  # binary in zip
-                with zipfile.ZipFile(StringIO(response.read())) as z:
-                    z.extractall(os.path.dirname(fpath))
-                if op_sys == 'macosx':  # actual mac executable is in .app
-                    fpath = os.path.splitext(fpath)[0] + '.app'
-                else:  # remove the zip extension
-                    fpath = os.path.splitext(fpath)[0]
-            else:  # binary itself
-                with open(fpath, 'w+') as fp:
-                    fp.write(response.read())
-
-            # make the binary executalbe
-            subprocess.call(["chmod -R +x " + fpath], shell=True)
-
-    @staticmethod
-    def _get_os():
-        # find os, linux or macosx
-        process_out = subprocess.check_output(['uname']).lower()
-        if any(ss in process_out for ss in ['darwin', 'macosx']):
-            sys_os = 'macosx'
-        elif 'linux' in process_out:
-            sys_os = 'linux'
-        else:
-            raise OSError("Unsupported OS.")
-
-        return sys_os
