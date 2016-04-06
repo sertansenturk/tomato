@@ -58,7 +58,7 @@ __tomato__ uses several modules in Essentia. Follow the [instructions](essentia.
 
     ln -s path_to_essentia_bindings path_to_env/lib/python2.7/site-packages
     
-Don't forget to change the `path_to_essentia_bindings` and `path_to_env` with the actual path of the installed Essentia Python bindings and your virtual environment, respectively. Depending on the Essentia version the default installation path of The Essentia bindings is either `/usr/local/lib/python2.7/dist-packages/essentia` or `/usr/local/lib/python2.7/site-packages/essentia`.
+Don't forget to change the `path_to_essentia_bindings` and `path_to_env` with the actual path of the installed Essentia Python bindings and the path of your virtualenv, respectively. Depending on the Essentia version, the default installation path of the Essentia bindings is either `/usr/local/lib/python2.7/dist-packages/essentia` or `/usr/local/lib/python2.7/site-packages/essentia`.
 
 #### <a name="mcr_install"></a>Installing MATLAB Runtime
 
