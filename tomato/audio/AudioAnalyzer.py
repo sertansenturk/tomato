@@ -199,11 +199,9 @@ class AudioAnalyzer(ParamSetter):
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
-        obj_params = self._melodicProgressionAnalyzer.__dict__.keys()
-        if any(key not in (method_params + obj_params)
-               for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(
-                method_params + obj_params))
+        obj_params = self.get_public_attr(self._melodicProgressionAnalyzer)
+
+        ParamSetter.chk_params(method_params + obj_params, kwargs)
 
         for key, value in kwargs.items():
             if key in method_params:
