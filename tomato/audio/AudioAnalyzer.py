@@ -137,7 +137,7 @@ class AudioAnalyzer(ParamSetter):
             up_f['pitch_distribution'] = self.compute_pitch_distribution(
                 up_f['pitch'], up_f['tonic'])
             up_f['pitch_distribution'].cent_to_hz()
-            up_f['pitch_class_distribution'] =\
+            up_f['pitch_class_distribution'] = \
                 up_f['pitch_distribution'].to_pcd()
         except KeyError:
             pass
@@ -160,7 +160,8 @@ class AudioAnalyzer(ParamSetter):
     def get_musicbrainz_metadata(self, rec_in):
         if self.verbose:
             print("- Getting relevant metadata of " + rec_in)
-        return self._metadataGetter.from_musicbrainz(rec_in)
+        return (None if rec_in is False
+                else self._metadataGetter.from_musicbrainz(rec_in))
 
     def extract_pitch(self, filename):
         if self.verbose:
