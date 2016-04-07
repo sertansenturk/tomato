@@ -112,16 +112,24 @@ You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/to
 
 FAQ
 -------
-1. **Which operating systems are suppported?**
+1. **The notes aligned by `JointAnalyzer.align_audio_score(...)` seems shifted. What is the problem?**
+
+    Your audio input is probably a compressed format such as *mp3*. There are typically shifts between different decoders (and even different versions of the same decoder), when they decode the same compressed audio file. In the predominant melody extraction step (`AudioAnalyzer.extract_pitch(...)`), Essentia has to decode the recording for processing. You observe a shift, when the application you use has another decoder. 
+    
+    These shifts are typically small (e.g. 50 samples ~1ms), so they are not very problematic. Nevertheless, there is no guarantee that the shift will be bigger. If you need "perfect" synchronization, you should use an uncompressed format such as *wav* as the audio input. 
+    
+    **Note:** In demos, we use *mp3*, because it will be too bulky to host a *wav* file.
+
+2. **Which operating systems are suppported?**
 
     The algorithms, which are written purely in Python, are platform independent. However [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
     If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please submit an [issue](https://github.com/sertansenturk/tomato/issues).
 
-2. **What are the supported Python versions?**
+3. **What are the supported Python versions?**
 
     Currently we only support 2.7. We will start working on Python 3+ support, as soon as [Essentia bindings for Python 3](https://github.com/MTG/essentia/issues/138) are available.
 
-3. **Where are the MATLAB binaries?**
+4. **Where are the MATLAB binaries?**
 
     The binaries are not stored in **tomato**, because they relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation process of tomato.
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
