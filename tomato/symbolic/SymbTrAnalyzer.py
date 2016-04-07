@@ -38,14 +38,7 @@ class SymbTrAnalyzer(ParamSetter):
             warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
-        mbid = ScoreExtras.get_mbids(symbtr_name)
-        if not mbid:
-            warnings.warn("No MBID returned for %s" % symbtr_name,
-                          RuntimeWarning)
-        else:
-            # Note: very rare but there can be more that one mbid returned.
-            #       We are going to use the first work to fetch the metadata
-            mbid = mbid[0]
+        mbid = self.get_first_mbid_from_symbtr_name(symbtr_name)
 
         # Extract the (meta)data from the SymbTr scores
         try:
@@ -64,6 +57,18 @@ class SymbTrAnalyzer(ParamSetter):
             warnings.warn(symbtr_name + ' has validation problems.')
 
         return score_data
+
+    def get_first_mbid_from_symbtr_name(self, symbtr_name):
+        # Note: very rare but there can be more that one mbid returned.
+        #       We are going to use the first mbid to fetch the metadata
+        mbid = ScoreExtras.get_mbids(symbtr_name)
+        if not mbid:
+            warnings.warn("No MBID returned for %s" % symbtr_name,
+                          RuntimeWarning)
+        else:
+            mbid = mbid[0]
+
+        return mbid
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         if self.verbose:
