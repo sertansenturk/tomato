@@ -11,6 +11,7 @@ from tonicidentifier.TonicLastNote import TonicLastNote
 from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 from notemodel.NoteModel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
+from musicbrainzngs import NetworkError
 
 from tomato.ParamSetter import ParamSetter
 from tomato.Plotter import Plotter
@@ -37,7 +38,17 @@ class AudioAnalyzer(ParamSetter):
         self._tonicIdentifier = TonicLastNote()
         self._noteModeler = NoteModel()
 
-    def analyze(self, filepath, makam=None):
+    def analyze(self, filepath, makam=None, mbid=None):
+        # metadata
+        meta_in = mbid if mbid is not None else filepath
+        try:
+            metadata = self.get_musicbrainz_metadata(meta_in)
+        except NetworkError as e:
+            metadata = None
+            warnings.warn('Unable to reach http://musicbrainz.org/. '
+                          'The metadata stored there is not available.',
+                          RuntimeWarning)
+
         # predominant melody extraction
         pitch = self.extract_pitch(filepath)
 
@@ -77,8 +88,9 @@ class AudioAnalyzer(ParamSetter):
             warnings.warn(e.message, RuntimeWarning)
 
         # return as a dictionary
-        return {'pitch': pitch, 'pitch_filtered': pitch_filtered,
-                'tonic': tonic, 'transposition': transposition, 'makam': makam,
+        return {'metadata':metadata, 'pitch': pitch,
+                'pitch_filtered': pitch_filtered, 'tonic': tonic,
+                'transposition': transposition, 'makam': makam,
                 'melodic_progression': melodic_progression,
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution,
@@ -130,7 +142,9 @@ class AudioAnalyzer(ParamSetter):
                           'or "None" for skipping the method')
 
     def get_musicbrainz_metadata(self, rec_in):
-        pass
+        if self.verbose:
+            print("- Getting relevant metadata of " + rec_in)
+        return self._metadataGetter.from_musicbrainz(rec_in)
 
     def extract_pitch(self, filename):
         if self.verbose:
