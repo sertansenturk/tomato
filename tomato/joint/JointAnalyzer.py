@@ -299,16 +299,28 @@ class JointAnalyzer(ParamSetter):
         pitch = np.array(deepcopy(
             summarized_features['audio']['pitch']['pitch']))
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
+
         pitch_distribution = deepcopy(
             summarized_features['audio']['pitch_distribution'])
+
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
             pass
-        note_models = deepcopy(summarized_features['joint']['note_models'])
+
+        try:
+            note_models = deepcopy(summarized_features['joint']['note_models'])
+        except KeyError:  # note_models is not computed
+            note_models = deepcopy(
+                summarized_features['audio']['stable_notes'])
+
         melodic_progression = deepcopy(
             summarized_features['audio']['melodic_progression'])
-        aligned_notes = deepcopy(summarized_features['joint']['notes'])
+
+        try:
+            aligned_notes = deepcopy(summarized_features['joint']['notes'])
+        except KeyError:  # audio score alignment failed
+            aligned_notes = None
 
         return Plotter.plot_audio_features(
             pitch=pitch, pitch_distribution=pitch_distribution,
