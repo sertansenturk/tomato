@@ -73,6 +73,7 @@ class JointAnalyzer(ParamSetter):
         # initialize
         sdict = {'audio': {}, 'score': score_features, 'joint': {}}
 
+        sdict['audio']['metadata'] = audio_features['metadata']
         if score_informed_audio_features is not None:
             sdict['audio']['pitch'] = score_informed_audio_features['pitch']
             sdict['audio']['tonic'] = score_informed_audio_features['tonic']
