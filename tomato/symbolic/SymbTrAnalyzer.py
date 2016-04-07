@@ -33,7 +33,7 @@ class SymbTrAnalyzer(ParamSetter):
         try:
             boundary_note_idx = self.segment_phrase(
                 txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
-        except IOError as e:
+        except RuntimeError as e:
             boundary_note_idx = None
             warnings.warn(e.message, RuntimeWarning)
 
@@ -93,8 +93,8 @@ class SymbTrAnalyzer(ParamSetter):
         # The prints are in segmentWrapper function in the MATLAB code
         if "segmentation complete!" not in out:
             IO.remove_temp_files(temp_in_file, temp_out_file)
-            raise IOError("Phrase segmentation is not successful. Please "
-                          "check and report the error in the terminal.")
+            raise RuntimeError("Phrase segmentation is not successful. Please "
+                               "check the error in the terminal.")
 
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))

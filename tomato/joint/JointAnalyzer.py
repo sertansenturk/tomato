@@ -4,6 +4,7 @@ import cStringIO
 import tempfile
 import numpy as np
 from copy import deepcopy
+import warnings
 
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
@@ -36,9 +37,15 @@ class JointAnalyzer(ParamSetter):
                                                 audio_filename, audio_pitch)
 
         # section linking and note-level alignment
-        sections, notes, section_candidates = self.align_audio_score(
-            score_filename, score_data,
-            audio_filename, audio_pitch, tonic, tempo)
+        try:
+            sections, notes, section_candidates = self.align_audio_score(
+                score_filename, score_data,
+                audio_filename, audio_pitch, tonic, tempo)
+        except RuntimeError as e:
+            warnings.warn(e.message, RuntimeWarning)
+            joint_features = None
+            audio_features = {'tonic': tonic, 'tempo': tempo}
+            return joint_features, audio_features
 
         # aligned pitch filter
         aligned_pitch, aligned_notes = self.filter_pitch(audio_pitch, notes)
@@ -129,9 +136,9 @@ class JointAnalyzer(ParamSetter):
         if "Tonic-Tempo-Tuning Extraction took" not in out:
             IO.remove_temp_files(
                 temp_score_data_file, temp_pitch_file, temp_out_folder)
-            raise IOError("Score-informed tonic, tonic and tuning "
-                          "extraction is not successful. Please "
-                          "check and report the error in the terminal.")
+            raise RuntimeError("Score-informed tonic, tonic and tuning "
+                               "extraction is not successful. Please "
+                               "check the error in the terminal.")
 
         out_dict = IO.load_json_from_temp_folder(
             temp_out_folder, ['tempo', 'tonic', 'tuning'])
@@ -207,14 +214,13 @@ class JointAnalyzer(ParamSetter):
                     temp_tonic_file, temp_tempo_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
-
         # check the MATLAB output
         if "Audio-score alignment took" not in out:
             IO.remove_temp_files(
                 temp_score_data_file, temp_tonic_file, temp_tempo_file,
                 temp_pitch_file, temp_out_folder)
-            raise IOError("Audio score alignment is not successful. Please "
-                          "check and report the error in the terminal.")
+            raise RuntimeError("Audio score alignment is not successful. "
+                               "Please check the error in the terminal.")
 
         out_dict = IO.load_json_from_temp_folder(
             temp_out_folder, ['sectionLinks', 'alignedNotes'])
