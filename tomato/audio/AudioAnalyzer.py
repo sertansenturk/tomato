@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+import warnings
 
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
@@ -55,13 +56,23 @@ class AudioAnalyzer(ParamSetter):
 
         # makam recognition
         if makam is None:
-            raise NotImplementedError('Makam recognition is not integrated.')
+            warnings.warn('Makam recognition is not integrated yet.',
+                          FutureWarning)
 
         # transposition (ahenk) identification
-        transposition = self.identify_transposition(tonic, makam)
+        try:
+            transposition = self.identify_transposition(tonic, makam)
+        except ValueError as e:
+            transposition = None
+            warnings.warn(e.message, RuntimeWarning)
 
         # tuning analysis and stable pitch extraction
-        stable_notes = self.get_stable_notes(pitch_distribution, tonic, makam)
+        try:
+            stable_notes = self.get_stable_notes(pitch_distribution, tonic,
+                                                 makam)
+        except KeyError as e:
+            stable_notes = None
+            warnings.warn(e.message, RuntimeWarning)
 
         # return as a dictionary
         return {'pitch': pitch, 'pitch_filtered': pitch_filtered,

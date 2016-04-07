@@ -35,12 +35,11 @@ class SymbTrAnalyzer(ParamSetter):
                 txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
         except IOError as e:
             boundary_note_idx = None
-            if self.verbose:
-                warnings.warn(e.message, RuntimeWarning)
+            warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
         mbid = ScoreExtras.get_mbids(symbtr_name)
-        if not mbid and self.verbose:
+        if not mbid:
             warnings.warn("No MBID returned for %s" % symbtr_name,
                           RuntimeWarning)
         else:
@@ -54,15 +53,14 @@ class SymbTrAnalyzer(ParamSetter):
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=boundary_note_idx)
         except NetworkError:  # musicbrainz is not available
-            if self.verbose:
-                warnings.warn('Unable to reach http://musicbrainz.org/. '
-                              'The metadata stored there is not available.',
-                              RuntimeWarning)
+            warnings.warn('Unable to reach http://musicbrainz.org/. '
+                          'The metadata stored there is not available.',
+                          RuntimeWarning)
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
                 segment_note_bound_idx=boundary_note_idx)
 
-        if not is_data_valid and self.verbose:
+        if not is_data_valid:
             warnings.warn(symbtr_name + ' has validation problems.')
 
         return score_data

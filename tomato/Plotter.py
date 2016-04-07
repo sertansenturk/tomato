@@ -36,8 +36,12 @@ class Plotter(object):
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins)
 
         # note models
-        ytick_vals = Plotter._plot_note_models(
-            ax2, note_models, pitch_distribution)
+        if note_models is not None:
+            ytick_vals = Plotter._plot_note_models(
+                ax2, note_models, pitch_distribution)
+        else:
+            peak_idx = pitch_distribution.detect_peaks()[0]
+            ytick_vals = pitch_distribution.bins[peak_idx]
 
         # plot melodic progression
         AudioSeyirAnalyzer.plot(melodic_progression, ax3)
