@@ -105,9 +105,10 @@ class JointAnalyzer(ParamSetter):
             sdict['audio']['makam'] = audio_features['makam']
 
         # accumulate joint dict
-        sdict['joint']['sections'] = joint_features['sections']
-        sdict['joint']['notes'] = joint_features['notes']
-        sdict['joint']['note_models'] = joint_features['note_models']
+        if joint_features is not None:
+            sdict['joint']['sections'] = joint_features['sections']
+            sdict['joint']['notes'] = joint_features['notes']
+            sdict['joint']['note_models'] = joint_features['note_models']
 
         return sdict
 
