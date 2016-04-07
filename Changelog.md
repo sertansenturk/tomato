@@ -1,3 +1,6 @@
+#### tomato v0.5
+ - Analysis can be run with partial success when some inputs are not available or some methods fails (Issue [#24](https://github.com/sertansenturk/tomato/issues/24))
+
 #### tomato v0.4
  - Created IO, Plotter and ParamSetter classes
  - Refactored the code to use the methods from above classes for shared processes
