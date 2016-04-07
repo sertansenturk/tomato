@@ -33,8 +33,14 @@ class JointAnalyzer(ParamSetter):
     def analyze(self, score_filename='', score_data=None,
                 audio_filename='', audio_pitch=None):
         # joint score-informed tonic identification and tempo estimation
-        tonic, tempo = self.extract_tonic_tempo(score_filename, score_data,
-                                                audio_filename, audio_pitch)
+        try:
+            tonic, tempo = self.extract_tonic_tempo(
+                score_filename, score_data, audio_filename, audio_pitch)
+        except RuntimeError as e:
+            warnings.warn(e.message, RuntimeWarning)
+            joint_features = None
+            audio_features = None
+            return joint_features, audio_features
 
         # section linking and note-level alignment
         try:

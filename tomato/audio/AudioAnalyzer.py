@@ -83,6 +83,14 @@ class AudioAnalyzer(ParamSetter):
                 'stable_notes': stable_notes}
 
     def update_analysis(self, audio_features):
+        if audio_features is None:
+            warnings.warn('No input audio features are supplied to update. '
+                          'Returning None', RuntimeWarning)
+            return None
+
+        # check input format
+        self.chk_update_analysis_input(audio_features)
+
         # make a copy of the existing analysis
         up_f = deepcopy(audio_features)
 
@@ -112,6 +120,12 @@ class AudioAnalyzer(ParamSetter):
             pass
 
         return up_f
+
+    @staticmethod
+    def chk_update_analysis_input(audio_features):
+        if not (isinstance(audio_features, dict) or audio_features is None):
+            raise IOError('The audio_features input should be a dictionary '
+                          'or "None" for skipping the method')
 
     def extract_pitch(self, filename):
         if self.verbose:
