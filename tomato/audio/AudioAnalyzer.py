@@ -43,7 +43,7 @@ class AudioAnalyzer(ParamSetter):
         meta_in = mbid if mbid is not None else filepath
         try:
             metadata = self.get_musicbrainz_metadata(meta_in)
-        except NetworkError as e:
+        except NetworkError:
             metadata = None
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not available.',
@@ -70,7 +70,7 @@ class AudioAnalyzer(ParamSetter):
         # makam recognition
         # TODO: allow multiple makams
         makam = self._get_makam(makam, metadata, pitch_class_distribution)
-        
+
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
         try:
