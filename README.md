@@ -114,9 +114,11 @@ FAQ
 -------
 1. **The notes aligned by `JointAnalyzer.align_audio_score(...)` seems shifted. What is the problem?**
 
-    Your audio input is probably a compressed format such as mp3. There are typically shifts between different decoders (and even different versions of the same decoder), when they decode the same compressed audio file. In the predominant melody extraction step (`AudioAnalyzer.extract_pitch`), Essentia has to decode the recording for processing. Hence you observe a shift when the application you use has another decoder. 
+    Your audio input is probably a compressed format such as *mp3*. There are typically shifts between different decoders (and even different versions of the same decoder), when they decode the same compressed audio file. In the predominant melody extraction step (`AudioAnalyzer.extract_pitch(...)`), Essentia has to decode the recording for processing. You observe a shift, when the application you use has another decoder. 
     
-    These shifts are typically small (e.g. 50 samples ~1ms), so they are not very problematic. Nevertheless, there is no guarantee that the shift will be bigger. If you need "perfect" synchronization, you should use an uncompressed format such as "wav" as the audio input. (In demos, we use mp3, because it will be too bulky to host a wav file.)
+    These shifts are typically small (e.g. 50 samples ~1ms), so they are not very problematic. Nevertheless, there is no guarantee that the shift will be bigger. If you need "perfect" synchronization, you should use an uncompressed format such as *wav* as the audio input. 
+    
+    **Note:** In demos, we use *mp3*, because it will be too bulky to host a *wav* file.
 
 2. **Which operating systems are suppported?**
 
