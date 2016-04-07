@@ -68,11 +68,21 @@ class AudioAnalyzer(ParamSetter):
         pitch_class_distribution = pitch_distribution.to_pcd()
 
         # makam recognition
+        # TODO: allow multiple makams
         if makam is None:
-            warnings.warn('Makam recognition is not integrated yet.',
-                          FutureWarning)
+            try:  # try to get the makam from the metadata
+                makams = set(m['attribute_key'] for m in metadata['makam'])
+
+                # for now get the first makam
+                makam = list(makams)[0]
+            except (TypeError, KeyError):
+                # metadata is not available or the makam is not known
+                makam = self.recognize_makam(pitch_class_distribution)
+        elif isinstance(makam, list):  # list of makams given
+            makam = makam[0]  # for now get the first makam
 
         # transposition (ahenk) identification
+        # TODO: allow transpositions for multiple makams
         try:
             transposition = self.identify_transposition(tonic, makam)
         except ValueError as e:
@@ -80,6 +90,7 @@ class AudioAnalyzer(ParamSetter):
             warnings.warn(e.message, RuntimeWarning)
 
         # tuning analysis and stable pitch extraction
+        # TODO: check if there is more than one transposition name, if yes warn
         try:
             stable_notes = self.get_stable_notes(pitch_distribution, tonic,
                                                  makam)
@@ -88,7 +99,7 @@ class AudioAnalyzer(ParamSetter):
             warnings.warn(e.message, RuntimeWarning)
 
         # return as a dictionary
-        return {'metadata':metadata, 'pitch': pitch,
+        return {'metadata': metadata, 'pitch': pitch,
                 'pitch_filtered': pitch_filtered, 'tonic': tonic,
                 'transposition': transposition, 'makam': makam,
                 'melodic_progression': melodic_progression,
@@ -203,15 +214,6 @@ class AudioAnalyzer(ParamSetter):
 
         return tonic
 
-    def identify_transposition(self, tonic, makam_tonic_str):
-        if self.verbose:
-            print("- Identifying the transposition of " + tonic['source'])
-        transposition = AhenkIdentifier.identify(
-            tonic['value'], makam_tonic_str)
-        transposition['source'] = tonic['source']
-
-        return transposition
-
     def compute_pitch_distribution(self, pitch, tonic):
         if self.verbose:
             print("- Computing pitch distribution of " + pitch['source'])
@@ -226,6 +228,21 @@ class AudioAnalyzer(ParamSetter):
             print("- Computing pitch class distribution of " + pitch['source'])
 
         return self.compute_pitch_distribution(pitch, tonic).to_pcd()
+
+    def recognize_makam(self, pitch_class_distribution):
+        # metadata is not available or the makam is not known
+        warnings.warn('Makam recognition is not integrated yet.',
+                      FutureWarning)
+        return None
+
+    def identify_transposition(self, tonic, makam_tonic_str):
+        if self.verbose:
+            print("- Identifying the transposition of " + tonic['source'])
+        transposition = AhenkIdentifier.identify(
+            tonic['value'], makam_tonic_str)
+        transposition['source'] = tonic['source']
+
+        return transposition
 
     def get_stable_notes(self, pitch_distribution, tonic, makamstr):
         if self.verbose:
