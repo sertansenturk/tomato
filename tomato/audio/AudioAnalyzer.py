@@ -69,18 +69,8 @@ class AudioAnalyzer(ParamSetter):
 
         # makam recognition
         # TODO: allow multiple makams
-        if makam is None:
-            try:  # try to get the makam from the metadata
-                makams = set(m['attribute_key'] for m in metadata['makam'])
-
-                # for now get the first makam
-                makam = list(makams)[0]
-            except (TypeError, KeyError):
-                # metadata is not available or the makam is not known
-                makam = self.recognize_makam(pitch_class_distribution)
-        elif isinstance(makam, list):  # list of makams given
-            makam = makam[0]  # for now get the first makam
-
+        makam = self._get_makam(makam, metadata, pitch_class_distribution)
+        
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
         try:
@@ -106,6 +96,21 @@ class AudioAnalyzer(ParamSetter):
                 'pitch_distribution': pitch_distribution,
                 'pitch_class_distribution': pitch_class_distribution,
                 'stable_notes': stable_notes}
+
+    def _get_makam(self, makam, metadata, pitch_class_distribution):
+        if makam is None:
+            try:  # try to get the makam from the metadata
+                makams = set(m['attribute_key'] for m in metadata['makam'])
+
+                # for now get the first makam
+                makam = list(makams)[0]
+            except (TypeError, KeyError):
+                # metadata is not available or the makam is not known
+                makam = self.recognize_makam(pitch_class_distribution)
+        elif isinstance(makam, list):  # list of makams given
+            makam = makam[0]  # for now get the first makam
+
+        return makam
 
     def update_analysis(self, audio_features):
         if audio_features is None:
