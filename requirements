@@ -1,4 +1,7 @@
 # ------------------- AUDIO ANALYSIS REPOSITORIES -----------------------------
+# metadata extraction
+git+https://github.com/sertansenturk/makammusicbrainz.git@v1.1.0#egg=makammusicbrainz
+
 # predominant melody extraction and correction
 git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2#egg=predominantmelodymakam
 git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
@@ -8,7 +11,7 @@ git+https://github.com/sertansenturk/seyiranalyzer.git@v1.1#egg=seyiranalyzer
 
 # tonic and transposition identification
 git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3#egg=tonicidentifier_makam
-git+https://github.com/sertansenturk/ahenkidentifier.git@v1.4#egg=ahenkidentifier
+git+https://github.com/sertansenturk/ahenkidentifier.git@v1.4.0#egg=ahenkidentifier
 
 # histogram analysis and tuning analysis
 git+https://github.com/altugkarakurt/ModeTonicEstimation.git#egg=modetonicestimation

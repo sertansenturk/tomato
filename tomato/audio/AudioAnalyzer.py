@@ -2,6 +2,7 @@ import numpy as np
 from copy import deepcopy
 import warnings
 
+from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
     PredominantMelodyMakam
 from pitchfilter.PitchFilter import PitchFilter
@@ -29,6 +30,7 @@ class AudioAnalyzer(ParamSetter):
                                  'min_num_frames': 40, 'max_frame_dur': 30}
 
         # extractors
+        self._metadataGetter = AudioMetadata(get_work_attributes=True)
         self._pitchExtractor = PredominantMelodyMakam(filter_pitch=False)
         self._pitchFilter = PitchFilter()
         self._melodicProgressionAnalyzer = AudioSeyirAnalyzer()
@@ -127,6 +129,9 @@ class AudioAnalyzer(ParamSetter):
             raise IOError('The audio_features input should be a dictionary '
                           'or "None" for skipping the method')
 
+    def get_musicbrainz_metadata(self, rec_in):
+        pass
+
     def extract_pitch(self, filename):
         if self.verbose:
             print("- Extracting predominant melody of " + filename)
@@ -215,8 +220,12 @@ class AudioAnalyzer(ParamSetter):
         return self._noteModeler.calculate_notes(pitch_distribution,
                                                  tonic['value'], makamstr)
 
+    # setters
     def set_pitch_extractor_params(self, **kwargs):
         self._set_params('_pitchExtractor', **kwargs)
+
+    def set_metadata_getter_params(self, **kwargs):
+        self._set_params('_metadataGetter', **kwargs)
 
     def set_pitch_filter_params(self, **kwargs):
         self._set_params('_pitchFilter', **kwargs)
@@ -244,6 +253,7 @@ class AudioAnalyzer(ParamSetter):
     def set_note_modeler_params(self, **kwargs):
         self._set_params('_noteModeler', **kwargs)
 
+    # plot
     @staticmethod
     def plot(features):
         pitch = np.array(deepcopy(features['pitch_filtered']['pitch']))
