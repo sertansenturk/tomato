@@ -84,29 +84,34 @@ class AudioAnalyzer(ParamSetter):
 
     def update_analysis(self, audio_features):
         # make a copy of the existing analysis
-        updated_audio_features = deepcopy(audio_features)
-        pitch = updated_audio_features['pitch']
-        tonic = updated_audio_features['tonic']
+        up_f = deepcopy(audio_features)
 
+        # Recompute the features, if their inputs are supplied
         # get the melodic progression model
-        melodic_progression = self.get_melodic_progression(pitch)
+        try:
+            up_f['melodic_progression'] = \
+                self.get_melodic_progression(up_f['pitch'])
+        except KeyError:
+            pass
 
         # histogram computation
-        pitch_distribution = self.compute_pitch_distribution(pitch, tonic)
-        pitch_distribution.cent_to_hz()
-        pitch_class_distribution = pitch_distribution.to_pcd()
+        try:
+            up_f['pitch_distribution'] = self.compute_pitch_distribution(
+                up_f['pitch'], up_f['tonic'])
+            up_f['pitch_distribution'].cent_to_hz()
+            up_f['pitch_class_distribution'] =\
+                up_f['pitch_distribution'].to_pcd()
+        except KeyError:
+            pass
 
         # transposition (ahenk) identification
-        transposition = self.identify_transposition(tonic, tonic['symbol'])
+        try:
+            up_f['transposition'] = self.identify_transposition(
+                up_f['tonic'], up_f['tonic']['symbol'])
+        except KeyError:
+            pass
 
-        # add/raplace with the computed features
-        updated_audio_features['transposition'] = transposition,
-        updated_audio_features['melodic_progression'] = melodic_progression
-        updated_audio_features['pitch_distribution'] = pitch_distribution
-        updated_audio_features['pitch_class_distribution'] =  \
-            pitch_class_distribution
-
-        return updated_audio_features
+        return up_f
 
     def extract_pitch(self, filename):
         if self.verbose:
