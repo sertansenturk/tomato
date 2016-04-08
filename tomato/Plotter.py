@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import gridspec
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-
+from matplotlib.ticker import FixedLocator
 from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
 
 
@@ -27,7 +27,7 @@ class Plotter(object):
                                           pitch_distribution)
 
         # plot the sections to the third subplot, onto the melodic progression
-        Plotter._plot_sections(ax3, ax4, sections)
+        Plotter._plot_sections(ax1, ax3, ax4, sections)
 
         return fig, (ax1, ax2, ax3, ax4)
 
@@ -123,14 +123,16 @@ class Plotter(object):
         ax3.get_yaxis().set_ticks([])
 
     @staticmethod
-    def _plot_sections(ax3, ax4, sections):
+    def _plot_sections(ax1, ax3, ax4, sections):
         if sections is not None:
             sec_labels = []
             sec_locs = []
+            xgrid_locs = []
             for sec in sections:
                 # get the time interval
                 tt = sec['time']
                 dur = tt[1] - tt[0]
+                xgrid_locs += tt  # add the boundaries to grid locations
 
                 # get the plot limits
                 ylim = ax3.get_ylim()
@@ -146,6 +148,12 @@ class Plotter(object):
             # styling
             ax4.set_xticks(sec_locs)
             ax4.set_xticklabels(sec_labels, rotation=-15)
+
+            ax1.set_xticks(xgrid_locs, minor=True)
+            ax1.xaxis.grid(True, which='minor')
+            ax1.xaxis.set_major_locator(FixedLocator(xgrid_locs,
+                                                     nbins=len(xgrid_locs)/2))
+
             plt.setp(ax4.get_yticklabels(), visible=False)
             ax4.set_xlim(ax3.get_xlim())
         else:
