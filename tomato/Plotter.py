@@ -147,7 +147,8 @@ class Plotter(object):
 
                 # create the rectangle
                 p = patches.Rectangle((tt[0], ylim[0]), dur, ylim[1],
-                                      alpha=0.3, color=clr)
+                                      alpha=0.3, facecolor=clr,
+                                      edgecolor='black')
                 ax4.add_patch(p)
 
                 sec_labels.append(sec['name'])
@@ -159,8 +160,8 @@ class Plotter(object):
 
             ax1.set_xticks(xgrid_locs, minor=True)
             ax1.xaxis.grid(True, which='minor')
-            ax1.xaxis.set_major_locator(FixedLocator(xgrid_locs,
-                                                     nbins=len(xgrid_locs)/2))
+            ax1.xaxis.set_major_locator(FixedLocator(
+                xgrid_locs, nbins=len(xgrid_locs) / 2 + 1))
 
             plt.setp(ax4.get_yticklabels(), visible=False)
             ax4.set_xlim(ax3.get_xlim())
