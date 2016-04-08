@@ -128,6 +128,11 @@ class Plotter(object):
             sec_labels = []
             sec_locs = []
             xgrid_locs = []
+
+            unique_sections = list(set(s['name'] for s in sections))
+            cmap = plt.get_cmap('gist_rainbow')
+            colors = [cmap(i) for i in np.linspace(0, 1, len(unique_sections))]
+
             for sec in sections:
                 # get the time interval
                 tt = sec['time']
@@ -137,9 +142,12 @@ class Plotter(object):
                 # get the plot limits
                 ylim = ax3.get_ylim()
 
+                # get the color code for the section
+                clr = colors[unique_sections.index(sec['name'])]
+
                 # create the rectangle
                 p = patches.Rectangle((tt[0], ylim[0]), dur, ylim[1],
-                                      alpha=0.3)
+                                      alpha=0.3, color=clr)
                 ax4.add_patch(p)
 
                 sec_labels.append(sec['name'])
