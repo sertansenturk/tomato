@@ -44,9 +44,10 @@ class JointAnalyzer(ParamSetter):
 
         # section linking and note-level alignment
         try:
-            sections, notes, section_candidates = self.align_audio_score(
-                score_filename, score_data,
-                audio_filename, audio_pitch, tonic, tempo)
+            aligned_sections, notes, section_links, section_candidates = \
+                self.align_audio_score(score_filename, score_data,
+                                       audio_filename, audio_pitch, tonic,
+                                       tempo)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -60,7 +61,7 @@ class JointAnalyzer(ParamSetter):
         note_models, pitch_distribution, aligned_tonic = self.get_note_models(
             aligned_pitch, notes, tonic['symbol'])
 
-        joint_features = {'sections': sections, 'notes': aligned_notes,
+        joint_features = {'sections': aligned_sections, 'notes': aligned_notes,
                           'note_models': note_models}
         audio_features = {'pitch': aligned_pitch, 'tonic': aligned_tonic,
                           'tempo': tempo}
@@ -240,8 +241,9 @@ class JointAnalyzer(ParamSetter):
         notes = [IO.dict_keys_to_snake_case(n)
                  for n in out_dict['alignedNotes']['notes']]
 
-        return (out_dict['sectionLinks']['links'], notes,
-                out_dict['sectionLinks']['candidates'])
+        return (out_dict['sectionLinks']['alignedLinks'], notes,
+                out_dict['sectionLinks']['sectionLinks'],
+                out_dict['sectionLinks']['candidateLinks'])
 
     def filter_pitch(self, pitch, aligned_notes):
         if self.verbose:
@@ -304,6 +306,8 @@ class JointAnalyzer(ParamSetter):
         pitch_distribution = deepcopy(
             summarized_features['audio']['pitch_distribution'])
 
+        sections = deepcopy(summarized_features['joint']['sections'])
+
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
@@ -325,5 +329,5 @@ class JointAnalyzer(ParamSetter):
 
         return Plotter.plot_audio_features(
             pitch=pitch, pitch_distribution=pitch_distribution,
-            notes=aligned_notes, note_models=note_models,
+            sections=sections, notes=aligned_notes, note_models=note_models,
             melodic_progression=melodic_progression)
