@@ -11,42 +11,70 @@ class Plotter(object):
     def plot_audio_features(pitch=None, pitch_distribution=None,
                             sections=None, notes=None, note_models=None,
                             melodic_progression=None):
+
+        # create the figure and all the subplots with the shared axis specified
+        fig, ax1, ax2, ax3, ax4 = Plotter._create_figure()
+
+        # plot the pitch track and the performed notes to the first subplot
+        Plotter._subplot_pitch_notes(ax1, notes, pitch)
+
+        # plot the pitch distribution and the note models to the second subplot
+        Plotter._plot_pitch_dist_note_models(ax2, note_models,
+                                             pitch_distribution)
+
+        # plot the melodic progression to the third subplot
+        Plotter._plot_melodic_progression(ax3, melodic_progression, pitch,
+                                          pitch_distribution)
+
+        # plot the sections to the third subplot, onto the melodic progression
+        Plotter._plot_sections(ax3, ax4, sections)
+
+        return fig, (ax1, ax2, ax3, ax4)
+
+    @staticmethod
+    def _create_figure():
         # create the figure with four subplots with different size
-        # first is for the predominant melody
-        # second is the pitch distribution, it shares the y axis with the first
-        # third is the melodic progression, it shares the x axis with the first
-        # fourth is for the sections, it is on top the third
+        # - 1st is for the predominant melody and performed notes
+        # - 2nd is the pitch distribution and note models, it shares the y
+        # axis with the 1st
+        # - 3rd is the melodic progression, it shares the x axis with the 1st
+        # - 4th is for the sections, it is on top the 3rd
         fig = plt.figure()
         gs = gridspec.GridSpec(2, 2, width_ratios=[6, 1], height_ratios=[4, 1])
-
         ax1 = fig.add_subplot(gs[0])  # pitch and notes
         ax2 = fig.add_subplot(gs[1], sharey=ax1)  # pitch dist. and note models
         ax4 = fig.add_subplot(gs[2])  # sections
         ax3 = plt.twiny(ax4)  # melodic progression
         ax1.get_shared_x_axes().join(ax1, ax3)
         fig.subplots_adjust(hspace=0, wspace=0)
+        return fig, ax1, ax2, ax3, ax4
 
-        # plot pitch track
+    @staticmethod
+    def _subplot_pitch_notes(ax1, notes, pitch):
+        # plot predominant melody
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
-
-        ax1.xaxis.set_label_coords(0.5, 0.05)
-        ax1.set_xlabel('Time (sec)')
-        ax1.set_ylabel('Frequency (Hz)')
-
-        # move x-axis of ax1 and ax3 in between, e.g. top of ax1
-        ax1.tick_params(axis='x', pad=-15)
-        ax1.xaxis.set_label_position('top')
 
         # plot performed notes
         if notes is not None:
             Plotter._plot_performed_notes(ax1, notes)
 
-        # plot pitch distribution to the second subplot
+        # axis style
+        ax1.xaxis.set_label_coords(0.5, 0.05)
+        ax1.set_xlabel('Time (sec)')
+        ax1.set_ylabel('Frequency (Hz)')
+        ax1.yaxis.grid(True)
+
+        # move x-axis of ax1 and ax3 in between, e.g. top of ax1
+        ax1.tick_params(axis='x', pad=-15)
+        ax1.xaxis.set_label_position('top')
+
+    @staticmethod
+    def _plot_pitch_dist_note_models(ax2, note_models, pitch_distribution):
+        # plot pitch distribution
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins,
                  color='gray')
-        plt.setp(ax2.get_yticklabels(), visible=False)
 
-        # note models
+        # plot note models
         if note_models is not None:
             ytick_vals = Plotter._plot_note_models(
                 ax2, note_models, pitch_distribution)
@@ -55,11 +83,12 @@ class Plotter(object):
             ytick_vals = pitch_distribution.bins[peak_idx]
 
         # set the frequency ticks and grids
-        ax1.set_yticks(ytick_vals)
-        ax1.yaxis.grid(True)
-
         ax2.set_yticks(ytick_vals)
-        ax2.yaxis.grid(True)
+        plt.setp(ax2.get_yticklabels(), visible=False)
+        # ax2.yaxis.grid(True)
+
+        # define xlim higher than the highest peak so the note names have space
+        ax2.set_xlim([0, 1.2 * max(pitch_distribution.vals)])
 
         # remove spines from the second subplot
         ax2.spines['top'].set_visible(False)
@@ -67,14 +96,16 @@ class Plotter(object):
         ax2.spines['left'].set_visible(False)
         ax2.spines['right'].set_visible(False)
 
-        # define xlim higher than the highest peak so the note names have space
-        ax2.set_xlim([0, 1.2 * max(pitch_distribution.vals)])
-
         # remove the axis of the subplot 2
         ax2.axis('off')
 
-        # plot melodic progression
+    @staticmethod
+    def _plot_melodic_progression(ax3, melodic_progression, pitch,
+                                  pitch_distribution):
+        # plot...
         AudioSeyirAnalyzer.plot(melodic_progression, ax3)
+
+        # axis style
         ax3.set_xlabel('')  # remove the automatically given labels
         ax3.set_ylabel('')
         plt.setp(ax3.get_yticklabels(), visible=False)
@@ -91,33 +122,42 @@ class Plotter(object):
         ax3.spines['right'].set_visible(False)
         ax3.get_yaxis().set_ticks([])
 
-        # plot sections
-        sec_labels = []
-        sec_locs = []
-        for sec in sections:
-            # get the time interval
-            tt = sec['time']
-            dur = tt[1] - tt[0]
+    @staticmethod
+    def _plot_sections(ax3, ax4, sections):
+        if sections is not None:
+            sec_labels = []
+            sec_locs = []
+            for sec in sections:
+                # get the time interval
+                tt = sec['time']
+                dur = tt[1] - tt[0]
 
-            # get the plot limits
-            ylim = ax3.get_ylim()
+                # get the plot limits
+                ylim = ax3.get_ylim()
 
-            # create the rectangle
-            p = patches.Rectangle((tt[0], ylim[0]), dur, ylim[1], alpha=0.3)
-            ax4.add_patch(p)
+                # create the rectangle
+                p = patches.Rectangle((tt[0], ylim[0]), dur, ylim[1],
+                                      alpha=0.3)
+                ax4.add_patch(p)
 
-            sec_labels.append(sec['name'])
-            sec_locs.append(np.mean(tt))
+                sec_labels.append(sec['name'])
+                sec_locs.append(np.mean(tt))
 
-        plt.setp(ax4.get_yticklabels(), visible=False)
+            # styling
+            ax4.set_xticks(sec_locs)
+            ax4.set_xticklabels(sec_labels, rotation=-15)
+            plt.setp(ax4.get_yticklabels(), visible=False)
+            ax4.set_xlim(ax3.get_xlim())
+        else:
+            # no section labels
+            plt.setp(ax4.get_xticklabels(), visible=False)
 
-        # section labels
-        ax4.set_xticks(sec_locs)
-        ax4.set_xticklabels(sec_labels, rotation=-15)
-
-        ax4.set_xlim(ax1.get_xlim())
-
-        return fig, (ax1, ax2, ax3, ax4)
+    @staticmethod
+    def _plot_performed_notes(ax, notes):
+        for note in notes:
+            ax.plot(note['interval'], [note['performed_pitch']['value'],
+                                       note['performed_pitch']['value']],
+                    'r', alpha=0.4, linewidth=4)
 
     @staticmethod
     def _plot_note_models(ax2, note_models, pitch_distribution):
@@ -183,10 +223,3 @@ class Plotter(object):
                         label=note_symbol)
             except KeyError:
                 pass  # note model is not available
-
-    @staticmethod
-    def _plot_performed_notes(ax, notes):
-        for note in notes:
-            ax.plot(note['interval'], [note['performed_pitch']['value'],
-                                       note['performed_pitch']['value']],
-                    'r', alpha=0.4, linewidth=4)
