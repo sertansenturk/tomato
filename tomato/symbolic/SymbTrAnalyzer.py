@@ -104,6 +104,10 @@ class SymbTrAnalyzer(ParamSetter):
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))
 
+        # convert the note indices from MATLAB indexing to python (1->0)
+        phrase_boundaries['boundary_note_idx'] = [
+            b - 1 for b in phrase_boundaries['boundary_note_idx']]
+
         # unlink the temporary files
         IO.remove_temp_files(temp_in_file, temp_out_file)
 
