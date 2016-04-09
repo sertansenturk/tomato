@@ -12,6 +12,7 @@ from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
 from notemodel.NoteModel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
+from musicbrainzngs import ResponseError
 
 from tomato.ParamSetter import ParamSetter
 from tomato.Plotter import Plotter
@@ -43,10 +44,10 @@ class AudioAnalyzer(ParamSetter):
         meta_in = mbid if mbid is not None else filepath
         try:
             metadata = self.get_musicbrainz_metadata(meta_in)
-        except NetworkError:
+        except (NetworkError, ResponseError):
             metadata = None
             warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The metadata stored there is not available.',
+                          'The metadata stored there is not crawled.',
                           RuntimeWarning)
 
         # predominant melody extraction

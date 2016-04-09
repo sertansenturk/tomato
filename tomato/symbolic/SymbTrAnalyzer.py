@@ -6,6 +6,7 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from musicbrainzngs import NetworkError
+from musicbrainzngs import ResponseError
 
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
@@ -45,9 +46,9 @@ class SymbTrAnalyzer(ParamSetter):
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=boundary_note_idx)
-        except NetworkError:  # musicbrainz is not available
+        except (NetworkError, ResponseError):  # musicbrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The metadata stored there is not available.',
+                          'The metadata stored there is not crawled.',
                           RuntimeWarning)
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
