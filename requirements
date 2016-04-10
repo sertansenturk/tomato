@@ -19,7 +19,7 @@ git+https://github.com/miracatici/notemodel.git@v1.2#egg=notemodel
 
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
 # (meta)data extractor, including section extraction and semiotic analysis
-git+https://github.com/sertansenturk/symbtrdataextractor.git#symbtrdataextractor@v2.0.0-alpha.3#egg=symbtrdataextractor
+git+https://github.com/sertansenturk/symbtrdataextractor.git#symbtrdataextractor@v2.0.0-alpha.5#egg=symbtrdataextractor
 
 # extra tools such as SymbTr score manipulation and basic stats
 git+https://github.com/MTG/SymbTr-extras.git@0.2.dev#egg=symbtrextras

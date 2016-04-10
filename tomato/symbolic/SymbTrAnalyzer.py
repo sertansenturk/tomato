@@ -3,7 +3,7 @@ import os
 import warnings
 
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
-from symbtrdataextractor.SymbTrDataExtractor import SymbTrReader
+from symbtrdataextractor.reader.Mu2Reader import Mu2Reader
 from symbtrextras.ScoreExtras import ScoreExtras
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
@@ -22,7 +22,7 @@ class SymbTrAnalyzer(ParamSetter):
 
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
-        self._symbTrReader = SymbTrReader()
+        self._mu2Reader = Mu2Reader()
         self._phraseSegmenter = _mcr_caller.get_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
@@ -32,6 +32,8 @@ class SymbTrAnalyzer(ParamSetter):
 
         # Automatic phrase segmentation on the SymbTr-txt score
         try:
+            # note this is already in 1-indexing which is the I/O convention
+            # of symbtrdataextractor>=v2.0.0-alpha.5
             boundary_note_idx = self.segment_phrase(
                 txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
         except RuntimeError as e:
@@ -39,7 +41,7 @@ class SymbTrAnalyzer(ParamSetter):
             warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
-        mbid = self.get_first_mbid_from_symbtr_name(symbtr_name)
+        mbid = self._get_first_mbid_from_symbtr_name(symbtr_name)
 
         # Extract the (meta)data from the SymbTr scores
         try:
@@ -59,7 +61,8 @@ class SymbTrAnalyzer(ParamSetter):
 
         return score_data
 
-    def get_first_mbid_from_symbtr_name(self, symbtr_name):
+    @staticmethod
+    def _get_first_mbid_from_symbtr_name(symbtr_name):
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first mbid to fetch the metadata
         mbid = ScoreExtras.get_mbids(symbtr_name)
@@ -105,10 +108,6 @@ class SymbTrAnalyzer(ParamSetter):
         # load the results from the temporary file
         phrase_boundaries = json.load(open(temp_out_file))
 
-        # convert the note indices from MATLAB indexing to python (1->0)
-        phrase_boundaries['boundary_note_idx'] = [
-            b - 1 for b in phrase_boundaries['boundary_note_idx']]
-
         # unlink the temporary files
         IO.remove_temp_files(temp_in_file, temp_out_file)
 
@@ -140,7 +139,7 @@ class SymbTrAnalyzer(ParamSetter):
                   mu2_filename)
 
         mu2_header, header_row, is_mu2_header_valid = \
-            self._symbTrReader.read_mu2_header(
+            self._mu2Reader.read_header(
                 mu2_filename, symbtr_name=symbtr_name)
 
         data = SymbTrDataExtractor.merge(txt_data, mu2_header)
