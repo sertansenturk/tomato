@@ -7,9 +7,11 @@ import zipfile
 from StringIO import StringIO
 try:
     from setuptools import setup
+    from setuptools import find_packages
     from setuptools.command.install import install as _install
 except ImportError:
     from distutils.core import setup
+    from setuptools import find_packages  # no replacement in distutils
     from distutils.command.install import install as _install
 
 
@@ -23,7 +25,7 @@ class CustomInstall(_install):
         _install.run(self)
 
         # install requirements
-        subprocess.call(["pip install -r requirements"], shell=True)
+        subprocess.call(["pip install -Ur requirements"], shell=True)
 
     @staticmethod
     def _setup_binaries():
@@ -118,7 +120,7 @@ discovery/recommendation and musicological analysis.
           ],
       platforms='Linux, MacOS X',
       license='agpl 3.0',
-      packages=['tomato'],
+      packages=find_packages(),
       include_package_data=True,
       install_requires=[
       ],
