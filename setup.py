@@ -25,7 +25,7 @@ class CustomInstall(_install):
         _install.run(self)
 
         # install requirements
-        subprocess.call(["pip install -rU requirements"], shell=True)
+        subprocess.call(["pip install -Ur requirements"], shell=True)
 
     @staticmethod
     def _setup_binaries():
