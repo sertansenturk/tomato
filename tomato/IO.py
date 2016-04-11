@@ -103,9 +103,11 @@ class IO(object):
     @staticmethod
     def _from_format(input_str, input_format):
         try:  # file given
-            return eval(input_format + ".load(open(input_str))")
+            loader = getattr(eval(input_format), "load")
+            return loader(open(input_str))
         except IOError:  # string given
-            return eval(input_format + ".load(input_str)")
+            loader = getattr(eval(input_format), "loads")
+            return loader(input_str)
 
     @staticmethod
     def from_pickle(input_str):
