@@ -19,12 +19,11 @@ class Plotter(object):
         cls._subplot_pitch_notes(ax1, notes, pitch)
 
         # plot the pitch distribution and the note models to the second subplot
-        cls._plot_pitch_dist_note_models(ax2, note_models,
-                                             pitch_distribution)
+        cls._plot_pitch_dist_note_models(ax2, note_models, pitch_distribution)
 
         # plot the melodic progression to the third subplot
         cls._plot_melodic_progression(ax3, melodic_progression, pitch,
-                                          pitch_distribution)
+                                      pitch_distribution)
 
         # plot the sections to the third subplot, onto the melodic progression
         cls._plot_sections(ax1, ax3, ax4, sections)
