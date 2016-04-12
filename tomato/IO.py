@@ -38,7 +38,7 @@ class IO(object):
                 out_dict[exp] = json.load(open(fpath, 'r'))
                 os.unlink(fpath)  # remove file created in the temporary folder
             else:
-                raise Exception('Missing output %s file' % exp)
+                raise Exception(u'Missing output {0:s} file'.format(exp))
 
         return out_dict
 

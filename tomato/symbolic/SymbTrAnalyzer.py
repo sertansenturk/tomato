@@ -67,7 +67,7 @@ class SymbTrAnalyzer(ParamSetter):
         #       We are going to use the first mbid to fetch the metadata
         mbid = ScoreExtras.get_mbids(symbtr_name)
         if not mbid:
-            warnings.warn("No MBID returned for %s" % symbtr_name,
+            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning)
         else:
             mbid = mbid[0]
@@ -92,9 +92,9 @@ class SymbTrAnalyzer(ParamSetter):
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
 
         # call the binary
-        callstr = ["%s segmentWrapper %s %s %s %s" %
-                   (self._phraseSegmenter, bound_stat_file, fld_model_file,
-                    temp_in_file, temp_out_file)]
+        callstr = ["{0:s} segmentWrapper {1:s} {2:s} {3:s} {4:s}".format(
+            self._phraseSegmenter, bound_stat_file, fld_model_file,
+            temp_in_file, temp_out_file)]
 
         out, err = _mcr_caller.call(callstr)
 

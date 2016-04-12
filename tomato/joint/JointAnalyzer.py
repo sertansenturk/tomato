@@ -134,10 +134,9 @@ class JointAnalyzer(ParamSetter):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ["%s %s %s %s %s %s" %
-                   (self._tonicTempoExtractor, score_filename,
-                    temp_score_data_file, audio_filename, temp_pitch_file,
-                    temp_out_folder)]
+        callstr = ["{0:s} {1:s} {2:s} {3:s} {4:s} {5:s}".format(
+            self._tonicTempoExtractor, score_filename, temp_score_data_file,
+            audio_filename, temp_pitch_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
 
@@ -184,8 +183,8 @@ class JointAnalyzer(ParamSetter):
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
         if self.verbose:
-            print("- Aligning audio recording %s and music score %s."
-                  % (audio_filename, score_filename))
+            print("- Aligning audio recording {0:s} and music score {1:s}."
+                  .format(audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
         temp_score_data_file = IO.create_temp_file(
@@ -217,10 +216,11 @@ class JointAnalyzer(ParamSetter):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ["%s %s %s '' %s %s %s %s '' %s" %
-                   (self._audioScoreAligner, score_filename,
-                    temp_score_data_file, audio_filename, temp_pitch_file,
-                    temp_tonic_file, temp_tempo_file, temp_out_folder)]
+        callstr = ["{0:s} {1:s} {2:s} '' {3:s} {4:s} {5:s} {6:s} '' "
+                   "{7:s}".format(self._audioScoreAligner, score_filename,
+                                  temp_score_data_file, audio_filename,
+                                  temp_pitch_file, temp_tonic_file,
+                                  temp_tempo_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
         # check the MATLAB output
@@ -247,8 +247,8 @@ class JointAnalyzer(ParamSetter):
 
     def filter_pitch(self, pitch, aligned_notes):
         if self.verbose:
-            print("- Filtering predominant melody of %s after audio-score "
-                  "alignment." % (pitch['source']))
+            print(u"- Filtering predominant melody of {0:s} after audio-score "
+                  u"alignment.".format(pitch['source']))
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
