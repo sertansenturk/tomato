@@ -1,6 +1,6 @@
 # ------------------- AUDIO ANALYSIS REPOSITORIES -----------------------------
 # metadata extraction
-git+https://github.com/sertansenturk/makammusicbrainz.git@v1.2.1#egg=makammusicbrainz
+git+https://github.com/sertansenturk/makammusicbrainz.git@v1.2.2#egg=makammusicbrainz
 
 # predominant melody extraction and correction
 git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2#egg=predominantmelodymakam
@@ -19,12 +19,15 @@ git+https://github.com/miracatici/notemodel.git@v1.2#egg=notemodel
 
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
 # (meta)data extractor, including section extraction and semiotic analysis
-git+https://github.com/sertansenturk/symbtrdataextractor.git#symbtrdataextractor@v2.0.0-alpha.5#egg=symbtrdataextractor
+git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.0.0#egg=symbtrdataextractor
 
 # extra tools such as SymbTr score manipulation and basic stats
-git+https://github.com/MTG/SymbTr-extras.git@v0.3.dev#egg=symbtrextras
+git+https://github.com/MTG/SymbTr-extras.git@v0.3.0#egg=symbtrextras
 
 # phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
+
+# txt to MusicXML score conversion
+git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.0#egg=musicxmlconverter
 
 # ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
 # score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
@@ -35,13 +38,14 @@ git+https://github.com/sertansenturk/alignedpitchfilter.git@v1.1#egg=alignedpitc
 git+https://github.com/sertansenturk/alignednotemodel.git@v1.1#egg=alignednotemodel
 
 # ---------------------------------- EXTRAS -----------------------------------
-numpy  # numerical operations
-scipy  # temporary mat file saving for MCR binary inputs
-matplotlib  # plotting
-json-tricks  # saving json files with classes and numpy arrays
+numpy>=1.9.0 # numerical operations
+scipy>=0.17.0 # temporary mat file saving for MCR binary inputs
+matplotlib>=1.5.1 # plotting
+json-tricks==2.1  # saving json files with classes and numpy arrays
+eyeD3==0.7.9 # reading metadata embedded in the audio recordings
 
 # metadata crawling from musicbrainz
-git+https://github.com/alastair/python-musicbrainzngs.git
+git+https://github.com/alastair/python-musicbrainzngs.git@v0.6#egg=musicbrainzngs-master
 
 # basic file manipulations and Turkish string slugification
 git+https://github.com/sertansenturk/fileoperations_python.git@v1.1#egg=fileoperations_python
