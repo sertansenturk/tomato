@@ -7,27 +7,27 @@ from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
 
 
 class Plotter(object):
-    @staticmethod
-    def plot_audio_features(pitch=None, pitch_distribution=None,
+    @classmethod
+    def plot_audio_features(cls, pitch=None, pitch_distribution=None,
                             sections=None, notes=None, note_models=None,
                             melodic_progression=None):
 
         # create the figure and all the subplots with the shared axis specified
-        fig, ax1, ax2, ax3, ax4 = Plotter._create_figure()
+        fig, ax1, ax2, ax3, ax4 = cls._create_figure()
 
         # plot the pitch track and the performed notes to the first subplot
-        Plotter._subplot_pitch_notes(ax1, notes, pitch)
+        cls._subplot_pitch_notes(ax1, notes, pitch)
 
         # plot the pitch distribution and the note models to the second subplot
-        Plotter._plot_pitch_dist_note_models(ax2, note_models,
+        cls._plot_pitch_dist_note_models(ax2, note_models,
                                              pitch_distribution)
 
         # plot the melodic progression to the third subplot
-        Plotter._plot_melodic_progression(ax3, melodic_progression, pitch,
+        cls._plot_melodic_progression(ax3, melodic_progression, pitch,
                                           pitch_distribution)
 
         # plot the sections to the third subplot, onto the melodic progression
-        Plotter._plot_sections(ax1, ax3, ax4, sections)
+        cls._plot_sections(ax1, ax3, ax4, sections)
 
         return fig, (ax1, ax2, ax3, ax4)
 
@@ -49,14 +49,14 @@ class Plotter(object):
         fig.subplots_adjust(hspace=0, wspace=0)
         return fig, ax1, ax2, ax3, ax4
 
-    @staticmethod
-    def _subplot_pitch_notes(ax1, notes, pitch):
+    @classmethod
+    def _subplot_pitch_notes(cls, ax1, notes, pitch):
         # plot predominant melody
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
 
         # plot performed notes
         if notes is not None:
-            Plotter._plot_performed_notes(ax1, notes)
+            cls._plot_performed_notes(ax1, notes)
 
         # axis style
         ax1.xaxis.set_label_coords(0.5, 0.05)
@@ -68,15 +68,16 @@ class Plotter(object):
         ax1.tick_params(axis='x', pad=-15)
         ax1.xaxis.set_label_position('top')
 
-    @staticmethod
-    def _plot_pitch_dist_note_models(ax2, note_models, pitch_distribution):
+    @classmethod
+    def _plot_pitch_dist_note_models(cls, ax2, note_models,
+                                     pitch_distribution):
         # plot pitch distribution
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins,
                  color='gray')
 
         # plot note models
         if note_models is not None:
-            ytick_vals = Plotter._plot_note_models(
+            ytick_vals = cls._plot_note_models(
                 ax2, note_models, pitch_distribution)
         else:
             peak_idx = pitch_distribution.detect_peaks()[0]
@@ -176,14 +177,14 @@ class Plotter(object):
                                        note['performed_pitch']['value']],
                     'r', alpha=0.4, linewidth=4)
 
-    @staticmethod
-    def _plot_note_models(ax2, note_models, pitch_distribution):
-        max_rel_occur = Plotter._get_relative_note_occurences(
+    @classmethod
+    def _plot_note_models(cls, ax2, note_models, pitch_distribution):
+        max_rel_occur = cls._get_relative_note_occurences(
             note_models, pitch_distribution)
 
-        Plotter._plot_note_distributions(ax2, note_models)
+        cls._plot_note_distributions(ax2, note_models)
 
-        ytick_vals = Plotter._plot_stable_pitches(
+        ytick_vals = cls._plot_stable_pitches(
             ax2, max_rel_occur, note_models, max(pitch_distribution.vals))
 
         return ytick_vals
