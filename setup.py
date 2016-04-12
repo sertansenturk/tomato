@@ -18,7 +18,7 @@ except ImportError:
 class CustomInstall(_install):
     def run(self):
         # download the binaries
-        self.execute(CustomInstall._setup_binaries, (),
+        self.execute(self._setup_binaries, (),
                      msg="Downloaded the binaries from tomato_binaries.")
 
         # install tomato
@@ -27,8 +27,8 @@ class CustomInstall(_install):
         # install requirements
         subprocess.call(["pip install -Ur requirements"], shell=True)
 
-    @staticmethod
-    def _setup_binaries():
+    @classmethod
+    def _setup_binaries(cls):
         """
         Downloads the binaries compiled by MATLAB Runtime Compiler from
         tomato_binaries
@@ -37,7 +37,7 @@ class CustomInstall(_install):
                                   'tomato', 'bin')
 
         # find os, linux or macosx
-        sys_os = CustomInstall._get_os()
+        sys_os = cls._get_os()
 
         # read configuration file
         config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
@@ -50,7 +50,7 @@ class CustomInstall(_install):
         # Download binaries
         for bin_name, bin_url in config.items(sys_os):
             bin_path = os.path.join(bin_folder, bin_name)
-            CustomInstall._download_binary(bin_path, bin_url, sys_os)
+            cls._download_binary(bin_path, bin_url, sys_os)
 
     @staticmethod
     def _get_os():
