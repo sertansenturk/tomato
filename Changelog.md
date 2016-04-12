@@ -1,7 +1,13 @@
+#### tomato v0.7.0dev
+ - Improved code quality
+ - All note indices in the outputs are fixed to **1-indexing** according to
+ the Symbtr-txt convention (not the pythonic 0-indexing)
+ - Updated requirements
+
 #### tomato v0.6.0
  - Added audio metadata fetching from MusicBrainz using [makammusicbrainz](https://github.com/sertansenturk/makammusicbrainz/releases/tag/v1.2.0).
  - Makam can be now obtained from the fetched audio metadata 
- - Updated the versons of [ahenkidentifier](https://github.com/sertansenturk/ahenkidentifier/releases/tag/v1.4.0) and [symbtrdataextractor](https://github.com/sertansenturk/symbtrdataextractor/releases/tag/v2.0.0-alpha.3)
+ - Updated the versions of [ahenkidentifier](https://github.com/sertansenturk/ahenkidentifier/releases/tag/v1.4.0) and [symbtrdataextractor](https://github.com/sertansenturk/symbtrdataextractor/releases/tag/v2.0.0-alpha.3)
 
 #### tomato v0.5.0
  - Analysis can be run with partial success when some inputs are not available or some methods fails (Issue [#24](https://github.com/sertansenturk/tomato/issues/24))
