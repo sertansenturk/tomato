@@ -15,14 +15,14 @@ class MCRCaller(object):
         config.read(self.filepath)
         try:
             op_sys, env_var, mcr_path, set_paths = \
-                MCRCaller._get_mcr_config(config, 'custom')
+                self._get_mcr_config(config, 'custom')
         except (IOError, ValueError):
             try:
                 op_sys, env_var, mcr_path, set_paths = \
-                    MCRCaller._get_mcr_config(config, 'linux_default')
+                    self._get_mcr_config(config, 'linux_default')
             except (IOError, ValueError):
                 op_sys, env_var, mcr_path, set_paths = \
-                    MCRCaller._get_mcr_config(config, 'macosx_default')
+                    self._get_mcr_config(config, 'macosx_default')
 
         subprocess_env = os.environ.copy()
         subprocess_env["MCR_CACHE_ROOT"] = "/tmp/emptydir"
@@ -35,14 +35,14 @@ class MCRCaller(object):
                                 env=self.env)
         return proc.communicate()
 
-    @staticmethod
-    def _get_mcr_config(config, section_str):
+    @classmethod
+    def _get_mcr_config(cls, config, section_str):
         op_sys = config.get(section_str, 'sys_os')
         env_var = config.get(section_str, 'env_var')
         mcr_path = config.get(section_str, 'mcr_path')
         set_paths = config.get(section_str, 'set_paths')
 
-        MCRCaller._check_mcr_config(env_var, mcr_path)
+        cls._check_mcr_config(env_var, mcr_path)
 
         return op_sys, env_var, mcr_path, set_paths
 
