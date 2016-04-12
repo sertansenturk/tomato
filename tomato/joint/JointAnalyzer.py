@@ -4,9 +4,6 @@ import cStringIO
 import tempfile
 import numpy as np
 from copy import deepcopy
-import warnings
-import logging
-logging.basicConfig(level=logging.INFO)
 
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
@@ -15,6 +12,10 @@ from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
 from tomato.ParamSetter import ParamSetter
 from tomato.Plotter import Plotter
+
+import warnings
+import logging
+logging.basicConfig(level=logging.INFO)
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()

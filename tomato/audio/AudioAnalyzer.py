@@ -1,8 +1,5 @@
 import numpy as np
 from copy import deepcopy
-import warnings
-import logging
-logging.basicConfig(level=logging.INFO)
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -18,6 +15,10 @@ from musicbrainzngs import ResponseError
 
 from tomato.ParamSetter import ParamSetter
 from tomato.Plotter import Plotter
+
+import warnings
+import logging
+logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(ParamSetter):
