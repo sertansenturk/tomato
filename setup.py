@@ -66,7 +66,7 @@ class CustomInstall(_install):
 
     @staticmethod
     def _download_binary(fpath, bin_url, sys_os):
-        print("- Downloading binary: " + bin_url)
+        print(u"- Downloading binary: {0:s}".format(bin_url))
         response = urllib2.urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
             with zipfile.ZipFile(StringIO(response.read())) as z:

@@ -18,7 +18,7 @@ _mcr_caller = MCRCaller()
 
 class SymbTrAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
-        self.verbose = verbose
+        super(SymbTrAnalyzer, self).__init__(verbose=verbose)
 
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
@@ -75,9 +75,8 @@ class SymbTrAnalyzer(ParamSetter):
         return mbid
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
-        if self.verbose:
-            print("- Automatic phrase segmentation on the SymbTr-txt file: " +
-                  txt_filename)
+        self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
+                    u"{0:s}".format(txt_filename))
 
         # attempt to get the symbtrname from the filename, if it is not given
         if symbtr_name is None:
@@ -126,17 +125,15 @@ class SymbTrAnalyzer(ParamSetter):
 
     def extract_data(self, txt_filename, mu2_filename, symbtr_name=None,
                      mbid=None, segment_note_bound_idx=None):
-        if self.verbose:
-            print("- Extracting (meta)data from the SymbTr-txt file: " +
-                  txt_filename)
+        self.vprint(u"- Extracting (meta)data from the SymbTr-txt file: {0:s}"
+                    .format(txt_filename))
 
         txt_data, is_txt_valid = self._dataExtractor.extract(
             txt_filename, symbtr_name=symbtr_name, mbid=mbid,
             segment_note_bound_idx=segment_note_bound_idx)
 
-        if self.verbose:
-            print("- Extracting metadata from the SymbTr-mu2 file: " +
-                  mu2_filename)
+        self.vprint(u"- Extracting metadata from the SymbTr-mu2 file: {0:s}"
+                    .format(mu2_filename))
 
         mu2_header, header_row, is_mu2_header_valid = \
             self._mu2Reader.read_header(

@@ -23,7 +23,7 @@ logging.basicConfig(level=logging.INFO)
 
 class AudioAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
-        self.verbose = verbose
+        super(AudioAnalyzer, self).__init__(verbose=verbose)
 
         # settings that are not defined in the respective classes
         self._pd_params = {'kernel_width': 7.5, 'step_size': 7.5}
@@ -134,7 +134,7 @@ class AudioAnalyzer(ParamSetter):
             up_f['melodic_progression'] = \
                 self.get_melodic_progression(up_f['pitch'])
         except KeyError:
-            logging.info('Melodic progresstion computation failed.')
+            logging.info('Melodic progression computation failed.')
 
         # histogram computation
         try:
@@ -162,14 +162,13 @@ class AudioAnalyzer(ParamSetter):
                           'or "None" for skipping the method')
 
     def get_musicbrainz_metadata(self, rec_in):
-        if self.verbose:
-            print("- Getting relevant metadata of " + rec_in)
+        self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
         return (None if rec_in is False
                 else self._metadataGetter.from_musicbrainz(rec_in))
 
     def extract_pitch(self, filename):
-        if self.verbose:
-            print("- Extracting predominant melody of " + filename)
+        self.vprint(u"- Extracting predominant melody of {0:s}".
+                    format(filename))
 
         results = self._pitchExtractor.run(filename)
         pitch = results['settings']  # collapse the keys in settings
@@ -178,8 +177,8 @@ class AudioAnalyzer(ParamSetter):
         return pitch
 
     def filter_pitch(self, pitch):
-        if self.verbose:
-            print("- Filtering predominant melody of " + pitch['source'])
+        self.vprint(u"- Filtering predominant melody of {0:s}".
+                    format(pitch['source']))
 
         pitch_filt = deepcopy(pitch)
         pitch_filt['pitch'] = self._pitchFilter.run(pitch_filt['pitch'])
@@ -190,9 +189,8 @@ class AudioAnalyzer(ParamSetter):
         return pitch_filt
 
     def get_melodic_progression(self, pitch):
-        if self.verbose:
-            print("- Obtaining the melodic progression model of " +
-                  pitch['source'])
+        self.vprint(u"- Obtaining the melodic progression model of {0:s}"
+                    .format(pitch['source']))
 
         if self._mel_prog_params['frame_dur'] is None:
             # compute number of frames from some simple "rule of thumb"
@@ -213,9 +211,8 @@ class AudioAnalyzer(ParamSetter):
             hop_ratio=self._mel_prog_params['hop_ratio'])
 
     def identify_tonic(self, pitch):
-        if self.verbose:
-            print("- Identifying tonic from the predominant melody of " +
-                  pitch['source'])
+        self.vprint(u"- Identifying tonic from the predominant melody of {0:s}"
+                    .format(pitch['source']))
 
         tonic = self._tonicIdentifier.identify(pitch['pitch'])[0]
 
@@ -225,8 +222,8 @@ class AudioAnalyzer(ParamSetter):
         return tonic
 
     def compute_pitch_distribution(self, pitch, tonic):
-        if self.verbose:
-            print("- Computing pitch distribution of " + pitch['source'])
+        self.vprint(u"- Computing pitch distribution of {0:s}".
+                    format(pitch['source']))
 
         return PitchDistribution.from_hz_pitch(
             np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
@@ -234,8 +231,8 @@ class AudioAnalyzer(ParamSetter):
             step_size=self._pd_params['step_size'])
 
     def compute_class_pitch_distribution(self, pitch, tonic):
-        if self.verbose:
-            print("- Computing pitch class distribution of " + pitch['source'])
+        self.vprint(u"- Computing pitch class distribution of {0:s}".format(
+            pitch['source']))
 
         return self.compute_pitch_distribution(pitch, tonic).to_pcd()
 
@@ -246,8 +243,8 @@ class AudioAnalyzer(ParamSetter):
         return None
 
     def identify_transposition(self, tonic, makam_tonic_str):
-        if self.verbose:
-            print("- Identifying the transposition of " + tonic['source'])
+        self.vprint(u"- Identifying the transposition of {0:s}".format(
+            tonic['source']))
         transposition = AhenkIdentifier.identify(
             tonic['value'], makam_tonic_str)
         transposition['source'] = tonic['source']
@@ -255,8 +252,8 @@ class AudioAnalyzer(ParamSetter):
         return transposition
 
     def get_stable_notes(self, pitch_distribution, tonic, makamstr):
-        if self.verbose:
-            print("- Obtaining the stable notes of " + tonic['source'])
+        self.vprint(u"- Obtaining the stable notes of {0:s}".
+                    format(tonic['source']))
 
         return self._noteModeler.calculate_notes(pitch_distribution,
                                                  tonic['value'], makamstr)

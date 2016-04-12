@@ -1,6 +1,9 @@
 import json
 from scipy.io import savemat
-import cStringIO
+try:
+    from io import StringIO  # python 3
+except ImportError:
+    from cStringIO import StringIO  # python 2
 import tempfile
 import numpy as np
 from copy import deepcopy
@@ -23,7 +26,7 @@ _mcr_caller = MCRCaller()
 
 class JointAnalyzer(ParamSetter):
     def __init__(self, verbose=False):
-        self.verbose = verbose
+        super(JointAnalyzer, self).__init__(verbose=verbose)
 
         # extractors
         self._tonicTempoExtractor = _mcr_caller.get_binary_path(
@@ -119,16 +122,15 @@ class JointAnalyzer(ParamSetter):
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
-        if self.verbose:
-            print("- Extracting score-informed tonic and tempo of " +
-                  audio_filename)
+        self.vprint(u"- Extracting score-informed tonic and tempo of {0:s}"
+                    .format(audio_filename))
 
         # create the temporary input and output files wanted by the binary
         temp_score_data_file = IO.create_temp_file(
             '.json', json.dumps(score_data))
 
         # matlab
-        matout = cStringIO.StringIO()
+        matout = StringIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(
@@ -185,9 +187,8 @@ class JointAnalyzer(ParamSetter):
     def align_audio_score(self, score_filename='', score_data=None,
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
-        if self.verbose:
-            print("- Aligning audio recording {0:s} and music score {1:s}."
-                  .format(audio_filename, score_filename))
+        self.vprint(u"- Aligning audio recording {0:s} and music score {1:s}."
+                    .format(audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
         temp_score_data_file = IO.create_temp_file(
@@ -210,7 +211,7 @@ class JointAnalyzer(ParamSetter):
             '.json', json.dumps({'scoreInformed': audio_tempo_}))
 
         # matlab
-        matout = cStringIO.StringIO()
+        matout = StringIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(
@@ -249,9 +250,8 @@ class JointAnalyzer(ParamSetter):
                 out_dict['sectionLinks']['candidateLinks'])
 
     def filter_pitch(self, pitch, aligned_notes):
-        if self.verbose:
-            print(u"- Filtering predominant melody of {0:s} after audio-score "
-                  u"alignment.".format(pitch['source']))
+        self.vprint(u"- Filtering predominant melody of {0:s} after "
+                    u"audio-score alignment.".format(pitch['source']))
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
@@ -270,8 +270,8 @@ class JointAnalyzer(ParamSetter):
         return pitch_filtered, notes_filtered
 
     def get_note_models(self, pitch, aligned_notes, tonic_symbol):
-        if self.verbose:
-            print("- Computing the note models for " + pitch['source'])
+        self.vprint(u"- Computing the note models for {0:s}".
+                    format(pitch['source']))
 
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]

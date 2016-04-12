@@ -1,4 +1,7 @@
 class ParamSetter(object):
+    def __init__(self, verbose):
+        self.verbose = verbose
+
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
         attribs = self.get_public_attr(analyzer)
@@ -17,3 +20,12 @@ class ParamSetter(object):
     def get_public_attr(obj):
         return [name for name in obj.__dict__.keys()
                 if not name.startswith('_')]
+
+    def vprint(self, vstr):
+        """
+        Prints the input string if the verbose flag of the object is set to
+        True
+        :param vstr: input string to print
+        """
+        if self.verbose is True:
+            print(vstr)
