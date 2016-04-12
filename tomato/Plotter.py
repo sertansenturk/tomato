@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import FixedLocator
 from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
+import logging
+logging.basicConfig(level=logging.INFO)
 
 
 class Plotter(object):
@@ -239,4 +241,5 @@ class Plotter(object):
                         note_models[note_symbol]['distribution'].bins,
                         label=note_symbol)
             except KeyError:
-                pass  # note model is not available
+                logging.debug(u'note model is not available for {0:s}'.format(
+                    note_symbol))

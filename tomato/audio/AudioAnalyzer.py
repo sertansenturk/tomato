@@ -1,6 +1,8 @@
 import numpy as np
 from copy import deepcopy
 import warnings
+import logging
+logging.basicConfig(level=logging.INFO)
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -131,7 +133,7 @@ class AudioAnalyzer(ParamSetter):
             up_f['melodic_progression'] = \
                 self.get_melodic_progression(up_f['pitch'])
         except KeyError:
-            pass
+            logging.info('Melodic progresstion computation failed.')
 
         # histogram computation
         try:
@@ -141,14 +143,14 @@ class AudioAnalyzer(ParamSetter):
             up_f['pitch_class_distribution'] = \
                 up_f['pitch_distribution'].to_pcd()
         except KeyError:
-            pass
+            logging.info('Pitch (class) distribution computation failed.')
 
         # transposition (ahenk) identification
         try:
             up_f['transposition'] = self.identify_transposition(
                 up_f['tonic'], up_f['tonic']['symbol'])
         except KeyError:
-            pass
+            logging.info('Transposition computation failed.')
 
         return up_f
 
@@ -300,7 +302,7 @@ class AudioAnalyzer(ParamSetter):
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
-            pass
+            logging.debug('The pitch distribution should already be in hz')
         note_models = deepcopy(features['stable_notes'])
         melodic_progression = deepcopy(features['melodic_progression'])
 

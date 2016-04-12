@@ -5,6 +5,8 @@ import tempfile
 import numpy as np
 from copy import deepcopy
 import warnings
+import logging
+logging.basicConfig(level=logging.INFO)
 
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
@@ -311,7 +313,7 @@ class JointAnalyzer(ParamSetter):
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
-            pass
+            logging.debug('The pitch distribution should already be in hz')
 
         try:
             note_models = deepcopy(summarized_features['joint']['note_models'])
