@@ -115,7 +115,7 @@ class AudioAnalyzer(Analyzer):
     @staticmethod
     def _parse_inputs(**kwargs):
         # initialize precomputed_features with the avaliable analysis
-        precomputed_features = dict((f, [])
+        precomputed_features = dict((f, None)
                                     for f in AudioAnalyzer.audio_features)
         for feature, val in iteritems(kwargs):
             if feature not in AudioAnalyzer.audio_features:
