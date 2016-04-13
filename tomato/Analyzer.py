@@ -29,8 +29,9 @@ class Analyzer(object):
         if any(key not in attribs for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(attribs))
 
-    def get_public_attr(self):
-        return [name for name in self.__dict__.keys()
+    @staticmethod
+    def get_public_attr(generic_obj):
+        return [name for name in generic_obj.__dict__.keys()
                 if not name.startswith('_')]
 
     def vprint(self, vstr):
