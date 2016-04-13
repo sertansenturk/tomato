@@ -13,7 +13,7 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
-from tomato.ParamSetter import ParamSetter
+from tomato.Analyzer import Analyzer
 from tomato.Plotter import Plotter
 
 import warnings
@@ -21,7 +21,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 
-class AudioAnalyzer(ParamSetter):
+class AudioAnalyzer(Analyzer):
     def __init__(self, verbose=False):
         super(AudioAnalyzer, self).__init__(verbose=verbose)
 
@@ -278,7 +278,7 @@ class AudioAnalyzer(ParamSetter):
         method_params = self._mel_prog_params.keys()  # imput parameters
         obj_params = self.get_public_attr(self._melodicProgressionAnalyzer)
 
-        ParamSetter.chk_params(method_params + obj_params, kwargs)
+        Analyzer.chk_params(method_params + obj_params, kwargs)
 
         for key, value in kwargs.items():
             if key in method_params:

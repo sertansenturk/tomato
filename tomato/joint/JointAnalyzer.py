@@ -10,7 +10,7 @@ from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
-from tomato.ParamSetter import ParamSetter
+from tomato.Analyzer import Analyzer
 from tomato.Plotter import Plotter
 
 import warnings
@@ -21,7 +21,7 @@ logging.basicConfig(level=logging.INFO)
 _mcr_caller = MCRCaller()
 
 
-class JointAnalyzer(ParamSetter):
+class JointAnalyzer(Analyzer):
     def __init__(self, verbose=False):
         super(JointAnalyzer, self).__init__(verbose=verbose)
 

@@ -1,4 +1,4 @@
-class ParamSetter(object):
+class Analyzer(object):
     def __init__(self, verbose):
         self.verbose = verbose
 
@@ -6,7 +6,7 @@ class ParamSetter(object):
         analyzer = getattr(self, analyzer_str)
         attribs = self.get_public_attr(analyzer)
 
-        ParamSetter.chk_params(attribs, kwargs)
+        Analyzer.chk_params(attribs, kwargs)
 
         for key, value in kwargs.items():
             setattr(analyzer, key, value)

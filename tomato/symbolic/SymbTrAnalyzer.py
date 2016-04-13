@@ -10,13 +10,13 @@ from musicbrainzngs import ResponseError
 
 from tomato.MCRCaller import MCRCaller
 from tomato.IO import IO
-from tomato.ParamSetter import ParamSetter
+from tomato.Analyzer import Analyzer
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()
 
 
-class SymbTrAnalyzer(ParamSetter):
+class SymbTrAnalyzer(Analyzer):
     def __init__(self, verbose=False):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
 
