@@ -10,7 +10,7 @@ class IO(object):
     @staticmethod
     def basestring():
         try:
-            return basestring # python 2
+            return basestring  # python 2
         except NameError:
             # 'unicode' is undefined, must be Python 3
             return (str, bytes)
