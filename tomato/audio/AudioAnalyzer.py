@@ -99,14 +99,14 @@ class AudioAnalyzer(Analyzer):
             audio_features['transposition'] = None
             warnings.warn(e.message, RuntimeWarning)
 
-        # tuning analysis and stable pitch extraction
+        # note models
         # TODO: check if there is more than one transposition name, if yes warn
         try:
-            audio_features['stable_notes'] = self.get_stable_notes(
+            audio_features['note_models'] = self.get_note_models(
                 audio_features['pitch_distribution'],
                 audio_features['tonic'], audio_features['makam'])
         except KeyError as e:
-            audio_features['stable_notes'] = None
+            audio_features['note_models'] = None
             warnings.warn(e.message, RuntimeWarning)
 
         # return as a dictionary
@@ -309,15 +309,15 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return transposition
 
-    def get_stable_notes(self, pitch_distribution, tonic, makamstr):
+    def get_note_models(self, pitch_distribution, tonic, makamstr):
         tic = timeit.default_timer()
-        self.vprint(u"- Obtaining the stable notes of {0:s}".
+        self.vprint(u"- Computing the note models for {0:s}".
                     format(tonic['source']))
 
-        stable_notes = self._noteModeler.calculate_notes(
+        note_models = self._noteModeler.calculate_notes(
             pitch_distribution, tonic['value'], makamstr)
         self.vprint_time(tic, timeit.default_timer())
-        return stable_notes
+        return note_models
 
     # setters
     def set_pitch_extractor_params(self, **kwargs):
@@ -362,7 +362,7 @@ class AudioAnalyzer(Analyzer):
             pitch_distribution.cent_to_hz()
         except ValueError:
             logging.debug('The pitch distribution should already be in hz')
-        note_models = deepcopy(features['stable_notes'])
+        note_models = deepcopy(features['note_models'])
         melodic_progression = deepcopy(features['melodic_progression'])
 
         return Plotter.plot_audio_features(
