@@ -36,14 +36,12 @@ class JointAnalyzer(Analyzer):
 
     def analyze(self, score_filename='', score_data=None,
                 audio_filename='', audio_pitch=None, audio_tonic=None,
-                audio_tempo = None):
+                audio_tempo=None):
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
-            if audio_tempo is not None or audio_tempo is not None:
-                tonic, tempo = self.extract_tonic_tempo(
-                    score_filename, score_data, audio_filename, audio_pitch)
-                audio_tonic = audio_tonic if audio_tonic is not None else tonic
-                audio_tempo = audio_tempo if audio_tempo is not None else tempo
+            audio_tonic, audio_tempo = self._parse_and_extract_tonic_tempo(
+                score_filename, score_data, audio_filename, audio_pitch,
+                audio_tonic, audio_tempo)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -54,8 +52,8 @@ class JointAnalyzer(Analyzer):
         try:
             aligned_sections, notes, section_links, section_candidates = \
                 self.align_audio_score(score_filename, score_data,
-                                       audio_filename, audio_pitch, audio_tonic,
-                                       audio_tempo)
+                                       audio_filename, audio_pitch,
+                                       audio_tonic, audio_tempo)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -121,6 +119,29 @@ class JointAnalyzer(Analyzer):
             sdict['joint']['note_models'] = joint_features['note_models']
 
         return sdict
+
+    def _parse_and_extract_tonic_tempo(self, score_filename, score_data,
+                                       audio_filename, audio_pitch,
+                                       audio_tonic=None, audio_tempo=None):
+        """
+        Parses the tonic and tempo inputs in the JointAnalyzer.analyze and
+        computes whichever is not supplied.
+        :param score_filename:
+        :param score_data:
+        :param audio_filename:
+        :param audio_pitch:
+        :param audio_tempo:
+        :param audio_tonic:
+        :return:
+        """
+        if audio_tonic is None or audio_tempo is None:
+            # the tonic or the tempo is not provided, call the extractor
+            tonic, tempo = self.extract_tonic_tempo(
+                score_filename, score_data, audio_filename, audio_pitch)
+            audio_tonic = audio_tonic if audio_tonic is not None else tonic
+            audio_tempo = audio_tempo if audio_tempo is not None else tempo
+
+        return audio_tonic, audio_tempo
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
