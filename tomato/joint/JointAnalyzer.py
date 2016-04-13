@@ -23,8 +23,8 @@ _mcr_caller = MCRCaller()
 
 
 class JointAnalyzer(Analyzer):
-    _features = ['notes', 'note_models', 'makam', 'pitch_filtered',
-                 'sections', 'tonic', 'tempo']
+    _inputs = ['notes', 'note_models', 'makam', 'pitch_filtered', 'sections',
+               'tonic', 'tempo']
 
     def __init__(self, verbose=False):
         super(JointAnalyzer, self).__init__(verbose=verbose)
@@ -37,12 +37,12 @@ class JointAnalyzer(Analyzer):
         self._alignedPitchFilter = AlignedPitchFilter()
         self._alignedNoteModel = AlignedNoteModel()
 
-    def analyze(self, score_filename='', score_data=None, audio_filename='',
-                audio_pitch=None, tonic=None, tempo=None):
+    def analyze(self, symbtr_txt_filename='', score_data=None,
+                audio_filename='', audio_pitch=None, tonic=None, tempo=None):
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
             tonic, tempo = self._parse_and_extract_tonic_tempo(
-                score_filename, score_data, audio_filename, audio_pitch,
+                symbtr_txt_filename, score_data, audio_filename, audio_pitch,
                 tonic, tempo)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
@@ -54,7 +54,7 @@ class JointAnalyzer(Analyzer):
         # section linking and note-level alignment
         try:
             aligned_sections, notes, section_links, section_candidates = \
-                self.align_audio_score(score_filename, score_data,
+                self.align_audio_score(symbtr_txt_filename, score_data,
                                        audio_filename, audio_pitch,
                                        tonic, tempo)
         except RuntimeError as e:

@@ -13,30 +13,21 @@ class CompleteAnalyzer(Analyzer):
     lightweight analysis, you should use the SymbTrAnalyzer, AudioAnalyzer and
     JointAnalyzer classes individually instead.
     """
-    def __init__(self, verbose=False):
+    _inputs = []
+
+    def __init__(self):
         """
         Initialize a CompleteAnalyzer object
-
-        :param verbose: True to display the analysis processes, False otherwise
         """
-        super(CompleteAnalyzer, self).__init__(verbose=verbose)
+        super(CompleteAnalyzer, self).__init__(verbose=True)
 
         # extractors
         self._symbtrAnalyzer = SymbTrAnalyzer(verbose=self.verbose)
         self._audioAnalyzer = AudioAnalyzer(verbose=self.verbose)
         self._jointAnalyzer = JointAnalyzer(verbose=self.verbose)
 
-    # getter and setters
-    @property
-    def verbose(self):
-        return self._symbtrAnalyzer.verbose
-
-    @verbose.setter
-    def verbose(self, value):
-        self.verbose = value
-
     def analyze(self, symbtr_txt_filename='', symbtr_mu2_filename='',
-                symbtr_name=None, audio_filename=''):
+                symbtr_name=None, audio_filename='', audio_metadata=None):
         """
         Apply complete analysis of the input score(s) and audio recording
 
@@ -55,7 +46,10 @@ class CompleteAnalyzer(Analyzer):
             will search the name in the symbtr_txt_filename
         audio_filename : str, optional
             The audio recording of the performed composition
-
+        audio_metadata : str ot bool, optional
+            The relevant recording MusicBrainz ID (MBID). IF not given, the
+            method will try to fetch the MBID from tags in the recording. If
+            the value is False, audio metadata will not be crawled
         Returns
         ----------
         dict
@@ -72,14 +66,14 @@ class CompleteAnalyzer(Analyzer):
             Features that are related to both the music scores and audio
             recordings.
         """
-
         # score analysis
         score_features = self._symbtrAnalyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)
 
         # audio analysis
         audio_features = self._audioAnalyzer.analyze(
-            audio_filename, makam=score_features['makam']['symbtr_slug'])
+            audio_filename, makam=score_features['makam']['symbtr_slug'],
+            metadata=audio_metadata)
 
         # joint analysis
         joint_features, score_informed_audio_features = self._jointAnalyzer.\
@@ -100,4 +94,4 @@ class CompleteAnalyzer(Analyzer):
 
     @staticmethod
     def plot(summarized_features):
-        JointAnalyzer.plot(summarized_features)
+        return JointAnalyzer.plot(summarized_features)

@@ -24,9 +24,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
-    _features = ['makam', 'melodic_progression', 'metadata', 'note_models',
-                 'pitch', 'pitch_class_distribution', 'pitch_distribution',
-                 'pitch_filtered', 'tempo', 'tonic', 'transposition']
+    _inputs = ['makam', 'melodic_progression', 'metadata', 'note_models',
+               'pitch', 'pitch_class_distribution', 'pitch_distribution',
+               'pitch_filtered', 'tempo', 'tonic', 'transposition']
 
     def __init__(self, verbose=False):
         super(AudioAnalyzer, self).__init__(verbose=verbose)
@@ -52,8 +52,8 @@ class AudioAnalyzer(Analyzer):
         audio_f = self._parse_inputs(**kwargs)
 
         # metadata
-        audio_f['metadata'] = self._get_audio_metadata(audio_f['metadata'],
-                                                       filepath)
+        audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],
+                                                        filepath)
 
         # predominant melody extraction
         audio_f['pitch'] = self._call_analysis_step(
@@ -105,7 +105,7 @@ class AudioAnalyzer(Analyzer):
         # return as a dictionary
         return audio_f
 
-    def _get_audio_metadata(self, audio_meta, filepath):
+    def _call_audio_metadata(self, audio_meta, filepath):
         if audio_meta is False:  # metadata crawling is disabled
             audio_meta = None
         elif audio_meta is None:  # no MBID is given, attempt to get
