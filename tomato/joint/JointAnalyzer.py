@@ -35,11 +35,15 @@ class JointAnalyzer(Analyzer):
         self._alignedNoteModel = AlignedNoteModel()
 
     def analyze(self, score_filename='', score_data=None,
-                audio_filename='', audio_pitch=None):
+                audio_filename='', audio_pitch=None, audio_tonic=None,
+                audio_tempo = None):
         # joint score-informed tonic identification and tempo estimation
-        try:
-            tonic, tempo = self.extract_tonic_tempo(
-                score_filename, score_data, audio_filename, audio_pitch)
+        try:  # if both are given in advance don't recompute
+            if audio_tempo is not None or audio_tempo is not None:
+                tonic, tempo = self.extract_tonic_tempo(
+                    score_filename, score_data, audio_filename, audio_pitch)
+                audio_tonic = audio_tonic if audio_tonic is not None else tonic
+                audio_tempo = audio_tempo if audio_tempo is not None else tempo
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -50,12 +54,12 @@ class JointAnalyzer(Analyzer):
         try:
             aligned_sections, notes, section_links, section_candidates = \
                 self.align_audio_score(score_filename, score_data,
-                                       audio_filename, audio_pitch, tonic,
-                                       tempo)
+                                       audio_filename, audio_pitch, audio_tonic,
+                                       audio_tempo)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
-            audio_features = {'tonic': tonic, 'tempo': tempo}
+            audio_features = {'tonic': audio_tonic, 'tempo': audio_tempo}
             return joint_features, audio_features
 
         # aligned pitch filter
@@ -63,12 +67,12 @@ class JointAnalyzer(Analyzer):
 
         # aligned note model
         note_models, pitch_distribution, aligned_tonic = self.get_note_models(
-            aligned_pitch, notes, tonic['symbol'])
+            aligned_pitch, notes, audio_tonic['symbol'])
 
         joint_features = {'sections': aligned_sections, 'notes': aligned_notes,
                           'note_models': note_models}
         audio_features = {'pitch': aligned_pitch, 'tonic': aligned_tonic,
-                          'tempo': tempo}
+                          'tempo': audio_tempo}
 
         return joint_features, audio_features
 
