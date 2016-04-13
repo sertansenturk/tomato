@@ -64,8 +64,8 @@ class JointAnalyzer(Analyzer):
         aligned_pitch, aligned_notes = self.filter_pitch(audio_pitch, notes)
 
         # aligned note model
-        note_models, pitch_distribution, aligned_tonic = self.compute_note_models(
-            aligned_pitch, notes, audio_tonic['symbol'])
+        note_models, pitch_distribution, aligned_tonic = self.\
+            compute_note_models(aligned_pitch, notes, audio_tonic['symbol'])
 
         joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
         audio_features = {'makam': score_data['makam']['symbtr_slug'],
@@ -81,22 +81,15 @@ class JointAnalyzer(Analyzer):
         # initialize
         sdict = {'audio': {}, 'score': score_features, 'joint': {}}
 
-        common_features = ['makam', 'melodic_progression', 'note_models',
-                           'pitch_class_distribution', 'pitch_distribution',
-                           'pitch_filtered', 'tonic', 'transposition']
-        for cf in common_features:
-            score_informed = (score_informed_audio_features is not None and
-                              score_informed_audio_features[cf] is not None)
-            if score_informed:
-                sdict['audio'][cf] = score_informed_audio_features[cf]
-            else:
-                sdict['audio'][cf] = audio_features[cf]
+        sdict['audio'] = JointAnalyzer._summarize_common_audio_features(
+            audio_features, score_informed_audio_features)
 
         # pitch_filtered is reduntant name and it might not be computed
         sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
         if sdict['audio']['pitch'] is None:
             sdict['audio']['pitch'] = audio_features['pitch']
 
+        # tempo if computed
         try:
             sdict['audio']['tempo'] = score_informed_audio_features['tempo']
         except KeyError:
@@ -110,6 +103,25 @@ class JointAnalyzer(Analyzer):
             logging.debug("Section links and aligned notes are not available.")
 
         return sdict
+
+    @staticmethod
+    def _summarize_common_audio_features(audio_features,
+                                         score_informed_audio_features):
+        common_feature_names = ['makam', 'melodic_progression', 'note_models',
+                                'pitch_class_distribution',
+                                'pitch_distribution', 'pitch_filtered',
+                                'tonic', 'transposition']
+
+        common_audio_features = dict()
+        for cf in common_feature_names:
+            score_informed = (score_informed_audio_features is not None and
+                              score_informed_audio_features[cf] is not None)
+            if score_informed:
+                common_audio_features[cf] = score_informed_audio_features[cf]
+            else:
+                common_audio_features[cf] = audio_features[cf]
+
+        return common_audio_features
 
     def _parse_and_extract_tonic_tempo(self, score_filename, score_data,
                                        audio_filename, audio_pitch,

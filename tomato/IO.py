@@ -4,7 +4,6 @@ from six import iteritems
 from json_tricks import np as json
 import pickle
 import re
-import logging
 
 
 class IO(object):
