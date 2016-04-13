@@ -3,6 +3,8 @@
  - All note indices in the outputs are fixed to **1-indexing** according to
  the Symbtr-txt convention (not the pythonic 0-indexing)
  - Updated requirements
+ - Improved verbosity and warnings
+ - Execution time of each step is printed if the verbose is True
 
 #### tomato v0.6.0
  - Added audio metadata fetching from MusicBrainz using [makammusicbrainz](https://github.com/sertansenturk/makammusicbrainz/releases/tag/v1.2.0).
