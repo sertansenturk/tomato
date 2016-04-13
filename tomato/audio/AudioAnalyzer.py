@@ -60,7 +60,8 @@ class AudioAnalyzer(Analyzer):
             audio_f['metadata'] = self.get_musicbrainz_metadata(
                 filepath)
         elif isinstance(audio_f['metadata'], basestring):  # MBID is given
-            audio_f['metadata'] = self.get_musicbrainz_metadata(mbid)
+            audio_f['metadata'] = self.get_musicbrainz_metadata(
+                audio_f['metadata'])
         elif not isinstance(audio_f['metadata'], dict):
             warn_str = 'The "metadata" input can be "False" (skipped), ' \
                        '"basestring" (MBID input), "None" (attempt to get ' \
@@ -111,7 +112,7 @@ class AudioAnalyzer(Analyzer):
             audio_f['makam'] = self._get_makam(
                 audio_f['metadata'], audio_f['pitch_class_distribution'])
         elif isinstance(audio_f['makam'], list):  # list of makams given
-            audio_f['makam'] = audio_f['makam'][0]  # for now get the first makam
+            audio_f['makam'] = audio_f['makam'][0]  # for now the first makam
 
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams

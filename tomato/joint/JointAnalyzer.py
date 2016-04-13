@@ -68,9 +68,10 @@ class JointAnalyzer(Analyzer):
             aligned_pitch, notes, audio_tonic['symbol'])
 
         joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
-        audio_features = {'makam':score_data['makam']['symbtr_slug'],
-                          'pitch': aligned_pitch, 'tonic': aligned_tonic,
-                          'tempo': audio_tempo, 'note_models': note_models}
+        audio_features = {'makam': score_data['makam']['symbtr_slug'],
+                          'pitch_filtered': aligned_pitch,
+                          'tonic': aligned_tonic, 'tempo': audio_tempo,
+                          'note_models': note_models}
 
         return joint_features, audio_features
 
@@ -93,7 +94,8 @@ class JointAnalyzer(Analyzer):
                 audio_features['pitch_class_distribution']
             sdict['audio']['note_models'] = audio_features['note_models']
         else:
-            sdict['audio']['pitch'] = score_informed_audio_features['pitch']
+            sdict['audio']['pitch'] = score_informed_audio_features[
+                'pitch_filtered']
             sdict['audio']['tonic'] = score_informed_audio_features['tonic']
             sdict['audio']['melodic_progression'] = \
                 score_informed_audio_features['melodic_progression']
