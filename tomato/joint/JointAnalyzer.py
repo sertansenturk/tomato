@@ -64,7 +64,7 @@ class JointAnalyzer(Analyzer):
         aligned_pitch, aligned_notes = self.filter_pitch(audio_pitch, notes)
 
         # aligned note model
-        note_models, pitch_distribution, aligned_tonic = self.get_note_models(
+        note_models, pitch_distribution, aligned_tonic = self.compute_note_models(
             aligned_pitch, notes, audio_tonic['symbol'])
 
         joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
@@ -295,7 +295,7 @@ class JointAnalyzer(Analyzer):
 
         return pitch_filtered, notes_filtered
 
-    def get_note_models(self, pitch, aligned_notes, tonic_symbol):
+    def compute_note_models(self, pitch, aligned_notes, tonic_symbol):
         tic = timeit.default_timer()
         self.vprint(u"- Computing the note models for {0:s}".
                     format(pitch['source']))

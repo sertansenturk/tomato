@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from IO import IO
+import logging
 
 
 class Analyzer(object):
@@ -15,6 +16,21 @@ class Analyzer(object):
     @abstractmethod
     def plot(self):
         pass
+
+    def _call_analysis_step(self, method_name, feature_flag,
+                            *input_features):
+        if feature_flag is False:  # call skipped
+            return None
+        elif feature_flag is None:  # call method
+            method = getattr(self, method_name)
+            try:
+                return method(*input_features)
+            except KeyError:
+                logging.info('{0:s}.{1:s} failed.'.
+                             format(self.__class__, method_name))
+                return None
+        else:  # flag is the precomputed feature itself
+            return feature_flag
 
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)

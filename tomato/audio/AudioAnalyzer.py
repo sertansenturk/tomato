@@ -36,7 +36,7 @@ class AudioAnalyzer(Analyzer):
         # settings that are not defined in the respective classes
         self._pd_params = {'kernel_width': 7.5, 'step_size': 7.5}
         # - for melodic progression None means, applying the rule of thumb
-        #   defined in the method "get_melodic_progression". This class has
+        #   defined in the method "compute_melodic_progression". This class has
         #   two parameters defined in init and the other two defined in the
         #   method call. Here we only store the ones called in the method call.
         self._mel_prog_params = {'frame_dur': None, 'hop_ratio': 0.5,
@@ -58,10 +58,10 @@ class AudioAnalyzer(Analyzer):
             audio_f['metadata'] = None
         elif audio_f['metadata'] is None:  # no MBID is given, attempt to get
             # it from id3 tag
-            audio_f['metadata'] = self.get_musicbrainz_metadata(
+            audio_f['metadata'] = self.crawl_musicbrainz_metadata(
                 filepath)
         elif isinstance(audio_f['metadata'], basestring):  # MBID is given
-            audio_f['metadata'] = self.get_musicbrainz_metadata(
+            audio_f['metadata'] = self.crawl_musicbrainz_metadata(
                 audio_f['metadata'])
         elif not isinstance(audio_f['metadata'], dict):
             warn_str = 'The "metadata" input can be "False" (skipped), ' \
@@ -71,69 +71,51 @@ class AudioAnalyzer(Analyzer):
             warnings.warn(warn_str)
 
         # predominant melody extraction
-        if audio_f['pitch'] is None:
-            audio_f['pitch'] = self.extract_pitch(filepath)
+        audio_f['pitch'] = self._call_analysis_step(
+            'extract_pitch', audio_f['pitch'], filepath)
 
         # pitch filtering
-        if audio_f['pitch_filtered'] is None:
-            audio_f['pitch_filtered'] = self.filter_pitch(audio_f['pitch'])
+        audio_f['pitch_filtered'] = self._call_analysis_step(
+            'filter_pitch', audio_f['pitch_filtered'], audio_f['pitch'])
 
         # get the melodic progression
-        if audio_f['melodic_progression'] is None:
-            try:
-                audio_f['melodic_progression'] = self.get_melodic_progression(
-                    audio_f['pitch_filtered'])
-            except KeyError:
-                logging.info('Melodic progression computation failed.')
+        audio_f['melodic_progression'] = self._call_analysis_step(
+            'compute_melodic_progression', audio_f['melodic_progression'],
+            audio_f['pitch_filtered'])
 
         # tonic identification
-        if audio_f['tonic'] is None:
-            audio_f['tonic'] = self.identify_tonic(audio_f['pitch_filtered'])
+        audio_f['tonic'] = self._call_analysis_step(
+            'identify_tonic', audio_f['tonic'], audio_f['pitch_filtered'])
 
         # histogram computation
-        if audio_f['pitch_distribution'] is None:
-            try:
-                audio_f['pitch_distribution'] = self.\
-                    compute_pitch_distribution(audio_f['pitch_filtered'],
-                                               audio_f['tonic'])
-                audio_f['pitch_distribution'].cent_to_hz()
-            except KeyError:
-                logging.info('Pitch distribution computation failed.')
-
-        if audio_f['pitch_class_distribution'] is None:
-            try:
-                audio_f['pitch_class_distribution'] = \
-                    audio_f['pitch_distribution'].to_pcd()
-            except KeyError:
-                logging.info('Pitch distribution computation failed.')
+        audio_f['pitch_distribution'] = self._call_analysis_step(
+            'compute_pitch_distribution', audio_f['pitch_distribution'],
+            audio_f['pitch_filtered'])
+        try:
+            audio_f['pitch_class_distribution'] = \
+                audio_f['pitch_distribution'].to_pcd()
+        except KeyError:
+            logging.info('Pitch class distribution computation failed.')
 
         # makam recognition
         # TODO: allow multiple makams
-        if audio_f['makam'] is None:
-            audio_f['makam'] = self._get_makam(
-                audio_f['metadata'], audio_f['pitch_class_distribution'])
-        elif isinstance(audio_f['makam'], list):  # list of makams given
+        audio_f['makam'] = self._call_analysis_step(
+            '_get_makam', audio_f['makam'], audio_f['metadata'],
+            audio_f['pitch_class_distribution'])
+        if isinstance(audio_f['makam'], list):  # list of makams given
             audio_f['makam'] = audio_f['makam'][0]  # for now the first makam
 
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
-        if audio_f['transposition'] is None:
-            try:
-                audio_f['transposition'] = self.identify_transposition(
-                    audio_f['tonic'], audio_f['makam'])
-            except KeyError:
-                logging.info('Transposition computation failed.')
+        audio_f['transposition'] = self._call_analysis_step(
+            'identify_transposition', audio_f['transposition'],
+            audio_f['tonic'], audio_f['makam'])
 
         # note models
         # TODO: check if there is more than one transposition name, if yes warn
-        if audio_f['note_models'] is None:
-            try:
-                audio_f['note_models'] = self.get_note_models(
-                    audio_f['pitch_distribution'], audio_f['tonic'],
-                    audio_f['makam'])
-            except KeyError as e:
-                audio_f['note_models'] = None
-                warnings.warn(e.message, RuntimeWarning)
+        audio_f['note_models'] = self._call_analysis_step(
+            'compute_note_models', audio_f['note_models'],
+            audio_f['pitch_distribution'], audio_f['tonic'], audio_f['makam'])
 
         # return as a dictionary
         return audio_f
@@ -165,7 +147,7 @@ class AudioAnalyzer(Analyzer):
 
         return makam
 
-    def get_musicbrainz_metadata(self, rec_in):
+    def crawl_musicbrainz_metadata(self, rec_in):
         try:
             tic = timeit.default_timer()
             self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
@@ -205,9 +187,9 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return pitch_filt
 
-    def get_melodic_progression(self, pitch):
+    def compute_melodic_progression(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Obtaining the melodic progression model of {0:s}"
+        self.vprint(u"- Computing the melodic progression model of {0:s}"
                     .format(pitch['source']))
 
         if self._mel_prog_params['frame_dur'] is None:
@@ -244,26 +226,27 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return tonic
 
-    def compute_pitch_distribution(self, pitch, tonic):
+    def compute_pitch_distribution(self, pitch):
         tic = timeit.default_timer()
         self.vprint(u"- Computing pitch distribution of {0:s}".
                     format(pitch['source']))
 
         pitch_distribution = PitchDistribution.from_hz_pitch(
-            np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
+            np.array(pitch['pitch'])[:, 1],
             smooth_factor=self._pd_params['kernel_width'],
             step_size=self._pd_params['step_size'])
+        pitch_distribution.cent_to_hz()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_distribution
 
-    def compute_class_pitch_distribution(self, pitch, tonic):
+    def compute_class_pitch_distribution(self, pitch):
         tic = timeit.default_timer()
         self.vprint(u"- Computing pitch class distribution of {0:s}".format(
             pitch['source']))
 
         pitch_class_distribution = self.compute_pitch_distribution(
-            pitch, tonic).to_pcd()
+            pitch).to_pcd()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution
@@ -290,7 +273,7 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return transposition
 
-    def get_note_models(self, pitch_distribution, tonic, makamstr):
+    def compute_note_models(self, pitch_distribution, tonic, makamstr):
         tic = timeit.default_timer()
         self.vprint(u"- Computing the note models for {0:s}".
                     format(tonic['source']))
