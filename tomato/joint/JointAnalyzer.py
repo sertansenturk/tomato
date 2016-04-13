@@ -67,10 +67,10 @@ class JointAnalyzer(Analyzer):
         note_models, pitch_distribution, aligned_tonic = self.get_note_models(
             aligned_pitch, notes, audio_tonic['symbol'])
 
-        joint_features = {'sections': aligned_sections, 'notes': aligned_notes,
-                          'note_models': note_models}
-        audio_features = {'pitch': aligned_pitch, 'tonic': aligned_tonic,
-                          'tempo': audio_tempo}
+        joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
+        audio_features = {'makam':score_data['makam']['symbtr_slug'],
+                          'pitch': aligned_pitch, 'tonic': aligned_tonic,
+                          'tempo': audio_tempo, 'note_models': note_models}
 
         return joint_features, audio_features
 
@@ -91,10 +91,10 @@ class JointAnalyzer(Analyzer):
                 audio_features['pitch_distribution']
             sdict['audio']['pitch_class_distribution'] = \
                 audio_features['pitch_class_distribution']
+            sdict['audio']['note_models'] = audio_features['note_models']
         else:
             sdict['audio']['pitch'] = score_informed_audio_features['pitch']
             sdict['audio']['tonic'] = score_informed_audio_features['tonic']
-            sdict['audio']['tempo'] = score_informed_audio_features['tempo']
             sdict['audio']['melodic_progression'] = \
                 score_informed_audio_features['melodic_progression']
             sdict['audio']['transposition'] = score_informed_audio_features[
@@ -103,6 +103,10 @@ class JointAnalyzer(Analyzer):
                 score_informed_audio_features['pitch_distribution']
             sdict['audio']['pitch_class_distribution'] = \
                 score_informed_audio_features['pitch_class_distribution']
+            sdict['audio']['note_models'] = \
+                score_informed_audio_features['note_models']
+
+            sdict['audio']['tempo'] = score_informed_audio_features['tempo']
 
         if score_features is not None:
             sdict['audio']['makam'] = score_features['makam']['symbtr_slug']
@@ -113,11 +117,6 @@ class JointAnalyzer(Analyzer):
         if joint_features is not None:
             sdict['joint']['sections'] = joint_features['sections']
             sdict['joint']['notes'] = joint_features['notes']
-            sdict['joint']['note_models'] = joint_features['note_models']
-        else:
-            # add note_models to audio features if the joint features,
-            # hence the aligned note models are not available
-            sdict['audio']['note_models'] = audio_features['note_models']
 
         return sdict
 
