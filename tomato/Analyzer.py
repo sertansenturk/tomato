@@ -12,7 +12,7 @@ class Analyzer(object):
         self.verbose = verbose
 
     @abstractproperty
-    def _features(self):
+    def _inputs(self):
         pass
 
     @abstractmethod
@@ -35,9 +35,9 @@ class Analyzer(object):
     def _parse_inputs(self, **kwargs):
         # initialize precomputed_features with the available analysis
         precomputed_features = dict((f, None)
-                                    for f in self._features)
+                                    for f in self._inputs)
         for feature, val in iteritems(kwargs):
-            if feature not in self._features:
+            if feature not in self._inputs:
                 warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
                            u'but it will not be used in the audio analysis.' \
                            u''.format(feature)

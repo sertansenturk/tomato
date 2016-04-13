@@ -74,13 +74,13 @@ from tomato.audio.AudioAnalyzer import AudioAnalyzer
 from tomato.symbolic.SymbTrAnalyzer import SymbTrAnalyzer
 from tomato.joint.JointAnalyzer import JointAnalyzer
 
-# score filepaths
+# score filenames
 symbtr_name = 'makam--form--usul--name--composer'
-txt_score_filepath = 'path/to/txt_score'
-mu2_score_filepath = 'path/to/mu2_score'
+txt_score_filename = 'path/to/txt_score'
+mu2_score_filename = 'path/to/mu2_score'
 
-# audio filepath
-audio_filepath = 'path/to/audio'
+# audio filename
+audio_filename = 'path/to/audio'
 
 # instantiate analyzer objects
 scoreAnalyzer = SymbTrAnalyzer(verbose=True)
@@ -89,23 +89,25 @@ jointAnalyzer = JointAnalyzer(verbose=True)
 
 # score analysis
 score_features = scoreAnalyzer.analyze(
-    txt_score_filepath, mu2_score_filepath, symbtr_name=symbtr_name)
+    txt_score_filename, mu2_score_filename, symbtr_name=symbtr_name)
 
 # audio analysis
 audio_features = audioAnalyzer.analyze(
-    audio_filepath, makam=score_features['makam']['symbtr_slug'])
+    audio_filename, makam=score_features['makam']['symbtr_slug'])
 
 # joint analysis
 joint_features, score_informed_audio_features = jointAnalyzer.analyze(
-    txt_score_filepath, score_features, audio_filepath, audio_features['pitch'])
+    txt_score_filename, score_features, audio_filename,
+    audio_features['pitch'])
 
 # redo some steps in audio analysis
-score_informed_audio_features = audioAnalyzer.update_analysis(
-    score_informed_audio_features)
+score_informed_audio_features = audioAnalyzer.analyze(
+    metadata=False, pitch=False, **score_informed_audio_features)
 
 # summarize all the features extracted from all sources
 summarized_features = jointAnalyzer.summarize(
-    audio_features, score_features, joint_features, score_informed_audio_features)
+    audio_features, score_features, joint_features,
+    score_informed_audio_features)
 ```
 
 You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb), [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb), [joint_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/joint_analysis_demo.ipynb) and [complete_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/complete_analysis_demo.ipynb) for interactive demos.

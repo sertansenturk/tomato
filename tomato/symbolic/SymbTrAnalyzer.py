@@ -18,7 +18,7 @@ _mcr_caller = MCRCaller()
 
 
 class SymbTrAnalyzer(Analyzer):
-    _features = ['boundary_note_indices', 'score_features']
+    _inputs = ['boundary_note_indices', 'mbid', 'score_features']
 
     def __init__(self, verbose=False):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
