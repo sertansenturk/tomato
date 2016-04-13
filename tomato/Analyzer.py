@@ -1,6 +1,8 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
 from IO import IO
 import logging
+import warnings
+from six import iteritems
 
 
 class Analyzer(object):
@@ -9,6 +11,10 @@ class Analyzer(object):
     def __init__(self, verbose):
         self.verbose = verbose
 
+    @abstractproperty
+    def _features(self):
+        pass
+
     @abstractmethod
     def analyze(self, *args, **kwargs):
         pass
@@ -16,6 +22,29 @@ class Analyzer(object):
     @abstractmethod
     def plot(self):
         pass
+
+    def _set_params(self, analyzer_str, **kwargs):
+        analyzer = getattr(self, analyzer_str)
+        attribs = IO.get_public_attr(analyzer)
+
+        Analyzer.chk_params(attribs, kwargs)
+
+        for key, value in kwargs.items():
+            setattr(analyzer, key, value)
+
+    def _parse_inputs(self, **kwargs):
+        # initialize precomputed_features with the available analysis
+        precomputed_features = dict((f, None)
+                                    for f in self._features)
+        for feature, val in iteritems(kwargs):
+            if feature not in self._features:
+                warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
+                           u'but it will not be used in the audio analysis.' \
+                           u''.format(feature)
+                warnings.warn(warn_str)
+            precomputed_features[feature] = val
+
+        return precomputed_features
 
     def _call_analysis_step(self, method_name, feature_flag,
                             *input_features):
@@ -31,15 +60,6 @@ class Analyzer(object):
                 return None
         else:  # flag is the precomputed feature itself
             return feature_flag
-
-    def _set_params(self, analyzer_str, **kwargs):
-        analyzer = getattr(self, analyzer_str)
-        attribs = IO.get_public_attr(analyzer)
-
-        Analyzer.chk_params(attribs, kwargs)
-
-        for key, value in kwargs.items():
-            setattr(analyzer, key, value)
 
     @staticmethod
     def chk_params(attribs, kwargs):

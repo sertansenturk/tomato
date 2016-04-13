@@ -18,6 +18,8 @@ _mcr_caller = MCRCaller()
 
 
 class SymbTrAnalyzer(Analyzer):
+    _features = ['boundary_note_indices', 'score_features']
+
     def __init__(self, verbose=False):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
 
@@ -35,10 +37,10 @@ class SymbTrAnalyzer(Analyzer):
         try:
             # note this is already in 1-indexing which is the I/O convention
             # of symbtrdataextractor>=v2.0.0-alpha.5
-            boundary_note_idx = self.segment_phrase(
+            boundary_note_indices = self.segment_phrase(
                 txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
         except RuntimeError as e:
-            boundary_note_idx = None
+            boundary_note_indices = None
             warnings.warn(e.message, RuntimeWarning)
 
         # relevant recording or work mbid
@@ -48,14 +50,14 @@ class SymbTrAnalyzer(Analyzer):
         try:
             score_features, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
-                segment_note_bound_idx=boundary_note_idx)
+                segment_note_bound_idx=boundary_note_indices)
         except (NetworkError, ResponseError):  # MusicBrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
             score_features, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                segment_note_bound_idx=boundary_note_idx)
+                segment_note_bound_idx=boundary_note_indices)
 
         if not is_data_valid:
             warnings.warn(symbtr_name + ' has validation problems.')

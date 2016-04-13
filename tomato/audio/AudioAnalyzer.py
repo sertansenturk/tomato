@@ -1,7 +1,6 @@
 import numpy as np
 from copy import deepcopy
 import timeit
-from six import iteritems
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -25,10 +24,9 @@ logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
-    audio_features = ['makam', 'melodic_progression', 'metadata',
-                      'note_models', 'pitch', 'pitch_class_distribution',
-                      'pitch_distribution', 'pitch_filtered', 'tempo', 'tonic',
-                      'transposition']
+    _features = ['makam', 'melodic_progression', 'metadata', 'note_models',
+                 'pitch', 'pitch_class_distribution', 'pitch_distribution',
+                 'pitch_filtered', 'tempo', 'tonic', 'transposition']
 
     def __init__(self, verbose=False):
         super(AudioAnalyzer, self).__init__(verbose=verbose)
@@ -124,21 +122,6 @@ class AudioAnalyzer(Analyzer):
                        'computed)'
             warnings.warn(warn_str)
         return audio_meta
-
-    @staticmethod
-    def _parse_inputs(**kwargs):
-        # initialize precomputed_features with the avaliable analysis
-        precomputed_features = dict((f, None)
-                                    for f in AudioAnalyzer.audio_features)
-        for feature, val in iteritems(kwargs):
-            if feature not in AudioAnalyzer.audio_features:
-                warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
-                           u'but it will not be used in the audio analysis.' \
-                           u''.format(feature)
-                warnings.warn(warn_str)
-            precomputed_features[feature] = val
-
-        return precomputed_features
 
     def _get_makam(self, metadata, pitch_class_distribution):
         try:  # try to get the makam from the metadata

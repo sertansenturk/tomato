@@ -23,6 +23,9 @@ _mcr_caller = MCRCaller()
 
 
 class JointAnalyzer(Analyzer):
+    _features = ['notes', 'note_models', 'makam', 'pitch_filtered',
+                 'sections', 'tonic', 'tempo']
+
     def __init__(self, verbose=False):
         super(JointAnalyzer, self).__init__(verbose=verbose)
 
@@ -79,8 +82,8 @@ class JointAnalyzer(Analyzer):
     @staticmethod
     def summarize(audio_features=None, score_features=None,
                   joint_features=None, score_informed_audio_features=None):
-        # initialize
-        sdict = {'audio': {}, 'score': score_features, 'joint': {}}
+        # initialize the summary dict
+        sdict = {'score': score_features, 'audio': {}, 'joint': {}}
 
         sdict['audio'] = JointAnalyzer._summarize_common_audio_features(
             audio_features, score_informed_audio_features)
@@ -101,6 +104,7 @@ class JointAnalyzer(Analyzer):
             sdict['joint']['sections'] = joint_features['sections']
             sdict['joint']['notes'] = joint_features['notes']
         except KeyError:
+            sdict['joint'] = {}
             logging.debug("Section links and aligned notes are not available.")
 
         return sdict
