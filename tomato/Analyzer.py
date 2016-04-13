@@ -1,6 +1,15 @@
+from abc import ABCMeta, abstractmethod
+
+
 class Analyzer(object):
+    __metaclass__ = ABCMeta
+
     def __init__(self, verbose):
         self.verbose = verbose
+
+    @abstractmethod
+    def analyze(self, filepath, **kwargs):
+        pass
 
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
