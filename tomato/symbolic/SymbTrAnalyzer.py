@@ -46,21 +46,21 @@ class SymbTrAnalyzer(Analyzer):
 
         # Extract the (meta)data from the SymbTr scores
         try:
-            score_data, is_data_valid = self.extract_data(
+            score_features, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=boundary_note_idx)
         except (NetworkError, ResponseError):  # MusicBrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
-            score_data, is_data_valid = self.extract_data(
+            score_features, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
                 segment_note_bound_idx=boundary_note_idx)
 
         if not is_data_valid:
             warnings.warn(symbtr_name + ' has validation problems.')
 
-        return score_data
+        return score_features
 
     @staticmethod
     def _get_first_mbid_from_symbtr_name(symbtr_name):
@@ -152,7 +152,7 @@ class SymbTrAnalyzer(Analyzer):
             self._mu2Reader.read_header(
                 mu2_filename, symbtr_name=symbtr_name)
 
-        data = SymbTrDataExtractor.merge(txt_data, mu2_header)
+        score_features = SymbTrDataExtractor.merge(txt_data, mu2_header)
         is_data_valid = {'is_all_valid': (is_mu2_header_valid and
                                           is_txt_valid),
                          'is_txt_valid': is_txt_valid,
@@ -161,7 +161,12 @@ class SymbTrAnalyzer(Analyzer):
         # print elapsed time, if verbose
         self.vprint_time(tic2, timeit.default_timer())
 
-        return data, is_data_valid
+        return score_features, is_data_valid
+
+    # plot
+    @staticmethod
+    def plot(score_features):
+        raise NotImplementedError
 
     # setters
     def set_data_extractor_params(self, **kwargs):

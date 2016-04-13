@@ -11,6 +11,10 @@ class Analyzer(object):
     def analyze(self, *args, **kwargs):
         pass
 
+    @abstractmethod
+    def plot(self):
+        pass
+
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
         attribs = self.get_public_attr(analyzer)
