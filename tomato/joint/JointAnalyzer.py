@@ -9,10 +9,10 @@ import timeit
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
-from tomato.MCRCaller import MCRCaller
-from tomato.IO import IO
-from tomato.Analyzer import Analyzer
-from tomato.Plotter import Plotter
+from ..MCRCaller import MCRCaller
+from ..IO import IO
+from ..Analyzer import Analyzer
+from ..Plotter import Plotter
 
 import warnings
 import logging

@@ -9,9 +9,9 @@ from symbtrextras.ScoreExtras import ScoreExtras
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
-from tomato.MCRCaller import MCRCaller
-from tomato.IO import IO
-from tomato.Analyzer import Analyzer
+from ..MCRCaller import MCRCaller
+from ..IO import IO
+from ..Analyzer import Analyzer
 
 # instantiate a mcr_caller
 _mcr_caller = MCRCaller()

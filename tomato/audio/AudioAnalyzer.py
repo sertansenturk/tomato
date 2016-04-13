@@ -15,8 +15,9 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
-from tomato.Analyzer import Analyzer
-from tomato.Plotter import Plotter
+from ..Analyzer import Analyzer
+from ..Plotter import Plotter
+from ..IO import IO
 
 import warnings
 import logging
@@ -144,8 +145,8 @@ class AudioAnalyzer(Analyzer):
                                     for f in AudioAnalyzer.audio_features)
         for feature, val in iteritems(kwargs):
             if feature not in AudioAnalyzer.audio_features:
-                warn_str = u'Unknown feature {0:s}. It will be kept, but it ' \
-                           u'will not be used in the audio analysis.' \
+                warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
+                           u'but it will not be used in the audio analysis.' \
                            u''.format(feature)
                 warnings.warn(warn_str)
             precomputed_features[feature] = val
@@ -317,7 +318,7 @@ class AudioAnalyzer(Analyzer):
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
-        obj_params = self.get_public_attr(self._melodicProgressionAnalyzer)
+        obj_params = IO.get_public_attr(self._melodicProgressionAnalyzer)
 
         Analyzer.chk_params(method_params + obj_params, kwargs)
 
