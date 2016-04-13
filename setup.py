@@ -1,10 +1,19 @@
 #!/usr/bin/env python
 import os
 import subprocess
-import ConfigParser
-import urllib2
+try:
+    import ConfigParser  # python 2
+except ImportError:
+    import configparser as ConfigParser  # python 3
+try:
+    from urllib2 import urlopen  # python 2
+except ImportError:
+    from urllib.request import urlopen # python 2
 import zipfile
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 try:
     from setuptools import setup
     from setuptools import find_packages
@@ -67,7 +76,7 @@ class CustomInstall(_install):
     @staticmethod
     def _download_binary(fpath, bin_url, sys_os):
         print(u"- Downloading binary: {0:s}".format(bin_url))
-        response = urllib2.urlopen(bin_url)
+        response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
             with zipfile.ZipFile(StringIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))

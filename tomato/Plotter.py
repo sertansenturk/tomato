@@ -1,4 +1,5 @@
 import numpy as np
+from six import iteritems
 from matplotlib import gridspec
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -193,7 +194,7 @@ class Plotter(object):
     @staticmethod
     def _plot_stable_pitches(ax, max_rel_occur, note_models, max_pd_height):
         ytick_vals = []
-        for note_symbol, note in note_models.iteritems():
+        for note_symbol, note in iteritems(note_models):
             if note['rel_occur'] > max_rel_occur * 0.1:
                 ytick_vals.append(note['stable_pitch']['value'])
 
@@ -223,7 +224,7 @@ class Plotter(object):
     @staticmethod
     def _get_relative_note_occurences(note_models, pitch_distribution):
         max_rel_occur = 0
-        for note_symbol, note in note_models.iteritems():
+        for note_symbol, note in iteritems(note_models):
             # get the relative occurence of each note from the pitch
             # distribution
             dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
@@ -235,7 +236,7 @@ class Plotter(object):
 
     @staticmethod
     def _plot_note_distributions(ax, note_models):
-        for note_symbol, note in note_models.iteritems():
+        for note_symbol, note in iteritems(note_models):
             try:
                 ax.plot(note_models[note_symbol]['distribution'].vals,
                         note_models[note_symbol]['distribution'].bins,

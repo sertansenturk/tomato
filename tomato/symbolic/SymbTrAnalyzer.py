@@ -26,7 +26,7 @@ class SymbTrAnalyzer(ParamSetter):
         self._phraseSegmenter = _mcr_caller.get_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
-        # attempt to get the symbtrname from the filename, if it is not given
+        # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:
             symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
@@ -48,7 +48,7 @@ class SymbTrAnalyzer(ParamSetter):
             score_data, is_data_valid = self.extract_data(
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
                 segment_note_bound_idx=boundary_note_idx)
-        except (NetworkError, ResponseError):  # musicbrainz is not available
+        except (NetworkError, ResponseError):  # MusicBrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
@@ -91,11 +91,11 @@ class SymbTrAnalyzer(ParamSetter):
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
 
         # call the binary
-        callstr = ["{0:s} segmentWrapper {1:s} {2:s} {3:s} {4:s}".format(
+        call_str = ["{0:s} segmentWrapper {1:s} {2:s} {3:s} {4:s}".format(
             self._phraseSegmenter, bound_stat_file, fld_model_file,
             temp_in_file, temp_out_file)]
 
-        out, err = _mcr_caller.call(callstr)
+        out, err = _mcr_caller.call(call_str)
 
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code

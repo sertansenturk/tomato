@@ -1,5 +1,6 @@
 import tempfile
 import os
+from six import iteritems
 from json_tricks import np as json
 import pickle
 import re
@@ -50,7 +51,7 @@ class IO(object):
     def dict_keys_to_snake_case(camel_case_dict):
         sdict = {}
         try:
-            for k, v in camel_case_dict.iteritems():
+            for k, v in iteritems(camel_case_dict):
                 key = IO.first_cap_re.sub(r'\1_\2', k)
                 key = IO.all_cap_re.sub(r'\1_\2', key).lower()
 
@@ -64,7 +65,7 @@ class IO(object):
     def dict_keys_to_camel_case(snake_case_dict):
         cdict = {}
         try:
-            for k, v in snake_case_dict.iteritems():
+            for k, v in iteritems(snake_case_dict):
                 components = k.split('_')
                 key = "".join(x.title() for x in components)
 

@@ -1,9 +1,6 @@
 import json
 from scipy.io import savemat
-try:
-    from io import StringIO  # python 3
-except ImportError:
-    from cStringIO import StringIO  # python 2
+from six.moves import cStringIO
 import tempfile
 import numpy as np
 from copy import deepcopy
@@ -130,7 +127,7 @@ class JointAnalyzer(ParamSetter):
             '.json', json.dumps(score_data))
 
         # matlab
-        matout = StringIO()
+        matout = cStringIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(
@@ -211,7 +208,7 @@ class JointAnalyzer(ParamSetter):
             '.json', json.dumps({'scoreInformed': audio_tempo_}))
 
         # matlab
-        matout = StringIO()
+        matout = cStringIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(

@@ -1,4 +1,4 @@
-import ConfigParser
+from six.moves import configparser
 import os
 import subprocess
 
@@ -11,7 +11,7 @@ class MCRCaller(object):
         self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
-        config = ConfigParser.SafeConfigParser()
+        config = configparser.SafeConfigParser()
         config.read(self.filepath)
         try:
             op_sys, env_var, mcr_path, set_paths = \
