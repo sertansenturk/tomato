@@ -8,7 +8,7 @@ except ImportError:
 try:
     from urllib2 import urlopen  # python 2
 except ImportError:
-    from urllib.request import urlopen # python 2
+    from urllib.request import urlopen  # python 2
 import zipfile
 try:
     from StringIO import StringIO
