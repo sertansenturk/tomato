@@ -166,7 +166,7 @@ class SymbTrAnalyzer(Analyzer):
     # plot
     @staticmethod
     def plot(score_features):
-        raise NotImplementedError
+        return NotImplemented
 
     # setters
     def set_data_extractor_params(self, **kwargs):
