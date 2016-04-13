@@ -252,8 +252,8 @@ class JointAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
 
         return (out_dict['sectionLinks']['alignedLinks'], notes,
-                    out_dict['sectionLinks']['sectionLinks'],
-                    out_dict['sectionLinks']['candidateLinks'])
+                out_dict['sectionLinks']['sectionLinks'],
+                out_dict['sectionLinks']['candidateLinks'])
 
     def filter_pitch(self, pitch, aligned_notes):
         tic = timeit.default_timer()
