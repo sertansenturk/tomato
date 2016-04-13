@@ -54,21 +54,8 @@ class AudioAnalyzer(Analyzer):
         audio_f = self._parse_inputs(**kwargs)
 
         # metadata
-        if audio_f['metadata'] is False:  # metadata crawling is disabled
-            audio_f['metadata'] = None
-        elif audio_f['metadata'] is None:  # no MBID is given, attempt to get
-            # it from id3 tag
-            audio_f['metadata'] = self.crawl_musicbrainz_metadata(
-                filepath)
-        elif isinstance(audio_f['metadata'], basestring):  # MBID is given
-            audio_f['metadata'] = self.crawl_musicbrainz_metadata(
-                audio_f['metadata'])
-        elif not isinstance(audio_f['metadata'], dict):
-            warn_str = 'The "metadata" input can be "False" (skipped), ' \
-                       '"basestring" (MBID input), "None" (attempt to get ' \
-                       'the MBID from audio file tags) or "dict" (already ' \
-                       'computed)'
-            warnings.warn(warn_str)
+        audio_f['metadata'] = self._get_audio_metadata(audio_f['metadata'],
+                                                       filepath)
 
         # predominant melody extraction
         audio_f['pitch'] = self._call_analysis_step(
@@ -119,6 +106,24 @@ class AudioAnalyzer(Analyzer):
 
         # return as a dictionary
         return audio_f
+
+    def _get_audio_metadata(self, audio_meta, filepath):
+        if audio_meta is False:  # metadata crawling is disabled
+            audio_meta = None
+        elif audio_meta is None:  # no MBID is given, attempt to get
+            # it from id3 tag
+            audio_meta = self.crawl_musicbrainz_metadata(
+                filepath)
+        elif isinstance(audio_meta, IO.basestring()):  # MBID is given
+            audio_meta = self.crawl_musicbrainz_metadata(
+                audio_meta)
+        elif not isinstance(audio_meta, dict):
+            warn_str = 'The "metadata" input can be "False" (skipped), ' \
+                       '"basestring" (MBID input), "None" (attempt to get ' \
+                       'the MBID from audio file tags) or "dict" (already ' \
+                       'computed)'
+            warnings.warn(warn_str)
+        return audio_meta
 
     @staticmethod
     def _parse_inputs(**kwargs):

@@ -65,7 +65,8 @@ class JointAnalyzer(Analyzer):
 
         # aligned note model
         note_models, pitch_distribution, aligned_tonic = self.\
-            compute_note_models(aligned_pitch, notes, audio_tonic['symbol'])
+            compute_note_models(aligned_pitch, aligned_notes,
+                                audio_tonic['symbol'])
 
         joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
         audio_features = {'makam': score_data['makam']['symbtr_slug'],
