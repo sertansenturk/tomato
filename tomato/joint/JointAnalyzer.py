@@ -4,6 +4,7 @@ from six.moves import cStringIO
 import tempfile
 import numpy as np
 from copy import deepcopy
+import timeit
 
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
@@ -119,6 +120,7 @@ class JointAnalyzer(Analyzer):
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
+        tic = timeit.default_timer()
         self.vprint(u"- Extracting score-informed tonic and tempo of {0:s}"
                     .format(audio_filename))
 
@@ -179,11 +181,15 @@ class JointAnalyzer(Analyzer):
         tempo['relative']['source'] = audio_filename
         tempo['relative'].pop("method", None)
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
+
         return tonic, tempo
 
     def align_audio_score(self, score_filename='', score_data=None,
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
+        tic = timeit.default_timer()
         self.vprint(u"- Aligning audio recording {0:s} and music score {1:s}."
                     .format(audio_filename, score_filename))
 
@@ -242,11 +248,15 @@ class JointAnalyzer(Analyzer):
         notes = [IO.dict_keys_to_snake_case(n)
                  for n in out_dict['alignedNotes']['notes']]
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
+
         return (out_dict['sectionLinks']['alignedLinks'], notes,
-                out_dict['sectionLinks']['sectionLinks'],
-                out_dict['sectionLinks']['candidateLinks'])
+                    out_dict['sectionLinks']['sectionLinks'],
+                    out_dict['sectionLinks']['candidateLinks'])
 
     def filter_pitch(self, pitch, aligned_notes):
+        tic = timeit.default_timer()
         self.vprint(u"- Filtering predominant melody of {0:s} after "
                     u"audio-score alignment.".format(pitch['source']))
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
@@ -264,9 +274,13 @@ class JointAnalyzer(Analyzer):
         pitch_filtered['procedure'] = 'Pitch filtering according to ' \
                                       'audio-score alignment'
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
+
         return pitch_filtered, notes_filtered
 
     def get_note_models(self, pitch, aligned_notes, tonic_symbol):
+        tic = timeit.default_timer()
         self.vprint(u"- Computing the note models for {0:s}".
                     format(pitch['source']))
 
@@ -282,6 +296,9 @@ class JointAnalyzer(Analyzer):
 
         tonic = IO.dict_keys_to_snake_case(tonic['alignment'])
         tonic['source'] = pitch['source']
+
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
 
         return note_models, pitch_distibution, tonic
 

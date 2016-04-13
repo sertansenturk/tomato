@@ -1,6 +1,7 @@
 import json
 import os
 import warnings
+import timeit
 
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.reader.Mu2Reader import Mu2Reader
@@ -75,6 +76,7 @@ class SymbTrAnalyzer(Analyzer):
         return mbid
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
+        tic = timeit.default_timer()
         self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
                     u"{0:s}".format(txt_filename))
 
@@ -110,6 +112,9 @@ class SymbTrAnalyzer(Analyzer):
         # unlink the temporary files
         IO.remove_temp_files(temp_in_file, temp_out_file)
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
+
         return phrase_boundaries
 
     @staticmethod
@@ -125,6 +130,9 @@ class SymbTrAnalyzer(Analyzer):
 
     def extract_data(self, txt_filename, mu2_filename, symbtr_name=None,
                      mbid=None, segment_note_bound_idx=None):
+
+        # SymbTr-txt file
+        tic = timeit.default_timer()
         self.vprint(u"- Extracting (meta)data from the SymbTr-txt file: {0:s}"
                     .format(txt_filename))
 
@@ -132,6 +140,11 @@ class SymbTrAnalyzer(Analyzer):
             txt_filename, symbtr_name=symbtr_name, mbid=mbid,
             segment_note_bound_idx=segment_note_bound_idx)
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic, timeit.default_timer())
+
+        # SymbTr-txt file
+        tic2 = timeit.default_timer()
         self.vprint(u"- Extracting metadata from the SymbTr-mu2 file: {0:s}"
                     .format(mu2_filename))
 
@@ -145,7 +158,11 @@ class SymbTrAnalyzer(Analyzer):
                          'is_txt_valid': is_txt_valid,
                          'is_mu2_header_valid': is_mu2_header_valid}
 
+        # print elapsed time, if verbose
+        self.vprint_time(tic2, timeit.default_timer())
+
         return data, is_data_valid
 
+    # setters
     def set_data_extractor_params(self, **kwargs):
         self._set_params('_dataExtractor', **kwargs)

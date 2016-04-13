@@ -8,7 +8,7 @@ class Analyzer(object):
         self.verbose = verbose
 
     @abstractmethod
-    def analyze(self, filepath, **kwargs):
+    def analyze(self, *args, **kwargs):
         pass
 
     def _set_params(self, analyzer_str, **kwargs):
@@ -25,9 +25,8 @@ class Analyzer(object):
         if any(key not in attribs for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(attribs))
 
-    @staticmethod
-    def get_public_attr(obj):
-        return [name for name in obj.__dict__.keys()
+    def get_public_attr(self):
+        return [name for name in self.__dict__.keys()
                 if not name.startswith('_')]
 
     def vprint(self, vstr):
@@ -38,3 +37,7 @@ class Analyzer(object):
         """
         if self.verbose is True:
             print(vstr)
+
+    def vprint_time(self, tic, toc):
+        self.vprint(u"  The call took {0:.2f} seconds to execute.".
+                    format(toc - tic))

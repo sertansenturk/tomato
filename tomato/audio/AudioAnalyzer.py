@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+import timeit
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -162,11 +163,17 @@ class AudioAnalyzer(Analyzer):
                           'or "None" for skipping the method')
 
     def get_musicbrainz_metadata(self, rec_in):
+        tic = timeit.default_timer()
         self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
-        return (None if rec_in is False
-                else self._metadataGetter.from_musicbrainz(rec_in))
+
+        audio_meta = (None if rec_in is False
+                      else self._metadataGetter.from_musicbrainz(rec_in))
+
+        self.vprint_time(tic, timeit.default_timer())
+        return audio_meta
 
     def extract_pitch(self, filename):
+        tic = timeit.default_timer()
         self.vprint(u"- Extracting predominant melody of {0:s}".
                     format(filename))
 
@@ -174,9 +181,11 @@ class AudioAnalyzer(Analyzer):
         pitch = results['settings']  # collapse the keys in settings
         pitch['pitch'] = results['pitch']
 
+        self.vprint_time(tic, timeit.default_timer())
         return pitch
 
     def filter_pitch(self, pitch):
+        tic = timeit.default_timer()
         self.vprint(u"- Filtering predominant melody of {0:s}".
                     format(pitch['source']))
 
@@ -186,9 +195,11 @@ class AudioAnalyzer(Analyzer):
                                  'analysis method for Turkish maqam music. ' \
                                  'Journal of New Music Research, 37(1), 1-13.'
 
+        self.vprint_time(tic, timeit.default_timer())
         return pitch_filt
 
     def get_melodic_progression(self, pitch):
+        tic = timeit.default_timer()
         self.vprint(u"- Obtaining the melodic progression model of {0:s}"
                     .format(pitch['source']))
 
@@ -206,11 +217,15 @@ class AudioAnalyzer(Analyzer):
         else:
             frame_dur = self._mel_prog_params['frame_dur']
 
-        return self._melodicProgressionAnalyzer.analyze(
+        melodic_progression = self._melodicProgressionAnalyzer.analyze(
             pitch['pitch'], frame_dur=frame_dur,
             hop_ratio=self._mel_prog_params['hop_ratio'])
+        self.vprint_time(tic, timeit.default_timer())
+
+        return melodic_progression
 
     def identify_tonic(self, pitch):
+        tic = timeit.default_timer()
         self.vprint(u"- Identifying tonic from the predominant melody of {0:s}"
                     .format(pitch['source']))
 
@@ -219,44 +234,64 @@ class AudioAnalyzer(Analyzer):
         # add the source audio file
         tonic['source'] = pitch['source']
 
+        self.vprint_time(tic, timeit.default_timer())
         return tonic
 
     def compute_pitch_distribution(self, pitch, tonic):
+        tic = timeit.default_timer()
         self.vprint(u"- Computing pitch distribution of {0:s}".
                     format(pitch['source']))
 
-        return PitchDistribution.from_hz_pitch(
+        pitch_distribution = PitchDistribution.from_hz_pitch(
             np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
             smooth_factor=self._pd_params['kernel_width'],
             step_size=self._pd_params['step_size'])
 
+        self.vprint_time(tic, timeit.default_timer())
+        return pitch_distribution
+
     def compute_class_pitch_distribution(self, pitch, tonic):
+        tic = timeit.default_timer()
         self.vprint(u"- Computing pitch class distribution of {0:s}".format(
             pitch['source']))
 
-        return self.compute_pitch_distribution(pitch, tonic).to_pcd()
+        pitch_class_distribution = self.compute_pitch_distribution(
+            pitch, tonic).to_pcd()
+
+        self.vprint_time(tic, timeit.default_timer())
+        return pitch_class_distribution
 
     def recognize_makam(self, pitch_class_distribution):
+        tic = timeit.default_timer()
+        self.vprint(u"- Recognizing the makam of {0:s}".format(
+            pitch_class_distribution['source']))
         # metadata is not available or the makam is not known
         warnings.warn('Makam recognition is not integrated yet.',
                       FutureWarning)
+
+        self.vprint_time(tic, timeit.default_timer())
         return None
 
     def identify_transposition(self, tonic, makam_tonic_str):
+        tic = timeit.default_timer()
         self.vprint(u"- Identifying the transposition of {0:s}".format(
             tonic['source']))
         transposition = AhenkIdentifier.identify(
             tonic['value'], makam_tonic_str)
         transposition['source'] = tonic['source']
 
+        self.vprint_time(tic, timeit.default_timer())
         return transposition
 
     def get_stable_notes(self, pitch_distribution, tonic, makamstr):
+        tic = timeit.default_timer()
         self.vprint(u"- Obtaining the stable notes of {0:s}".
                     format(tonic['source']))
 
-        return self._noteModeler.calculate_notes(pitch_distribution,
-                                                 tonic['value'], makamstr)
+        stable_notes = self._noteModeler.calculate_notes(
+            pitch_distribution, tonic['value'], makamstr)
+        self.vprint_time(tic, timeit.default_timer())
+        return stable_notes
 
     # setters
     def set_pitch_extractor_params(self, **kwargs):
