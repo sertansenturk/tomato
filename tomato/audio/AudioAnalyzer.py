@@ -1,6 +1,7 @@
 import numpy as np
 from copy import deepcopy
 import timeit
+from six import iteritems
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -23,6 +24,11 @@ logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
+    audio_features = [
+        'metadata', 'pitch', 'pitch_filtered', 'melodic_progression', 'tonic',
+        'transposition', 'pitch_distribution', 'pitch_class_distribution',
+        'makam', 'stable_notes']
+
     def __init__(self, verbose=False):
         super(AudioAnalyzer, self).__init__(verbose=verbose)
 
@@ -43,64 +49,83 @@ class AudioAnalyzer(Analyzer):
         self._tonicIdentifier = TonicLastNote()
         self._noteModeler = NoteModel()
 
-    def analyze(self, filepath, makam=None, mbid=None):
+    def analyze(self, filepath=None, mbid=None, **kwargs):
+        audio_features = self._parse_inputs(**kwargs)
+
         # metadata
         meta_in = mbid if mbid is not None else filepath
         try:
-            metadata = self.get_musicbrainz_metadata(meta_in)
+            audio_features['metadata'] = self.get_musicbrainz_metadata(meta_in)
         except (NetworkError, ResponseError):
-            metadata = None
+            audio_features['metadata'] = None
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
 
         # predominant melody extraction
-        pitch = self.extract_pitch(filepath)
+        audio_features['pitch'] = self.extract_pitch(filepath)
 
         # pitch filtering
-        pitch_filtered = self.filter_pitch(pitch)
+        audio_features['pitch_filtered'] = self.filter_pitch(
+            audio_features['pitch'])
 
         # get the melodic prograssion model
-        melodic_progression = self.get_melodic_progression(pitch_filtered)
+        audio_features['melodic_progression'] = self.get_melodic_progression(
+            audio_features['pitch_filtered'])
 
         # tonic identification
-        tonic = self.identify_tonic(pitch_filtered)
+        audio_features['tonic'] = self.identify_tonic(
+            audio_features['pitch_filtered'])
 
         # histogram computation
-        pitch_distribution = self.compute_pitch_distribution(
-            pitch_filtered, tonic)
-        pitch_distribution.cent_to_hz()
-        pitch_class_distribution = pitch_distribution.to_pcd()
+        audio_features['pitch_distribution'] = self.compute_pitch_distribution(
+            audio_features['pitch_filtered'], audio_features['tonic'])
+        audio_features['pitch_distribution'].cent_to_hz()
+        audio_features['pitch_class_distribution'] = \
+            audio_features['pitch_distribution'].to_pcd()
 
         # makam recognition
         # TODO: allow multiple makams
-        makam = self._get_makam(makam, metadata, pitch_class_distribution)
+        audio_features['makam'] = self._get_makam(
+            audio_features['makam'], audio_features['metadata'],
+            audio_features['pitch_class_distribution'])
 
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
         try:
-            transposition = self.identify_transposition(tonic, makam)
+            audio_features['transposition'] = self.identify_transposition(
+                audio_features['tonic'], audio_features['makam'])
         except ValueError as e:
-            transposition = None
+            audio_features['transposition'] = None
             warnings.warn(e.message, RuntimeWarning)
 
         # tuning analysis and stable pitch extraction
         # TODO: check if there is more than one transposition name, if yes warn
         try:
-            stable_notes = self.get_stable_notes(pitch_distribution, tonic,
-                                                 makam)
+            audio_features['stable_notes'] = self.get_stable_notes(
+                audio_features['pitch_distribution'],
+                audio_features['tonic'], audio_features['makam'])
         except KeyError as e:
-            stable_notes = None
+            audio_features['stable_notes'] = None
             warnings.warn(e.message, RuntimeWarning)
 
         # return as a dictionary
-        return {'metadata': metadata, 'pitch': pitch,
-                'pitch_filtered': pitch_filtered, 'tonic': tonic,
-                'transposition': transposition, 'makam': makam,
-                'melodic_progression': melodic_progression,
-                'pitch_distribution': pitch_distribution,
-                'pitch_class_distribution': pitch_class_distribution,
-                'stable_notes': stable_notes}
+        return audio_features
+
+    @staticmethod
+    def _parse_inputs(**kwargs):
+        # initialize precomputed_features with the avaliable analysis
+        precomputed_features = dict((f, [])
+                                    for f in AudioAnalyzer.audio_features)
+        for feature, val in iteritems(kwargs):
+            if feature not in AudioAnalyzer.audio_features:
+                warn_str = u'Unknown feature {0:s}. It will be kept, but it ' \
+                           u'will not be used in the audio analysis.' \
+                           u''.format(feature)
+                warnings.warn(warn_str)
+            precomputed_features[feature] = val
+
+        return precomputed_features
 
     def _get_makam(self, makam, metadata, pitch_class_distribution):
         if makam is None:
@@ -163,14 +188,15 @@ class AudioAnalyzer(Analyzer):
                           'or "None" for skipping the method')
 
     def get_musicbrainz_metadata(self, rec_in):
-        tic = timeit.default_timer()
-        self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
+        if rec_in is False:  # metadata crawling is disabled
+            return None
+        else:
+            tic = timeit.default_timer()
+            self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
+            audio_meta = self._metadataGetter.from_musicbrainz(rec_in)
 
-        audio_meta = (None if rec_in is False
-                      else self._metadataGetter.from_musicbrainz(rec_in))
-
-        self.vprint_time(tic, timeit.default_timer())
-        return audio_meta
+            self.vprint_time(tic, timeit.default_timer())
+            return audio_meta
 
     def extract_pitch(self, filename):
         tic = timeit.default_timer()
