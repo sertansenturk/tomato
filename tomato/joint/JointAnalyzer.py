@@ -81,44 +81,33 @@ class JointAnalyzer(Analyzer):
         # initialize
         sdict = {'audio': {}, 'score': score_features, 'joint': {}}
 
-        sdict['audio']['metadata'] = audio_features['metadata']
-        if score_informed_audio_features is None:
-            sdict['audio']['pitch'] = audio_features['pitch_filtered']
-            sdict['audio']['tonic'] = audio_features['tonic']
-            sdict['audio']['melodic_progression'] = audio_features[
-                'melodic_progression']
-            sdict['audio']['transposition'] = audio_features['transposition']
-            sdict['audio']['pitch_distribution'] = \
-                audio_features['pitch_distribution']
-            sdict['audio']['pitch_class_distribution'] = \
-                audio_features['pitch_class_distribution']
-            sdict['audio']['note_models'] = audio_features['note_models']
-        else:
-            sdict['audio']['pitch'] = score_informed_audio_features[
-                'pitch_filtered']
-            sdict['audio']['tonic'] = score_informed_audio_features['tonic']
-            sdict['audio']['melodic_progression'] = \
-                score_informed_audio_features['melodic_progression']
-            sdict['audio']['transposition'] = score_informed_audio_features[
-                'transposition']
-            sdict['audio']['pitch_distribution'] = \
-                score_informed_audio_features['pitch_distribution']
-            sdict['audio']['pitch_class_distribution'] = \
-                score_informed_audio_features['pitch_class_distribution']
-            sdict['audio']['note_models'] = \
-                score_informed_audio_features['note_models']
+        common_features = ['makam', 'melodic_progression', 'note_models',
+                           'pitch_class_distribution', 'pitch_distribution',
+                           'pitch_filtered', 'tonic', 'transposition']
+        for cf in common_features:
+            score_informed = (score_informed_audio_features is not None and
+                              score_informed_audio_features[cf] is not None)
+            if score_informed:
+                sdict['audio'][cf] = score_informed_audio_features[cf]
+            else:
+                sdict['audio'][cf] = audio_features[cf]
 
+        # pitch_filtered is reduntant name and it might not be computed
+        sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
+        if sdict['audio']['pitch'] is None:
+            sdict['audio']['pitch'] = audio_features['pitch']
+
+        try:
             sdict['audio']['tempo'] = score_informed_audio_features['tempo']
-
-        if score_features is not None:
-            sdict['audio']['makam'] = score_features['makam']['symbtr_slug']
-        else:
-            sdict['audio']['makam'] = audio_features['makam']
+        except KeyError:
+            logging.debug("Tempo feature is not available.")
 
         # accumulate joint dict
-        if joint_features is not None:
+        try:
             sdict['joint']['sections'] = joint_features['sections']
             sdict['joint']['notes'] = joint_features['notes']
+        except KeyError:
+            logging.debug("Section links and aligned notes are not available.")
 
         return sdict
 
