@@ -4,6 +4,8 @@ engines:
     config:
       languages:
       - python
+    exclude_fingerprints:
+    - 86321db6edcfbc1b27d5847c134f7a96
   fixme:
     enabled: true
   radon:
