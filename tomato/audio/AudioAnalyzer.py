@@ -84,20 +84,20 @@ class AudioAnalyzer(Analyzer):
             logging.info('Pitch class distribution computation failed.')
 
         # makam recognition
-        # TODO: allow multiple makams
+        # allow multiple makams
         audio_f['makam'] = self._call_analysis_step(
             '_get_makam', audio_f['makam'], audio_f['metadata'],
             audio_f['pitch_class_distribution'])
         audio_f['makam'] = self._get_first(audio_f['makam'])
 
         # transposition (ahenk) identification
-        # TODO: allow transpositions for multiple makams
+        # allow transpositions for multiple makams
         audio_f['transposition'] = self._call_analysis_step(
             'identify_transposition', audio_f['transposition'],
             audio_f['tonic'], audio_f['makam'])
 
         # note models
-        # TODO: check if there is more than one transposition name, if yes warn
+        # check if there is more than one transposition name, if yes warn
         audio_f['note_models'] = self._call_analysis_step(
             'compute_note_models', audio_f['note_models'],
             audio_f['pitch_distribution'], audio_f['tonic'], audio_f['makam'])
