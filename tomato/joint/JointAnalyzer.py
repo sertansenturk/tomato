@@ -78,13 +78,13 @@ class JointAnalyzer(Analyzer):
 
         return joint_features, audio_features
 
-    @staticmethod
-    def summarize(audio_features=None, score_features=None,
+    @classmethod
+    def summarize(cls, audio_features=None, score_features=None,
                   joint_features=None, score_informed_audio_features=None):
         # initialize the summary dict
         sdict = {'score': score_features, 'audio': {}, 'joint': {}}
 
-        sdict['audio'] = JointAnalyzer._summarize_common_audio_features(
+        sdict['audio'] = cls._summarize_common_audio_features(
             audio_features, score_informed_audio_features)
 
         # pitch_filtered is reduntant name and it might not be computed
