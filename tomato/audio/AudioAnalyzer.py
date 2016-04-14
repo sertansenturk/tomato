@@ -291,7 +291,7 @@ class AudioAnalyzer(Analyzer):
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
-        obj_params = IO.get_public_attr(self._melodicProgressionAnalyzer)
+        obj_params = IO.public_noncallables(self._melodicProgressionAnalyzer)
 
         Analyzer.chk_params(method_params + obj_params, kwargs)
 

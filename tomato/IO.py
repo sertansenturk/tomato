@@ -8,8 +8,10 @@ import re
 
 class IO(object):
     @staticmethod
-    def get_public_attr(generic_obj):
-        return [name for name in generic_obj.__dict__.keys()
+    def public_noncallables(inst):
+        noncallable_gen = (v for v in dir(inst)
+                           if not callable(getattr(inst,v)))
+        return [name for name in noncallable_gen
                 if not name.startswith('_')]
 
     @staticmethod
@@ -17,11 +19,11 @@ class IO(object):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), *args)
 
     @staticmethod
-    def create_temp_file(extension, contentstr):
+    def create_temp_file(extension, content_str):
         fd, temp_path = tempfile.mkstemp(extension)
         open_mode = 'wb' if extension in ['.mat'] else 'w'
         with open(temp_path, open_mode) as f:
-            f.write(contentstr)
+            f.write(content_str)
         os.close(fd)
 
         return temp_path

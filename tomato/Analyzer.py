@@ -25,7 +25,7 @@ class Analyzer(object):
 
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
-        attribs = IO.get_public_attr(analyzer)
+        attribs = IO.public_noncallables(analyzer)
 
         Analyzer.chk_params(attribs, kwargs)
 
