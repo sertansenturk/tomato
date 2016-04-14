@@ -38,12 +38,13 @@ class JointAnalyzer(Analyzer):
         self._alignedNoteModel = AlignedNoteModel()
 
     def analyze(self, symbtr_txt_filename='', score_data=None,
-                audio_filename='', audio_pitch=None, tonic=None, tempo=None):
+                audio_filename='', audio_pitch=None, **kwargs):
+        input_f = self._parse_inputs(**kwargs)
+
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
-            tonic, tempo = self._parse_and_extract_tonic_tempo(
-                symbtr_txt_filename, score_data, audio_filename, audio_pitch,
-                tonic, tempo)
+            input_f['tonic'], input_f['tempo'] = self.extract_tonic_tempo(
+                symbtr_txt_filename, score_data, audio_filename, audio_pitch)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -53,28 +54,43 @@ class JointAnalyzer(Analyzer):
 
         # section linking and note-level alignment
         try:
-            aligned_sections, notes, section_links, section_candidates = \
+            input_f['aligned_sections'], input_f['notes'], input_f[
+                'section_links'], input_f['section_candidates'] = \
                 self.align_audio_score(symbtr_txt_filename, score_data,
                                        audio_filename, audio_pitch,
-                                       tonic, tempo)
+                                       input_f['tonic'], input_f['tempo'])
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
-            audio_features = {'tonic': tonic, 'tempo': tempo}
+            audio_features = {'tonic': input_f['tonic'],
+                              'tempo': input_f['tempo']}
             return joint_features, audio_features
 
         # aligned pitch filter
-        aligned_pitch, aligned_notes = self.filter_pitch(audio_pitch, notes)
+        temp_out = self._call_analysis_step(
+            'filter_pitch', input_f['pitch_filtered'], audio_pitch,
+            input_f['notes'])
+        if temp_out is not None:
+            input_f['pitch_filtered'], input_f['notes'] = temp_out
+        else:
+            input_f['pitch_filtered'], input_f['notes'] = [None, None]
 
-        # aligned note model
-        note_models, pitch_distribution, aligned_tonic = self.\
-            compute_note_models(aligned_pitch, aligned_notes, tonic['symbol'])
+        # aligned note models
+        temp_out = self._call_analysis_step(
+            'compute_note_models', input_f['note_models'],
+            input_f['pitch_filtered'], input_f['notes'],
+            input_f['tonic']['symbol'])
+        if temp_out is not None:
+            input_f['note_models'], dummy_pd, input_f['tonic'] = temp_out
+        else:
+            input_f['note_models'], input_f['tonic'] = [None, None]
 
-        joint_features = {'sections': aligned_sections, 'notes': aligned_notes}
+        joint_features = {'sections': input_f['aligned_sections'],
+                          'notes': input_f['notes']}
         audio_features = {'makam': score_data['makam']['symbtr_slug'],
-                          'pitch_filtered': aligned_pitch,
-                          'tonic': aligned_tonic, 'tempo': tempo,
-                          'note_models': note_models}
+                          'pitch_filtered': input_f['pitch_filtered'],
+                          'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
+                          'note_models': input_f['note_models']}
 
         return joint_features, audio_features
 
@@ -126,22 +142,6 @@ class JointAnalyzer(Analyzer):
                 common_audio_features[cf] = audio_features[cf]
 
         return common_audio_features
-
-    def _parse_and_extract_tonic_tempo(self, score_filename, score_data,
-                                       audio_filename, audio_pitch,
-                                       audio_tonic=None, audio_tempo=None):
-        """
-        Parses the tonic and tempo inputs in the JointAnalyzer.analyze and
-        computes whichever is not supplied.
-        """
-        if audio_tonic is None or audio_tempo is None:
-            # the tonic or the tempo is not provided, call the extractor
-            tonic, tempo = self.extract_tonic_tempo(
-                score_filename, score_data, audio_filename, audio_pitch)
-            audio_tonic = audio_tonic if audio_tonic is not None else tonic
-            audio_tempo = audio_tempo if audio_tempo is not None else tempo
-
-        return audio_tonic, audio_tempo
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
