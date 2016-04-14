@@ -56,8 +56,8 @@ class JointAnalyzer(Analyzer):
         # section linking and note-level alignment
         try:
             temp_out = self.align_audio_score(
-                symbtr_txt_filename, score_features, audio_filename, audio_pitch,
-                input_f['tonic'], input_f['tempo'])
+                symbtr_txt_filename, score_features, audio_filename,
+                audio_pitch, input_f['tonic'], input_f['tempo'])
             input_f['aligned_sections'], input_f['notes'], input_f[
                 'section_links'], input_f['section_candidates'] = temp_out
         except RuntimeError as e:
