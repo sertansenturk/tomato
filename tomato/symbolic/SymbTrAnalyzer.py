@@ -18,7 +18,7 @@ _mcr_caller = MCRCaller()
 
 
 class SymbTrAnalyzer(Analyzer):
-    _inputs = ['boundary_note_indices', 'mbid', 'score_features']
+    _inputs = ['boundaries', 'mbid', 'score_features']
 
     def __init__(self, verbose=False):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
@@ -28,54 +28,63 @@ class SymbTrAnalyzer(Analyzer):
         self._mu2Reader = Mu2Reader()
         self._phraseSegmenter = _mcr_caller.get_binary_path('phraseSeg')
 
-    def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None):
+    def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
+        input_f = self._parse_inputs(**kwargs)
+
         # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:
             symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
         # Automatic phrase segmentation on the SymbTr-txt score
-        try:
-            # note this is already in 1-indexing which is the I/O convention
-            # of symbtrdataextractor>=v2.0.0-alpha.5
-            boundary_note_indices = self.segment_phrase(
-                txt_filepath, symbtr_name=symbtr_name)['boundary_note_idx']
-        except RuntimeError as e:
-            boundary_note_indices = None
-            warnings.warn(e.message, RuntimeWarning)
+        input_f['boundaries'] = self._call_analysis_step(
+            'segment_phrase', input_f['boundaries'], txt_filepath,
+            symbtr_name=symbtr_name)
 
-        # relevant recording or work mbid
-        mbid = self._get_first_mbid_from_symbtr_name(symbtr_name)
+        # get relevant recording or work mbid
+        # Note: very rare but there can be more that one mbid returned.
+        #       We are going to use the first mbid to fetch the metadata
+        # TODO: use all mbids
+        input_f['mbid'] = self._call_analysis_step(
+            'get_mbids', input_f['mbid'], symbtr_name)
+        if isinstance(input_f['mbid'], list):
+            input_f['mbid'] = input_f['mbid'][0]
 
-        # Extract the (meta)data from the SymbTr scores
+        # Extract the (meta)data from the SymbTr scores. Here the results from
+        # the previous steps are also summarized.
         try:
-            score_features, is_data_valid = self.extract_data(
-                txt_filepath, mu2_filepath, symbtr_name=symbtr_name, mbid=mbid,
-                segment_note_bound_idx=boundary_note_indices)
+            input_f['score_features'] = self._call_analysis_step(
+                'extract_data', input_f['score_features'],
+                txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
+                mbid=input_f['mbid'], segment_note_bound_idx=input_f[
+                    'boundaries']['boundary_note_idx'])
         except (NetworkError, ResponseError):  # MusicBrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
-            score_features, is_data_valid = self.extract_data(
+            input_f['score_features'] = self._call_analysis_step(
+                'extract_data', input_f['score_features'],
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                segment_note_bound_idx=boundary_note_indices)
+                segment_note_bound_idx=input_f['boundaries'][
+                    'boundary_note_idx'])
 
-        if not is_data_valid:
-            warnings.warn(symbtr_name + ' has validation problems.')
+        if input_f['score_features'] is not None:
+            is_valid = input_f['score_features'][1]
+            input_f['score_features'] = input_f['score_features'][0]
 
-        return score_features
+            if not is_valid:
+                warnings.warn(symbtr_name + ' has validation problems.')
+
+        return (input_f['score_features'], input_f['boundaries'],
+                input_f['mbid'])
 
     @staticmethod
-    def _get_first_mbid_from_symbtr_name(symbtr_name):
-        # Note: very rare but there can be more that one mbid returned.
-        #       We are going to use the first mbid to fetch the metadata
-        mbid = ScoreExtras.get_mbids(symbtr_name)
-        if not mbid:
+    def get_mbids(symbtr_name):
+        mbids = ScoreExtras.get_mbids(symbtr_name)
+        if not mbids:
             warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning)
-        else:
-            mbid = mbid[0]
 
-        return mbid
+        return mbids
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()

@@ -67,7 +67,7 @@ class CompleteAnalyzer(Analyzer):
             recordings.
         """
         # score analysis
-        score_features = self._symbtrAnalyzer.analyze(
+        score_features, boundaries, work_mbid = self._symbtrAnalyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)
 
         # audio analysis

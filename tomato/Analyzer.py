@@ -47,13 +47,13 @@ class Analyzer(object):
         return precomputed_features
 
     def _call_analysis_step(self, method_name, feature_flag,
-                            *input_features):
+                            *input_args, **input_kwargs):
         if feature_flag is False:  # call skipped
             return None
         elif feature_flag is None:  # call method
             method = getattr(self, method_name)
             try:
-                return method(*input_features)
+                return method(*input_args, **input_kwargs)
             except KeyError:
                 logging.info('{0:s}.{1:s} failed.'.
                              format(self.__class__, method_name))
