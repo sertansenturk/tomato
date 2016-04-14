@@ -8,14 +8,6 @@ import re
 
 class IO(object):
     @staticmethod
-    def basestring():
-        try:
-            return basestring  # python 2
-        except NameError:
-            # 'unicode' is undefined, must be Python 3
-            return (str, bytes)
-
-    @staticmethod
     def get_public_attr(generic_obj):
         return [name for name in generic_obj.__dict__.keys()
                 if not name.startswith('_')]

@@ -1,6 +1,7 @@
 import numpy as np
 from copy import deepcopy
 import timeit
+import six
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -112,7 +113,8 @@ class AudioAnalyzer(Analyzer):
             # it from id3 tag
             audio_meta = self.crawl_musicbrainz_metadata(
                 filepath)
-        elif isinstance(audio_meta, IO.basestring()):  # MBID is given
+        elif isinstance(audio_meta, (six.string_types, six.binary_type)):
+            # MBID is given
             audio_meta = self.crawl_musicbrainz_metadata(
                 audio_meta)
         elif not isinstance(audio_meta, dict):
