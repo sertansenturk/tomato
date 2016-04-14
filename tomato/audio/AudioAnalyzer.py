@@ -87,7 +87,7 @@ class AudioAnalyzer(Analyzer):
         # makam recognition
         # TODO: allow multiple makams
         audio_f['makam'] = self._partial_caller(
-            audio_f['makam'], self.get_makam, audio_f['metadata'],
+            audio_f['makam'], self.get_makams, audio_f['metadata'],
             audio_f['pitch_class_distribution'])
         audio_f['makam'] = self._get_first(audio_f['makam'])
 
@@ -125,17 +125,15 @@ class AudioAnalyzer(Analyzer):
             warnings.warn(warn_str)
         return audio_meta
 
-    def get_makam(self, metadata, pitch_class_distribution):
+    def get_makams(self, metadata, pitch_class_distribution):
         try:  # try to get the makam from the metadata
-            makams = set(m['attribute_key'] for m in metadata['makam'])
+            makams = list(set(m['attribute_key'] for m in metadata['makam']))
 
-            # for now get the first makam
-            makam = list(makams)[0]
         except (TypeError, KeyError):
             # metadata is not available or the makam is not known
-            makam = self.recognize_makam(pitch_class_distribution)
+            makams = self.recognize_makam(pitch_class_distribution)
 
-        return makam
+        return makams
 
     def crawl_musicbrainz_metadata(self, rec_in):
         try:
@@ -308,12 +306,20 @@ class AudioAnalyzer(Analyzer):
 
     # plot
     @staticmethod
-    def plot(features):
-        pitch = features['pitch_filtered']['pitch']
-        pitch_distribution = features['pitch_distribution']
-        note_models = features['note_models']
-        melodic_progression = features['melodic_progression']
+    def plot(audio_features):
+        pitch = audio_features['pitch_filtered']['pitch']
+        pitch_distribution = audio_features['pitch_distribution']
+        note_models = audio_features['note_models']
+        melodic_progression = audio_features['melodic_progression']
+        makam = audio_features['makam']
+        tonic = audio_features['tonic']
+        transposition = audio_features['transposition']
+        try:
+            tempo = audio_features['tempo']
+        except KeyError:
+            tempo = None
 
         return Plotter.plot_audio_features(
             pitch=pitch, pitch_distribution=pitch_distribution,
-            note_models=note_models, melodic_progression=melodic_progression)
+            note_models=note_models, melodic_progression=melodic_progression,
+            makam=makam, tonic=tonic, transposition=transposition, tempo=tempo)

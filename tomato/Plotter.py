@@ -14,40 +14,59 @@ class Plotter(object):
     @classmethod
     def plot_audio_features(cls, pitch=None, pitch_distribution=None,
                             sections=None, notes=None, note_models=None,
-                            melodic_progression=None):
+                            melodic_progression=None, makam=None, tonic=None,
+                            transposition=None, tempo=None):
         # parse inputs
-        pitch, pitch_distrib, sections, notes, note_models, melodic_prog = \
-            cls._parse_inputs(
-                pitch=pitch, pitch_distribution=pitch_distribution,
-                sections=sections, notes=notes, note_models=note_models,
-                melodic_progression=melodic_progression)
+        p_in = cls._parse_inputs(
+            pitch=pitch, pitch_distribution=pitch_distribution,
+            sections=sections, notes=notes, note_models=note_models,
+            melodic_progression=melodic_progression, makam=makam, tonic=tonic,
+            transposition=transposition, tempo=tempo)
 
         # create the figure and all the subplots with the shared axis specified
-        fig, ax1, ax2, ax3, ax4 = cls._create_figure()
+        fig, ax1, ax2, ax3, ax4, ax5 = cls._create_figure()
 
         # plot the pitch track and the performed notes to the first subplot
         cls._subplot_pitch_notes(ax1, notes, pitch)
 
         # plot the pitch distribution and the note models to the second subplot
-        cls._plot_pitch_dist_note_models(ax2, note_models, pitch_distrib)
+        cls._plot_pitch_dist_note_models(ax2, p_in['note_models'],
+                                         p_in['pitch_distribution'])
 
         # plot the melodic progression to the third subplot
-        cls._plot_melodic_progression(ax3, melodic_prog, pitch, pitch_distrib)
+        cls._plot_melodic_progression(
+            ax3, p_in['melodic_progression'], p_in['pitch'],
+            p_in['pitch_distribution'])
 
         # plot the sections to the third subplot, onto the melodic progression
-        cls._plot_sections(ax1, ax3, ax4, sections)
+        cls._plot_sections(ax1, ax3, ax4, p_in['sections'])
 
-        return fig, (ax1, ax2, ax3, ax4)
+        # print the makam, tonic, ahenk and tempo annot. to the third subplot
+        cls._plot_annotations(ax5, p_in['makam'], p_in['tonic'],
+                              p_in['transposition'], p_in['tempo'])
+
+        return fig, (ax1, ax2, ax3, ax4, ax5)
 
     @classmethod
     def _parse_inputs(cls, **kwargs):
         pitch = cls._parse_pitch(kwargs['pitch'])
-        pitch_distribution = cls._parse_pitch_distribution(kwargs['pitch_distribution'])
+        pitch_distribution = cls._parse_pitch_distribution(
+            kwargs['pitch_distribution'])
         sections = copy.deepcopy(kwargs['sections'])
         notes = copy.deepcopy(kwargs['notes'])
         note_models = copy.deepcopy(kwargs['note_models'])
         melodic_progression = copy.deepcopy(kwargs['melodic_progression'])
-        return pitch, pitch_distribution, sections, notes, note_models, melodic_progression
+        makam = cls._parse_makam(kwargs['makam'])
+        tonic = copy.deepcopy(kwargs['tonic'])
+        transposition = copy.deepcopy(kwargs['transposition'])
+        tempo = copy.deepcopy(kwargs['tempo'])
+        inputs = {'pitch': pitch, 'pitch_distribution': pitch_distribution,
+                  'sections': sections, 'notes': notes, 'tonic': tonic,
+                  'transposition': transposition, 'note_models': note_models,
+                  'melodic_progression': melodic_progression, 'makam': makam,
+                  'tempo': tempo}
+
+        return inputs
 
     @staticmethod
     def _parse_pitch(pitch_in):
@@ -73,6 +92,23 @@ class Plotter(object):
         return pitch_distribution_in
 
     @staticmethod
+    def _parse_makam(makam_in):
+        try:  # use the MusicBrainz attribute name
+            makam = makam_in['mb_attribute']
+            if not makam:
+                raise ValueError('MusicBrainz attribute is empty.')
+        except (KeyError, ValueError):
+            try:  # attempt to get the name in mu2
+                makam = makam_in['mu2_name']
+                if not makam:
+                    raise ValueError('MusicBrainz attribute is empty.')
+            except (KeyError, ValueError):  # use the slug in symbtr name
+                makam = makam_in['symbtr_slug']
+        except TypeError:  # string
+            makam = makam_in
+        return makam
+
+    @staticmethod
     def _create_figure():
         # create the figure with four subplots with different size
         # - 1st is for the predominant melody and performed notes
@@ -85,10 +121,11 @@ class Plotter(object):
         ax1 = fig.add_subplot(gs[0])  # pitch and notes
         ax2 = fig.add_subplot(gs[1], sharey=ax1)  # pitch dist. and note models
         ax4 = fig.add_subplot(gs[2])  # sections
+        ax5 = fig.add_subplot(gs[3])  # makam, tempo, tonic, ahenk annotations
         ax3 = plt.twiny(ax4)  # melodic progression
         ax1.get_shared_x_axes().join(ax1, ax3)
         fig.subplots_adjust(hspace=0, wspace=0)
-        return fig, ax1, ax2, ax3, ax4
+        return fig, ax1, ax2, ax3, ax4, ax5
 
     @classmethod
     def _subplot_pitch_notes(cls, ax1, notes, pitch):
@@ -283,3 +320,38 @@ class Plotter(object):
             except KeyError:
                 logging.debug(u'note model is not available for {0:s}'.format(
                     note_symbol))
+
+    @staticmethod
+    def _plot_annotations(ax, makam, tonic, transposition, tempo):
+        anno_str = []
+
+        # makam
+        if makam is not None:
+            anno_str.append(u'{0:s} makam'.format(makam))
+
+        # don't append it yet, it will be after tonic
+        if transposition is not None:
+            tonic_symbol = transposition['tonic_symbol']
+            anno_str.append(u'{0:s} ahenk'.format(transposition['name']))
+        else:
+            tonic_symbol = '?'
+
+        if tonic is not None:
+            # insert before transposition
+            anno_str.insert(1, u'{0:s} = {1:.1f} Hz'.
+                            format(tonic_symbol, tonic['value']))
+
+        if tempo is not None:
+            anno_str.append(u'Av. Tempo: {0:d} bpm'.
+                            format(int(tempo['average']['value'])))
+            
+            rel_tempo_percentage = int(100*(tempo['relative']['value'] - 1))
+            anno_str.append(u'Performed {0:d}% faster'.
+                            format(rel_tempo_percentage))
+
+        anno_str = u'\n'.join(anno_str)
+
+        ax.set_xlim([-1, 1])
+        ax.set_ylim([-1, 1])
+        ax.annotate(anno_str, xy=(0, 0), ha="center", va="center")
+        ax.axis('off')

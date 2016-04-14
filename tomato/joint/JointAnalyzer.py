@@ -346,8 +346,13 @@ class JointAnalyzer(Analyzer):
         # audio features
         pitch = summarized_features['audio']['pitch']['pitch']
         pitch_distribution = summarized_features['audio']['pitch_distribution']
-        melodic_progression = summarized_features['audio']['melodic_progression']
+        melodic_progression = summarized_features['audio'][
+            'melodic_progression']
         note_models = summarized_features['audio']['note_models']
+        makam = summarized_features['score']['makam']
+        tonic = summarized_features['audio']['tonic']
+        transposition = summarized_features['audio']['transposition']
+        tempo = summarized_features['audio']['tempo']
 
         # joint features
         try:
@@ -362,4 +367,5 @@ class JointAnalyzer(Analyzer):
         return Plotter.plot_audio_features(
             pitch=pitch, pitch_distribution=pitch_distribution,
             sections=sections, notes=aligned_notes, note_models=note_models,
-            melodic_progression=melodic_progression)
+            melodic_progression=melodic_progression, makam=makam, tonic=tonic,
+            transposition=transposition, tempo=tempo)
