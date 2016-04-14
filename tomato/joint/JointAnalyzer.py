@@ -49,9 +49,9 @@ class JointAnalyzer(Analyzer):
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
-            audio_features = None
+            score_informed_audio_features = None
             # Everything else will fail; return None
-            return joint_features, audio_features
+            return joint_features, score_informed_audio_features
 
         # section linking and note-level alignment
         try:
@@ -63,9 +63,9 @@ class JointAnalyzer(Analyzer):
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
-            audio_features = {'tonic': input_f['tonic'],
+            score_informed_audio_features = {'tonic': input_f['tonic'],
                               'tempo': input_f['tempo']}
-            return joint_features, audio_features
+            return joint_features, score_informed_audio_features
 
         # aligned pitch filter
         temp_out = self._partial_caller(
@@ -88,12 +88,13 @@ class JointAnalyzer(Analyzer):
 
         joint_features = {'sections': input_f['aligned_sections'],
                           'notes': input_f['notes']}
-        audio_features = {'makam': score_features['makam']['symbtr_slug'],
-                          'pitch_filtered': input_f['pitch_filtered'],
-                          'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
-                          'note_models': input_f['note_models']}
+        score_informed_audio_features = {
+            'makam': score_features['makam']['symbtr_slug'],
+            'pitch_filtered': input_f['pitch_filtered'],
+            'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
+            'note_models': input_f['note_models']}
 
-        return joint_features, audio_features
+        return joint_features, score_informed_audio_features
 
     @classmethod
     def summarize(cls, audio_features=None, score_features=None,
@@ -104,7 +105,7 @@ class JointAnalyzer(Analyzer):
         sdict['audio'] = cls._summarize_common_audio_features(
             audio_features, score_informed_audio_features)
 
-        # pitch_filtered is reduntant name and it might not be computed
+        # pitch_filtered is a reduntant name and it might not be computed
         sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
         if sdict['audio']['pitch'] is None:
             sdict['audio']['pitch'] = audio_features['pitch']
@@ -342,30 +343,19 @@ class JointAnalyzer(Analyzer):
 
     @staticmethod
     def plot(summarized_features):
-        pitch = np.array(deepcopy(
-            summarized_features['audio']['pitch']['pitch']))
-        pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
+        # audio features
+        pitch = summarized_features['audio']['pitch']['pitch']
+        pitch_distribution = summarized_features['audio']['pitch_distribution']
+        melodic_progression = summarized_features['audio']['melodic_progression']
+        note_models = summarized_features['audio']['note_models']
 
-        pitch_distribution = deepcopy(
-            summarized_features['audio']['pitch_distribution'])
-
-        sections = deepcopy(summarized_features['joint']['sections'])
-
-        try:  # convert the bins to hz, if they are given in cents
-            pitch_distribution.cent_to_hz()
-        except ValueError:
-            logging.debug('The pitch distribution should already be in hz')
-
+        # joint features
         try:
-            note_models = deepcopy(summarized_features['joint']['note_models'])
-        except KeyError:  # aligned note_models is not computed
-            note_models = deepcopy(summarized_features['audio']['note_models'])
-
-        melodic_progression = deepcopy(
-            summarized_features['audio']['melodic_progression'])
-
+            sections = summarized_features['joint']['sections']
+        except KeyError:  # section linking failed
+            sections = None
         try:
-            aligned_notes = deepcopy(summarized_features['joint']['notes'])
+            aligned_notes = summarized_features['joint']['notes']
         except KeyError:  # audio score alignment failed
             aligned_notes = None
 

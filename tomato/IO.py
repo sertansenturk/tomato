@@ -10,7 +10,7 @@ class IO(object):
     @staticmethod
     def public_noncallables(inst):
         noncallable_gen = (v for v in dir(inst)
-                           if not callable(getattr(inst,v)))
+                           if not callable(getattr(inst, v)))
         return [name for name in noncallable_gen
                 if not name.startswith('_')]
 

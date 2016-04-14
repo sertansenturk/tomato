@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import FixedLocator
 from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
+import copy
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -14,6 +15,12 @@ class Plotter(object):
     def plot_audio_features(cls, pitch=None, pitch_distribution=None,
                             sections=None, notes=None, note_models=None,
                             melodic_progression=None):
+        # parse inputs
+        pitch, pitch_distrib, sections, notes, note_models, melodic_prog = \
+            cls._parse_inputs(
+                pitch=pitch, pitch_distribution=pitch_distribution,
+                sections=sections, notes=notes, note_models=note_models,
+                melodic_progression=melodic_progression)
 
         # create the figure and all the subplots with the shared axis specified
         fig, ax1, ax2, ax3, ax4 = cls._create_figure()
@@ -22,16 +29,48 @@ class Plotter(object):
         cls._subplot_pitch_notes(ax1, notes, pitch)
 
         # plot the pitch distribution and the note models to the second subplot
-        cls._plot_pitch_dist_note_models(ax2, note_models, pitch_distribution)
+        cls._plot_pitch_dist_note_models(ax2, note_models, pitch_distrib)
 
         # plot the melodic progression to the third subplot
-        cls._plot_melodic_progression(ax3, melodic_progression, pitch,
-                                      pitch_distribution)
+        cls._plot_melodic_progression(ax3, melodic_prog, pitch, pitch_distrib)
 
         # plot the sections to the third subplot, onto the melodic progression
         cls._plot_sections(ax1, ax3, ax4, sections)
 
         return fig, (ax1, ax2, ax3, ax4)
+
+    @classmethod
+    def _parse_inputs(cls, **kwargs):
+        pitch = cls._parse_pitch(kwargs['pitch'])
+        pitch_distribution = cls._parse_pitch_distribution(kwargs['pitch_distribution'])
+        sections = copy.deepcopy(kwargs['sections'])
+        notes = copy.deepcopy(kwargs['notes'])
+        note_models = copy.deepcopy(kwargs['note_models'])
+        melodic_progression = copy.deepcopy(kwargs['melodic_progression'])
+        return pitch, pitch_distribution, sections, notes, note_models, melodic_progression
+
+    @staticmethod
+    def _parse_pitch(pitch_in):
+        try:  # dict
+            pitch = copy.deepcopy(pitch_in['pitch'])
+        except (TypeError, IndexError):  # list or numpy array
+            pitch = copy.deepcopy(pitch_in)
+
+        pitch = np.array(pitch) # convert to numpy array
+        pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
+
+        return pitch
+
+    @staticmethod
+    def _parse_pitch_distribution(pitch_distribution_in):
+        pitch_distribution = copy.deepcopy(pitch_distribution_in)
+
+        try:  # convert the bins to hz, if they are given in cents
+            pitch_distribution.cent_to_hz()
+        except ValueError:
+            logging.debug('The pitch distribution should already be in hz')
+
+        return pitch_distribution_in
 
     @staticmethod
     def _create_figure():

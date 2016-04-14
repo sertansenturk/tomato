@@ -309,15 +309,10 @@ class AudioAnalyzer(Analyzer):
     # plot
     @staticmethod
     def plot(features):
-        pitch = np.array(deepcopy(features['pitch_filtered']['pitch']))
-        pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
-        pitch_distribution = deepcopy(features['pitch_distribution'])
-        try:  # convert the bins to hz, if they are given in cents
-            pitch_distribution.cent_to_hz()
-        except ValueError:
-            logging.debug('The pitch distribution should already be in hz')
-        note_models = deepcopy(features['note_models'])
-        melodic_progression = deepcopy(features['melodic_progression'])
+        pitch = features['pitch_filtered']['pitch']
+        pitch_distribution = features['pitch_distribution']
+        note_models = features['note_models']
+        melodic_progression = features['melodic_progression']
 
         return Plotter.plot_audio_features(
             pitch=pitch, pitch_distribution=pitch_distribution,
