@@ -37,14 +37,15 @@ class JointAnalyzer(Analyzer):
         self._alignedPitchFilter = AlignedPitchFilter()
         self._alignedNoteModel = AlignedNoteModel()
 
-    def analyze(self, symbtr_txt_filename='', score_data=None,
+    def analyze(self, symbtr_txt_filename='', score_features=None,
                 audio_filename='', audio_pitch=None, **kwargs):
         input_f = self._parse_inputs(**kwargs)
 
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
             input_f['tonic'], input_f['tempo'] = self.extract_tonic_tempo(
-                symbtr_txt_filename, score_data, audio_filename, audio_pitch)
+                symbtr_txt_filename, score_features, audio_filename,
+                audio_pitch)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -54,11 +55,11 @@ class JointAnalyzer(Analyzer):
 
         # section linking and note-level alignment
         try:
+            temp_out = self.align_audio_score(
+                symbtr_txt_filename, score_features, audio_filename, audio_pitch,
+                input_f['tonic'], input_f['tempo'])
             input_f['aligned_sections'], input_f['notes'], input_f[
-                'section_links'], input_f['section_candidates'] = \
-                self.align_audio_score(symbtr_txt_filename, score_data,
-                                       audio_filename, audio_pitch,
-                                       input_f['tonic'], input_f['tempo'])
+                'section_links'], input_f['section_candidates'] = temp_out
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
@@ -67,8 +68,8 @@ class JointAnalyzer(Analyzer):
             return joint_features, audio_features
 
         # aligned pitch filter
-        temp_out = self._call_analysis_step(
-            'filter_pitch', input_f['pitch_filtered'], audio_pitch,
+        temp_out = self._partial_caller(
+            input_f['pitch_filtered'], self.filter_pitch, audio_pitch,
             input_f['notes'])
         if temp_out is not None:
             input_f['pitch_filtered'], input_f['notes'] = temp_out
@@ -76,8 +77,8 @@ class JointAnalyzer(Analyzer):
             input_f['pitch_filtered'], input_f['notes'] = [None, None]
 
         # aligned note models
-        temp_out = self._call_analysis_step(
-            'compute_note_models', input_f['note_models'],
+        temp_out = self._partial_caller(
+            input_f['note_models'], self.compute_note_models,
             input_f['pitch_filtered'], input_f['notes'],
             input_f['tonic']['symbol'])
         if temp_out is not None:
@@ -87,7 +88,7 @@ class JointAnalyzer(Analyzer):
 
         joint_features = {'sections': input_f['aligned_sections'],
                           'notes': input_f['notes']}
-        audio_features = {'makam': score_data['makam']['symbtr_slug'],
+        audio_features = {'makam': score_features['makam']['symbtr_slug'],
                           'pitch_filtered': input_f['pitch_filtered'],
                           'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
                           'note_models': input_f['note_models']}

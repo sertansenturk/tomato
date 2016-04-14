@@ -51,20 +51,18 @@ class Analyzer(object):
 
         return precomputed_features
 
-    def _call_analysis_step(self, method_name, feature_flag,
-                            *input_args, **input_kwargs):
-        if feature_flag is False:  # call skipped
+    @staticmethod
+    def _partial_caller(flag, func, *input_args, **input_kwargs):
+        if flag is False:  # call skipped
             return None
-        elif feature_flag is None:  # call method
-            method = getattr(self, method_name)
+        elif flag is None:  # call method
             try:
-                return method(*input_args, **input_kwargs)
+                return func(*input_args, **input_kwargs)
             except KeyError:
-                logging.info('{0:s}.{1:s} failed.'.
-                             format(self.__class__, method_name))
+                logging.info('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
-            return feature_flag
+            return flag
 
     @staticmethod
     def _get_first(feature):

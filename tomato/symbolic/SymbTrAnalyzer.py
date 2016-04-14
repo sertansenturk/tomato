@@ -36,43 +36,37 @@ class SymbTrAnalyzer(Analyzer):
             symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
         # Automatic phrase segmentation on the SymbTr-txt score
-        input_f['boundaries'] = self._call_analysis_step(
-            'segment_phrase', input_f['boundaries'], txt_filepath,
+        input_f['boundaries'] = self._partial_caller(
+            input_f['boundaries'], self.segment_phrase, txt_filepath,
             symbtr_name=symbtr_name)
 
         # get relevant recording or work mbid
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first mbid to fetch the metadata
         # TODO: use all mbids
-        input_f['mbid'] = self._call_analysis_step(
-            'get_mbids', input_f['mbid'], symbtr_name)
+        input_f['mbid'] = self._partial_caller(input_f['mbid'], self.get_mbids,
+                                               symbtr_name)
         input_f['mbid'] = self._get_first(input_f['mbid'])
 
         # Extract the (meta)data from the SymbTr scores. Here the results from
         # the previous steps are also summarized.
-        self._call_symbtr_data_extractor(txt_filepath, mu2_filepath,
-                                         symbtr_name, input_f)
+        self._partial_call_extract_data(input_f, txt_filepath, mu2_filepath,
+                                        symbtr_name)
 
         return (input_f['score_features'], input_f['boundaries'],
                 input_f['mbid'])
 
-    def _call_symbtr_data_extractor(self, txt_filepath, mu2_filepath,
-                                    symbtr_name, features):
-        try:
-            score_data = self._call_analysis_step(
-                'extract_data', features['score_features'],
-                txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                mbid=features['mbid'], segment_note_bound_idx=features[
-                    'boundaries']['boundary_note_idx'])
-        except (NetworkError, ResponseError):  # MusicBrainz is not available
-            warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The metadata stored there is not crawled.',
-                          RuntimeWarning)
-            score_data = self._call_analysis_step(
-                'extract_data', features['score_features'],
-                txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                segment_note_bound_idx=features['boundaries'][
-                    'boundary_note_idx'])
+    def _partial_call_extract_data(self, features, txt_filepath, mu2_filepath,
+                                   symbtr_name):
+        # If MusicBrainz is not available, crawling will be skipped by the
+        # makammusicbrainz package
+        score_data = self._partial_caller(
+            features['score_features'], self.extract_data, txt_filepath,
+            mu2_filepath, symbtr_name=symbtr_name, mbid=features['mbid'],
+            segment_note_bound_idx=features['boundaries'][
+                'boundary_note_idx'])
+
+        # validate
         if score_data is not None:
             score_features, is_valid = score_data
             if not is_valid:
@@ -80,7 +74,7 @@ class SymbTrAnalyzer(Analyzer):
         else:
             score_features, is_valid = [None, None]
 
-        return score_features
+        features['score_features'] = score_features
 
     @staticmethod
     def get_mbids(symbtr_name):
@@ -88,7 +82,6 @@ class SymbTrAnalyzer(Analyzer):
         if not mbids:
             warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning)
-
         return mbids
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
