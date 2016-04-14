@@ -6,8 +6,6 @@ import timeit
 from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.reader.Mu2Reader import Mu2Reader
 from symbtrextras.ScoreExtras import ScoreExtras
-from musicbrainzngs import NetworkError
-from musicbrainzngs import ResponseError
 
 from ..MCRCaller import MCRCaller
 from ..IO import IO
