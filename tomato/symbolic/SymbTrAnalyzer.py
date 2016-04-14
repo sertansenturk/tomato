@@ -51,31 +51,37 @@ class SymbTrAnalyzer(Analyzer):
 
         # Extract the (meta)data from the SymbTr scores. Here the results from
         # the previous steps are also summarized.
+        self._call_symbtr_data_extractor(txt_filepath, mu2_filepath,
+                                         symbtr_name, input_f)
+
+        return (input_f['score_features'], input_f['boundaries'],
+                input_f['mbid'])
+
+    def _call_symbtr_data_extractor(self, txt_filepath, mu2_filepath,
+                                    symbtr_name, features):
         try:
-            input_f['score_features'] = self._call_analysis_step(
-                'extract_data', input_f['score_features'],
+            score_data = self._call_analysis_step(
+                'extract_data', features['score_features'],
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                mbid=input_f['mbid'], segment_note_bound_idx=input_f[
+                mbid=features['mbid'], segment_note_bound_idx=features[
                     'boundaries']['boundary_note_idx'])
         except (NetworkError, ResponseError):  # MusicBrainz is not available
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
                           RuntimeWarning)
-            input_f['score_features'] = self._call_analysis_step(
-                'extract_data', input_f['score_features'],
+            score_data = self._call_analysis_step(
+                'extract_data', features['score_features'],
                 txt_filepath, mu2_filepath, symbtr_name=symbtr_name,
-                segment_note_bound_idx=input_f['boundaries'][
+                segment_note_bound_idx=features['boundaries'][
                     'boundary_note_idx'])
-
-        if input_f['score_features'] is not None:
-            is_valid = input_f['score_features'][1]
-            input_f['score_features'] = input_f['score_features'][0]
-
+        if score_data is not None:
+            score_features, is_valid = score_data
             if not is_valid:
                 warnings.warn(symbtr_name + ' has validation problems.')
+        else:
+            score_features, is_valid = [None, None]
 
-        return (input_f['score_features'], input_f['boundaries'],
-                input_f['mbid'])
+        return score_features
 
     @staticmethod
     def get_mbids(symbtr_name):
