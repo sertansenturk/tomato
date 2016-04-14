@@ -1,10 +1,18 @@
 #### tomato v0.7.0dev
+ - Added CompleteAnalyzer class
+ - Refactored ParamSetter class to the abstract Analyzer class. It is
+ inherited by all "Analyzer" classes.
+ - Improved partial processing when calling the main "analyze" method of
+ each analysis class.
+ - "analyze" methods now have a (variable length) **kwargs input as the
+ input features. These features are not computed and used in the subsequent
+ analysis steps.
  - Improved code quality
  - All note indices in the outputs are fixed to **1-indexing** according to
- the Symbtr-txt convention (not the pythonic 0-indexing)
+ the Symbtr-txt convention (not the pythonic 0-indexing).
  - Updated requirements
  - Improved verbosity and warnings
- - Execution time of each step is printed if the verbose is True
+ - Execution time of each step is printed if the verbose is True.
 
 #### tomato v0.6.0
  - Added audio metadata fetching from MusicBrainz using [makammusicbrainz](https://github.com/sertansenturk/makammusicbrainz/releases/tag/v1.2.0).

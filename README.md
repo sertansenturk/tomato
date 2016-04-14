@@ -66,46 +66,36 @@ The score phrase segmentation, score-informed joint tonic identification and tem
 
 We recommend you to install MATLAB Runtime in the default installation path, as **tomato** searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
-Basic Usage
+Tomato in a Nutshell
 -------
 
 ```python
-from tomato.audio.AudioAnalyzer import AudioAnalyzer
-from tomato.symbolic.SymbTrAnalyzer import SymbTrAnalyzer
-from tomato.joint.JointAnalyzer import JointAnalyzer
+from tomato.joint.CompleteAnalyzer import CompleteAnalyzer
 
-# score filepaths
+# score input
 symbtr_name = 'makam--form--usul--name--composer'
-txt_score_filepath = 'path/to/txt_score'
-mu2_score_filepath = 'path/to/mu2_score'
+txt_score_filename = 'path/to/txt_score'
+mu2_score_filename = 'path/to/mu2_score'
 
-# audio filepath
-audio_filepath = 'path/to/audio'
+# audio input
+audio_filename = 'path/to/audio'
+audio_mbid = '9244b2e0-6327-4ae3-9e8d-c0da54d39140'  # MusicBrainz Identifier
 
-# instantiate analyzer objects
-scoreAnalyzer = SymbTrAnalyzer(verbose=True)
-audioAnalyzer = AudioAnalyzer(verbose=True)
-jointAnalyzer = JointAnalyzer(verbose=True)
+# instantiate analyzer object
+completeAnalyzer = CompleteAnalyzer()
 
-# score analysis
-score_features = scoreAnalyzer.analyze(
-    txt_score_filepath, mu2_score_filepath, symbtr_name=symbtr_name)
+# Apply the complete analysis. The resulting tuple will have
+# (summarized_features, score_features, audio_features,
+# score_informed_audio_features, joint_features) in order
+results = completeAnalyzer.analyze(
+    symbtr_txt_filename=txt_score_filepath,
+    symbtr_mu2_filename=mu2_score_filepath, symbtr_name=symbtr_name,
+    audio_filename=audio_filepath, audio_metadata=audio_mbid)
 
-# audio analysis
-audio_features = audioAnalyzer.analyze(
-    audio_filepath, makam=score_features['makam']['symbtr_slug'])
-
-# joint analysis
-joint_features, score_informed_audio_features = jointAnalyzer.analyze(
-    txt_score_filepath, score_features, audio_filepath, audio_features['pitch'])
-
-# redo some steps in audio analysis
-score_informed_audio_features = audioAnalyzer.update_analysis(
-    score_informed_audio_features)
-
-# summarize all the features extracted from all sources
-summarized_features = jointAnalyzer.summarize(
-    audio_features, score_features, joint_features, score_informed_audio_features)
+# plot the summarized features
+fig, ax = completeAnalyzer.plot(results[0])
+ax[0].set_ylim([50, 500])
+pylab.show()
 ```
 
 You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb), [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb), [joint_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/joint_analysis_demo.ipynb) and [complete_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/complete_analysis_demo.ipynb) for interactive demos.
@@ -127,7 +117,7 @@ FAQ
 
 3. **What are the supported Python versions?**
 
-    Currently we only support 2.7. We will start working on Python 3+ support, as soon as [Essentia bindings for Python 3](https://github.com/MTG/essentia/issues/138) are available.
+    Even though the code in the **tomato** package is compilant with both Python 3+ and Python 2.7, most of the requirements runs only in Python 2.7. We will start working on Python 3+ support, as soon as the [Essentia bindings for Python 3](https://github.com/MTG/essentia/issues/138) are available.
 
 4. **Where are the MATLAB binaries?**
 

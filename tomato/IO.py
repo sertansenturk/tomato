@@ -8,6 +8,11 @@ import re
 
 class IO(object):
     @staticmethod
+    def get_public_attr(generic_obj):
+        return [name for name in generic_obj.__dict__.keys()
+                if not name.startswith('_')]
+
+    @staticmethod
     def get_abspath_from_relpath_in_tomato(*args):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), *args)
 

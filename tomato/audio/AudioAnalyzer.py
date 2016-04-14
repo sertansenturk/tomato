@@ -1,6 +1,7 @@
 import numpy as np
 from copy import deepcopy
 import timeit
+import six
 
 from makammusicbrainz.AudioMetadata import AudioMetadata
 from predominantmelodymakam.PredominantMelodyMakam import \
@@ -14,8 +15,9 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
-from tomato.Analyzer import Analyzer
-from tomato.Plotter import Plotter
+from ..Analyzer import Analyzer
+from ..Plotter import Plotter
+from ..IO import IO
 
 import warnings
 import logging
@@ -23,13 +25,17 @@ logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
+    _inputs = ['makam', 'melodic_progression', 'metadata', 'note_models',
+               'pitch', 'pitch_class_distribution', 'pitch_distribution',
+               'pitch_filtered', 'tempo', 'tonic', 'transposition']
+
     def __init__(self, verbose=False):
         super(AudioAnalyzer, self).__init__(verbose=verbose)
 
         # settings that are not defined in the respective classes
         self._pd_params = {'kernel_width': 7.5, 'step_size': 7.5}
         # - for melodic progression None means, applying the rule of thumb
-        #   defined in the method "get_melodic_progression". This class has
+        #   defined in the method "compute_melodic_progression". This class has
         #   two parameters defined in init and the other two defined in the
         #   method call. Here we only store the ones called in the method call.
         self._mel_prog_params = {'frame_dur': None, 'hop_ratio': 0.5,
@@ -43,134 +49,107 @@ class AudioAnalyzer(Analyzer):
         self._tonicIdentifier = TonicLastNote()
         self._noteModeler = NoteModel()
 
-    def analyze(self, filepath, makam=None, mbid=None):
+    def analyze(self, filepath=None, **kwargs):
+        audio_f = self._parse_inputs(**kwargs)
+
         # metadata
-        meta_in = mbid if mbid is not None else filepath
-        try:
-            metadata = self.get_musicbrainz_metadata(meta_in)
-        except (NetworkError, ResponseError):
-            metadata = None
-            warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The metadata stored there is not crawled.',
-                          RuntimeWarning)
+        audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],
+                                                        filepath)
 
         # predominant melody extraction
-        pitch = self.extract_pitch(filepath)
+        audio_f['pitch'] = self._call_analysis_step(
+            'extract_pitch', audio_f['pitch'], filepath)
 
         # pitch filtering
-        pitch_filtered = self.filter_pitch(pitch)
+        audio_f['pitch_filtered'] = self._call_analysis_step(
+            'filter_pitch', audio_f['pitch_filtered'], audio_f['pitch'])
 
-        # get the melodic prograssion model
-        melodic_progression = self.get_melodic_progression(pitch_filtered)
+        # get the melodic progression
+        audio_f['melodic_progression'] = self._call_analysis_step(
+            'compute_melodic_progression', audio_f['melodic_progression'],
+            audio_f['pitch_filtered'])
 
         # tonic identification
-        tonic = self.identify_tonic(pitch_filtered)
+        audio_f['tonic'] = self._call_analysis_step(
+            'identify_tonic', audio_f['tonic'], audio_f['pitch_filtered'])
 
         # histogram computation
-        pitch_distribution = self.compute_pitch_distribution(
-            pitch_filtered, tonic)
-        pitch_distribution.cent_to_hz()
-        pitch_class_distribution = pitch_distribution.to_pcd()
+        audio_f['pitch_distribution'] = self._call_analysis_step(
+            'compute_pitch_distribution', audio_f['pitch_distribution'],
+            audio_f['pitch_filtered'])
+        try:
+            audio_f['pitch_class_distribution'] = \
+                audio_f['pitch_distribution'].to_pcd()
+        except KeyError:
+            logging.info('Pitch class distribution computation failed.')
 
         # makam recognition
         # TODO: allow multiple makams
-        makam = self._get_makam(makam, metadata, pitch_class_distribution)
+        audio_f['makam'] = self._call_analysis_step(
+            '_get_makam', audio_f['makam'], audio_f['metadata'],
+            audio_f['pitch_class_distribution'])
+        if isinstance(audio_f['makam'], list):  # list of makams given
+            audio_f['makam'] = audio_f['makam'][0]  # for now the first makam
 
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
-        try:
-            transposition = self.identify_transposition(tonic, makam)
-        except ValueError as e:
-            transposition = None
-            warnings.warn(e.message, RuntimeWarning)
+        audio_f['transposition'] = self._call_analysis_step(
+            'identify_transposition', audio_f['transposition'],
+            audio_f['tonic'], audio_f['makam'])
 
-        # tuning analysis and stable pitch extraction
+        # note models
         # TODO: check if there is more than one transposition name, if yes warn
-        try:
-            stable_notes = self.get_stable_notes(pitch_distribution, tonic,
-                                                 makam)
-        except KeyError as e:
-            stable_notes = None
-            warnings.warn(e.message, RuntimeWarning)
+        audio_f['note_models'] = self._call_analysis_step(
+            'compute_note_models', audio_f['note_models'],
+            audio_f['pitch_distribution'], audio_f['tonic'], audio_f['makam'])
 
         # return as a dictionary
-        return {'metadata': metadata, 'pitch': pitch,
-                'pitch_filtered': pitch_filtered, 'tonic': tonic,
-                'transposition': transposition, 'makam': makam,
-                'melodic_progression': melodic_progression,
-                'pitch_distribution': pitch_distribution,
-                'pitch_class_distribution': pitch_class_distribution,
-                'stable_notes': stable_notes}
+        return audio_f
 
-    def _get_makam(self, makam, metadata, pitch_class_distribution):
-        if makam is None:
-            try:  # try to get the makam from the metadata
-                makams = set(m['attribute_key'] for m in metadata['makam'])
+    def _call_audio_metadata(self, audio_meta, filepath):
+        if audio_meta is False:  # metadata crawling is disabled
+            audio_meta = None
+        elif audio_meta is None:  # no MBID is given, attempt to get
+            # it from id3 tag
+            audio_meta = self.crawl_musicbrainz_metadata(
+                filepath)
+        elif isinstance(audio_meta, (six.string_types, six.binary_type)):
+            # MBID is given
+            audio_meta = self.crawl_musicbrainz_metadata(
+                audio_meta)
+        elif not isinstance(audio_meta, dict):
+            warn_str = 'The "metadata" input can be "False" (skipped), ' \
+                       '"basestring" (MBID input), "None" (attempt to get ' \
+                       'the MBID from audio file tags) or "dict" (already ' \
+                       'computed)'
+            warnings.warn(warn_str)
+        return audio_meta
 
-                # for now get the first makam
-                makam = list(makams)[0]
-            except (TypeError, KeyError):
-                # metadata is not available or the makam is not known
-                makam = self.recognize_makam(pitch_class_distribution)
-        elif isinstance(makam, list):  # list of makams given
-            makam = makam[0]  # for now get the first makam
+    def _get_makam(self, metadata, pitch_class_distribution):
+        try:  # try to get the makam from the metadata
+            makams = set(m['attribute_key'] for m in metadata['makam'])
+
+            # for now get the first makam
+            makam = list(makams)[0]
+        except (TypeError, KeyError):
+            # metadata is not available or the makam is not known
+            makam = self.recognize_makam(pitch_class_distribution)
 
         return makam
 
-    def update_analysis(self, audio_features):
-        if audio_features is None:
-            warnings.warn('No input audio features are supplied to update. '
-                          'Returning None', RuntimeWarning)
+    def crawl_musicbrainz_metadata(self, rec_in):
+        try:
+            tic = timeit.default_timer()
+            self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
+            audio_meta = self._metadataGetter.from_musicbrainz(rec_in)
+
+            self.vprint_time(tic, timeit.default_timer())
+            return audio_meta
+        except (NetworkError, ResponseError):
+            warnings.warn('Unable to reach http://musicbrainz.org/. '
+                          'The metadata stored there is not crawled.',
+                          RuntimeWarning)
             return None
-
-        # check input format
-        self.chk_update_analysis_input(audio_features)
-
-        # make a copy of the existing analysis
-        up_f = deepcopy(audio_features)
-
-        # Recompute the features, if their inputs are supplied
-        # get the melodic progression model
-        try:
-            up_f['melodic_progression'] = \
-                self.get_melodic_progression(up_f['pitch'])
-        except KeyError:
-            logging.info('Melodic progression computation failed.')
-
-        # histogram computation
-        try:
-            up_f['pitch_distribution'] = self.compute_pitch_distribution(
-                up_f['pitch'], up_f['tonic'])
-            up_f['pitch_distribution'].cent_to_hz()
-            up_f['pitch_class_distribution'] = \
-                up_f['pitch_distribution'].to_pcd()
-        except KeyError:
-            logging.info('Pitch (class) distribution computation failed.')
-
-        # transposition (ahenk) identification
-        try:
-            up_f['transposition'] = self.identify_transposition(
-                up_f['tonic'], up_f['tonic']['symbol'])
-        except KeyError:
-            logging.info('Transposition computation failed.')
-
-        return up_f
-
-    @staticmethod
-    def chk_update_analysis_input(audio_features):
-        if not (isinstance(audio_features, dict) or audio_features is None):
-            raise IOError('The audio_features input should be a dictionary '
-                          'or "None" for skipping the method')
-
-    def get_musicbrainz_metadata(self, rec_in):
-        tic = timeit.default_timer()
-        self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
-
-        audio_meta = (None if rec_in is False
-                      else self._metadataGetter.from_musicbrainz(rec_in))
-
-        self.vprint_time(tic, timeit.default_timer())
-        return audio_meta
 
     def extract_pitch(self, filename):
         tic = timeit.default_timer()
@@ -198,9 +177,9 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return pitch_filt
 
-    def get_melodic_progression(self, pitch):
+    def compute_melodic_progression(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Obtaining the melodic progression model of {0:s}"
+        self.vprint(u"- Computing the melodic progression model of {0:s}"
                     .format(pitch['source']))
 
         if self._mel_prog_params['frame_dur'] is None:
@@ -237,26 +216,27 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return tonic
 
-    def compute_pitch_distribution(self, pitch, tonic):
+    def compute_pitch_distribution(self, pitch):
         tic = timeit.default_timer()
         self.vprint(u"- Computing pitch distribution of {0:s}".
                     format(pitch['source']))
 
         pitch_distribution = PitchDistribution.from_hz_pitch(
-            np.array(pitch['pitch'])[:, 1], ref_freq=tonic['value'],
+            np.array(pitch['pitch'])[:, 1],
             smooth_factor=self._pd_params['kernel_width'],
             step_size=self._pd_params['step_size'])
+        pitch_distribution.cent_to_hz()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_distribution
 
-    def compute_class_pitch_distribution(self, pitch, tonic):
+    def compute_class_pitch_distribution(self, pitch):
         tic = timeit.default_timer()
         self.vprint(u"- Computing pitch class distribution of {0:s}".format(
             pitch['source']))
 
         pitch_class_distribution = self.compute_pitch_distribution(
-            pitch, tonic).to_pcd()
+            pitch).to_pcd()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution
@@ -283,15 +263,15 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return transposition
 
-    def get_stable_notes(self, pitch_distribution, tonic, makamstr):
+    def compute_note_models(self, pitch_distribution, tonic, makamstr):
         tic = timeit.default_timer()
-        self.vprint(u"- Obtaining the stable notes of {0:s}".
+        self.vprint(u"- Computing the note models for {0:s}".
                     format(tonic['source']))
 
-        stable_notes = self._noteModeler.calculate_notes(
+        note_models = self._noteModeler.calculate_notes(
             pitch_distribution, tonic['value'], makamstr)
         self.vprint_time(tic, timeit.default_timer())
-        return stable_notes
+        return note_models
 
     # setters
     def set_pitch_extractor_params(self, **kwargs):
@@ -311,7 +291,7 @@ class AudioAnalyzer(Analyzer):
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
-        obj_params = self.get_public_attr(self._melodicProgressionAnalyzer)
+        obj_params = IO.get_public_attr(self._melodicProgressionAnalyzer)
 
         Analyzer.chk_params(method_params + obj_params, kwargs)
 
@@ -336,7 +316,7 @@ class AudioAnalyzer(Analyzer):
             pitch_distribution.cent_to_hz()
         except ValueError:
             logging.debug('The pitch distribution should already be in hz')
-        note_models = deepcopy(features['stable_notes'])
+        note_models = deepcopy(features['note_models'])
         melodic_progression = deepcopy(features['melodic_progression'])
 
         return Plotter.plot_audio_features(

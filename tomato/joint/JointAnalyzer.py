@@ -9,10 +9,10 @@ import timeit
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
-from tomato.MCRCaller import MCRCaller
-from tomato.IO import IO
-from tomato.Analyzer import Analyzer
-from tomato.Plotter import Plotter
+from ..MCRCaller import MCRCaller
+from ..IO import IO
+from ..Analyzer import Analyzer
+from ..Plotter import Plotter
 
 import warnings
 import logging
@@ -23,6 +23,9 @@ _mcr_caller = MCRCaller()
 
 
 class JointAnalyzer(Analyzer):
+    _inputs = ['notes', 'note_models', 'makam', 'pitch_filtered', 'sections',
+               'tonic', 'tempo']
+
     def __init__(self, verbose=False):
         super(JointAnalyzer, self).__init__(verbose=verbose)
 
@@ -34,89 +37,111 @@ class JointAnalyzer(Analyzer):
         self._alignedPitchFilter = AlignedPitchFilter()
         self._alignedNoteModel = AlignedNoteModel()
 
-    def analyze(self, score_filename='', score_data=None,
-                audio_filename='', audio_pitch=None):
+    def analyze(self, symbtr_txt_filename='', score_data=None,
+                audio_filename='', audio_pitch=None, **kwargs):
+        input_f = self._parse_inputs(**kwargs)
+
         # joint score-informed tonic identification and tempo estimation
-        try:
-            tonic, tempo = self.extract_tonic_tempo(
-                score_filename, score_data, audio_filename, audio_pitch)
+        try:  # if both are given in advance don't recompute
+            input_f['tonic'], input_f['tempo'] = self.extract_tonic_tempo(
+                symbtr_txt_filename, score_data, audio_filename, audio_pitch)
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
             audio_features = None
+            # Everything else will fail; return None
             return joint_features, audio_features
 
         # section linking and note-level alignment
         try:
-            aligned_sections, notes, section_links, section_candidates = \
-                self.align_audio_score(score_filename, score_data,
-                                       audio_filename, audio_pitch, tonic,
-                                       tempo)
+            input_f['aligned_sections'], input_f['notes'], input_f[
+                'section_links'], input_f['section_candidates'] = \
+                self.align_audio_score(symbtr_txt_filename, score_data,
+                                       audio_filename, audio_pitch,
+                                       input_f['tonic'], input_f['tempo'])
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
-            audio_features = {'tonic': tonic, 'tempo': tempo}
+            audio_features = {'tonic': input_f['tonic'],
+                              'tempo': input_f['tempo']}
             return joint_features, audio_features
 
         # aligned pitch filter
-        aligned_pitch, aligned_notes = self.filter_pitch(audio_pitch, notes)
+        temp_out = self._call_analysis_step(
+            'filter_pitch', input_f['pitch_filtered'], audio_pitch,
+            input_f['notes'])
+        if temp_out is not None:
+            input_f['pitch_filtered'], input_f['notes'] = temp_out
+        else:
+            input_f['pitch_filtered'], input_f['notes'] = [None, None]
 
-        # aligned note model
-        note_models, pitch_distribution, aligned_tonic = self.get_note_models(
-            aligned_pitch, notes, tonic['symbol'])
+        # aligned note models
+        temp_out = self._call_analysis_step(
+            'compute_note_models', input_f['note_models'],
+            input_f['pitch_filtered'], input_f['notes'],
+            input_f['tonic']['symbol'])
+        if temp_out is not None:
+            input_f['note_models'], dummy_pd, input_f['tonic'] = temp_out
+        else:
+            input_f['note_models'], input_f['tonic'] = [None, None]
 
-        joint_features = {'sections': aligned_sections, 'notes': aligned_notes,
-                          'note_models': note_models}
-        audio_features = {'pitch': aligned_pitch, 'tonic': aligned_tonic,
-                          'tempo': tempo}
+        joint_features = {'sections': input_f['aligned_sections'],
+                          'notes': input_f['notes']}
+        audio_features = {'makam': score_data['makam']['symbtr_slug'],
+                          'pitch_filtered': input_f['pitch_filtered'],
+                          'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
+                          'note_models': input_f['note_models']}
 
         return joint_features, audio_features
 
-    @staticmethod
-    def summarize(audio_features=None, score_features=None,
+    @classmethod
+    def summarize(cls, audio_features=None, score_features=None,
                   joint_features=None, score_informed_audio_features=None):
-        # initialize
-        sdict = {'audio': {}, 'score': score_features, 'joint': {}}
+        # initialize the summary dict
+        sdict = {'score': score_features, 'audio': {}, 'joint': {}}
 
-        sdict['audio']['metadata'] = audio_features['metadata']
-        if score_informed_audio_features is not None:
-            sdict['audio']['pitch'] = score_informed_audio_features['pitch']
-            sdict['audio']['tonic'] = score_informed_audio_features['tonic']
+        sdict['audio'] = cls._summarize_common_audio_features(
+            audio_features, score_informed_audio_features)
+
+        # pitch_filtered is reduntant name and it might not be computed
+        sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
+        if sdict['audio']['pitch'] is None:
+            sdict['audio']['pitch'] = audio_features['pitch']
+
+        # tempo if computed
+        try:
             sdict['audio']['tempo'] = score_informed_audio_features['tempo']
-            sdict['audio']['melodic_progression'] = \
-                score_informed_audio_features['melodic_progression']
-            sdict['audio']['transposition'] = score_informed_audio_features[
-                'transposition']
-            sdict['audio']['pitch_distribution'] = \
-                score_informed_audio_features['pitch_distribution']
-            sdict['audio']['pitch_class_distribution'] = \
-                score_informed_audio_features['pitch_class_distribution']
-        else:
-            sdict['audio']['pitch'] = audio_features['pitch_filtered']
-            sdict['audio']['tonic'] = audio_features['tonic']
-            sdict['audio']['melodic_progression'] = audio_features[
-                'melodic_progression']
-            sdict['audio']['transposition'] = audio_features['transposition']
-            sdict['audio']['pitch_distribution'] = \
-                audio_features['pitch_distribution']
-            sdict['audio']['pitch_class_distribution'] = \
-                audio_features['pitch_class_distribution']
-            # only add stable_notes if the joint features, hence the note
-            # models are not given
-            sdict['audio']['stable_notes'] = audio_features['stable_notes']
-
-        if score_features is not None:
-            sdict['audio']['makam'] = score_features['makam']['symbtr_slug']
-        else:
-            sdict['audio']['makam'] = audio_features['makam']
+        except KeyError:
+            logging.debug("Tempo feature is not available.")
 
         # accumulate joint dict
-        if joint_features is not None:
+        try:
             sdict['joint']['sections'] = joint_features['sections']
             sdict['joint']['notes'] = joint_features['notes']
-            sdict['joint']['note_models'] = joint_features['note_models']
+        except KeyError:
+            sdict['joint'] = {}
+            logging.debug("Section links and aligned notes are not available.")
 
         return sdict
+
+    @staticmethod
+    def _summarize_common_audio_features(audio_features,
+                                         score_informed_audio_features):
+        common_feature_names = ['makam', 'melodic_progression', 'note_models',
+                                'pitch_class_distribution',
+                                'pitch_distribution', 'pitch_filtered',
+                                'tonic', 'transposition']
+
+        common_audio_features = dict()
+        for cf in common_feature_names:
+            score_informed = (score_informed_audio_features is not None and
+                              score_informed_audio_features[cf] is not None)
+            if score_informed:
+                common_audio_features[cf] = score_informed_audio_features[cf]
+            else:
+                common_audio_features[cf] = audio_features[cf]
+
+        return common_audio_features
 
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
@@ -279,7 +304,7 @@ class JointAnalyzer(Analyzer):
 
         return pitch_filtered, notes_filtered
 
-    def get_note_models(self, pitch, aligned_notes, tonic_symbol):
+    def compute_note_models(self, pitch, aligned_notes, tonic_symbol):
         tic = timeit.default_timer()
         self.vprint(u"- Computing the note models for {0:s}".
                     format(pitch['source']))
@@ -332,9 +357,8 @@ class JointAnalyzer(Analyzer):
 
         try:
             note_models = deepcopy(summarized_features['joint']['note_models'])
-        except KeyError:  # note_models is not computed
-            note_models = deepcopy(
-                summarized_features['audio']['stable_notes'])
+        except KeyError:  # aligned note_models is not computed
+            note_models = deepcopy(summarized_features['audio']['note_models'])
 
         melodic_progression = deepcopy(
             summarized_features['audio']['melodic_progression'])
