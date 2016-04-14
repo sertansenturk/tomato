@@ -46,8 +46,7 @@ class SymbTrAnalyzer(Analyzer):
         # TODO: use all mbids
         input_f['mbid'] = self._call_analysis_step(
             'get_mbids', input_f['mbid'], symbtr_name)
-        if isinstance(input_f['mbid'], list):
-            input_f['mbid'] = input_f['mbid'][0]
+        input_f['mbid'] = self._get_first(input_f['mbid'])
 
         # Extract the (meta)data from the SymbTr scores. Here the results from
         # the previous steps are also summarized.

@@ -32,6 +32,11 @@ class Analyzer(object):
         for key, value in kwargs.items():
             setattr(analyzer, key, value)
 
+    @staticmethod
+    def chk_params(attribs, kwargs):
+        if any(key not in attribs for key in kwargs.keys()):
+            raise KeyError("Possible parameters are: " + ', '.join(attribs))
+
     def _parse_inputs(self, **kwargs):
         # initialize precomputed_features with the available analysis
         precomputed_features = dict((f, None)
@@ -62,9 +67,10 @@ class Analyzer(object):
             return feature_flag
 
     @staticmethod
-    def chk_params(attribs, kwargs):
-        if any(key not in attribs for key in kwargs.keys()):
-            raise KeyError("Possible parameters are: " + ', '.join(attribs))
+    def _get_first(feature):
+        if isinstance(feature, list):  # list of features given
+            return feature[0]  # for now get the first feature
+        return feature
 
     def vprint(self, vstr):
         """

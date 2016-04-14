@@ -88,8 +88,7 @@ class AudioAnalyzer(Analyzer):
         audio_f['makam'] = self._call_analysis_step(
             '_get_makam', audio_f['makam'], audio_f['metadata'],
             audio_f['pitch_class_distribution'])
-        if isinstance(audio_f['makam'], list):  # list of makams given
-            audio_f['makam'] = audio_f['makam'][0]  # for now the first makam
+        audio_f['makam'] = self._get_first(audio_f['makam'])
 
         # transposition (ahenk) identification
         # TODO: allow transpositions for multiple makams
