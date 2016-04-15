@@ -350,7 +350,7 @@ class Plotter(object):
             anno_str.append(u'Av. Tempo: {0:d} bpm'.
                             format(int(tempo['average']['value'])))
 
-            rel_tempo_percentage = int(100*(tempo['relative']['value'] - 1))
+            rel_tempo_percentage = int(100 * (tempo['relative']['value'] - 1))
             anno_str.append(u'Performed {0:d}% faster'.
                             format(rel_tempo_percentage))
 
