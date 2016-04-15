@@ -7,6 +7,9 @@
  - "analyze" methods now have a (variable length) **kwargs input as the
  input features. These features are not computed and used in the subsequent
  analysis steps.
+ - Added input parsing to ```Plotter.plot_audio_features```
+ - Makam ,tonic, transposition and tempo information is annotated in 
+ ```Plotter.plot_audio_features``` 
  - Improved code quality
  - All note indices in the outputs are fixed to **1-indexing** according to
  the Symbtr-txt convention (not the pythonic 0-indexing).
