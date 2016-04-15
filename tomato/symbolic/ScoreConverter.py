@@ -45,6 +45,6 @@ class ScoreConverter(object):
             render_metadata=render_metadata)
 
         if lilypond_out is None:
-            return mapping, ly_stream
+            return ly_stream, mapping
         else:  # ly_stream is already saved to the user-specified file
-            return mapping
+            return lilypond_out, mapping
