@@ -2,7 +2,6 @@ import json
 from scipy.io import savemat
 from six.moves import cStringIO
 import tempfile
-import numpy as np
 from copy import deepcopy
 import timeit
 
@@ -64,7 +63,7 @@ class JointAnalyzer(Analyzer):
             warnings.warn(e.message, RuntimeWarning)
             joint_features = None
             score_informed_audio_features = {'tonic': input_f['tonic'],
-                              'tempo': input_f['tempo']}
+                                             'tempo': input_f['tempo']}
             return joint_features, score_informed_audio_features
 
         # aligned pitch filter

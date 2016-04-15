@@ -27,7 +27,7 @@ class Plotter(object):
         fig, ax1, ax2, ax3, ax4, ax5 = cls._create_figure()
 
         # plot the pitch track and the performed notes to the first subplot
-        cls._subplot_pitch_notes(ax1, notes, pitch)
+        cls._subplot_pitch_notes(ax1, p_in['notes'], p_in['pitch'])
 
         # plot the pitch distribution and the note models to the second subplot
         cls._plot_pitch_dist_note_models(ax2, p_in['note_models'],
@@ -70,12 +70,17 @@ class Plotter(object):
 
     @staticmethod
     def _parse_pitch(pitch_in):
-        try:  # dict
-            pitch = copy.deepcopy(pitch_in['pitch'])
-        except (TypeError, IndexError):  # list or numpy array
-            pitch = copy.deepcopy(pitch_in)
+        if isinstance(pitch_in, np.ndarray):  # numpy array
+            # copy.deepcopy(np.ndarray) might result in an annoying Deprecated
+            # warning, this is cleaner
+            pitch = np.copy(pitch_in)
+        else:
+            try:  # dict
+                pitch = copy.deepcopy(pitch_in['pitch'])
+            except TypeError:  # list
+                pitch = copy.deepcopy(pitch_in)
 
-        pitch = np.array(pitch) # convert to numpy array
+        pitch = np.array(pitch)  # convert to numpy array
         pitch[pitch[:, 1] < 20.0, 1] = np.nan  # remove inaudible for plots
 
         return pitch
@@ -344,7 +349,7 @@ class Plotter(object):
         if tempo is not None:
             anno_str.append(u'Av. Tempo: {0:d} bpm'.
                             format(int(tempo['average']['value'])))
-            
+
             rel_tempo_percentage = int(100*(tempo['relative']['value'] - 1))
             anno_str.append(u'Performed {0:d}% faster'.
                             format(rel_tempo_percentage))
