@@ -26,8 +26,9 @@ git+https://github.com/MTG/SymbTr-extras.git@v0.3.0#egg=symbtrextras
 
 # phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
 
-# txt to MusicXML score conversion
+# txt-score to MusicXML to LilyPond to svg conversion
 git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.0#egg=musicxmlconverter
+git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.2#egg=musicxml2lilypond
 
 # ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
 # score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
