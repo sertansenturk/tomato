@@ -66,6 +66,16 @@ The score phrase segmentation, score-informed joint tonic identification and tem
 
 We recommend you to install MATLAB Runtime in the default installation path, as **tomato** searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
+#### <a name="mcr_install"></a>Installing LilyPond
+
+If you want to convert the music scores to svg format, LilyPond is a good
+choice, because it adds a mapping between each musical element in the LilyPond
+file and in the related svg.
+
+Downloading and setting the up Lilypond is easy: Simply go to the [Download]
+(http://lilypond.org/download.html) page in the Lilypond website for your
+operating system.2
+
 Tomato in a Nutshell
 -------
 

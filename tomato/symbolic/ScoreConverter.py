@@ -3,7 +3,6 @@ from musicxml2lilypond import musicxml2lilypond
 from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
-
 import musicbrainzngs
 
 
