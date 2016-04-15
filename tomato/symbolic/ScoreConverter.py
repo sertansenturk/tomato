@@ -17,14 +17,7 @@ class ScoreConverter(object):
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(
                 symtr_txt_filename)
 
-        if mbid is None:
-            mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
-        else:
-            try:
-                meta = cls._mb_meta_getter.crawl_musicbrainz(mbid)
-                mbid_url = meta['url']
-            except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
-                mbid_url = mbid
+        mbid_url = cls._get_mbid_url(mbid, symbtr_name)
 
         piece = symbtr2musicxml.SymbTrScore(
             symtr_txt_filename, symbtr_mu2_filename, symbtrname=symbtr_name,
@@ -47,3 +40,18 @@ class ScoreConverter(object):
             return ly_stream, mapping
         else:  # ly_stream is already saved to the user-specified file
             return lilypond_out, mapping
+
+    @classmethod
+    def _get_mbid_url(cls, mbid, symbtr_name):
+        if mbid is None:
+            try:
+                mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
+            except IndexError:
+                mbid_url = None
+        else:
+            try:  # find if it is a work or recording mbid
+                meta = cls._mb_meta_getter.crawl_musicbrainz(mbid)
+                mbid_url = meta['url']
+            except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
+                mbid_url = mbid
+        return mbid_url
