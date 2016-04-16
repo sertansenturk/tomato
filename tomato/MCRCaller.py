@@ -42,22 +42,20 @@ class MCRCaller(object):
         mcr_path = config.get(section_str, 'mcr_path')
         set_paths = config.get(section_str, 'set_paths')
 
-        cls._check_mcr_config(env_var, mcr_path)
-
-        return op_sys, env_var, mcr_path, set_paths
-
-    @staticmethod
-    def _check_mcr_config(env_var, mcr_path):
         # MCR installation path is not found
         if not os.path.exists(mcr_path):
             raise IOError('The mcr path is not found. Please '
                           'fill the custom section in '
                           '"tomato/config/mcr_path.cfg" manually.')
 
-        if not bool(env_var):  # The configuration is wrong
+        # The configuration is wrong
+        if not bool(env_var):
             raise ValueError('One of the fields for the MCR '
                              'path is empty in "tomato/config/mcr_path.cfg". '
                              'Please reconfigure manually.')
+
+        return op_sys, env_var, mcr_path, set_paths
+
 
     def get_binary_path(self, bin_name):
         if self.sys_os == 'linux':
