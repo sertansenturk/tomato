@@ -68,13 +68,9 @@ We recommend you to install MATLAB Runtime in the default installation path, as 
 
 #### <a name="mcr_install"></a>Installing LilyPond
 
-If you want to convert the music scores to svg format, LilyPond is a good
-choice, because it adds a mapping between each musical element in the LilyPond
-file and in the related svg.
+If you want to convert the music scores to svg format, LilyPond is a good choice, because it adds a mapping between each musical element in the LilyPond file and in the related svg.
 
-Downloading and setting the up Lilypond is easy: Simply go to the [Download]
-(http://lilypond.org/download.html) page in the Lilypond website for your
-operating system.2
+To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website for your operating system.
 
 Tomato in a Nutshell
 -------

@@ -4,8 +4,10 @@ from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
 from ..IO import IO
+import os
 import subprocess
 import tempfile
+import re
 import musicbrainzngs
 
 
@@ -50,29 +52,47 @@ class ScoreConverter(object):
         # create the temporary input to write the lilypond file
         temp_in_file = IO.create_temp_file('.ly', lilypond_in.encode('utf-8'))
 
-        # lilypond inputs many pages of svg, create a folder for them
+        # LilyPond inputs many pages of svg, create a folder for them
         tmp_dir = tempfile.mkdtemp()
 
         # call lilypond ...
         lilypond_path = cls._get_lilypond_path()
         callstr = u'{0:s} -dpaper-size=\\"junior-legal\\" -dbackend=svg ' \
-                  u'"-o {1:s}" "{2:s}"'.format(lilypond_path, tmp_dir,
+                  u'-o {1:s} {2:s}'.format(lilypond_path, tmp_dir,
                                               temp_in_file)
 
-        import pdb
-        pdb.set_trace()
-        subprocess.call(callstr)
+        subprocess.call(callstr, shell=True)
         IO.remove_temp_files(temp_in_file)  # remove the temporary .ly input
 
-        import pdb
-        pdb.set_trace()
+        # Lilypond saved the svg into pages, i.e. different files with
+        # consequent naming.
+        svg_files = [os.path.join(tmp_dir, f) for f in os.listdir(tmp_dir)]
+        svg_files = filter(os.path.isfile, svg_files)
+        svg_files = [s for s in svg_files if s.endswith('.svg')]
+        svg_files.sort(key=lambda x: os.path.getmtime(x))
+
+        # read the svg files and combine them into one
+        regex = re.compile(
+            r'.*<a style="(.*)" xlink:href="textedit:\/\/\/.*:([0-9]+):([0-9]+):([0-9]+)">.*')
+        svg_pages = []
+        for f in svg_files:
+            svg_file = open(f)
+            score = svg_file.read()
+            svg_pages.append(regex.sub(
+                r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
+                score))
+            svg_file.close()
+            os.remove(f)
+        os.rmdir(tmp_dir)
 
         if svg_out is None:  # return string
-            with open(temp_out_file, 'r') as f:
-                svg_out = f.read()
-            IO.remove_temp_files(temp_out_file)
-
-        return svg_out  # string or output path
+            # TODO: merge the pages
+            return svg_pages
+        else:
+            with open(svg_out, 'w') as f:
+                # TODO: joining the pages produce an invalid svg
+                f.write(svg_content = ''.join(svg_pages))
+            return svg_out  # output path
 
     @classmethod
     def _get_mbid_url(cls, mbid, symbtr_name):
@@ -91,4 +111,5 @@ class ScoreConverter(object):
 
     @staticmethod
     def _get_lilypond_path():
-        return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+        return '/home/sertansenturk/bin/lilypond'
+        #return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
