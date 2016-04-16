@@ -28,7 +28,7 @@ git+https://github.com/MTG/SymbTr-extras.git@v0.3.0#egg=symbtrextras
 
 # txt-score to MusicXML to LilyPond to svg conversion
 git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.0#egg=musicxmlconverter
-git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.3#egg=musicxml2lilypond
+git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.4#egg=musicxml2lilypond
 
 # ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
 # score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
