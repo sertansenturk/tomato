@@ -1,5 +1,5 @@
 from musicxmlconverter import symbtr2musicxml
-from musicxml2lilypond import ScoreConverter as musicxml2lilypond
+from musicxml2lilypond.ScoreConverter import ScoreConverter as XML2LYConverter
 from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
@@ -13,7 +13,7 @@ import musicbrainzngs
 
 class ScoreConverter(object):
     _mb_meta_getter = MBMetadata()
-    _xml2ly_converter = musicxml2lilypond.ScoreConverter()
+    _xml2ly_converter = XML2LYConverter()
 
     @classmethod
     def txt_mu2_to_musicxml(cls, symtr_txt_filename, symbtr_mu2_filename,
@@ -59,7 +59,7 @@ class ScoreConverter(object):
         lilypond_path = cls._get_lilypond_path()
         callstr = u'{0:s} -dpaper-size=\\"junior-legal\\" -dbackend=svg ' \
                   u'-o {1:s} {2:s}'.format(lilypond_path, tmp_dir,
-                                              temp_in_file)
+                                           temp_in_file)
 
         subprocess.call(callstr, shell=True)
         IO.remove_temp_files(temp_in_file)  # remove the temporary .ly input
@@ -73,7 +73,8 @@ class ScoreConverter(object):
 
         # read the svg files and combine them into one
         regex = re.compile(
-            r'.*<a style="(.*)" xlink:href="textedit:\/\/\/.*:([0-9]+):([0-9]+):([0-9]+)">.*')
+            r'.*<a style="(.*)" xlink:href="textedit:///.*'
+            r':([0-9]+):([0-9]+):([0-9]+)">.*')
         svg_pages = []
         for f in svg_files:
             svg_file = open(f)
@@ -91,7 +92,7 @@ class ScoreConverter(object):
         else:
             with open(svg_out, 'w') as f:
                 # TODO: joining the pages produce an invalid svg
-                f.write(svg_content = ''.join(svg_pages))
+                f.write(''.join(svg_pages))
             return svg_out  # output path
 
     @classmethod
@@ -112,4 +113,4 @@ class ScoreConverter(object):
     @staticmethod
     def _get_lilypond_path():
         return '/home/sertansenturk/bin/lilypond'
-        #return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+        # return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"

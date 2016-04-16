@@ -56,7 +56,6 @@ class MCRCaller(object):
 
         return op_sys, env_var, mcr_path, set_paths
 
-
     def get_binary_path(self, bin_name):
         if self.sys_os == 'linux':
             bin_path = os.path.join(
