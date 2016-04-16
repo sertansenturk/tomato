@@ -16,41 +16,61 @@ class ScoreConverter(object):
     _xml2ly_converter = XML2LYConverter()
 
     @classmethod
-    def txt_mu2_to_musicxml(cls, symtr_txt_filename, symbtr_mu2_filename,
-                            out=None, symbtr_name=None, mbid=None):
+    def convert(cls, symtr_txt_filename, symbtr_mu2_filename, symbtr_name=None,
+                mbid=None, render_metadata=True, xml_out=None, ly_out=None,
+                svg_out=None):
+        xml_output = cls.txt_mu2_to_musicxml(
+            symtr_txt_filename, symbtr_mu2_filename, xml_out=xml_out,
+            symbtr_name=symbtr_name, mbid=mbid)
+
+        ly_output, ly_mapping = cls.musicxml_to_lilypond(
+            xml_in=xml_output, ly_out=ly_out, render_metadata=render_metadata)
+
+        svg_output = cls.lilypond_to_svg(ly_output, svg_out=svg_out)
+
+        # mappings
+        note_mappings = {
+            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg':[],
+            'xml_to_ly': '?', 'xml_to_svg': '?', 'ly_to_svg': '?'}
+
+        return xml_output, ly_output, svg_output, note_mappings
+
+    @classmethod
+    def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
+                            symbtr_name=None, mbid=None):
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(
-                symtr_txt_filename)
+                txt_file)
 
         mbid_url = cls._get_mbid_url(mbid, symbtr_name)
 
         piece = symbtr2musicxml.SymbTrScore(
-            symtr_txt_filename, symbtr_mu2_filename, symbtrname=symbtr_name,
+            txt_file, mu2_file, symbtrname=symbtr_name,
             mbid_url=mbid_url)
 
         xmlstr = piece.convertsymbtr2xml()  # outputs the xml score as string
-        if out is None:   # return string
+        if xml_out is None:   # return string
             return xmlstr
         else:
-            piece.writexml(out)  # save to filename
-            return out  # return filename
+            piece.writexml(xml_out)  # save to filename
+            return xml_out  # return filename
 
     @classmethod
-    def musicxml_to_lilypond(cls, musicxml_in, lilypond_out=None,
+    def musicxml_to_lilypond(cls, xml_in, ly_out=None,
                              render_metadata=True):
-        ly_stream, mapping = cls._xml2ly_converter.convert(
-            musicxml_in, ly_out=lilypond_out, mapping_out=None,
+        ly_stream, txt2ly_mapping = cls._xml2ly_converter.convert(
+            xml_in, ly_out=ly_out, mapping_out=None,
             render_metadata=render_metadata)
 
-        if lilypond_out is None:
-            return ly_stream, mapping
+        if ly_out is None:
+            return ly_stream, txt2ly_mapping
         else:  # ly_stream is already saved to the user-specified file
-            return lilypond_out, mapping
+            return ly_out, txt2ly_mapping
 
     @classmethod
-    def lilypond_to_svg(cls, lilypond_in, svg_out=None):
+    def lilypond_to_svg(cls, ly_in, svg_out=None):
         # create the temporary input to write the lilypond file
-        temp_in_file = IO.create_temp_file('.ly', lilypond_in.encode('utf-8'))
+        temp_in_file = IO.create_temp_file('.ly', ly_in.encode('utf-8'))
 
         # LilyPond inputs many pages of svg, create a folder for them
         tmp_dir = tempfile.mkdtemp()
