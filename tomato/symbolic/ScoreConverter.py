@@ -21,8 +21,8 @@ class ScoreConverter(object):
 
     @classmethod
     def convert(cls, symtr_txt_filename, symbtr_mu2_filename, symbtr_name=None,
-                mbid=None, render_metadata=True, xml_out=None, ly_out=None,
-                svg_out=None):
+                mbid=None, render_metadata=True, svg_paper_size='a4',
+                xml_out=None, ly_out=None, svg_out=None):
         xml_output = cls.txt_mu2_to_musicxml(
             symtr_txt_filename, symbtr_mu2_filename, xml_out=xml_out,
             symbtr_name=symbtr_name, mbid=mbid)
@@ -30,7 +30,8 @@ class ScoreConverter(object):
         ly_output, ly_mapping = cls.musicxml_to_lilypond(
             xml_in=xml_output, ly_out=ly_out, render_metadata=render_metadata)
 
-        svg_output = cls.lilypond_to_svg(ly_output, svg_out=svg_out)
+        svg_output = cls.lilypond_to_svg(ly_output, svg_out=svg_out,
+                                         paper_size=svg_paper_size)
 
         # mappings
         note_mappings = {
@@ -72,7 +73,7 @@ class ScoreConverter(object):
             return ly_out, txt2ly_mapping
 
     @classmethod
-    def lilypond_to_svg(cls, ly_in, svg_out=None):
+    def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4'):
         # create the temporary input to write the lilypond file
         temp_in_file = IO.create_temp_file('.ly', ly_in.encode('utf-8'))
 
@@ -80,9 +81,9 @@ class ScoreConverter(object):
         tmp_dir = tempfile.mkdtemp()
 
         # call lilypond ...
-        lilypond_path = cls._get_lilypond_path()
-        callstr = u'{0:s} -dpaper-size=\\"junior-legal\\" -dbackend=svg ' \
-                  u'-o {1:s} {2:s}'.format(lilypond_path, tmp_dir,
+        lilypond_path = cls._get_lilypond_bin_path()
+        callstr = u'{0:s} -dpaper-size=\\"{1:s}\\" -dbackend=svg ' \
+                  u'-o {2:s} {3:s}'.format(lilypond_path, paper_size, tmp_dir,
                                            temp_in_file)
 
         subprocess.call(callstr, shell=True)
@@ -107,20 +108,56 @@ class ScoreConverter(object):
         os.rmdir(tmp_dir)
 
         if svg_out is None:  # return string
-            # TODO: merge the pages
             return svg_pages
         else:
-            with open(svg_out, 'w') as svg_file:
-                # TODO: joining the pages produce an invalid svg
-                svg_file.write(''.join(svg_pages))
-            return svg_out  # output path
+            fnames = cls._write_svgs(svg_pages, svg_out, ly_in)
+            return fnames  # output path
+
+    @staticmethod
+    def _write_svgs(svg_pages, svg_out, ly_in):
+        """
+        Writes the svgs saved to many pages to according to the output.
+        - If svg_out is a folder:
+            The name of the svg outputs are derived from ly_in, if ly_in is
+            a file else the output is saved with string "score" prepended to
+            the output files
+        - If the svg_out is a string
+            svg_out defines the path and the naming template (e.g. "path/name")
+        If there is a single page, the output is saved to the template string
+        obtained in the procedure above appended with the .svg extension.
+        If there are multiple pages, each page is save in the same namig
+        converntion with LilyPond, e.g. [template_name]-page-X.svg.
+        """
+        if os.path.isdir(svg_out):  # directory supplied, write svgs here
+            if os.path.isfile(ly_in):  # get the name from the .ly file input
+                template = os.path.splitext(os.path.basename(ly_in))[0]
+            else:  # lilypond was given as a string, prepend "score"
+                template = 'score'
+            template = os.path.join(svg_out, template)
+        else:  # name template is given directly
+            template = svg_out
+        fnames = []
+        for pp, page in enumerate(svg_pages):
+            if len(svg_pages) == 1:  # if there is a single page don't
+                # append "-page-1"
+                fnames.append(u'{0:s}.svg'.format(template))
+            else:  # append page numbers
+                fnames.append('{0:s}-page-{1:d}.svg'.format(template, pp + 1))
+            with open(fnames[-1], 'w') as f:
+                f.write(page)
+        return fnames  # return filepaths
 
     @staticmethod
     def _get_svg_page_files(tmp_dir):
+        # get all files in the directory
         svg_files = [os.path.join(tmp_dir, svg_file)
                      for svg_file in os.listdir(tmp_dir)]
+
+        # remove anything that is not a file ending with .svg
         svg_files = filter(os.path.isfile, svg_files)
         svg_files = [s for s in svg_files if s.endswith('.svg')]
+
+        # sort the pages according to creation time
         svg_files.sort(key=lambda x: os.path.getmtime(x))
         return svg_files
 
@@ -140,7 +177,7 @@ class ScoreConverter(object):
         return mbid_url
 
     @staticmethod
-    def _get_lilypond_path():
+    def _get_lilypond_bin_path():
         config = configparser.SafeConfigParser()
         lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                     '..', 'config', 'lilypond.cfg')
