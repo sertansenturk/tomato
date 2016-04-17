@@ -64,8 +64,7 @@ class ScoreConverter(object):
     def musicxml_to_lilypond(cls, xml_in, ly_out=None,
                              render_metadata=True):
         ly_stream, txt2ly_mapping = cls._xml2ly_converter.convert(
-            xml_in, ly_out=ly_out, mapping_out=None,
-            render_metadata=render_metadata)
+            xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
         if ly_out is None:
             return ly_stream, txt2ly_mapping
