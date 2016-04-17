@@ -106,7 +106,7 @@ class ScoreConverter(object):
 
         subprocess.call(callstr, shell=True)
 
-        if not os.path.isfile(ly_in):  #str input, tmeporary file was created
+        if not os.path.isfile(ly_in):  # str input, temporary file was created
             IO.remove_temp_files(temp_in_file)
 
         # Lilypond saved the svg into pages, i.e. different files with
