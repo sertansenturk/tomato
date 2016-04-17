@@ -26,11 +26,13 @@ Coming soon...
 Installation
 -------
 
-There are three steps in installation:
+There are four steps in the installation:
 
 1. [Installing tomato](#tomato_install)
 2. [Installing Essentia](#essentia_install)
 3. [Installing MATLAB Runtime](#mcr_install)
+4. [Installing LilyPonf](#lily_install) (optional)
+
 
 #### <a name="tomato_install"></a>Installing tomato
 If you want to install **tomato**, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
@@ -66,11 +68,13 @@ The score phrase segmentation, score-informed joint tonic identification and tem
 
 We recommend you to install MATLAB Runtime in the default installation path, as **tomato** searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
-#### <a name="mcr_install"></a>Installing LilyPond
+#### <a name="lily_install"></a>Installing LilyPond
 
 If you want to convert the music scores to svg format, LilyPond is a good choice, because it adds a mapping between each musical element in the LilyPond file and in the related svg.
 
-To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website for your operating system.
+To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website and follow the  instructions for your operating system.
+
+__Note:__ The LilyPond version hosted in the Linux distributions might be  outdated. We recommend you to download the latest stable version from the [LilyPond website]((http://lilypond.org/download.html).
 
 Tomato in a Nutshell
 -------
@@ -129,6 +133,20 @@ FAQ
 
     The binaries are not stored in **tomato**, because they relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation process of tomato.
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
+
+5. **ScoreConverter says that "The lilypond path is not found". How can I fix the error?
+There can be similar problems regarding this issue:
+- The user-provided filepath does not exist.
+
+    Check your input MusicXML path.
+
+- LilyPond is not installed.
+
+    [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
+
+ - The binary path exists but, it is not used.
+
+    The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
 
 Authors
 -------
