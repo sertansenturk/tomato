@@ -3,16 +3,16 @@ import os
 import subprocess
 
 
-class MCRCaller(object):
+class BinCaller(object):
     def __init__(self):
-        self.filepath = os.path.join(
+        self.mcr_filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             'config', 'mcr_path.cfg')
-        self.env, self.sys_os = self.set_environment()
+        self.mcr_env, self.sys_os = self.set_mcr_environment()
 
-    def set_environment(self):
+    def set_mcr_environment(self):
         config = configparser.SafeConfigParser()
-        config.read(self.filepath)
+        config.read(self.mcr_filepath)
         try:
             op_sys, env_var, mcr_path, set_paths = \
                 self._get_mcr_config(config, 'custom')
@@ -32,11 +32,11 @@ class MCRCaller(object):
 
     def call(self, callstr):
         proc = subprocess.Popen(callstr, stdout=subprocess.PIPE, shell=True,
-                                env=self.env)
+                                env=self.mcr_env)
         return proc.communicate()
 
-    @classmethod
-    def _get_mcr_config(cls, config, section_str):
+    @staticmethod
+    def _get_mcr_config(config, section_str):
         op_sys = config.get(section_str, 'sys_os')
         env_var = config.get(section_str, 'env_var')
         mcr_path = config.get(section_str, 'mcr_path')
@@ -56,7 +56,7 @@ class MCRCaller(object):
 
         return op_sys, env_var, mcr_path, set_paths
 
-    def get_binary_path(self, bin_name):
+    def get_mcr_binary_path(self, bin_name):
         if self.sys_os == 'linux':
             bin_path = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), 'bin', bin_name)

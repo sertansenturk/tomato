@@ -7,12 +7,12 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.reader.Mu2Reader import Mu2Reader
 from symbtrextras.ScoreExtras import ScoreExtras
 
-from ..MCRCaller import MCRCaller
+from ..BinCaller import BinCaller
 from ..IO import IO
 from ..Analyzer import Analyzer
 
 # instantiate a mcr_caller
-_mcr_caller = MCRCaller()
+_mcr_caller = BinCaller()
 
 
 class SymbTrAnalyzer(Analyzer):
@@ -24,7 +24,7 @@ class SymbTrAnalyzer(Analyzer):
         # extractors
         self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
         self._mu2Reader = Mu2Reader()
-        self._phraseSegmenter = _mcr_caller.get_binary_path('phraseSeg')
+        self._phraseSegmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
         input_f = self._parse_inputs(**kwargs)

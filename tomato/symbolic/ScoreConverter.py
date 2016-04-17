@@ -4,11 +4,15 @@ from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
 from ..IO import IO
+from six.moves import configparser
+from ..BinCaller import BinCaller
 import os
 import subprocess
 import tempfile
 import re
 import musicbrainzngs
+
+_bin_caller = BinCaller()
 
 
 class ScoreConverter(object):
@@ -30,7 +34,7 @@ class ScoreConverter(object):
 
         # mappings
         note_mappings = {
-            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg':[],
+            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg': '?',
             'xml_to_ly': '?', 'xml_to_svg': '?', 'ly_to_svg': '?'}
 
         return xml_output, ly_output, svg_output, note_mappings
@@ -86,34 +90,39 @@ class ScoreConverter(object):
 
         # Lilypond saved the svg into pages, i.e. different files with
         # consequent naming.
-        svg_files = [os.path.join(tmp_dir, f) for f in os.listdir(tmp_dir)]
-        svg_files = filter(os.path.isfile, svg_files)
-        svg_files = [s for s in svg_files if s.endswith('.svg')]
-        svg_files.sort(key=lambda x: os.path.getmtime(x))
+        svg_files = cls._get_svg_page_files(tmp_dir)
 
         # read the svg files and combine them into one
         regex = re.compile(
             r'.*<a style="(.*)" xlink:href="textedit:///.*'
             r':([0-9]+):([0-9]+):([0-9]+)">.*')
         svg_pages = []
-        for f in svg_files:
-            svg_file = open(f)
-            score = svg_file.read()
-            svg_pages.append(regex.sub(
-                r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
-                score))
-            svg_file.close()
-            os.remove(f)
+        for svg_file in svg_files:
+            with open(svg_file, 'r') as f:
+                score = f.read()
+                svg_pages.append(regex.sub(
+                    r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
+                    score))
+            os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
 
         if svg_out is None:  # return string
             # TODO: merge the pages
             return svg_pages
         else:
-            with open(svg_out, 'w') as f:
+            with open(svg_out, 'w') as svg_file:
                 # TODO: joining the pages produce an invalid svg
-                f.write(''.join(svg_pages))
+                svg_file.write(''.join(svg_pages))
             return svg_out  # output path
+
+    @classmethod
+    def _get_svg_page_files(cls, tmp_dir):
+        svg_files = [os.path.join(tmp_dir, svg_file)
+                     for svg_file in os.listdir(tmp_dir)]
+        svg_files = filter(os.path.isfile, svg_files)
+        svg_files = [s for s in svg_files if s.endswith('.svg')]
+        svg_files.sort(key=lambda x: os.path.getmtime(x))
+        return svg_files
 
     @classmethod
     def _get_mbid_url(cls, mbid, symbtr_name):
@@ -132,5 +141,24 @@ class ScoreConverter(object):
 
     @staticmethod
     def _get_lilypond_path():
-        return '/home/sertansenturk/bin/lilypond'
-        # return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+        config = configparser.SafeConfigParser()
+        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    '..', 'config', 'lilypond.cfg')
+        config.read(lily_cfgfile)
+        try:  # check custon
+            lilypath = config.get('custom', 'custom')
+            if not os.path.exists(lilypath):
+                raise IOError('The lilypond path is not found. Please '
+                              'fill the custom section in '
+                              '"tomato/config/lilypond.cfg" manually.')
+        except IOError:  # check default from sys_os
+            lilypath = config.defaults()[_bin_caller.sys_os]
+
+            # linux path is given with $HOME; convert it to the real path
+            lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
+            if not os.path.exists(lilypath):
+                raise IOError('The lilypond path is not found. Please '
+                              'fill the custom section in '
+                              '"tomato/config/lilypond.cfg" manually.')
+
+        return lilypath

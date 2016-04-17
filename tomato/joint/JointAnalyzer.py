@@ -8,7 +8,7 @@ import timeit
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
-from ..MCRCaller import MCRCaller
+from ..BinCaller import BinCaller
 from ..IO import IO
 from ..Analyzer import Analyzer
 from ..Plotter import Plotter
@@ -18,7 +18,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # instantiate a mcr_caller
-_mcr_caller = MCRCaller()
+_mcr_caller = BinCaller()
 
 
 class JointAnalyzer(Analyzer):
@@ -29,9 +29,9 @@ class JointAnalyzer(Analyzer):
         super(JointAnalyzer, self).__init__(verbose=verbose)
 
         # extractors
-        self._tonicTempoExtractor = _mcr_caller.get_binary_path(
+        self._tonicTempoExtractor = _mcr_caller.get_mcr_binary_path(
             'extractTonicTempoTuning')
-        self._audioScoreAligner = _mcr_caller.get_binary_path(
+        self._audioScoreAligner = _mcr_caller.get_mcr_binary_path(
             'alignAudioScore')
         self._alignedPitchFilter = AlignedPitchFilter()
         self._alignedNoteModel = AlignedNoteModel()
