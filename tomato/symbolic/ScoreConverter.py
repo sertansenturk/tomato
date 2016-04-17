@@ -27,18 +27,13 @@ class ScoreConverter(object):
             symtr_txt_filename, symbtr_mu2_filename, xml_out=xml_out,
             symbtr_name=symbtr_name, mbid=mbid)
 
-        ly_output, ly_mapping = cls.musicxml_to_lilypond(
+        ly_output, txt_ly_mapping = cls.musicxml_to_lilypond(
             xml_in=xml_output, ly_out=ly_out, render_metadata=render_metadata)
 
         svg_output = cls.lilypond_to_svg(ly_output, svg_out=svg_out,
                                          paper_size=svg_paper_size)
 
-        # mappings
-        note_mappings = {
-            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg': '?',
-            'xml_to_ly': '?', 'xml_to_svg': '?', 'ly_to_svg': '?'}
-
-        return xml_output, ly_output, svg_output, note_mappings
+        return xml_output, ly_output, svg_output, txt_ly_mapping
 
     @classmethod
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
@@ -61,20 +56,44 @@ class ScoreConverter(object):
             return xml_out  # return filename
 
     @classmethod
+    def _get_mbid_url(cls, mbid, symbtr_name):
+        if mbid is None:
+            try:
+                mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
+            except IndexError:
+                mbid_url = None
+        else:
+            try:  # find if it is a work or recording mbid
+                meta = cls._mb_meta_getter.crawl_musicbrainz(mbid)
+                mbid_url = meta['url']
+            except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
+                mbid_url = mbid
+        return mbid_url
+
+    @classmethod
     def musicxml_to_lilypond(cls, xml_in, ly_out=None,
                              render_metadata=True):
-        ly_stream, txt2ly_mapping = cls._xml2ly_converter.convert(
+        ly_stream, mapping_tuple = cls._xml2ly_converter.convert(
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
+        # mappings
+        txt_ly_mapping = []
+        for s, r, c in mapping_tuple:
+            txt_ly_mapping.append({'symbtr_index': s, 'lilypond_row': r,
+                                   'lilypond_column': c})
+
         if ly_out is None:
-            return ly_stream, txt2ly_mapping
+            return ly_stream, txt_ly_mapping
         else:  # ly_stream is already saved to the user-specified file
-            return ly_out, txt2ly_mapping
+            return ly_out, txt_ly_mapping
 
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4'):
-        # create the temporary input to write the lilypond file
-        temp_in_file = IO.create_temp_file('.ly', ly_in.encode('utf-8'))
+        if os.path.isfile(ly_in):
+            temp_in_file = ly_in
+        else:
+            # create the temporary input to write the lilypond file
+            temp_in_file = IO.create_temp_file('.ly', ly_in.encode('utf-8'))
 
         # LilyPond inputs many pages of svg, create a folder for them
         tmp_dir = tempfile.mkdtemp()
@@ -86,7 +105,9 @@ class ScoreConverter(object):
                                            temp_in_file)
 
         subprocess.call(callstr, shell=True)
-        IO.remove_temp_files(temp_in_file)  # remove the temporary .ly input
+
+        if not os.path.isfile(ly_in):  #str input, tmeporary file was created
+            IO.remove_temp_files(temp_in_file)
 
         # Lilypond saved the svg into pages, i.e. different files with
         # consequent naming.
@@ -135,6 +156,7 @@ class ScoreConverter(object):
             template = os.path.join(svg_out, template)
         else:  # name template is given directly
             template = svg_out
+
         fnames = []
         for pp, page in enumerate(svg_pages):
             if len(svg_pages) == 1:  # if there is a single page don't
@@ -159,21 +181,6 @@ class ScoreConverter(object):
         # sort the pages according to creation time
         svg_files.sort(key=lambda x: os.path.getmtime(x))
         return svg_files
-
-    @classmethod
-    def _get_mbid_url(cls, mbid, symbtr_name):
-        if mbid is None:
-            try:
-                mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
-            except IndexError:
-                mbid_url = None
-        else:
-            try:  # find if it is a work or recording mbid
-                meta = cls._mb_meta_getter.crawl_musicbrainz(mbid)
-                mbid_url = meta['url']
-            except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
-                mbid_url = mbid
-        return mbid_url
 
     @staticmethod
     def _get_lilypond_bin_path():
