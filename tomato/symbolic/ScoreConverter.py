@@ -115,8 +115,8 @@ class ScoreConverter(object):
                 svg_file.write(''.join(svg_pages))
             return svg_out  # output path
 
-    @classmethod
-    def _get_svg_page_files(cls, tmp_dir):
+    @staticmethod
+    def _get_svg_page_files(tmp_dir):
         svg_files = [os.path.join(tmp_dir, svg_file)
                      for svg_file in os.listdir(tmp_dir)]
         svg_files = filter(os.path.isfile, svg_files)
