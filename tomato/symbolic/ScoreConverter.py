@@ -138,7 +138,7 @@ class ScoreConverter(object):
     def _get_lilypond_path():
         config = configparser.SafeConfigParser()
         lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    '..','config','lilypond.cfg')
+                                    '..', 'config', 'lilypond.cfg')
         config.read(lily_cfgfile)
         try:  # check custon
             lilypath = config.get('custom', 'custom')
