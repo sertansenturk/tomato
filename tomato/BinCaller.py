@@ -35,8 +35,8 @@ class BinCaller(object):
                                 env=self.mcr_env)
         return proc.communicate()
 
-    @classmethod
-    def _get_mcr_config(cls, config, section_str):
+    @staticmethod
+    def _get_mcr_config(config, section_str):
         op_sys = config.get(section_str, 'sys_os')
         env_var = config.get(section_str, 'env_var')
         mcr_path = config.get(section_str, 'mcr_path')

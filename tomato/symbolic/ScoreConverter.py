@@ -12,7 +12,7 @@ import tempfile
 import re
 import musicbrainzngs
 
-_binCaller = BinCaller()
+_bin_caller = BinCaller()
 
 
 class ScoreConverter(object):
@@ -90,11 +90,7 @@ class ScoreConverter(object):
 
         # Lilypond saved the svg into pages, i.e. different files with
         # consequent naming.
-        svg_files = [os.path.join(tmp_dir, svg_file)
-                     for svg_file in os.listdir(tmp_dir)]
-        svg_files = filter(os.path.isfile, svg_files)
-        svg_files = [s for s in svg_files if s.endswith('.svg')]
-        svg_files.sort(key=lambda x: os.path.getmtime(x))
+        svg_files = cls._get_svg_page_files(tmp_dir)
 
         # read the svg files and combine them into one
         regex = re.compile(
@@ -118,6 +114,15 @@ class ScoreConverter(object):
                 # TODO: joining the pages produce an invalid svg
                 svg_file.write(''.join(svg_pages))
             return svg_out  # output path
+
+    @classmethod
+    def _get_svg_page_files(cls, tmp_dir):
+        svg_files = [os.path.join(tmp_dir, svg_file)
+                     for svg_file in os.listdir(tmp_dir)]
+        svg_files = filter(os.path.isfile, svg_files)
+        svg_files = [s for s in svg_files if s.endswith('.svg')]
+        svg_files.sort(key=lambda x: os.path.getmtime(x))
+        return svg_files
 
     @classmethod
     def _get_mbid_url(cls, mbid, symbtr_name):
@@ -147,7 +152,7 @@ class ScoreConverter(object):
                               'fill the custom section in '
                               '"tomato/config/lilypond.cfg" manually.')
         except IOError:  # check default from sys_os
-            lilypath = config.defaults()[_binCaller.sys_os]
+            lilypath = config.defaults()[_bin_caller.sys_os]
 
             # linux path is given with $HOME; convert it to the real path
             lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
