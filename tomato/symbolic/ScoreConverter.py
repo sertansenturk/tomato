@@ -4,11 +4,15 @@ from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
 from ..IO import IO
+from six.moves import configparser
+from ..BinCaller import BinCaller
 import os
 import subprocess
 import tempfile
 import re
 import musicbrainzngs
+
+_binCaller = BinCaller()
 
 
 class ScoreConverter(object):
@@ -30,7 +34,7 @@ class ScoreConverter(object):
 
         # mappings
         note_mappings = {
-            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg':[],
+            'txt_to_xml': '?', 'txt_to_ly': ly_mapping, 'txt_to_svg': '?',
             'xml_to_ly': '?', 'xml_to_svg': '?', 'ly_to_svg': '?'}
 
         return xml_output, ly_output, svg_output, note_mappings
@@ -132,5 +136,24 @@ class ScoreConverter(object):
 
     @staticmethod
     def _get_lilypond_path():
-        return '/home/sertansenturk/bin/lilypond'
-        # return "/Applications/LilyPond.app/Contents/Resources/bin/lilypond"
+        config = configparser.SafeConfigParser()
+        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    '..','config','lilypond.cfg')
+        config.read(lily_cfgfile)
+        try:  # check custon
+            lilypath = config.get('custom', 'custom')
+            if not os.path.exists(lilypath):
+                raise IOError('The lilypond path is not found. Please '
+                              'fill the custom section in '
+                              '"tomato/config/lilypond.cfg" manually.')
+        except IOError:  # check default from sys_os
+            lilypath = config.defaults()[_binCaller.sys_os]
+
+            # linux path is given with $HOME; convert it to the real path
+            lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
+            if not os.path.exists(lilypath):
+                raise IOError('The lilypond path is not found. Please '
+                              'fill the custom section in '
+                              '"tomato/config/lilypond.cfg" manually.')
+
+        return lilypath
