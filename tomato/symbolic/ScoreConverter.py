@@ -90,7 +90,8 @@ class ScoreConverter(object):
 
         # Lilypond saved the svg into pages, i.e. different files with
         # consequent naming.
-        svg_files = [os.path.join(tmp_dir, f) for f in os.listdir(tmp_dir)]
+        svg_files = [os.path.join(tmp_dir, svg_file)
+                     for svg_file in os.listdir(tmp_dir)]
         svg_files = filter(os.path.isfile, svg_files)
         svg_files = [s for s in svg_files if s.endswith('.svg')]
         svg_files.sort(key=lambda x: os.path.getmtime(x))
@@ -100,23 +101,22 @@ class ScoreConverter(object):
             r'.*<a style="(.*)" xlink:href="textedit:///.*'
             r':([0-9]+):([0-9]+):([0-9]+)">.*')
         svg_pages = []
-        for f in svg_files:
-            svg_file = open(f)
-            score = svg_file.read()
-            svg_pages.append(regex.sub(
-                r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
-                score))
-            svg_file.close()
-            os.remove(f)
+        for svg_file in svg_files:
+            with open(svg_file, 'r') as f:
+                score = f.read()
+                svg_pages.append(regex.sub(
+                    r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
+                    score))
+            os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
 
         if svg_out is None:  # return string
             # TODO: merge the pages
             return svg_pages
         else:
-            with open(svg_out, 'w') as f:
+            with open(svg_out, 'w') as svg_file:
                 # TODO: joining the pages produce an invalid svg
-                f.write(''.join(svg_pages))
+                svg_file.write(''.join(svg_pages))
             return svg_out  # output path
 
     @classmethod
