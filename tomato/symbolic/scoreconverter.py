@@ -3,9 +3,9 @@ from musicxml2lilypond.ScoreConverter import ScoreConverter as XML2LYConverter
 from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
 from symbtrextras.ScoreExtras import ScoreExtras
 from symbtrdataextractor.metadata.MBMetadata import MBMetadata
-from ..IO import IO
+from ..io import IO
 from six.moves import configparser
-from ..BinCaller import BinCaller
+from ..bincaller import BinCaller
 import os
 import subprocess
 import tempfile

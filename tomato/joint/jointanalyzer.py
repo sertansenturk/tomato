@@ -8,10 +8,10 @@ import timeit
 from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
 from alignednotemodel.AlignedNoteModel import AlignedNoteModel
 
-from ..BinCaller import BinCaller
-from ..IO import IO
-from ..Analyzer import Analyzer
-from ..Plotter import Plotter
+from ..bincaller import BinCaller
+from ..io import IO
+from ..analyzer import Analyzer
+from ..plotter import Plotter
 
 import warnings
 import logging
@@ -29,12 +29,12 @@ class JointAnalyzer(Analyzer):
         super(JointAnalyzer, self).__init__(verbose=verbose)
 
         # extractors
-        self._tonicTempoExtractor = _mcr_caller.get_mcr_binary_path(
+        self._tonic_tempo_extractor = _mcr_caller.get_mcr_binary_path(
             'extractTonicTempoTuning')
-        self._audioScoreAligner = _mcr_caller.get_mcr_binary_path(
+        self._audio_score_aligner = _mcr_caller.get_mcr_binary_path(
             'alignAudioScore')
-        self._alignedPitchFilter = AlignedPitchFilter()
-        self._alignedNoteModel = AlignedNoteModel()
+        self._aligned_pitch_filter = AlignedPitchFilter()
+        self._aligned_note_model = AlignedNoteModel()
 
     def analyze(self, symbtr_txt_filename='', score_features=None,
                 audio_filename='', audio_pitch=None, **kwargs):
@@ -165,7 +165,7 @@ class JointAnalyzer(Analyzer):
 
         # call the binary
         callstr = ["{0:s} {1:s} {2:s} {3:s} {4:s} {5:s}".format(
-            self._tonicTempoExtractor, score_filename, temp_score_data_file,
+            self._tonic_tempo_extractor, score_filename, temp_score_data_file,
             audio_filename, temp_pitch_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
@@ -250,7 +250,7 @@ class JointAnalyzer(Analyzer):
 
         # call the binary
         callstr = ["{0:s} {1:s} {2:s} '' {3:s} {4:s} {5:s} {6:s} '' "
-                   "{7:s}".format(self._audioScoreAligner, score_filename,
+                   "{7:s}".format(self._audio_score_aligner, score_filename,
                                   temp_score_data_file, audio_filename,
                                   temp_pitch_file, temp_tonic_file,
                                   temp_tempo_file, temp_out_folder)]
@@ -289,7 +289,7 @@ class JointAnalyzer(Analyzer):
                           for n in deepcopy(aligned_notes)]
 
         pitch_temp, notes_filtered, synth_pitch = \
-            self._alignedPitchFilter.filter(pitch['pitch'], aligned_notes_)
+            self._aligned_pitch_filter.filter(pitch['pitch'], aligned_notes_)
 
         notes_filtered = [IO.dict_keys_to_snake_case(n)
                           for n in notes_filtered]
@@ -313,7 +313,7 @@ class JointAnalyzer(Analyzer):
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
-        note_models, pitch_distibution, tonic = self._alignedNoteModel.\
+        note_models, pitch_distibution, tonic = self._aligned_note_model.\
             get_models(pitch['pitch'], aligned_notes_, tonic_symbol)
 
         for note in note_models.keys():
@@ -335,10 +335,10 @@ class JointAnalyzer(Analyzer):
         raise NotImplementedError
 
     def set_pitch_filter_params(self, **kwargs):
-        self._set_params('_alignedPitchFilter', **kwargs)
+        self._set_params('_aligned_pitch_filter', **kwargs)
 
     def set_note_model_params(self, **kwargs):
-        self._set_params('_alignedNoteModel', **kwargs)
+        self._set_params('_aligned_note_model', **kwargs)
 
     @staticmethod
     def plot(summarized_features):

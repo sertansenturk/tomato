@@ -15,9 +15,9 @@ from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
-from ..Analyzer import Analyzer
-from ..Plotter import Plotter
-from ..IO import IO
+from ..analyzer import Analyzer
+from ..plotter import Plotter
+from ..io import IO
 
 import warnings
 import logging
@@ -42,12 +42,12 @@ class AudioAnalyzer(Analyzer):
                                  'min_num_frames': 40, 'max_frame_dur': 30}
 
         # extractors
-        self._metadataGetter = AudioMetadata(get_work_attributes=True)
-        self._pitchExtractor = PredominantMelodyMakam(filter_pitch=False)
-        self._pitchFilter = PitchFilter()
-        self._melodicProgressionAnalyzer = AudioSeyirAnalyzer()
-        self._tonicIdentifier = TonicLastNote()
-        self._noteModeler = NoteModel()
+        self._metadata_getter = AudioMetadata(get_work_attributes=True)
+        self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)
+        self._pitch_filter = PitchFilter()
+        self._melodic_progression_analyzer = AudioSeyirAnalyzer()
+        self._tonic_identifier = TonicLastNote()
+        self._note_modeler = NoteModel()
 
     def analyze(self, filepath=None, **kwargs):
         audio_f = self._parse_inputs(**kwargs)
@@ -139,7 +139,7 @@ class AudioAnalyzer(Analyzer):
         try:
             tic = timeit.default_timer()
             self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
-            audio_meta = self._metadataGetter.from_musicbrainz(rec_in)
+            audio_meta = self._metadata_getter.from_musicbrainz(rec_in)
 
             self.vprint_time(tic, timeit.default_timer())
             return audio_meta
@@ -154,7 +154,7 @@ class AudioAnalyzer(Analyzer):
         self.vprint(u"- Extracting predominant melody of {0:s}".
                     format(filename))
 
-        results = self._pitchExtractor.run(filename)
+        results = self._pitch_extractor.run(filename)
         pitch = results['settings']  # collapse the keys in settings
         pitch['pitch'] = results['pitch']
 
@@ -167,7 +167,7 @@ class AudioAnalyzer(Analyzer):
                     format(pitch['source']))
 
         pitch_filt = deepcopy(pitch)
-        pitch_filt['pitch'] = self._pitchFilter.run(pitch_filt['pitch'])
+        pitch_filt['pitch'] = self._pitch_filter.run(pitch_filt['pitch'])
         pitch_filt['citation'] = 'Bozkurt, B. (2008). An automatic pitch ' \
                                  'analysis method for Turkish maqam music. ' \
                                  'Journal of New Music Research, 37(1), 1-13.'
@@ -194,7 +194,7 @@ class AudioAnalyzer(Analyzer):
         else:
             frame_dur = self._mel_prog_params['frame_dur']
 
-        melodic_progression = self._melodicProgressionAnalyzer.analyze(
+        melodic_progression = self._melodic_progression_analyzer.analyze(
             pitch['pitch'], frame_dur=frame_dur,
             hop_ratio=self._mel_prog_params['hop_ratio'])
         self.vprint_time(tic, timeit.default_timer())
@@ -206,7 +206,7 @@ class AudioAnalyzer(Analyzer):
         self.vprint(u"- Identifying tonic from the predominant melody of {0:s}"
                     .format(pitch['source']))
 
-        tonic = self._tonicIdentifier.identify(pitch['pitch'])[0]
+        tonic = self._tonic_identifier.identify(pitch['pitch'])[0]
 
         # add the source audio file
         tonic['source'] = pitch['source']
@@ -266,43 +266,42 @@ class AudioAnalyzer(Analyzer):
         self.vprint(u"- Computing the note models for {0:s}".
                     format(tonic['source']))
 
-        note_models = self._noteModeler.calculate_notes(
+        note_models = self._note_modeler.calculate_notes(
             pitch_distribution, tonic['value'], makamstr)
         self.vprint_time(tic, timeit.default_timer())
         return note_models
 
     # setters
     def set_pitch_extractor_params(self, **kwargs):
-        self._set_params('_pitchExtractor', **kwargs)
+        self._set_params('_pitch_extractor', **kwargs)
 
     def set_metadata_getter_params(self, **kwargs):
-        self._set_params('_metadataGetter', **kwargs)
+        self._set_params('_metadata_getter', **kwargs)
 
     def set_pitch_filter_params(self, **kwargs):
-        self._set_params('_pitchFilter', **kwargs)
+        self._set_params('_pitch_filter', **kwargs)
 
     def set_pitch_distibution_params(self, **kwargs):
         self._set_params('_pd_params', **kwargs)
 
     def set_tonic_identifier_params(self, **kwargs):
-        self._set_params('_tonicIdentifier', **kwargs)
+        self._set_params('_tonic_identifier', **kwargs)
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
-        obj_params = IO.public_noncallables(self._melodicProgressionAnalyzer)
+        obj_params = IO.public_noncallables(self._melodic_progression_analyzer)
 
         Analyzer.chk_params(method_params + obj_params, kwargs)
-
         for key, value in kwargs.items():
             if key in method_params:
                 self._mel_prog_params[key] = value
             elif key in obj_params:
-                setattr(self._melodicProgressionAnalyzer, key, value)
+                setattr(self._melodic_progression_analyzer, key, value)
             else:
                 raise KeyError("Unexpected key error")
 
     def set_note_modeler_params(self, **kwargs):
-        self._set_params('_noteModeler', **kwargs)
+        self._set_params('_note_modeler', **kwargs)
 
     # plot
     @staticmethod

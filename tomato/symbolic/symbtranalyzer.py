@@ -7,9 +7,9 @@ from symbtrdataextractor.SymbTrDataExtractor import SymbTrDataExtractor
 from symbtrdataextractor.reader.Mu2Reader import Mu2Reader
 from symbtrextras.ScoreExtras import ScoreExtras
 
-from ..BinCaller import BinCaller
-from ..IO import IO
-from ..Analyzer import Analyzer
+from ..bincaller import BinCaller
+from ..io import IO
+from ..analyzer import Analyzer
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()
@@ -22,9 +22,9 @@ class SymbTrAnalyzer(Analyzer):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
 
         # extractors
-        self._dataExtractor = SymbTrDataExtractor(print_warnings=verbose)
-        self._mu2Reader = Mu2Reader()
-        self._phraseSegmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
+        self._data_extractor = SymbTrDataExtractor(print_warnings=verbose)
+        self._mu2_reader = Mu2Reader()
+        self._phrase_segmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
         input_f = self._parse_inputs(**kwargs)
@@ -101,7 +101,7 @@ class SymbTrAnalyzer(Analyzer):
 
         # call the binary
         call_str = ["{0:s} segmentWrapper {1:s} {2:s} {3:s} {4:s}".format(
-            self._phraseSegmenter, bound_stat_file, fld_model_file,
+            self._phrase_segmenter, bound_stat_file, fld_model_file,
             temp_in_file, temp_out_file)]
 
         out, err = _mcr_caller.call(call_str)
@@ -143,7 +143,7 @@ class SymbTrAnalyzer(Analyzer):
         self.vprint(u"- Extracting (meta)data from the SymbTr-txt file: {0:s}"
                     .format(txt_filename))
 
-        txt_data, is_txt_valid = self._dataExtractor.extract(
+        txt_data, is_txt_valid = self._data_extractor.extract(
             txt_filename, symbtr_name=symbtr_name, mbid=mbid,
             segment_note_bound_idx=segment_note_bound_idx)
 
@@ -156,7 +156,7 @@ class SymbTrAnalyzer(Analyzer):
                     .format(mu2_filename))
 
         mu2_header, header_row, is_mu2_header_valid = \
-            self._mu2Reader.read_header(
+            self._mu2_reader.read_header(
                 mu2_filename, symbtr_name=symbtr_name)
 
         score_features = SymbTrDataExtractor.merge(txt_data, mu2_header)
@@ -177,4 +177,4 @@ class SymbTrAnalyzer(Analyzer):
 
     # setters
     def set_data_extractor_params(self, **kwargs):
-        self._set_params('_dataExtractor', **kwargs)
+        self._set_params('_data_extractor', **kwargs)

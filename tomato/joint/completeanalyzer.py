@@ -1,7 +1,7 @@
-from ..Analyzer import Analyzer
-from ..symbolic.SymbTrAnalyzer import SymbTrAnalyzer
-from ..audio.AudioAnalyzer import AudioAnalyzer
-from .JointAnalyzer import JointAnalyzer
+from ..analyzer import Analyzer
+from ..symbolic.symbtranalyzer import SymbTrAnalyzer
+from ..audio.audioanalyzer import AudioAnalyzer
+from .jointanalyzer import JointAnalyzer
 
 
 class CompleteAnalyzer(Analyzer):
@@ -22,9 +22,9 @@ class CompleteAnalyzer(Analyzer):
         super(CompleteAnalyzer, self).__init__(verbose=True)
 
         # extractors
-        self._symbtrAnalyzer = SymbTrAnalyzer(verbose=self.verbose)
-        self._audioAnalyzer = AudioAnalyzer(verbose=self.verbose)
-        self._jointAnalyzer = JointAnalyzer(verbose=self.verbose)
+        self._symbtr_analyzer = SymbTrAnalyzer(verbose=self.verbose)
+        self._audio_analyzer = AudioAnalyzer(verbose=self.verbose)
+        self._joint_analyzer = JointAnalyzer(verbose=self.verbose)
 
     def analyze(self, symbtr_txt_filename='', symbtr_mu2_filename='',
                 symbtr_name=None, audio_filename='', audio_metadata=None):
@@ -58,7 +58,7 @@ class CompleteAnalyzer(Analyzer):
         dict
             Features computed only using the music scores
         dict
-            Features computed only using the audio recordin
+            Features computed only using the audio recording
         dict
             Features related to audio recording, which are (re-)computed
             after audio-score alignment
@@ -67,25 +67,25 @@ class CompleteAnalyzer(Analyzer):
             recordings.
         """
         # score analysis
-        score_features, boundaries, work_mbid = self._symbtrAnalyzer.analyze(
+        score_features, boundaries, work_mbid = self._symbtr_analyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)
 
         # audio analysis
-        audio_features = self._audioAnalyzer.analyze(
+        audio_features = self._audio_analyzer.analyze(
             audio_filename, makam=score_features['makam']['symbtr_slug'],
             metadata=audio_metadata)
 
         # joint analysis
-        joint_features, score_informed_audio_features = self._jointAnalyzer.\
+        joint_features, score_informed_audio_features = self._joint_analyzer.\
             analyze(symbtr_txt_filename, score_features, audio_filename,
                     audio_features['pitch'])
 
         # redo some steps in audio analysis
-        score_informed_audio_features = self._audioAnalyzer.analyze(
+        score_informed_audio_features = self._audio_analyzer.analyze(
             metadata=False, pitch=False, **score_informed_audio_features)
 
         # summarize all the features extracted from all sources
-        summarized_features = self._jointAnalyzer.summarize(
+        summarized_features = self._joint_analyzer.summarize(
             audio_features, score_features, joint_features,
             score_informed_audio_features)
 

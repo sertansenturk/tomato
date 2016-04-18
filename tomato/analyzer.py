@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
-from IO import IO
+from io import IO
 import logging
 import warnings
 from six import iteritems

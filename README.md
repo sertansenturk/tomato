@@ -80,7 +80,7 @@ Tomato in a Nutshell
 -------
 
 ```python
-from tomato.joint.CompleteAnalyzer import CompleteAnalyzer
+from tomato.joint.completeanalyzer import CompleteAnalyzer
 
 # score input
 symbtr_name = 'makam--form--usul--name--composer'
