@@ -77,18 +77,17 @@ class ScoreConverter(object):
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
         # mappings
-        txt_ly_mapping = []
-        for s, r, c in mapping_tuple:
-            txt_ly_mapping.append({'symbtr_index': s, 'lilypond_row': r,
-                                   'lilypond_column': c})
-
+        ly_txt_mapping = {}
+        for s, c, r  in mapping_tuple:
+            ly_txt_mapping[r] = s
+        
         if ly_out is None:
-            return ly_stream, txt_ly_mapping
+            return ly_stream, ly_txt_mapping
         else:  # ly_stream is already saved to the user-specified file
-            return ly_out, txt_ly_mapping
+            return ly_out, ly_txt_mapping
 
     @classmethod
-    def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4'):
+    def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4', ly_txt_mapping=None):
         if os.path.isfile(ly_in):
             temp_in_file = ly_in
         else:
@@ -113,18 +112,40 @@ class ScoreConverter(object):
         # consequent naming.
         svg_files = cls._get_svg_page_files(tmp_dir)
 
-        # read the svg files and combine them into one
-        regex = re.compile(
-            r'.*<a style="(.*)" xlink:href="textedit:///.*'
-            r':([0-9]+):([0-9]+):([0-9]+)">.*')
-        svg_pages = []
-        for svg_file in svg_files:
-            with open(svg_file, 'r') as f:
-                score = f.read()
-                svg_pages.append(regex.sub(
-                    r'<a style="\1" id="l\2-f\3-t\4" from="\3" to="\4">',
-                    score))
-            os.remove(svg_file)  # remove temporary file
+        if ly_txt_mapping:
+            svg_pages = []
+            for svg_file in svg_files:
+                svg_page = []
+                with open(svg_file, 'r') as f:
+                    for l in f.readlines():
+                        matched = False
+                        for ly_id in ly_txt_mapping.keys():
+                            if '<a style="color:inherit;" xlink:href="textedit://%s:%d' % (temp_in_file, ly_id) in l:
+                                regex = re.compile(
+                                  r'<a style="color:inherit;" xlink:href="textedit://%s'
+                                  r':(%d):([0-9]*):([0-9]+)">' % (temp_in_file, ly_id))
+
+                                matched = True
+                                svg_page.append(regex.sub(
+                                    r'<a style="color:inherit;" id="l\1">',
+                                    l))
+                        if not matched:
+                            svg_page.append(l)
+                svg_pages.append("\n".join(svg_page))
+                os.remove(svg_file)  # remove temporary file
+        else:
+            # read the svg files and combine them into one
+            regex = re.compile(
+                r'.*<a style="(.*)" xlink:href="textedit:///.*'
+                r':([0-9]+):([0-9]+):([0-9]+)">.*')
+            svg_pages = []
+            for svg_file in svg_files:
+                with open(svg_file, 'r') as f:
+                    score = f.read()
+                    svg_pages.append(regex.sub(
+                        r'<a style="\1" id="l\2">',
+                        score))
+                os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
 
         if svg_out is None:  # return string
