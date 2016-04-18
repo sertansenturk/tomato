@@ -81,7 +81,7 @@ class ScoreConverter(object):
         ly_txt_mapping = {}
         for s, c, r in mapping_tuple:
             ly_txt_mapping[r] = s
-        
+
         if ly_out is None:
             return ly_stream, ly_txt_mapping
         else:  # ly_stream is already saved to the user-specified file
