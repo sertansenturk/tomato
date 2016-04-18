@@ -1,3 +1,7 @@
+#### tomato v0.8.0
+ - Changed the mappings in the svg files from ly to SymbTr-txt indices
+ - Refactored module and object names according to PEP8 conventions
+
 #### tomato v0.7.0
  - Added CompleteAnalyzer class
  - Refactored ParamSetter class to the abstract Analyzer class. It is

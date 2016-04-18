@@ -8,7 +8,7 @@ except ImportError:
 try:
     from urllib2 import urlopen  # python 2
 except ImportError:
-    from urllib.request import urlopen  # python 2
+    from urllib.request import urlopen  # python 3
 import zipfile
 try:
     from StringIO import StringIO
@@ -93,7 +93,7 @@ class CustomInstall(_install):
 
 
 setup(name='tomato',
-      version='0.7.0',
+      version='0.8.0dev',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
