@@ -79,7 +79,7 @@ class ScoreConverter(object):
 
         # mappings
         ly_txt_mapping = {}
-        for s, c, r  in mapping_tuple:
+        for s, c, r in mapping_tuple:
             ly_txt_mapping[r] = s
         
         if ly_out is None:
@@ -148,12 +148,12 @@ class ScoreConverter(object):
                 try:  # replace the ly id embedded in the svg element with
                     # symbtr-txt id
                     symbtr_idx = ly_txt_mapping[ly_idx]
-                    return r'<a style="\1" id="%d">' % (symbtr_idx)
+                    return r'<a style="\1" id="{0:d}">'.format(symbtr_idx)
                 except KeyError:
                     # the vector is not a note, hence it is not in the mapping
                     return r'<a style="\1">'
             else:
-                return r'<a style="\1" id="%s">' % x.group(2)
+                return r'<a style="\1" id="{0:s}">'.format
 
         # get the svg strings and organize the labels inside with regular
         # expression substitution according to the pattern and rule defined
