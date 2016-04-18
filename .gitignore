@@ -11,3 +11,7 @@ dist/
 *alignAudioScore*
 *extractTonicTempoTuning*
 *phraseSeg*
+*.svg
+*.xml
+*.ly
+*.pkl
