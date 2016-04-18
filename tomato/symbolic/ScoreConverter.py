@@ -27,13 +27,14 @@ class ScoreConverter(object):
             symtr_txt_filename, symbtr_mu2_filename, xml_out=xml_out,
             symbtr_name=symbtr_name, mbid=mbid)
 
-        ly_output, txt_ly_mapping = cls.musicxml_to_lilypond(
+        ly_output, ly_txt_mapping = cls.musicxml_to_lilypond(
             xml_in=xml_output, ly_out=ly_out, render_metadata=render_metadata)
 
-        svg_output = cls.lilypond_to_svg(ly_output, svg_out=svg_out,
-                                         paper_size=svg_paper_size)
+        svg_output = cls.lilypond_to_svg(
+            ly_output, svg_out=svg_out, paper_size=svg_paper_size,
+            ly_txt_mapping=ly_txt_mapping)
 
-        return xml_output, ly_output, svg_output, txt_ly_mapping
+        return xml_output, ly_output, svg_output, ly_txt_mapping
 
     @classmethod
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
@@ -87,7 +88,8 @@ class ScoreConverter(object):
             return ly_out, ly_txt_mapping
 
     @classmethod
-    def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4', ly_txt_mapping=None):
+    def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
+                        ly_txt_mapping=None):
         if os.path.isfile(ly_in):
             temp_in_file = ly_in
         else:
@@ -108,51 +110,62 @@ class ScoreConverter(object):
         if not os.path.isfile(ly_in):  # str input, temporary file was created
             IO.remove_temp_files(temp_in_file)
 
-        # Lilypond saved the svg into pages, i.e. different files with
-        # consequent naming.
-        svg_files = cls._get_svg_page_files(tmp_dir)
-
-        if ly_txt_mapping:
-            svg_pages = []
-            for svg_file in svg_files:
-                svg_page = []
-                with open(svg_file, 'r') as f:
-                    for l in f.readlines():
-                        matched = False
-                        for ly_id in ly_txt_mapping.keys():
-                            if '<a style="color:inherit;" xlink:href="textedit://%s:%d' % (temp_in_file, ly_id) in l:
-                                regex = re.compile(
-                                  r'<a style="color:inherit;" xlink:href="textedit://%s'
-                                  r':(%d):([0-9]*):([0-9]+)">' % (temp_in_file, ly_id))
-
-                                matched = True
-                                svg_page.append(regex.sub(
-                                    r'<a style="color:inherit;" id="l\1">',
-                                    l))
-                        if not matched:
-                            svg_page.append(l)
-                svg_pages.append("\n".join(svg_page))
-                os.remove(svg_file)  # remove temporary file
-        else:
-            # read the svg files and combine them into one
-            regex = re.compile(
-                r'.*<a style="(.*)" xlink:href="textedit:///.*'
-                r':([0-9]+):([0-9]+):([0-9]+)">.*')
-            svg_pages = []
-            for svg_file in svg_files:
-                with open(svg_file, 'r') as f:
-                    score = f.read()
-                    svg_pages.append(regex.sub(
-                        r'<a style="\1" id="l\2">',
-                        score))
-                os.remove(svg_file)  # remove temporary file
-        os.rmdir(tmp_dir)
+        # Lilypond saves the svg into pages, i.e. different files with
+        # consequent naming in the tmp_dir
+        svg_pages = cls._get_svg_pages(tmp_dir, ly_txt_mapping)
 
         if svg_out is None:  # return string
             return svg_pages
         else:
             fnames = cls._write_svgs(svg_pages, svg_out, ly_in)
             return fnames  # output path
+
+    @classmethod
+    def _get_svg_pages(cls, tmp_dir, ly_txt_mapping):
+        # get the files
+        svg_files = cls._get_svg_page_files(tmp_dir)
+
+        # Lilypond labels each vector in the svg with the row, starting and
+        # final index of the element in lilypond, for example:
+        #  xlink:href="textedit:///<file>:<ly_row>:<ly_start_col>:<ly_end_col>"
+        # compile this pattern as a regular expression
+        ptr = re.compile(r'.*<a style="(.*)" xlink:href="textedit:///.*'
+                         r':([0-9]+):([0-9]+):([0-9]+)">.*')
+
+        def replace_svg_index(x):
+            """
+            Regular expression replacement rule:
+                We don't need the redundant <file> in the pattern. Also the
+            lilypond produced has a single note each line so <ly_start_col>
+            and <ly_end_col>. We remove these.
+                If the symbtr mapping is given, we replace the <ly_row> with
+            the mapped SymbTr-txt index
+            :param x: regular expression pattern
+            :return: replaced pattern
+            """
+            if ly_txt_mapping:
+                ly_idx = int(x.group(2))
+                try:  # replace the ly id embedded in the svg element with
+                    # symbtr-txt id
+                    symbtr_idx = ly_txt_mapping[ly_idx]
+                    return r'<a style="\1" id="%d">' % (symbtr_idx)
+                except KeyError:
+                    # the vector is not a note, hence it is not in the mapping
+                    return r'<a style="\1">'
+            else:
+                return r'<a style="\1" id="%s">' % x.group(2)
+
+        # get the svg strings and organize the labels inside with regular
+        # expression substitution according to the pattern and rule defined
+        # above
+        svg_pages = []
+        for svg_file in svg_files:
+            with open(svg_file, 'r') as f:  # get the organized svg string
+                svg_pages.append(ptr.sub(replace_svg_index, f.read()))
+            os.remove(svg_file)  # remove temporary file
+        os.rmdir(tmp_dir)
+
+        return svg_pages
 
     @staticmethod
     def _write_svgs(svg_pages, svg_out, ly_in):
