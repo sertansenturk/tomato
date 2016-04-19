@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sertansenturk/ahenkidentifier.svg?branch=master)](https://travis-ci.org/sertansenturk/ahenkidentifier) [![GitHub version](https://badge.fury.io/gh/sertansenturk%2Ftomato.svg)](https://badge.fury.io/gh/sertansenturk%2Ftomato) [![Code Climate](https://codeclimate.com/github/sertansenturk/tomato/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/tomato)
+[![Build Status](https://travis-ci.org/sertansenturk/tomato.svg?branch=master)](https://travis-ci.org/sertansenturk/tomato) [![GitHub version](https://badge.fury.io/gh/sertansenturk%2Ftomato.svg)](https://badge.fury.io/gh/sertansenturk%2Ftomato) [![Code Climate](https://codeclimate.com/github/sertansenturk/tomato/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/tomato)
 
 # tomato
 **T**urkish-**O**ttoman **M**akam (M)usic **A**nalysis **TO**olbox
