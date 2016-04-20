@@ -109,7 +109,7 @@ ax[0].set_ylim([50, 500])
 plt.show()
 ```
 
-You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb), [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb), [joint_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/joint_analysis_demo.ipynb) and [complete_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/complete_analysis_demo.ipynb) for interactive demos.
+You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) folder for detailed, interactive examples.
 
 FAQ
 -------
