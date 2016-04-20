@@ -118,7 +118,7 @@ FAQ
     
     These shifts are typically small (e.g. 50 samples ~1ms), so they are not very problematic. Nevertheless, there is no guarantee that the shift will be bigger. If you need "perfect" synchronization, you should use an uncompressed format such as *wav* as the audio input. 
     
-    **Note:** In demos, we use *mp3*, because it will be too bulky to host a *wav* file.
+    **Note:** In demos, we use *mp3*, because it would be too bulky to host a *wav* file.
 
 2. **Which operating systems are suppported?**
 
@@ -134,7 +134,7 @@ FAQ
     The binaries are not stored in **tomato**, because they relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation process of tomato.
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
-5. **ScoreConverter says that "The lilypond path is not found". How can I fix the error?
+5. ```ScoreConverter``` says that "The lilypond path is not found". How can I fix the error?
 There can be similar problems regarding this issue:
 - The user-provided filepath does not exist.
 
@@ -144,7 +144,7 @@ There can be similar problems regarding this issue:
 
     [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
 
- - The binary path exists but, it is not used.
+ - The binary path exists but it is not used.
 
     The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
 
