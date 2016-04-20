@@ -43,7 +43,7 @@ numpy>=1.9.0  # numerical operations
 scipy>=0.17.0  # temporary mat file saving for MCR binary inputs
 matplotlib>=1.5.1  # plotting
 json_tricks==2.1  # saving json files with classes and numpy arrays
-eyeD3==0.7.9  # reading metadata embedded in the audio recordings
+eyeD3>=0.7.5  # reading metadata embedded in the audio recordings
 six>=1.10.0  # Python 2*3 support
 
 # metadata crawling from musicbrainz
