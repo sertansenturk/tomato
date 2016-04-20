@@ -81,6 +81,7 @@ Tomato in a Nutshell
 
 ```python
 from tomato.joint.completeanalyzer import CompleteAnalyzer
+from matplotlib import pyplot as plt
 
 # score input
 symbtr_name = 'makam--form--usul--name--composer'
@@ -98,14 +99,14 @@ completeAnalyzer = CompleteAnalyzer()
 # (summarized_features, score_features, audio_features,
 # score_informed_audio_features, joint_features) in order
 results = completeAnalyzer.analyze(
-    symbtr_txt_filename=txt_score_filepath,
-    symbtr_mu2_filename=mu2_score_filepath, symbtr_name=symbtr_name,
-    audio_filename=audio_filepath, audio_metadata=audio_mbid)
+    symbtr_name=symbtr_name, symbtr_txt_filename=txt_score_filepath,
+    symbtr_mu2_filename=mu2_score_filepath, audio_filename=audio_filepath,
+    audio_metadata=audio_mbid)
 
 # plot the summarized features
 fig, ax = completeAnalyzer.plot(results[0])
 ax[0].set_ylim([50, 500])
-pylab.show()
+plt.show()
 ```
 
 You can refer to [audio_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb), [score_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/score_analysis_demo.ipynb), [joint_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/joint_analysis_demo.ipynb) and [complete_analysis_demo.ipynb](https://github.com/sertansenturk/tomato/blob/master/complete_analysis_demo.ipynb) for interactive demos.
