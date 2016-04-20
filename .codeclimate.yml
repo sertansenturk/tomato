@@ -4,10 +4,7 @@ engines:
     config:
       languages:
       - python
-    exclude_fingerprints:
-    # the next two fingerprints are about redundant similarities about Analyzer._partial_caller
-    - 86321db6edcfbc1b27d5847c134f7a96
-    - 959cbf8161db4867117823e6dafa55e6
+    # exclude_fingerprints:
   fixme:
     enabled: true
   radon:
