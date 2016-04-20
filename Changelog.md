@@ -1,6 +1,7 @@
-#### tomato v0.8.0
+#### tomato v0.7.1
  - Changed the mappings in the svg files from ly to SymbTr-txt indices
  - Refactored module and object names according to PEP8 conventions
+ - Fixed the broken imports from refactored packages
 
 #### tomato v0.7.0
  - Added CompleteAnalyzer class
