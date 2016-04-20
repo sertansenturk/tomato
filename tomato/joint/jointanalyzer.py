@@ -5,8 +5,8 @@ import tempfile
 from copy import deepcopy
 import timeit
 
-from alignedpitchfilter.AlignedPitchFilter import AlignedPitchFilter
-from alignednotemodel.AlignedNoteModel import AlignedNoteModel
+from alignedpitchfilter.alignedpitchfilter import AlignedPitchFilter
+from alignednotemodel.alignednotemodel import AlignedNoteModel
 
 from ..bincaller import BinCaller
 from ..io import IO

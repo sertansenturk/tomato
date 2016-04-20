@@ -1,8 +1,8 @@
 from musicxmlconverter import symbtr2musicxml
-from musicxml2lilypond.ScoreConverter import ScoreConverter as XML2LYConverter
-from symbtrdataextractor.reader.SymbTrReader import SymbTrReader
-from symbtrextras.ScoreExtras import ScoreExtras
-from symbtrdataextractor.metadata.MBMetadata import MBMetadata
+from musicxml2lilypond import scoreconverter as musicxml2lilypond
+from symbtrdataextractor.reader.symbtr import SymbTrReader
+from symbtrextras.scoreextras import ScoreExtras
+from symbtrdataextractor.metadata.musicbrainz import MusicBrainzMetadata
 from ..io import IO
 from six.moves import configparser
 from ..bincaller import BinCaller
@@ -16,8 +16,8 @@ _bin_caller = BinCaller()
 
 
 class ScoreConverter(object):
-    _mb_meta_getter = MBMetadata()
-    _xml2ly_converter = XML2LYConverter()
+    _mb_meta_getter = MusicBrainzMetadata()
+    _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
     @classmethod
     def convert(cls, symtr_txt_filename, symbtr_mu2_filename, symbtr_name=None,

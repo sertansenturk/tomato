@@ -3,14 +3,14 @@ from copy import deepcopy
 import timeit
 import six
 
-from makammusicbrainz.AudioMetadata import AudioMetadata
-from predominantmelodymakam.PredominantMelodyMakam import \
+from makammusicbrainz.audiometadata import AudioMetadata
+from predominantmelodymakam.predominantmelodymakam import \
     PredominantMelodyMakam
-from pitchfilter.PitchFilter import PitchFilter
-from seyiranalyzer.AudioSeyirAnalyzer import AudioSeyirAnalyzer
-from tonicidentifier.TonicLastNote import TonicLastNote
-from ahenkidentifier.AhenkIdentifier import AhenkIdentifier
-from notemodel.NoteModel import NoteModel
+from pitchfilter.pitchfilter import PitchFilter
+from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
+from tonicidentifier.toniclastnote import TonicLastNote
+from ahenkidentifier.ahenkidentifier import AhenkIdentifier
+from notemodel.notemodel import NoteModel
 from modetonicestimation.PitchDistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
@@ -70,9 +70,8 @@ class AudioAnalyzer(Analyzer):
             audio_f['pitch_filtered'])
 
         # tonic identification
-        audio_f['tonic'] = self._partial_caller(audio_f['tonic'],
-                                                self.identify_tonic,
-                                                audio_f['pitch_filtered'])
+        audio_f['tonic'] = self._partial_caller(
+            audio_f['tonic'], self.identify_tonic, audio_f['pitch_filtered'])
 
         # histogram computation
         audio_f['pitch_distribution'] = self._partial_caller(
