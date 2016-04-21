@@ -11,7 +11,7 @@ from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
 from tonicidentifier.toniclastnote import TonicLastNote
 from ahenkidentifier.ahenkidentifier import AhenkIdentifier
 from notemodel.notemodel import NoteModel
-from modetonicestimation.PitchDistribution import PitchDistribution
+from morty.pitchdistribution import PitchDistribution
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
