@@ -37,6 +37,9 @@ class SymbTrAnalyzer(Analyzer):
         input_f['boundaries'] = self._partial_caller(
             input_f['boundaries'], self.segment_phrase, txt_filepath,
             symbtr_name=symbtr_name)
+        if input_f['boundaries'] is None:
+            input_f['boundaries'] = {'boundary_beat': None,
+                                     'boundary_note_idx': None}
 
         # get relevant recording or work mbid
         # Note: very rare but there can be more that one mbid returned.
@@ -109,6 +112,8 @@ class SymbTrAnalyzer(Analyzer):
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code
         if "segmentation complete!" not in out:
+            import pdb
+            pdb.set_trace()
             IO.remove_temp_files(temp_in_file, temp_out_file)
             raise RuntimeError("Phrase segmentation is not successful. Please "
                                "check the error in the terminal.")
