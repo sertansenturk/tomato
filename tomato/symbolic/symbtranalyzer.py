@@ -112,8 +112,6 @@ class SymbTrAnalyzer(Analyzer):
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code
         if "segmentation complete!" not in out:
-            import pdb
-            pdb.set_trace()
             IO.remove_temp_files(temp_in_file, temp_out_file)
             raise RuntimeError("Phrase segmentation is not successful. Please "
                                "check the error in the terminal.")
