@@ -129,8 +129,8 @@ class ScoreConverter(object):
         # final index of the element in lilypond, for example:
         #  xlink:href="textedit:///<file>:<ly_row>:<ly_start_col>:<ly_end_col>"
         # compile this pattern as a regular expression
-        ptr = re.compile(r'.*<a style="(.*)" xlink:href="textedit:///.*'
-                         r':([0-9]+):([0-9]+):([0-9]+)">.*')
+        ptr = re.compile(r'<a style="(.*)" xlink:href="textedit:///.*'
+                         r':([0-9]+):([0-9]+):([0-9]+)">$\n<path', re.MULTILINE)
 
         def replace_svg_index(x):
             """
@@ -148,12 +148,12 @@ class ScoreConverter(object):
                 try:  # replace the ly id embedded in the svg element with
                     # symbtr-txt id
                     symbtr_idx = ly_txt_mapping[ly_idx]
-                    return r'<a style="\1" id="{0:d}">'.format(symbtr_idx)
+                    return r'<a id="note-{0:d}"><path'.format(symbtr_idx)
                 except KeyError:
                     # the vector is not a note, hence it is not in the mapping
-                    return r'<a style="\1">'
+                    return r'<a>'
             else:
-                return r'<a style="\1" id="{0:s}">'.format
+                return r'<a id="{0:s}">'.format
 
         # get the svg strings and organize the labels inside with regular
         # expression substitution according to the pattern and rule defined
