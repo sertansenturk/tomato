@@ -72,8 +72,7 @@ class ScoreConverter(object):
         return mbid_url
 
     @classmethod
-    def musicxml_to_lilypond(cls, xml_in, ly_out=None,
-                             render_metadata=True):
+    def musicxml_to_lilypond(cls, xml_in, ly_out=None, render_metadata=True):
         ly_stream, mapping_tuple = cls._xml2ly_converter.convert(
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
