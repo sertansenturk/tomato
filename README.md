@@ -35,7 +35,11 @@ There are four steps in the installation:
 
 
 #### <a name="tomato_install"></a>Installing tomato
-If you want to install **tomato**, it is recommended to install the package and dependencies into a virtualenv. In the terminal, do the following:
+The requirements of **tomato** require several packages to be installed. In Linux, you have to install the _python 2.7, libxml2, libxslt1, freetype_ and _png_ development packages packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
+
+    sudo apt-get install python-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
+
+It is recommended to install **tomato** and its dependencies into a virtualenv. In the terminal, do the following:
 
     virtualenv env
     source env/bin/activate
@@ -53,6 +57,10 @@ If you want to edit files in the package and want the changes reflected, you sho
 
     cd path/to/tomato
     pip install -e .
+    
+To run the demos, you need to install Jupyter Notebook:
+
+    pip install jupyter
 
 #### <a name="essentia_install"></a>Installing Essentia
 
