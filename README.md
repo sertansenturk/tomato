@@ -80,9 +80,9 @@ We recommend you to install MATLAB Runtime in the default installation path, as 
 
 If you want to convert the music scores to svg format, LilyPond is a good choice, because it adds a mapping between each musical element in the LilyPond file and in the related svg.
 
-To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website and follow the  instructions for your operating system.
+To install LilyPond in Mac OSX, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website and follow the  instructions for your operating system.
 
-__Note:__ In most Linux distributions, you can also install LilyPond from the distribution repository. Nevertheless, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html), if the version hosted in the distribution repository is below 2.18.2.
+In most Linux distributions, you can install LilyPond from the software repository of your distribution. However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). After installing Lilypond, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is $HOME/bin/lilypond).
 
 Tomato in a Nutshell
 -------
