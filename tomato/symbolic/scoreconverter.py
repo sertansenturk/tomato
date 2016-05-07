@@ -40,14 +40,12 @@ class ScoreConverter(object):
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
                             symbtr_name=None, mbid=None):
         if symbtr_name is None:
-            symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(
-                txt_file)
+            symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(txt_file)
 
         mbid_url = cls._get_mbid_url(mbid, symbtr_name)
 
         piece = symbtr2musicxml.SymbTrScore(
-            txt_file, mu2_file, symbtrname=symbtr_name,
-            mbid_url=mbid_url)
+            txt_file, mu2_file, symbtrname=symbtr_name, mbid_url=mbid_url)
 
         xmlstr = piece.convertsymbtr2xml()  # outputs the xml score as string
         if xml_out is None:   # return string
@@ -124,6 +122,9 @@ class ScoreConverter(object):
         # get the files
         svg_files = cls._get_svg_page_files(tmp_dir)
 
+        if not svg_files:
+            raise RuntimeError("No svg files are generated. Is LilyPond "
+                               "installed")
         # Lilypond labels each vector in the svg with the row, starting and
         # final index of the element in lilypond, for example:
         #  xlink:href="textedit:///<file>:<ly_row>:<ly_start_col>:<ly_end_col>"
@@ -196,7 +197,7 @@ class ScoreConverter(object):
                 # append "-page-1"
                 fnames.append(u'{0:s}.svg'.format(template))
             else:  # append page numbers
-                fnames.append('{0:s}-page-{1:d}.svg'.format(template, pp + 1))
+                fnames.append(u'{0:s}-page-{1:d}.svg'.format(template, pp + 1))
             with open(fnames[-1], 'w') as f:
                 f.write(page)
         return fnames  # return filepaths
@@ -221,20 +222,23 @@ class ScoreConverter(object):
         lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                     '..', 'config', 'lilypond.cfg')
         config.read(lily_cfgfile)
-        try:  # check custon
-            lilypath = config.get('custom', 'custom')
-            if not os.path.exists(lilypath):
-                raise IOError('The lilypond path is not found. Please '
-                              'fill the custom section in '
-                              '"tomato/config/lilypond.cfg" manually.')
-        except IOError:  # check default from sys_os
+
+        # check custom
+        lilypath = config.get('custom', 'custom')
+
+        # linux path might be given with $HOME; convert it to the real path
+        lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
+
+        if lilypath:
+            assert os.path.exists(lilypath), \
+                'The lilypond path is not found. Please correct the custom ' \
+                'section in "tomato/config/lilypond.cfg".'
+        else:  # defaults
             lilypath = config.defaults()[_bin_caller.sys_os]
 
-            # linux path is given with $HOME; convert it to the real path
-            lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
-            if not os.path.exists(lilypath):
-                raise IOError('The lilypond path is not found. Please '
-                              'fill the custom section in '
-                              '"tomato/config/lilypond.cfg" manually.')
+            assert (os.path.exists(lilypath) or
+                    _bin_caller.call('which {0:s}'.format(lilypath))[0]), \
+                'The lilypond path is not found. Please correct the custom ' \
+                'section in "tomato/config/lilypond.cfg".'
 
         return lilypath
