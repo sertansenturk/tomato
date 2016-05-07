@@ -1,7 +1,6 @@
 #### tomato v0.8.0
  - Set system-wide installed LilyPond to default Linux configuration
 
-
 #### tomato v0.7.1
  - Changed the mappings in the svg files from ly to SymbTr-txt indices
  - Refactored module and object names according to PEP8 conventions
