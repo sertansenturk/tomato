@@ -74,7 +74,7 @@ If you want to convert the music scores to svg format, LilyPond is a good choice
 
 To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website and follow the  instructions for your operating system.
 
-__Note:__ The LilyPond version hosted in the Linux distributions might be  outdated. We recommend you to download the latest stable version from the [LilyPond website]((http://lilypond.org/download.html).
+__Note:__ The LilyPond version hosted in the Linux distributions might be  outdated. We recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html).
 
 Tomato in a Nutshell
 -------
