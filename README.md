@@ -31,7 +31,7 @@ There are four steps in the installation:
 1. [Installing tomato](#tomato_install)
 2. [Installing Essentia](#essentia_install)
 3. [Installing MATLAB Runtime](#mcr_install)
-4. [Installing LilyPonf](#lily_install) (optional)
+4. [Installing LilyPond](#lily_install) (optional)
 
 
 #### <a name="tomato_install"></a>Installing tomato
@@ -82,7 +82,7 @@ If you want to convert the music scores to svg format, LilyPond is a good choice
 
 To install LilyPond, simply go to the [Download](http://lilypond.org/download.html) page in the LilyPond website and follow the  instructions for your operating system.
 
-__Note:__ The LilyPond version hosted in the Linux distributions might be  outdated. We recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html).
+__Note:__ In most Linux distributions, you can also install LilyPond from the distribution repository. Nevertheless, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html), if the version hosted in the distribution repository is below 2.18.2.
 
 Tomato in a Nutshell
 -------
