@@ -1,33 +1,33 @@
 # ------------------- AUDIO ANALYSIS REPOSITORIES -----------------------------
 # metadata extraction
-git+https://github.com/sertansenturk/makammusicbrainz.git@v1.2.2#egg=makammusicbrainz
+git+https://github.com/sertansenturk/makammusicbrainz.git@v1.3.0#egg=makammusicbrainz
 
 # predominant melody extraction and correction
 git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2.0#egg=predominantmelodymakam
 git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
 
 # melody progression analysis
-git+https://github.com/sertansenturk/seyiranalyzer.git@v1.1.0#egg=seyiranalyzer
+git+https://github.com/sertansenturk/seyiranalyzer.git@v1.1.1#egg=seyiranalyzer
 
 # tonic and transposition identification
-git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3.0#egg=tonicidentifier_makam
-git+https://github.com/sertansenturk/ahenkidentifier.git@v1.4.0#egg=ahenkidentifier
+git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3.1#egg=tonicidentifier_makam
+git+https://github.com/sertansenturk/ahenkidentifier.git@v1.5.0#egg=ahenkidentifier
 
 # histogram analysis and tuning analysis
-git+https://github.com/altugkarakurt/morty.git@v1.0.0#egg=morty
-git+https://github.com/miracatici/notemodel.git@v1.2.0#egg=notemodel
+git+https://github.com/altugkarakurt/morty.git@v1.2.0#egg=morty
+git+https://github.com/miracatici/notemodel.git@v1.2.1#egg=notemodel
 
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
 # (meta)data extractor, including section extraction and semiotic analysis
-git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.0.0#egg=symbtrdataextractor
+git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.1.0#egg=symbtrdataextractor
 
 # extra tools such as SymbTr score manipulation and basic stats
-git+https://github.com/MTG/SymbTr-extras.git@v0.3.0#egg=symbtrextras
+git+https://github.com/MTG/SymbTr-extras.git@v0.3.1#egg=symbtrextras
 
 # phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
 
 # txt-score to MusicXML to LilyPond to svg conversion
-git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.0#egg=musicxmlconverter
+git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.1#egg=musicxmlconverter
 git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.6#egg=musicxml2lilypond
 
 # ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
@@ -36,7 +36,7 @@ git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.6#egg=musicx
 
 # predominant melody filtering after alignment
 git+https://github.com/sertansenturk/alignedpitchfilter.git@v1.1.0#egg=alignedpitchfilter
-git+https://github.com/sertansenturk/alignednotemodel.git@v1.1.0#egg=alignednotemodel
+git+https://github.com/sertansenturk/alignednotemodel.git@v1.1.1#egg=alignednotemodel
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy>=1.9.0  # numerical operations
@@ -50,4 +50,4 @@ six>=1.10.0  # Python 2*3 support
 git+https://github.com/alastair/python-musicbrainzngs.git@v0.6#egg=musicbrainzngs
 
 # basic file manipulations and Turkish string slugification
-git+https://github.com/sertansenturk/fileoperations_python.git@v1.1#egg=fileoperations_python
+git+https://github.com/sertansenturk/fileoperations_python.git@v1.1.1#egg=fileoperations_python
