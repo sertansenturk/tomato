@@ -93,7 +93,7 @@ class CustomInstall(_install):
 
 
 setup(name='tomato',
-      version='0.8.0.dev0',
+      version='0.8.0',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
@@ -112,7 +112,7 @@ necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
       """,
-      download_url='https://github.com/sertansenturk/tomato/releases/tag/v0.2',
+      download_url='https://github.com/sertansenturk/tomato/releases/tag/0.8.0',
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Console',

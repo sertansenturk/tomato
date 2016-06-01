@@ -1,5 +1,11 @@
 #### tomato v0.8.0
+ - Updated required packages to the latest releases
  - Set system-wide installed LilyPond to default Linux configuration
+ - Added support for eyed3>=0.7.5
+ - Partial caller now handles MATLAB runtime errors
+ - Change on svg regex to match only notes
+ - Added stacklevel to the warnings
+ - The language is forced to en_US.utf8 in bincaller
 
 #### tomato v0.7.1
  - Changed the mappings in the svg files from ly to SymbTr-txt indices
