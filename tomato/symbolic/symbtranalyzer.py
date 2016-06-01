@@ -47,7 +47,8 @@ class SymbTrAnalyzer(Analyzer):
         # TODO: use all mbids
         input_f['mbid'] = self._partial_caller(input_f['mbid'], self.get_mbids,
                                                symbtr_name)
-        input_f['mbid'] = self._get_first(input_f['mbid'])
+        input_f['mbid'] = self._partial_caller(None, self._get_first,
+                                               input_f['mbid'])
 
         # Extract the (meta)data from the SymbTr scores. Here the results from
         # the previous steps are also summarized.
