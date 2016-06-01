@@ -46,7 +46,7 @@ class Analyzer(object):
                 warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
                            u'but it will not be used in the audio analysis.' \
                            u''.format(feature)
-                warnings.warn(warn_str)
+                warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
 
         return precomputed_features

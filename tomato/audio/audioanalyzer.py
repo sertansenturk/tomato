@@ -122,7 +122,7 @@ class AudioAnalyzer(Analyzer):
                        '"basestring" (MBID input), "None" (attempt to get ' \
                        'the MBID from audio file tags) or "dict" (already ' \
                        'computed)'
-            warnings.warn(warn_str)
+            warnings.warn(warn_str, stacklevel=2)
         return audio_meta
 
     def get_makams(self, metadata, pitch_class_distribution):
@@ -146,7 +146,7 @@ class AudioAnalyzer(Analyzer):
         except (NetworkError, ResponseError):
             warnings.warn('Unable to reach http://musicbrainz.org/. '
                           'The metadata stored there is not crawled.',
-                          RuntimeWarning)
+                          RuntimeWarning, stacklevel=2)
             return None
 
     def extract_pitch(self, filename):
@@ -245,7 +245,7 @@ class AudioAnalyzer(Analyzer):
             pitch_class_distribution['source']))
         # metadata is not available or the makam is not known
         warnings.warn('Makam recognition is not integrated yet.',
-                      FutureWarning)
+                      FutureWarning, stacklevel=2)
 
         self.vprint_time(tic, timeit.default_timer())
         return None

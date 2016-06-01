@@ -72,7 +72,8 @@ class SymbTrAnalyzer(Analyzer):
         if score_data is not None:
             score_features, is_valid = score_data
             if not is_valid:
-                warnings.warn(symbtr_name + ' has validation problems.')
+                warnings.warn(u'{0:s} has validation problems.'.format(
+                    symbtr_name), stacklevel=2)
         else:
             score_features, is_valid = [None, None]
 
@@ -83,7 +84,7 @@ class SymbTrAnalyzer(Analyzer):
         mbids = ScoreExtras.get_mbids(symbtr_name)
         if not mbids:
             warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
-                          RuntimeWarning)
+                          RuntimeWarning, )
         return mbids
 
     def segment_phrase(self, txt_filename, symbtr_name=None):

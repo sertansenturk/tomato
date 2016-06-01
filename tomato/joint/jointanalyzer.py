@@ -46,7 +46,7 @@ class JointAnalyzer(Analyzer):
                 symbtr_txt_filename, score_features, audio_filename,
                 audio_pitch)
         except RuntimeError as e:
-            warnings.warn(e.message, RuntimeWarning)
+            warnings.warn(e.message, RuntimeWarning, stacklevel=2)
             joint_features = None
             score_informed_audio_features = None
             # Everything else will fail; return None
@@ -60,7 +60,7 @@ class JointAnalyzer(Analyzer):
             input_f['aligned_sections'], input_f['notes'], input_f[
                 'section_links'], input_f['section_candidates'] = temp_out
         except RuntimeError as e:
-            warnings.warn(e.message, RuntimeWarning)
+            warnings.warn(e.message, RuntimeWarning, stacklevel=2)
             joint_features = None
             score_informed_audio_features = {'tonic': input_f['tonic'],
                                              'tempo': input_f['tempo']}
