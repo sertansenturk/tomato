@@ -26,6 +26,7 @@ class BinCaller(object):
 
         subprocess_env = os.environ.copy()
         subprocess_env["MCR_CACHE_ROOT"] = "/tmp/emptydir"
+        subprocess_env["LANG"] = "en_US.utf8"
         subprocess_env[env_var] = set_paths
 
         return subprocess_env, op_sys
