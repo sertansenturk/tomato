@@ -58,7 +58,7 @@ class Analyzer(object):
         elif flag is None:  # call method
             try:
                 return func(*input_args, **input_kwargs)
-            except (RuntimeError, KeyError):
+            except (RuntimeError, KeyError, IndexError, ValueError):
                 logging.info('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
