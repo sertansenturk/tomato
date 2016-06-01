@@ -221,7 +221,7 @@ class AudioAnalyzer(Analyzer):
 
         pitch_distribution = PitchDistribution.from_hz_pitch(
             np.array(pitch['pitch'])[:, 1],
-            smooth_factor=self._pd_params['kernel_width'],
+            kernel_width=self._pd_params['kernel_width'],
             step_size=self._pd_params['step_size'])
         pitch_distribution.cent_to_hz()
 
