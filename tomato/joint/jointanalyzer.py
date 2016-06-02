@@ -312,7 +312,7 @@ class JointAnalyzer(Analyzer):
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
-        note_models, pitch_distibution, tonic = self._aligned_note_model.\
+        note_models, pitch_distribution, tonic = self._aligned_note_model.\
             get_models(pitch['pitch'], aligned_notes_, tonic_symbol)
 
         for note in note_models.keys():
@@ -325,7 +325,7 @@ class JointAnalyzer(Analyzer):
         # print elapsed time, if verbose
         self.vprint_time(tic, timeit.default_timer())
 
-        return note_models, pitch_distibution, tonic
+        return note_models, pitch_distribution, tonic
 
     def set_tonic_tempo_extractor_params(self, **kwargs):
         raise NotImplementedError
