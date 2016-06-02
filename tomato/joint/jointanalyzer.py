@@ -167,7 +167,6 @@ class JointAnalyzer(Analyzer):
         callstr = ["{0:s} {1:s} {2:s} {3:s} {4:s} {5:s}".format(
             self._tonic_tempo_extractor, score_filename, temp_score_data_file,
             audio_filename, temp_pitch_file, temp_out_folder)]
-
         out, err = _mcr_caller.call(callstr)
 
         # check the MATLAB output

@@ -1,5 +1,5 @@
 import numpy as np
-from copy import deepcopy
+import copy
 import timeit
 import six
 
@@ -78,8 +78,9 @@ class AudioAnalyzer(Analyzer):
             audio_f['pitch_distribution'], self.compute_pitch_distribution,
             audio_f['pitch_filtered'])
         try:
-            audio_f['pitch_class_distribution'] = \
-                audio_f['pitch_distribution'].to_pcd()
+            audio_f['pitch_class_distribution'] = copy.deepcopy(
+                audio_f['pitch_distribution'])
+            audio_f['pitch_class_distribution'].to_pcd()
         except KeyError:
             logging.info('Pitch class distribution computation failed.')
 
@@ -166,7 +167,7 @@ class AudioAnalyzer(Analyzer):
         self.vprint(u"- Filtering predominant melody of {0:s}".
                     format(pitch['source']))
 
-        pitch_filt = deepcopy(pitch)
+        pitch_filt = copy.deepcopy(pitch)
         pitch_filt['pitch'] = self._pitch_filter.run(pitch_filt['pitch'])
         pitch_filt['citation'] = 'Bozkurt, B. (2008). An automatic pitch ' \
                                  'analysis method for Turkish maqam music. ' \
@@ -234,7 +235,8 @@ class AudioAnalyzer(Analyzer):
             pitch['source']))
 
         pitch_class_distribution = self.compute_pitch_distribution(
-            pitch).to_pcd()
+            pitch)
+        pitch_class_distribution.to_pcd()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution

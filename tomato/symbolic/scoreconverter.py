@@ -130,7 +130,8 @@ class ScoreConverter(object):
         #  xlink:href="textedit:///<file>:<ly_row>:<ly_start_col>:<ly_end_col>"
         # compile this pattern as a regular expression
         ptr = re.compile(r'<a style="(.*)" xlink:href="textedit:///.*'
-                         r':([0-9]+):([0-9]+):([0-9]+)">$\n<path', re.MULTILINE)
+                         r':([0-9]+):([0-9]+):([0-9]+)">$\n<path',
+                         re.MULTILINE)
 
         def replace_svg_index(x):
             """
