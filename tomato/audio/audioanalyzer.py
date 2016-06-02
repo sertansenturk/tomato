@@ -243,8 +243,7 @@ class AudioAnalyzer(Analyzer):
 
     def recognize_makam(self, pitch_class_distribution):
         tic = timeit.default_timer()
-        self.vprint(u"- Recognizing the makam of {0:s}".format(
-            pitch_class_distribution['source']))
+        self.vprint(u"- Recognizing the makam of {0:s}".format('XX'))
         # metadata is not available or the makam is not known
         warnings.warn('Makam recognition is not integrated yet.',
                       FutureWarning, stacklevel=2)
