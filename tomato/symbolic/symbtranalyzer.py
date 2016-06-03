@@ -29,9 +29,9 @@ class SymbTrAnalyzer(Analyzer):
         self._phrase_segmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
-        filepaths, input_f = self._parse_inputs(txt_filepath, mu2_filepath,
-                                                **kwargs)
-        [txt_filepath, mu2_filepath] = filepaths
+        input_f = self._parse_inputs(**kwargs)
+        txt_filepath = IO.make_unicode(txt_filepath)
+        mu2_filepath = IO.make_unicode(mu2_filepath)
 
         # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:
@@ -93,6 +93,7 @@ class SymbTrAnalyzer(Analyzer):
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
+        txt_filename = IO.make_unicode(txt_filename)
         self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
                     u"{0:s}".format(txt_filename))
 
@@ -149,6 +150,8 @@ class SymbTrAnalyzer(Analyzer):
 
         # SymbTr-txt file
         tic = timeit.default_timer()
+        txt_filename = IO.make_unicode(txt_filename)
+        mu2_filename = IO.make_unicode(mu2_filename)
         self.vprint(u"- Extracting (meta)data from the SymbTr-txt file: {0:s}"
                     .format(txt_filename))
 

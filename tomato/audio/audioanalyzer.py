@@ -52,8 +52,8 @@ class AudioAnalyzer(Analyzer):
         self._note_modeler = NoteModel()
 
     def analyze(self, filepath='', **kwargs):
-        filepath, audio_f = self._parse_inputs(filepath, **kwargs)
-        filepath = filepath[0]
+        audio_f = self._parse_inputs(**kwargs)
+        filepath = IO.make_unicode(filepath)
 
         # metadata
         audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],
@@ -141,6 +141,7 @@ class AudioAnalyzer(Analyzer):
 
     def crawl_musicbrainz_metadata(self, rec_in):
         try:
+            rec_in = IO.make_unicode(rec_in)
             tic = timeit.default_timer()
             self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
             audio_meta = self._metadata_getter.from_musicbrainz(rec_in)
@@ -155,6 +156,7 @@ class AudioAnalyzer(Analyzer):
 
     def extract_pitch(self, filename):
         tic = timeit.default_timer()
+        rec_in = IO.make_unicode(filename)
         self.vprint(u"- Extracting predominant melody of {0:s}".
                     format(filename))
 

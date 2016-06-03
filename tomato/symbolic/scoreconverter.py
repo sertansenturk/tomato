@@ -43,6 +43,8 @@ class ScoreConverter(object):
                             symbtr_name=None, mbid=None):
         txt_file = IO.make_unicode(txt_file)
         mu2_file = IO.make_unicode(mu2_file)
+        xml_out = IO.make_unicode(xml_out)
+
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(txt_file)
 
@@ -75,6 +77,9 @@ class ScoreConverter(object):
 
     @classmethod
     def musicxml_to_lilypond(cls, xml_in, ly_out=None, render_metadata=True):
+        xml_in = IO.make_unicode(xml_in)
+        ly_out = IO.make_unicode(ly_out)
+
         ly_stream, mapping_tuple = cls._xml2ly_converter.convert(
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
@@ -91,6 +96,9 @@ class ScoreConverter(object):
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
                         ly_txt_mapping=None):
+        ly_in = IO.make_unicode(ly_in)
+        svg_out = IO.make_unicode(svg_out)
+
         if os.path.isfile(ly_in):
             temp_in_file = ly_in
         else:
