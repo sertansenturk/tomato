@@ -6,7 +6,6 @@ from symbtrdataextractor.reader.symbtr import SymbTrReader
 from symbtrextras.scoreextras import ScoreExtras
 from symbtrdataextractor.metadata.musicbrainz import MusicBrainzMetadata
 from ..io import IO
-from six.moves import configparser
 from ..bincaller import BinCaller
 import os
 import subprocess
