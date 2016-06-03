@@ -278,8 +278,9 @@ class Plotter(object):
     def _plot_stable_pitches(ax, max_rel_occur, note_models, max_pd_height):
         ytick_vals = []
         for note_symbol, note in iteritems(note_models):
-            if note['stable_pitch']['value'] and \
-                            note['rel_occur'] > max_rel_occur * 0.15:
+            plot_bool = (note['stable_pitch']['value'] and
+                         note['rel_occur'] > max_rel_occur * 0.15)
+            if plot_bool:
                 ytick_vals.append(note['stable_pitch']['value'])
 
                 # plot the performed frequency as a dashed line
