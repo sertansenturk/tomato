@@ -1,3 +1,8 @@
+#### tomato v0.8.1
+ - Input and output filepaths are forced to UTF-8
+ - Plotter._plot_stable_pitches skips uncalculated stable pitches
+ - Carried get_lilypond_bin_path from scoreconverter to bin_caller
+
 #### tomato v0.8.0
  - Updated required packages to the latest releases
  - Set system-wide installed LilyPond to default Linux configuration

@@ -88,12 +88,12 @@ class CustomInstall(_install):
             with open(fpath, 'w+') as fp:
                 fp.write(response.read())
 
-        # make the binary executalbe
+        # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
 
 
 setup(name='tomato',
-      version='0.8.0',
+      version='0.8.1',
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
