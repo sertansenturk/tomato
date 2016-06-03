@@ -10,9 +10,9 @@ class BinCaller(object):
         self.mcr_filepath = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
             'config', 'mcr_path.cfg')
-        self.mcr_env, self.sys_os = self.set_mcr_environment()
+        self.env, self.sys_os = self.set_environment()
 
-    def set_mcr_environment(self):
+    def set_environment(self):
         config = configparser.SafeConfigParser()
         config.read(self.mcr_filepath)
         try:
@@ -35,7 +35,7 @@ class BinCaller(object):
 
     def call(self, callstr):
         proc = subprocess.Popen(callstr, stdout=subprocess.PIPE, shell=True,
-                                env=self.mcr_env)
+                                env=self.env)
         return proc.communicate()
 
     @staticmethod
@@ -74,3 +74,29 @@ class BinCaller(object):
             raise IOError('Binary does not exist: ' + bin_path)
 
         return bin_path
+
+    def get_lilypond_bin_path(self):
+        config = configparser.SafeConfigParser()
+        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    'config', 'lilypond.cfg')
+        config.read(lily_cfgfile)
+
+        # check custom
+        lilypath = config.get('custom', 'custom')
+
+        # linux path might be given with $HOME; convert it to the real path
+        lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
+
+        if lilypath:
+            assert os.path.exists(lilypath), \
+                'The lilypond path is not found. Please correct the custom ' \
+                'section in "tomato/config/lilypond.cfg".'
+        else:  # defaults
+            lilypath = config.defaults()[self.sys_os]
+
+            assert (os.path.exists(lilypath) or
+                    self.call('which {0:s}'.format(lilypath))[0]), \
+                'The lilypond path is not found. Please correct the custom ' \
+                'section in "tomato/config/lilypond.cfg".'
+
+        return lilypath

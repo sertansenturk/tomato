@@ -109,7 +109,7 @@ class ScoreConverter(object):
         tmp_dir = tempfile.mkdtemp()
 
         # call lilypond ...
-        lilypond_path = cls._get_lilypond_bin_path()
+        lilypond_path = _bin_caller.get_lilypond_bin_path()
         callstr = u'{0:s} -dpaper-size=\\"{1:s}\\" -dbackend=svg ' \
                   u'-o {2:s} {3:s}'.format(lilypond_path, paper_size, tmp_dir,
                                            temp_in_file)
@@ -228,30 +228,3 @@ class ScoreConverter(object):
         # sort the pages according to creation time
         svg_files.sort(key=lambda x: os.path.getmtime(x))
         return svg_files
-
-    @staticmethod
-    def _get_lilypond_bin_path():
-        config = configparser.SafeConfigParser()
-        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    '..', 'config', 'lilypond.cfg')
-        config.read(lily_cfgfile)
-
-        # check custom
-        lilypath = config.get('custom', 'custom')
-
-        # linux path might be given with $HOME; convert it to the real path
-        lilypath = lilypath.replace('$HOME', os.path.expanduser('~'))
-
-        if lilypath:
-            assert os.path.exists(lilypath), \
-                'The lilypond path is not found. Please correct the custom ' \
-                'section in "tomato/config/lilypond.cfg".'
-        else:  # defaults
-            lilypath = config.defaults()[_bin_caller.sys_os]
-
-            assert (os.path.exists(lilypath) or
-                    _bin_caller.call('which {0:s}'.format(lilypath))[0]), \
-                'The lilypond path is not found. Please correct the custom ' \
-                'section in "tomato/config/lilypond.cfg".'
-
-        return lilypath
