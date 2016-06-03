@@ -156,7 +156,7 @@ class AudioAnalyzer(Analyzer):
 
     def extract_pitch(self, filename):
         tic = timeit.default_timer()
-        rec_in = IO.make_unicode(filename)
+        filename = IO.make_unicode(filename)
         self.vprint(u"- Extracting predominant melody of {0:s}".
                     format(filename))
 
