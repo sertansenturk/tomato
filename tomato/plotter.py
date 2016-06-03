@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 from six import iteritems
 from matplotlib import gridspec
@@ -276,7 +278,8 @@ class Plotter(object):
     def _plot_stable_pitches(ax, max_rel_occur, note_models, max_pd_height):
         ytick_vals = []
         for note_symbol, note in iteritems(note_models):
-            if note['rel_occur'] > max_rel_occur * 0.1:
+            if note['stable_pitch']['value'] and \
+                            note['rel_occur'] > max_rel_occur * 0.15:
                 ytick_vals.append(note['stable_pitch']['value'])
 
                 # plot the performed frequency as a dashed line
@@ -285,11 +288,12 @@ class Plotter(object):
 
                 # mark notes
                 if note['performed_interval']['value'] == 0.0:  # tonic
-                    ax.plot(note['rel_occur'], note['stable_pitch']['value'],
-                            'cD', ms=10)
+                    ax.plot(note['rel_occur'],
+                            note['stable_pitch']['value'], 'cD', ms=10)
                 else:
-                    ax.plot(note['rel_occur'], note['stable_pitch']['value'],
-                            'cD', ms=6, c='r')
+                    ax.plot(note['rel_occur'],
+                            note['stable_pitch']['value'], 'cD', ms=6,
+                            c='r')
 
                 # print note name, lift the text a little bit
                 txt_x_val = (note['rel_occur'] + 0.03 * max_pd_height)
@@ -300,19 +304,32 @@ class Plotter(object):
                 ax.text(txt_x_val, note['stable_pitch']['value'], txt_str,
                         style='italic', horizontalalignment='left',
                         verticalalignment='center')
+
         return ytick_vals
 
     @staticmethod
     def _get_relative_note_occurences(note_models, pitch_distribution):
         max_rel_occur = 0
         for note_symbol, note in iteritems(note_models):
-            # get the relative occurence of each note from the pitch
-            # distribution
-            dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
-                              for dist_bin in pitch_distribution.bins])
+            try:
+                # get the relative occurrence of each note from the pitch
+                # distribution
+                dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
+                                  for dist_bin in pitch_distribution.bins])
+            except TypeError:
+                logging.info(u'The stable pitch for {0:s} is not computed'
+                             .format(note_symbol))
+                # use the max peak even if it's weak, far from theoretical etc.
+                peak_idx, heights = note['distribution'].detect_peaks()
+                max_peak_ind = peak_idx[np.argmax(heights)]
+                max_bin = note['distribution'].bins[max_peak_ind]
+                dists = np.array([abs(max_bin - dist_bin)
+                                  for dist_bin in pitch_distribution.bins])
+
             peak_ind = np.argmin(dists)
             note['rel_occur'] = pitch_distribution.vals[peak_ind]
             max_rel_occur = max([max_rel_occur, note['rel_occur']])
+
         return max_rel_occur
 
     @staticmethod
