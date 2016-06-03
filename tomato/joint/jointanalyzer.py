@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import json
 from scipy.io import savemat
 from six.moves import cStringIO
@@ -38,7 +40,9 @@ class JointAnalyzer(Analyzer):
 
     def analyze(self, symbtr_txt_filename='', score_features=None,
                 audio_filename='', audio_pitch=None, **kwargs):
-        input_f = self._parse_inputs(**kwargs)
+        filenames, input_f = self._parse_inputs(audio_filename,
+                                                symbtr_txt_filename, **kwargs)
+        [audio_filename, symbtr_txt_filename] = filenames
 
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute

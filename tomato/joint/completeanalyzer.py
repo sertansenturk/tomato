@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from ..analyzer import Analyzer
 from ..symbolic.symbtranalyzer import SymbTrAnalyzer
 from ..audio.audioanalyzer import AudioAnalyzer
 from .jointanalyzer import JointAnalyzer
+from ..io import IO
 
 
 class CompleteAnalyzer(Analyzer):
@@ -66,6 +69,10 @@ class CompleteAnalyzer(Analyzer):
             Features that are related to both the music scores and audio
             recordings.
         """
+        symbtr_txt_filename = IO.make_unicode(symbtr_txt_filename)
+        symbtr_mu2_filename = IO.make_unicode(symbtr_mu2_filename)
+        audio_filename = IO.make_unicode(audio_filename)
+
         # score analysis
         score_features, boundaries, work_mbid = self._symbtr_analyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)

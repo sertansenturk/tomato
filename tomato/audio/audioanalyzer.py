@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 import copy
 import timeit
@@ -49,8 +51,9 @@ class AudioAnalyzer(Analyzer):
         self._tonic_identifier = TonicLastNote()
         self._note_modeler = NoteModel()
 
-    def analyze(self, filepath=None, **kwargs):
-        audio_f = self._parse_inputs(**kwargs)
+    def analyze(self, filepath='', **kwargs):
+        filepath, audio_f = self._parse_inputs(filepath, **kwargs)
+        filepath = filepath[0]
 
         # metadata
         audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],

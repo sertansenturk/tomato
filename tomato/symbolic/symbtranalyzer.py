@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import json
 import os
 import warnings
@@ -27,7 +29,9 @@ class SymbTrAnalyzer(Analyzer):
         self._phrase_segmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
-        input_f = self._parse_inputs(**kwargs)
+        filepaths, input_f = self._parse_inputs(txt_filepath, mu2_filepath,
+                                                **kwargs)
+        [txt_filepath, mu2_filepath] = filepaths
 
         # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:

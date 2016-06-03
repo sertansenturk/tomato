@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from musicxmlconverter import symbtr2musicxml
 from musicxml2lilypond import scoreconverter as musicxml2lilypond
 from symbtrdataextractor.reader.symbtr import SymbTrReader
@@ -39,6 +41,8 @@ class ScoreConverter(object):
     @classmethod
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
                             symbtr_name=None, mbid=None):
+        txt_file = IO.make_unicode(txt_file)
+        mu2_file = IO.make_unicode(mu2_file)
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(txt_file)
 

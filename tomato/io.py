@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import tempfile
 import os
 from six import iteritems
@@ -7,6 +9,13 @@ import re
 
 
 class IO(object):
+    @staticmethod
+    def make_unicode(input_str):
+        if not isinstance(input_str, unicode):
+            return input_str.decode('utf-8')
+        else:
+            return input_str
+
     @staticmethod
     def public_noncallables(inst):
         noncallable_gen = (v for v in dir(inst)

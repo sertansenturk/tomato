@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from abc import ABCMeta, abstractmethod, abstractproperty
 from io import IO
 import logging
@@ -37,7 +39,11 @@ class Analyzer(object):
         if any(key not in attribs for key in kwargs.keys()):
             raise KeyError("Possible parameters are: " + ', '.join(attribs))
 
-    def _parse_inputs(self, **kwargs):
+    def _parse_inputs(self, *paths, **kwargs):
+        unipaths = []
+        for p in paths:
+            unipaths.append(IO.make_unicode(p))
+
         # initialize precomputed_features with the available analysis
         precomputed_features = dict((f, None)
                                     for f in self._inputs)
@@ -49,7 +55,7 @@ class Analyzer(object):
                 warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
 
-        return precomputed_features
+        return unipaths, precomputed_features
 
     @staticmethod
     def _partial_caller(flag, func, *input_args, **input_kwargs):
