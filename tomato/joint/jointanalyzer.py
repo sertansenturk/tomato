@@ -170,7 +170,7 @@ class JointAnalyzer(Analyzer):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ["{0:s} {1:s} {2:s} {3:s} {4:s} {5:s}".format(
+        callstr = ['"{0:s}" "{1:s}" "{2:s}" "{3:s}" "{4:s}" "{5:s}"'.format(
             self._tonic_tempo_extractor, score_filename, temp_score_data_file,
             audio_filename, temp_pitch_file, temp_out_folder)]
         out, err = _mcr_caller.call(callstr)
@@ -256,13 +256,15 @@ class JointAnalyzer(Analyzer):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ["{0:s} {1:s} {2:s} '' {3:s} {4:s} {5:s} {6:s} '' "
-                   "{7:s}".format(self._audio_score_aligner, score_filename,
-                                  temp_score_data_file, audio_filename,
-                                  temp_pitch_file, temp_tonic_file,
-                                  temp_tempo_file, temp_out_folder)]
+        callstr = ['"{0:s}" "{1:s}" "{2:s}" "" "{3:s}" "{4:s}" "{5:s}" "{6:s}"'
+                   ' "" "{7:s}"'.format(self._audio_score_aligner,
+                                        score_filename,
+                                        temp_score_data_file, audio_filename,
+                                        temp_pitch_file, temp_tonic_file,
+                                        temp_tempo_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
+
         # check the MATLAB output
         if "Audio-score alignment took" not in out:
             IO.remove_temp_files(

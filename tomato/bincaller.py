@@ -95,7 +95,7 @@ class BinCaller(object):
             lilypath = config.defaults()[self.sys_os]
 
             assert (os.path.exists(lilypath) or
-                    self.call('which {0:s}'.format(lilypath))[0]), \
+                    self.call('"which" "{0:s}"'.format(lilypath))[0]), \
                 'The lilypond path is not found. Please correct the custom ' \
                 'section in "tomato/config/lilypond.cfg".'
 
