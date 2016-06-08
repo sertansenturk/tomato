@@ -52,8 +52,9 @@ class JointAnalyzer(Analyzer):
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning, stacklevel=2)
             joint_features = None
-            score_informed_audio_features = None
-            # Everything else will fail; return None
+            score_informed_audio_features = {
+                'makam': score_features['makam']['symbtr_slug']}
+            # Everything else will fail
             return joint_features, score_informed_audio_features
 
         # section linking and note-level alignment
@@ -66,8 +67,9 @@ class JointAnalyzer(Analyzer):
         except RuntimeError as e:
             warnings.warn(e.message, RuntimeWarning, stacklevel=2)
             joint_features = None
-            score_informed_audio_features = {'tonic': input_f['tonic'],
-                                             'tempo': input_f['tempo']}
+            score_informed_audio_features = {
+                'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
+                'makam': score_features['makam']['symbtr_slug']}
             return joint_features, score_informed_audio_features
 
         # aligned pitch filter
@@ -91,6 +93,8 @@ class JointAnalyzer(Analyzer):
 
         joint_features = {'sections': input_f['aligned_sections'],
                           'notes': input_f['notes']}
+        import pdb
+        pdb.set_trace()
         score_informed_audio_features = {
             'makam': score_features['makam']['symbtr_slug'],
             'pitch_filtered': input_f['pitch_filtered'],

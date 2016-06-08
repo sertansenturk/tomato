@@ -179,7 +179,6 @@ class Plotter(object):
         ax2.set_yticks(ytick_vals)
         plt.setp(ax2.get_yticklabels(), visible=False)
 
-
         # define xlim higher than the highest peak so the note names have space
         ax2.set_xlim([0, 1.2 * max(pitch_distribution.vals)])
 
