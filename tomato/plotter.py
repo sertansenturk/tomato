@@ -94,7 +94,9 @@ class Plotter(object):
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
-            logging.debug('The pitch distribution should already be in hz')
+            logging.debug('The pitch distribution should already be in Hz.')
+        except AttributeError:
+            logging.debug('The pitch distribution is not computed.')
 
         return pitch_distribution_in
 
@@ -136,6 +138,7 @@ class Plotter(object):
 
     @classmethod
     def _subplot_pitch_notes(cls, ax1, notes, pitch):
+
         # plot predominant melody
         ax1.plot(pitch[:, 0], pitch[:, 1], 'g', label='Pitch', alpha=0.7)
 
@@ -157,8 +160,12 @@ class Plotter(object):
     def _plot_pitch_dist_note_models(cls, ax2, note_models,
                                      pitch_distribution):
         # plot pitch distribution
-        ax2.plot(pitch_distribution.vals, pitch_distribution.bins,
-                 color='gray')
+        try:
+            ax2.plot(pitch_distribution.vals, pitch_distribution.bins,
+                     color='gray')
+        except AttributeError:
+            logging.debug('The pitch distribution is not computed.')
+            return
 
         # plot note models
         if note_models is not None:
@@ -171,7 +178,7 @@ class Plotter(object):
         # set the frequency ticks and grids
         ax2.set_yticks(ytick_vals)
         plt.setp(ax2.get_yticklabels(), visible=False)
-        # ax2.yaxis.grid(True)
+
 
         # define xlim higher than the highest peak so the note names have space
         ax2.set_xlim([0, 1.2 * max(pitch_distribution.vals)])
@@ -188,25 +195,28 @@ class Plotter(object):
     @staticmethod
     def _plot_melodic_progression(ax3, melodic_progression, pitch,
                                   pitch_distribution):
-        # plot...
-        AudioSeyirAnalyzer.plot(melodic_progression, ax3)
+        try:
+            # plot...
+            AudioSeyirAnalyzer.plot(melodic_progression, ax3)
 
-        # axis style
-        ax3.set_xlabel('')  # remove the automatically given labels
-        ax3.set_ylabel('')
-        plt.setp(ax3.get_yticklabels(), visible=False)
-        plt.setp(ax3.get_xticklabels(), visible=False)
+            # axis style
+            ax3.set_xlabel('')  # remove the automatically given labels
+            ax3.set_ylabel('')
+            plt.setp(ax3.get_yticklabels(), visible=False)
+            plt.setp(ax3.get_xticklabels(), visible=False)
 
-        # set xlim to the last time in the pitch track
-        ax3.set_xlim([pitch[0, 0], pitch[-1, 0]])
-        ax3.set_ylim([np.min(pitch_distribution.bins),
-                      np.max(pitch_distribution.bins)])
+            # set xlim to the last time in the pitch track
+            ax3.set_xlim([pitch[0, 0], pitch[-1, 0]])
+            ax3.set_ylim([np.min(pitch_distribution.bins),
+                          np.max(pitch_distribution.bins)])
 
-        # remove the spines from the third subplot
-        ax3.spines['bottom'].set_visible(False)
-        ax3.spines['left'].set_visible(False)
-        ax3.spines['right'].set_visible(False)
-        ax3.get_yaxis().set_ticks([])
+            # remove the spines from the third subplot
+            ax3.spines['bottom'].set_visible(False)
+            ax3.spines['left'].set_visible(False)
+            ax3.spines['right'].set_visible(False)
+            ax3.get_yaxis().set_ticks([])
+        except TypeError:
+            logging.debug('The melodic progression is not computed.')
 
     @staticmethod
     def _plot_sections(ax1, ax3, ax4, sections):

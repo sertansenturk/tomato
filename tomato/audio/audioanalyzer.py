@@ -80,12 +80,9 @@ class AudioAnalyzer(Analyzer):
         audio_f['pitch_distribution'] = self._partial_caller(
             audio_f['pitch_distribution'], self.compute_pitch_distribution,
             audio_f['pitch_filtered'])
-        try:
-            audio_f['pitch_class_distribution'] = copy.deepcopy(
-                audio_f['pitch_distribution'])
-            audio_f['pitch_class_distribution'].to_pcd()
-        except KeyError:
-            logging.info('Pitch class distribution computation failed.')
+        audio_f['pitch_class_distribution'] = self._partial_caller(
+            audio_f['pitch_class_distribution'],
+            self.compute_pitch_class_distribution, audio_f['pitch_filtered'])
 
         # makam recognition
         # TODO: allow multiple makams
@@ -234,14 +231,17 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return pitch_distribution
 
-    def compute_class_pitch_distribution(self, pitch):
+    def compute_pitch_class_distribution(self, p_in):
         tic = timeit.default_timer()
-        self.vprint(u"- Computing pitch class distribution of {0:s}".format(
-            pitch['source']))
+        try:  # predominant melody input
+            self.vprint(u"- Computing pitch class distribution of {0:s}"
+                        u"".format(p_in['source']))
 
-        pitch_class_distribution = self.compute_pitch_distribution(
-            pitch)
-        pitch_class_distribution.to_pcd()
+            pitch_class_distribution = self.compute_pitch_distribution(p_in)
+            pitch_class_distribution.to_pcd()
+        except TypeError:  # pitch distribution input
+            pitch_class_distribution = copy.deepcopy(p_in)
+            pitch_class_distribution.to_pcd()
 
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution

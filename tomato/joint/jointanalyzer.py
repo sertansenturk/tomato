@@ -111,8 +111,8 @@ class JointAnalyzer(Analyzer):
         # pitch_filtered is a redundant name and it might not have been
         # computed
         sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
-        if sdict['audio']['pitch'] is None:
-            sdict['audio']['pitch'] = audio_features['pitch']
+        if sdict['audio']['pitch'] is None and audio_features:
+            sdict['audio']['pitch'] = audio_features.get('pitch', None)
 
         # tempo if computed
         try:
@@ -124,7 +124,7 @@ class JointAnalyzer(Analyzer):
         try:
             sdict['joint']['sections'] = joint_features['sections']
             sdict['joint']['notes'] = joint_features['notes']
-        except KeyError:
+        except (KeyError, TypeError):
             sdict['joint'] = {}
             logging.debug("Section links and aligned notes are not available.")
 
@@ -140,12 +140,14 @@ class JointAnalyzer(Analyzer):
 
         common_audio_features = dict()
         for cf in common_feature_names:
-            score_informed = (score_informed_audio_features is not None and
-                              score_informed_audio_features[cf] is not None)
-            if score_informed:
-                common_audio_features[cf] = score_informed_audio_features[cf]
+            if score_informed_audio_features:
+                common_audio_features[cf] = \
+                    score_informed_audio_features.get(cf, None)
+
+            if not common_audio_features.get(cf, None) and audio_features:
+                common_audio_features[cf] = audio_features.get(cf, None)
             else:
-                common_audio_features[cf] = audio_features[cf]
+                common_audio_features[cf] = None
 
         return common_audio_features
 
