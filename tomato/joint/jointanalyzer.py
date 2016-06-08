@@ -144,10 +144,11 @@ class JointAnalyzer(Analyzer):
                 common_audio_features[cf] = \
                     score_informed_audio_features.get(cf, None)
 
-            if not common_audio_features.get(cf, None) and audio_features:
-                common_audio_features[cf] = audio_features.get(cf, None)
-            else:
-                common_audio_features[cf] = None
+            if not common_audio_features.get(cf, None):
+                if audio_features:
+                    common_audio_features[cf] = audio_features.get(cf, None)
+                else:
+                    common_audio_features[cf] = None
 
         return common_audio_features
 
