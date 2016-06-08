@@ -93,8 +93,7 @@ class JointAnalyzer(Analyzer):
 
         joint_features = {'sections': input_f['aligned_sections'],
                           'notes': input_f['notes']}
-        import pdb
-        pdb.set_trace()
+
         score_informed_audio_features = {
             'makam': score_features['makam']['symbtr_slug'],
             'pitch_filtered': input_f['pitch_filtered'],
