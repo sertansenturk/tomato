@@ -104,6 +104,9 @@ class AudioAnalyzer(Analyzer):
             audio_f['note_models'], self.compute_note_models,
             audio_f['pitch_distribution'], audio_f['tonic'], audio_f['makam'])
 
+        # tempo extraction
+        # TODO
+
         # return as a dictionary
         return audio_f
 
