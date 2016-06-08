@@ -108,7 +108,8 @@ class JointAnalyzer(Analyzer):
         sdict['audio'] = cls._summarize_common_audio_features(
             audio_features, score_informed_audio_features)
 
-        # pitch_filtered is a reduntant name and it might not be computed
+        # pitch_filtered is a redundant name and it might not have been
+        # computed
         sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
         if sdict['audio']['pitch'] is None:
             sdict['audio']['pitch'] = audio_features['pitch']
@@ -170,7 +171,7 @@ class JointAnalyzer(Analyzer):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ['"{0:s}" "{1:s}" "{2:s}" "{3:s}" "{4:s}" "{5:s}"'.format(
+        callstr = [u'"{0:s}" "{1:s}" "{2:s}" "{3:s}" "{4:s}" "{5:s}"'.format(
             self._tonic_tempo_extractor, score_filename, temp_score_data_file,
             audio_filename, temp_pitch_file, temp_out_folder)]
         out, err = _mcr_caller.call(callstr)
@@ -256,12 +257,12 @@ class JointAnalyzer(Analyzer):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = ['"{0:s}" "{1:s}" "{2:s}" "" "{3:s}" "{4:s}" "{5:s}" "{6:s}"'
-                   ' "" "{7:s}"'.format(self._audio_score_aligner,
-                                        score_filename,
-                                        temp_score_data_file, audio_filename,
-                                        temp_pitch_file, temp_tonic_file,
-                                        temp_tempo_file, temp_out_folder)]
+        callstr = [u'"{0:s}" "{1:s}" "{2:s}" "" "{3:s}" "{4:s}" "{5:s}" '
+                   u'"{6:s}" "" "{7:s}"'
+                   u''.format(self._audio_score_aligner, score_filename,
+                              temp_score_data_file, audio_filename,
+                              temp_pitch_file, temp_tonic_file,
+                              temp_tempo_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
 
@@ -334,7 +335,6 @@ class JointAnalyzer(Analyzer):
 
         # print elapsed time, if verbose
         self.vprint_time(tic, timeit.default_timer())
-
         return note_models, pitch_distribution, tonic
 
     def set_tonic_tempo_extractor_params(self, **kwargs):

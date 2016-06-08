@@ -110,11 +110,11 @@ class SymbTrAnalyzer(Analyzer):
         bound_stat_file, fld_model_file = self._get_phrase_seg_training()
 
         # call the binary
-        call_str = ['"{0:s}" "segmentWrapper" "{1:s}" "{2:s}" "{3:s}" "{4:s}"'
-                    ''.format(self._phrase_segmenter, bound_stat_file,
+        callstr = [u'"{0:s}" "segmentWrapper" "{1:s}" "{2:s}" "{3:s}" "{4:s}"'
+                   u''.format(self._phrase_segmenter, bound_stat_file,
                               fld_model_file, temp_in_file, temp_out_file)]
 
-        out, err = _mcr_caller.call(call_str)
+        out, err = _mcr_caller.call(callstr)
 
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code
