@@ -144,18 +144,20 @@ FAQ
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
 5. ```ScoreConverter``` says that "The lilypond path is not found". How can I fix the error?
-There can be similar problems regarding this issue:
-- The user-provided filepath does not exist.
 
-    Check your input MusicXML path.
+    There can be similar problems regarding this issue:
 
-- LilyPond is not installed.
-
-    [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
-
- - The binary path exists but it is not used.
-
-    The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
+    - The user-provided filepath does not exist.
+    
+        Check your input MusicXML path.
+    
+    - LilyPond is not installed.
+    
+        [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
+    
+     - The binary path exists but it is not used.
+    
+        The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
 
 Authors
 -------
