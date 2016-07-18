@@ -15,13 +15,41 @@ The aim of the toolbox is to allow the user to easily analyze large-scale audio 
 
 For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
 
-Documentation
-------
-Coming soon...
+Tomato in a Nutshell
+-------
 
-License
-------
-Coming soon...
+```python
+# import ...
+from tomato.joint.completeanalyzer import CompleteAnalyzer
+from matplotlib import pyplot as plt
+
+# score input
+symbtr_name = 'makam--form--usul--name--composer'
+txt_score_filename = 'path/to/txt_score'
+mu2_score_filename = 'path/to/mu2_score'
+
+# audio input
+audio_filename = 'path/to/audio'
+audio_mbid = '9244b2e0-6327-4ae3-9e8d-c0da54d39140'  # MusicBrainz Identifier
+
+# instantiate analyzer object
+completeAnalyzer = CompleteAnalyzer()
+
+# Apply the complete analysis. The resulting tuple will have
+# (summarized_features, score_features, audio_features,
+# score_informed_audio_features, joint_features) in order
+results = completeAnalyzer.analyze(
+    symbtr_name=symbtr_name, symbtr_txt_filename=txt_score_filepath,
+    symbtr_mu2_filename=mu2_score_filepath, audio_filename=audio_filepath,
+    audio_metadata=audio_mbid)
+
+# plot the summarized features
+fig, ax = completeAnalyzer.plot(results[0])
+ax[0].set_ylim([50, 500])
+plt.show()
+```
+
+You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) folder for detailed, interactive examples.
 
 Installation
 -------
@@ -84,40 +112,13 @@ To install LilyPond in Mac OSX, simply go to the [Download](http://lilypond.org/
 
 In most Linux distributions, you can install LilyPond from the software repository of your distribution. However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). After installing Lilypond, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is $HOME/bin/lilypond).
 
-Tomato in a Nutshell
--------
+Documentation
+------
+Coming soon...
 
-```python
-from tomato.joint.completeanalyzer import CompleteAnalyzer
-from matplotlib import pyplot as plt
-
-# score input
-symbtr_name = 'makam--form--usul--name--composer'
-txt_score_filename = 'path/to/txt_score'
-mu2_score_filename = 'path/to/mu2_score'
-
-# audio input
-audio_filename = 'path/to/audio'
-audio_mbid = '9244b2e0-6327-4ae3-9e8d-c0da54d39140'  # MusicBrainz Identifier
-
-# instantiate analyzer object
-completeAnalyzer = CompleteAnalyzer()
-
-# Apply the complete analysis. The resulting tuple will have
-# (summarized_features, score_features, audio_features,
-# score_informed_audio_features, joint_features) in order
-results = completeAnalyzer.analyze(
-    symbtr_name=symbtr_name, symbtr_txt_filename=txt_score_filepath,
-    symbtr_mu2_filename=mu2_score_filepath, audio_filename=audio_filepath,
-    audio_metadata=audio_mbid)
-
-# plot the summarized features
-fig, ax = completeAnalyzer.plot(results[0])
-ax[0].set_ylim([50, 500])
-plt.show()
-```
-
-You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) folder for detailed, interactive examples.
+License
+------
+Coming soon...
 
 FAQ
 -------
