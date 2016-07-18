@@ -155,7 +155,7 @@ FAQ
     
         [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
     
-     - The binary path exists but it is not used.
+    - The binary path exists but it is not used.
     
         The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
 
