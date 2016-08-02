@@ -49,7 +49,7 @@ ax[0].set_ylim([50, 500])
 plt.show()
 ```
 
-You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/audio_analysis_demo.ipynb) folder for detailed, interactive examples.
+You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
 
 Installation
 -------
