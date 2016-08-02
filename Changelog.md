@@ -2,6 +2,7 @@
  - Input and output filepaths are forced to UTF-8
  - Plotter._plot_stable_pitches skips uncalculated stable pitches
  - Carried get_lilypond_bin_path from scoreconverter to bin_caller
+ - Added licence info to the README
 
 #### tomato v0.8.0
  - Updated required packages to the latest releases
