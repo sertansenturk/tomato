@@ -1,3 +1,7 @@
+#### tomato v0.9.0
+ - Integrated makam recognition
+ - Incremented the version of morty in requirements
+
 #### tomato v0.8.1
  - Input and output filepaths are forced to UTF-8
  - Plotter._plot_stable_pitches skips uncalculated stable pitches
