@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import numpy as np
 import copy
+import pickle
+import os
 import timeit
 import six
 
@@ -14,6 +16,7 @@ from tonicidentifier.toniclastnote import TonicLastNote
 from ahenkidentifier.ahenkidentifier import AhenkIdentifier
 from notemodel.notemodel import NoteModel
 from morty.pitchdistribution import PitchDistribution
+from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
@@ -45,10 +48,16 @@ class AudioAnalyzer(Analyzer):
 
         # extractors
         self._metadata_getter = AudioMetadata(get_work_attributes=True)
-        self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)
+        self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)  #
+        # filter_pitch uses Essentia PitchFilter, which is not as good as our
+        # Python implementation
         self._pitch_filter = PitchFilter()
         self._melodic_progression_analyzer = AudioSeyirAnalyzer()
-        self._tonic_identifier = TonicLastNote()
+        self._tonic_identifier = TonicLastNote()  # We prefer last note
+        # detection over distribution matching as it's more generalizable.
+
+        self._makam_recognizer = MakamClassifier(
+            model=self._get_makam_tonic_training())
         self._note_modeler = NoteModel()
 
     def analyze(self, filepath='', **kwargs):
@@ -60,21 +69,12 @@ class AudioAnalyzer(Analyzer):
                                                         filepath)
 
         # predominant melody extraction
-        audio_f['pitch'] = self._partial_caller(audio_f['pitch'],
-                                                self.extract_pitch, filepath)
+        audio_f['pitch'] = self._partial_caller(
+            audio_f['pitch'], self.extract_pitch, filepath)
 
         # pitch filtering
         audio_f['pitch_filtered'] = self._partial_caller(
             audio_f['pitch_filtered'], self.filter_pitch, audio_f['pitch'])
-
-        # get the melodic progression
-        audio_f['melodic_progression'] = self._partial_caller(
-            audio_f['melodic_progression'], self.compute_melodic_progression,
-            audio_f['pitch_filtered'])
-
-        # tonic identification
-        audio_f['tonic'] = self._partial_caller(
-            audio_f['tonic'], self.identify_tonic, audio_f['pitch_filtered'])
 
         # histogram computation
         audio_f['pitch_distribution'] = self._partial_caller(
@@ -84,11 +84,14 @@ class AudioAnalyzer(Analyzer):
             audio_f['pitch_class_distribution'],
             self.compute_pitch_class_distribution, audio_f['pitch_filtered'])
 
+        # tonic identification
+        audio_f['tonic'] = self._partial_caller(
+            audio_f['tonic'], self.identify_tonic, audio_f['pitch_filtered'])
+
         # makam recognition
-        # TODO: allow multiple makams
         audio_f['makam'] = self._partial_caller(
             audio_f['makam'], self.get_makams, audio_f['metadata'],
-            audio_f['pitch_class_distribution'])
+            audio_f['pitch_class_distribution'], audio_f['tonic'])
         audio_f['makam'] = self._partial_caller(
             None, self._get_first, audio_f['makam'])
 
@@ -104,6 +107,11 @@ class AudioAnalyzer(Analyzer):
             audio_f['note_models'], self.compute_note_models,
             audio_f['pitch_distribution'], audio_f['tonic'], audio_f['makam'])
 
+        # get the melodic progression
+        audio_f['melodic_progression'] = self._partial_caller(
+            audio_f['melodic_progression'], self.compute_melodic_progression,
+            audio_f['pitch_filtered'])
+
         # tempo extraction
         # TODO
 
@@ -115,12 +123,10 @@ class AudioAnalyzer(Analyzer):
             audio_meta = None
         elif audio_meta is None:  # no MBID is given, attempt to get
             # it from id3 tag
-            audio_meta = self.crawl_musicbrainz_metadata(
-                filepath)
+            audio_meta = self.crawl_musicbrainz_metadata(filepath)
         elif isinstance(audio_meta, (six.string_types, six.binary_type)):
             # MBID is given
-            audio_meta = self.crawl_musicbrainz_metadata(
-                audio_meta)
+            audio_meta = self.crawl_musicbrainz_metadata(audio_meta)
         elif not isinstance(audio_meta, dict):
             warn_str = 'The "metadata" input can be "False" (skipped), ' \
                        '"basestring" (MBID input), "None" (attempt to get ' \
@@ -129,15 +135,30 @@ class AudioAnalyzer(Analyzer):
             warnings.warn(warn_str, stacklevel=2)
         return audio_meta
 
-    def get_makams(self, metadata, pitch_class_distribution):
+    def get_makams(self, metadata, pitch_class_distribution, tonic):
         try:  # try to get the makam from the metadata
             makams = list(set(m['attribute_key'] for m in metadata['makam']))
 
-        except (TypeError, KeyError):
+            assert makams  # if empty list, attempt automatic makam recognition
+        except (TypeError, KeyError, AssertionError):
             # metadata is not available or the makam is not known
-            makams = self.recognize_makam(pitch_class_distribution)
+            makam_res = self.recognize_makam(pitch_class_distribution, tonic)
+
+            # the output is in the format [(makam_name, distance)]
+            # change the output format to [makam_name]
+            makams = [makam_res[0][0]]
 
         return makams
+
+    @staticmethod
+    def _get_makam_tonic_training():
+        makam_tonic_training_path = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'makam_tonic_estimation')
+        training_filename = 'training_model--pcd--7_5--15_0--dlfm2016.pkl'
+        makam_tonic_training_file = os.path.join(makam_tonic_training_path,
+                                                 training_filename)
+
+        return pickle.load(open(makam_tonic_training_file))
 
     def crawl_musicbrainz_metadata(self, rec_in):
         try:
@@ -249,15 +270,16 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution
 
-    def recognize_makam(self, pitch_class_distribution):
+    def recognize_makam(self, pitch_class_distribution, tonic):
         tic = timeit.default_timer()
-        self.vprint(u"- Recognizing the makam of {0:s}".format('XX'))
-        # metadata is not available or the makam is not known
-        warnings.warn('Makam recognition is not integrated yet.',
-                      FutureWarning, stacklevel=2)
+        self.vprint(u"- Recognizing the makam of {0:s}".format(
+            tonic['source']))
+
+        makam = self._makam_recognizer.estimate_mode(pitch_class_distribution,
+                                                     tonic['value'])
 
         self.vprint_time(tic, timeit.default_timer())
-        return None
+        return makam
 
     def identify_transposition(self, tonic, makam_tonic_str):
         tic = timeit.default_timer()
