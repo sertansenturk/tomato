@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import subprocess
+from tomato import __version__
 try:
     import ConfigParser  # python 2
 except ImportError:
@@ -91,11 +92,9 @@ class CustomInstall(_install):
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
 
-ver_str = '0.9.1'
-
 
 setup(name='tomato',
-      version=ver_str,
+      version=__version__,
       author='Sertan Senturk',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
@@ -114,8 +113,8 @@ necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
       """,
-      download_url='https://github.com/sertansenturk/tomato/releases/tag/'
-                   'v{0:s}'.format(ver_str),
+      download_url='https://github.com/sertaffnsenturk/tomato/releases/tag/'
+                   'v{0:s}'.format(__version__),
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Console',
