@@ -1,6 +1,7 @@
 #### tomato v0.9.0
  - Integrated makam recognition
  - Added training models precomputed from [otmm_makam_recognition_dataset](https://github.com/MTG/otmm_makam_recognition_dataset/tree/dlfm2016) for tonic identification and makam recognition
+ - Fizes a bug where method parameters setters of _pitch distribution_ and _makam recognizer_ (stored in tow dictionaries) are failed to be set
  - Incremented the version of morty in requirements
 
 #### tomato v0.8.1
