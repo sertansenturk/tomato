@@ -39,6 +39,7 @@ class AudioAnalyzer(Analyzer):
 
         # settings that are not defined in the respective classes
         self._pd_params = {'kernel_width': 7.5, 'step_size': 7.5}
+
         # - for melodic progression None means, applying the rule of thumb
         #   defined in the method "compute_melodic_progression". This class has
         #   two parameters defined in init and the other two defined in the
@@ -91,7 +92,7 @@ class AudioAnalyzer(Analyzer):
         # makam recognition
         audio_f['makam'] = self._partial_caller(
             audio_f['makam'], self.get_makams, audio_f['metadata'],
-            audio_f['pitch_class_distribution'], audio_f['tonic'])
+            audio_f['pitch_filtered'], audio_f['tonic'])
         audio_f['makam'] = self._partial_caller(
             None, self._get_first, audio_f['makam'])
 
@@ -135,14 +136,14 @@ class AudioAnalyzer(Analyzer):
             warnings.warn(warn_str, stacklevel=2)
         return audio_meta
 
-    def get_makams(self, metadata, pitch_class_distribution, tonic):
+    def get_makams(self, metadata, pitch, tonic):
         try:  # try to get the makam from the metadata
             makams = list(set(m['attribute_key'] for m in metadata['makam']))
 
             assert makams  # if empty list, attempt automatic makam recognition
         except (TypeError, KeyError, AssertionError):
             # metadata is not available or the makam is not known
-            makam_res = self.recognize_makam(pitch_class_distribution, tonic)
+            makam_res = self.recognize_makam(pitch, tonic)
 
             # the output is in the format [(makam_name, distance)]
             # change the output format to [makam_name]
@@ -270,12 +271,12 @@ class AudioAnalyzer(Analyzer):
         self.vprint_time(tic, timeit.default_timer())
         return pitch_class_distribution
 
-    def recognize_makam(self, pitch_class_distribution, tonic):
+    def recognize_makam(self, pitch, tonic):
         tic = timeit.default_timer()
         self.vprint(u"- Recognizing the makam of {0:s}".format(
             tonic['source']))
 
-        makam = self._makam_recognizer.estimate_mode(pitch_class_distribution,
+        makam = self._makam_recognizer.estimate_mode(pitch['pitch'],
                                                      tonic['value'])
 
         self.vprint_time(tic, timeit.default_timer())
@@ -317,6 +318,9 @@ class AudioAnalyzer(Analyzer):
 
     def set_tonic_identifier_params(self, **kwargs):
         self._set_params('_tonic_identifier', **kwargs)
+
+    def set_makam_recognizer_params(self, **kwargs):
+        self._set_params('_makam_recognizer', **kwargs)
 
     def set_melody_progression_params(self, **kwargs):
         method_params = self._mel_prog_params.keys()  # imput parameters
