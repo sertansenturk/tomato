@@ -61,7 +61,6 @@ There are four steps in the installation:
 3. [Installing MATLAB Runtime](#mcr_install)
 4. [Installing LilyPond](#lily_install) (optional)
 
-
 #### <a name="tomato_install"></a>Installing tomato
 The requirements of **tomato** require several packages to be installed. In Linux, you have to install the _python 2.7, libxml2, libxslt1, freetype_ and _png_ development packages packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
 
