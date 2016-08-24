@@ -114,7 +114,8 @@ necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
       """,
-      download_url='https://github.com/sertansenturk/tomato/releases/tag/v{0:s}'.format(ver_str),
+      download_url='https://github.com/sertansenturk/tomato/releases/tag/'
+                   'v{0:s}'.format(ver_str),
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Environment :: Console',
@@ -133,7 +134,7 @@ discovery/recommendation and musicological analysis.
       license='agpl 3.0',
       packages=find_packages(),
       include_package_data=True,
-      install_requires=[
-      ],
+      install_requires=[],  # dependencies are specified and installed from
+      # requirements
       cmdclass={'install': CustomInstall},
       )
