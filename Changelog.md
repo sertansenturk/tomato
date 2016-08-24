@@ -1,3 +1,8 @@
+#### tomato v0.9.0
+ - Integrated makam recognition
+ - Added training models precomputed from [otmm_makam_recognition_dataset](https://github.com/MTG/otmm_makam_recognition_dataset/tree/dlfm2016) for tonic identification and makam recognition
+ - Incremented the version of morty in requirements
+
 #### tomato v0.8.1
  - Input and output filepaths are forced to UTF-8
  - Plotter._plot_stable_pitches skips uncalculated stable pitches
