@@ -27,12 +27,18 @@ class Analyzer(object):
 
     def _set_params(self, analyzer_str, **kwargs):
         analyzer = getattr(self, analyzer_str)
-        attribs = IO.public_noncallables(analyzer)
+        try:  # dictionary
+            attribs = analyzer.keys()
+        except AttributeError:  # object
+            attribs = IO.public_noncallables(analyzer)
 
         Analyzer.chk_params(attribs, kwargs)
 
         for key, value in kwargs.items():
-            setattr(analyzer, key, value)
+            try:  # dictionary
+                analyzer[key] = value
+            except TypeError:  # object
+                setattr(analyzer, key, value)
 
     @staticmethod
     def chk_params(attribs, kwargs):

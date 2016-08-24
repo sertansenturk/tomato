@@ -47,6 +47,10 @@ class AudioAnalyzer(Analyzer):
         self._mel_prog_params = {'frame_dur': None, 'hop_ratio': 0.5,
                                  'min_num_frames': 40, 'max_frame_dur': 30}
 
+        # k_neighbors is given in the testing in KNNClassifier
+        self._makam_recog_params = {'k_neighbor': 15, 'rank': 1,
+                                    'distance_method': 'bhat'}
+
         # extractors
         self._metadata_getter = AudioMetadata(get_work_attributes=True)
         self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)  #
@@ -248,9 +252,7 @@ class AudioAnalyzer(Analyzer):
                     format(pitch['source']))
 
         pitch_distribution = PitchDistribution.from_hz_pitch(
-            np.array(pitch['pitch'])[:, 1],
-            kernel_width=self._pd_params['kernel_width'],
-            step_size=self._pd_params['step_size'])
+            np.array(pitch['pitch'])[:, 1], **self._pd_params)
         pitch_distribution.cent_to_hz()
 
         self.vprint_time(tic, timeit.default_timer())
@@ -276,8 +278,8 @@ class AudioAnalyzer(Analyzer):
         self.vprint(u"- Recognizing the makam of {0:s}".format(
             tonic['source']))
 
-        makam = self._makam_recognizer.estimate_mode(pitch['pitch'],
-                                                     tonic['value'])
+        makam = self._makam_recognizer.estimate_mode(
+            pitch['pitch'], tonic['value'], **self._makam_recog_params)
 
         self.vprint_time(tic, timeit.default_timer())
         return makam
@@ -320,10 +322,10 @@ class AudioAnalyzer(Analyzer):
         self._set_params('_tonic_identifier', **kwargs)
 
     def set_makam_recognizer_params(self, **kwargs):
-        self._set_params('_makam_recognizer', **kwargs)
+        self._set_params('_makam_recog_params', **kwargs)
 
     def set_melody_progression_params(self, **kwargs):
-        method_params = self._mel_prog_params.keys()  # imput parameters
+        method_params = self._mel_prog_params.keys()  # input parameters
         obj_params = IO.public_noncallables(self._melodic_progression_analyzer)
 
         Analyzer.chk_params(method_params + obj_params, kwargs)
