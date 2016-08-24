@@ -1,6 +1,8 @@
 #### tomato v0.9.1
  - Added DOI
  - Added Contributors
+ - Moved package version to tomato init file
+ - Minor changes in setup to fetch the version automatically from ```tomato.__version__```
 
 #### tomato v0.9.0
  - Integrated makam recognition
