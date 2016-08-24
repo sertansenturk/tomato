@@ -154,7 +154,7 @@ FAQ
     
     - LilyPond is not installed.
     
-        [Install](lily_install) the latest stable verions for your OS.
+        [Install](#lily_install) the latest stable verions for your OS.
     
     - The binary path exists but it is not used.
     
