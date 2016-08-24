@@ -148,13 +148,13 @@ FAQ
 
     There can be similar problems regarding this issue:
 
-    - The user-provided filepath does not exist.
+    - The user-provided filepath (the music score input) does not exist.
     
-        Check your input MusicXML path.
+        Check your input MusicXML-score path.
     
     - LilyPond is not installed.
     
-        [Download](http://lilypond.org/download.html) the latest stable verions for your OS.
+        [Install](lily_install) the latest stable verions for your OS.
     
     - The binary path exists but it is not used.
     
