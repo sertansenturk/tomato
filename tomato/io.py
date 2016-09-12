@@ -12,7 +12,10 @@ class IO(object):
     @staticmethod
     def make_unicode(input_str):
         if not isinstance(input_str, unicode):
-            return input_str.decode('utf-8')
+            if input_str is None:
+                return None
+            else:
+                return input_str.decode('utf-8')
         else:
             return input_str
 
