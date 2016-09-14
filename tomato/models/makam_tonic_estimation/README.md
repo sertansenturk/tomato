@@ -7,3 +7,5 @@ The training data is obtained from the [dlfm2016 release of otmm_makam_recogniti
 Please refer to the paper below, if you are using this training model:
 
 > Karakurt, A., Şentürk S., & Serra X. (2016). MORTY: A Toolbox for Mode Recognition and Tonic Identification. In Proceedings of 3rd International Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16, New York, NY, USA
+
+The precomputed training models for tonic identification and makam recognition by __Sertan Şentürk__ is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
