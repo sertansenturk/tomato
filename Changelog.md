@@ -1,3 +1,6 @@
+#### tomato v0.10.0
+ - Updated seyiranalyzer to the latest version (v1.2.0)
+ 
 #### tomato v0.9.1
  - Added DOI
  - Added Contributors
