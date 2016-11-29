@@ -5,7 +5,7 @@
 
 Introduction
 ------
-**tomato** is a comprehensive and easy-to-use toolbox for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied on this music tradition. The analysis tasks include:
+**tomato** is a comprehensive and easy-to-use toolbox in Python for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied on this music tradition. The analysis tasks include:
 
 - **Audio Analysis:** audio metadata crawling, predominant melody extraction, tonic and transposition identification, makam recognition, histogram analysis, tuning analysis, melodic progression analysis
 - **Symbolic Analysis:** score metadata extraction, score section extraction, score phrase segmentation, semiotic section and phrase analysis
@@ -30,7 +30,7 @@ mu2_score_filename = 'path/to/mu2_score'
 
 # audio input
 audio_filename = 'path/to/audio'
-audio_mbid = '9244b2e0-6327-4ae3-9e8d-c0da54d39140'  # MusicBrainz Identifier
+audio_mbid = '11111111-1111-1111-1111-11111111111'  # MusicBrainz Recording Identifier
 
 # instantiate analyzer object
 completeAnalyzer = CompleteAnalyzer()
