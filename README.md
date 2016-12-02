@@ -160,6 +160,10 @@ FAQ
     - The binary path exists but it is not used.
     
         The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
+        
+6. Is **tomato** a fruit or vegetable?
+
+It is a culture-specific matter.
 
 Authors
 -------
