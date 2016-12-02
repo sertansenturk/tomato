@@ -13,9 +13,9 @@ Introduction
 
 The aim of the toolbox is to allow the user to easily analyze large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the culture-specific characteristics of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation and musicological analysis.
 
-If you are using **tomato** in your work, please cite the paper:
+If you are using **tomato** in your work, please cite the dissertation:
 
-Şentürk, S. (2016). (Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music)[http://sertansenturk.com/research/works/phd-thesis/]. PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+Şentürk, S. (2016). [Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music](http://sertansenturk.com/research/works/phd-thesis/). PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
 
