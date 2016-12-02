@@ -163,7 +163,7 @@ FAQ
         
 6. Is **tomato** a fruit or vegetable?
 
-    It is a culture-specific matter.
+    It has a culture-specific answer.
 
 Authors
 -------
