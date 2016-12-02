@@ -15,7 +15,7 @@ The aim of the toolbox is to allow the user to easily analyze large-scale audio 
 
 If you are using **tomato** in your work, please cite the dissertation:
 
-Şentürk, S. (2016). [Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music](http://sertansenturk.com/research/works/phd-thesis/). PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+> Şentürk, S. (2016). [Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music](http://sertansenturk.com/research/works/phd-thesis/). PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
 
