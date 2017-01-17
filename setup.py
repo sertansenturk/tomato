@@ -113,7 +113,7 @@ necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
       """,
-      download_url='https://github.com/sertaffnsenturk/tomato/releases/tag/'
+      download_url='https://github.com/sertansenturk/tomato/releases/tag/'
                    'v{0:s}'.format(__version__),
       classifiers=[
           'Development Status :: 3 - Alpha',
