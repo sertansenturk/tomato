@@ -11,7 +11,7 @@ git+https://github.com/sertansenturk/seyiranalyzer.git@v1.2.0#egg=seyiranalyzer
 
 # tonic and transposition identification
 git+https://github.com/hsercanatli/tonicidentifier_makam@v1.3.1#egg=tonicidentifier_makam
-git+https://github.com/sertansenturk/ahenkidentifier.git@v1.5.0#egg=ahenkidentifier
+git+https://github.com/sertansenturk/ahenkidentifier.git@v1.5.2#egg=ahenkidentifier
 
 # histogram analysis and tuning analysis
 git+https://github.com/altugkarakurt/morty.git@v1.2.1#egg=morty
