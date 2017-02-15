@@ -66,7 +66,7 @@ There are four steps in the installation:
 4. [Installing LilyPond](#lily_install) (optional)
 
 #### <a name="tomato_install"></a>Installing tomato
-**tomato** require several packages to be installed. In Linux, you have to install the _python 2.7, libxml2, libxslt1, freetype_ and _png_ development packages packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
+**tomato** require several packages to be installed. In Linux, you have to install the _python 2.7, libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
 
     sudo apt-get install python-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
 
