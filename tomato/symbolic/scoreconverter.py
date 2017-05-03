@@ -79,7 +79,7 @@ class ScoreConverter(object):
 
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
-                        mbid=None, midi_instrument=None):
+                        mbid=None, flags=None, midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
 
@@ -98,20 +98,32 @@ class ScoreConverter(object):
         temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
                                            dir=tmp_dir)
 
-        # 3. define the temporary xml file with the same name
-        temp_out_file = os.path.splitext(temp_in_file)[0] + '.xml'
-
         try:
             # 3. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
-            if midi_instrument is None:
+
+            if midi_instrument is None:  # specify midi instrument
                 midi_str = u''
             else:
                 midi_str = u'-I {0:d}'.format(midi_instrument)
-            callstr = u'{0:s} {1:s} {2:s}'.format(bin_path, temp_in_file,
-                                                  midi_str)
-            printstr = u'{0:s} {1:s} {2:s}'.format(bin_path, mu2_file,
-                                                   midi_str)
+
+            if flags is None:  # parse MusikiToMusicXml flags
+                flag_str = u''
+            else:
+                flag_str = u'-{0:s}'.format(flags)
+
+            # specify the output filename
+            if 'P' in flags:  # Musescore pretty print
+                temp_out_file = os.path.splitext(temp_in_file)[0] + \
+                                '.musescore-print.xml'
+            else:
+                # 3. define the temporary xml file with the same name
+                temp_out_file = os.path.splitext(temp_in_file)[0] + '.xml'
+
+            callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
+                                                        flag_str, midi_str)
+            printstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, mu2_file,
+                                                         flag_str, midi_str)
             print(printstr)
             subprocess.call(callstr, shell=True)
 
