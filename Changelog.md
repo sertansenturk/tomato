@@ -1,5 +1,5 @@
 #### tomato v0.10.1
- - Updated SymbTr-extras to the latest version (v0.3.2)
+ - Updated SymbTr-extras to the latest version (v0.4.0)
  - Corrected a bug when flags is not given in ScoreConversion.mu2_to_musicxml
 
 #### tomato v0.10.0

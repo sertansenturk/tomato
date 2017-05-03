@@ -22,7 +22,7 @@ git+https://github.com/miracatici/notemodel.git@v1.2.1#egg=notemodel
 git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.1.0#egg=symbtrdataextractor
 
 # extra tools such as SymbTr score manipulation and basic stats
-git+https://github.com/MTG/SymbTr-extras.git@v0.3.2#egg=symbtrextras
+git+https://github.com/MTG/SymbTr-extras.git@v0.4.0#egg=symbtrextras
 
 # phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
 
