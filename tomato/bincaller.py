@@ -88,8 +88,7 @@ class BinCaller(object):
         else:
             raise ValueError('Unsupported OS.')
 
-        if not os.path.exists(bin_path):
-            raise IOError('Binary does not exist: ' + bin_path)
+        self.check_bin_exists(bin_path)
 
         return bin_path
 
@@ -118,3 +117,8 @@ class BinCaller(object):
                 'section in "tomato/config/lilypond.cfg".'
 
         return lilypath
+
+    @staticmethod
+    def check_bin_exists(bin_path):
+        assert os.path.exists(bin_path), u'Binary does not exist: {0:s}'.\
+            format(bin_path)
