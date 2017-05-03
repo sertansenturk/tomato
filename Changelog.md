@@ -1,7 +1,7 @@
 #### tomato v0.10.0
  - Integrated mu2 to MusicXML conversion (courtesy of Mogens Lundholm)
  - Updated seyiranalyzer to the latest version (v1.2.0)
- - Updated predominantmelodymakam ot the latest version (v1.2.1)
+ - Updated predominantmelodymakam to the latest version (v1.2.1)
 
 #### tomato v0.9.1
  - Added DOI
