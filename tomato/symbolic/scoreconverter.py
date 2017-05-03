@@ -77,8 +77,8 @@ class ScoreConverter(object):
             piece.writexml(xml_out)  # save to filename
             return xml_out  # return filename
 
-    @classmethod
-    def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
+    @staticmethod
+    def mu2_to_musicxml(mu2_file, xml_out=None, symbtr_name=None,
                         flags=None, midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
@@ -96,28 +96,31 @@ class ScoreConverter(object):
         temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
                                            dir=tmp_dir)
 
+        # specify the output filename
+        if 'P' in flags:  # Musescore pretty print
+            temp_out_file = u'{0:s}.musescore-print.xml'.format(
+                os.path.splitext(temp_in_file)[0])
+        else:
+            # 3. define the temporary xml file with the same name
+            temp_out_file = '{0:s}.xml'.format(
+                os.path.splitext(temp_in_file)[0])
+
+        # specify midi instrument
+        if midi_instrument is None:
+            midi_str = u''
+        else:
+            midi_str = u'-I {0:d}'.format(midi_instrument)
+
+        # parse MusikiToMusicXml flags
+        if flags is None:
+            flag_str = u''
+        else:
+            flag_str = u'-{0:s}'.format(flags)
+
         try:
             # 3. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
 
-            if midi_instrument is None:  # specify midi instrument
-                midi_str = u''
-            else:
-                midi_str = u'-I {0:d}'.format(midi_instrument)
-
-            if flags is None:  # parse MusikiToMusicXml flags
-                flag_str = u''
-            else:
-                flag_str = u'-{0:s}'.format(flags)
-
-            # specify the output filename
-            if 'P' in flags:  # Musescore pretty print
-                temp_out_file = u'{0:s}.musescore-print.xml'.format(
-                    os.path.splitext(temp_in_file)[0])
-            else:
-                # 3. define the temporary xml file with the same name
-                temp_out_file = '{0:s}.xml'.format(
-                    os.path.splitext(temp_in_file)[0])
 
             callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
                                                         flag_str, midi_str)
