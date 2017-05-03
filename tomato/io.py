@@ -49,8 +49,8 @@ class IO(object):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), *args)
 
     @staticmethod
-    def create_temp_file(extension, content_str):
-        fd, temp_path = tempfile.mkstemp(extension)
+    def create_temp_file(extension, content_str, dir=None):
+        fd, temp_path = tempfile.mkstemp(extension, dir=dir)
         open_mode = 'wb' if extension in ['.mat'] else 'w'
         with open(temp_path, open_mode) as f:
             f.write(content_str)
