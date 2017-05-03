@@ -79,7 +79,7 @@ class ScoreConverter(object):
 
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
-                        mbid=None):
+                        mbid=None, midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
 
@@ -93,7 +93,6 @@ class ScoreConverter(object):
         # behaviour:
         # 1. create a temporary folder
         tmp_dir = tempfile.mkdtemp()
-        print tmp_dir
 
         # 2. copy the mu2 file to the temporary folder
         temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
@@ -105,7 +104,15 @@ class ScoreConverter(object):
         try:
             # 3. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
-            callstr = '{0:s} {1:s}'.format(bin_path, temp_in_file)
+            if midi_instrument is None:
+                midi_str = u''
+            else:
+                midi_str = u'-I {0:d}'.format(midi_instrument)
+            callstr = u'{0:s} {1:s} {2:s}'.format(bin_path, temp_in_file,
+                                                  midi_str)
+            printstr = u'{0:s} {1:s} {2:s}'.format(bin_path, mu2_file,
+                                                   midi_str)
+            print(printstr)
             subprocess.call(callstr, shell=True)
 
             # 4. read the resultant MusicXML file
