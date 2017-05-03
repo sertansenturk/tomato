@@ -133,7 +133,7 @@ class ScoreConverter(object):
     @staticmethod
     def _parse_musikitomusicxml_inputs(temp_in_file, midi_instrument, flags):
         # specify the output filename
-        if 'P' in flags:  # Musescore pretty print
+        if flags is not None and 'P' in flags:  # Musescore pretty print
             out_file = u'{0:s}.musescore-print.xml'.format(
                 os.path.splitext(temp_in_file)[0])
         else:
