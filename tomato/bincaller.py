@@ -92,6 +92,18 @@ class BinCaller(object):
 
         return bin_path
 
+    def get_musikitomusicxml_binary_path(self):
+        if self.sys_os in ['linux', 'macosx']:
+            bin_path = os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), 'bin',
+                'MusikiToMusicXml')
+        else:
+            raise ValueError('Unsupported OS.')
+
+        self.check_bin_exists(bin_path)
+
+        return bin_path
+
     def get_lilypond_bin_path(self):
         config = configparser.SafeConfigParser()
         lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
