@@ -133,7 +133,7 @@ class JointAnalyzer(Analyzer):
         # computed
         sdict['audio']['pitch'] = sdict['audio'].pop("pitch_filtered", None)
         if sdict['audio']['pitch'] is None and audio_features:
-            sdict['audio']['pitch'] = audio_features.get('pitch', None)
+            sdict['audio']['pitch'] = audio_features.get('pitch')
 
         # tempo if computed
         try:
@@ -163,11 +163,11 @@ class JointAnalyzer(Analyzer):
         for cf in common_feature_names:
             if score_informed_audio_features:
                 common_audio_features[cf] = \
-                    score_informed_audio_features.get(cf, None)
+                    score_informed_audio_features.get(cf)
 
-            if not common_audio_features.get(cf, None):
+            if not common_audio_features.get(cf):
                 if audio_features:
-                    common_audio_features[cf] = audio_features.get(cf, None)
+                    common_audio_features[cf] = audio_features.get(cf)
                 else:
                     common_audio_features[cf] = None
 
