@@ -121,9 +121,10 @@ class ScoreConverter(object):
             # 3. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
 
-
             callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
                                                         flag_str, midi_str)
+
+            # print process
             printstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, mu2_file,
                                                          flag_str, midi_str)
             print(printstr)
