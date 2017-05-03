@@ -1,3 +1,7 @@
+#### tomato v0.10.1
+ - Updated SymbTr-extras to the latest version (v0.3.2)
+ - Corrected a bug when flags is not given in ScoreConversion.mu2_to_musicxml
+
 #### tomato v0.10.0
  - Integrated mu2 to MusicXML conversion (courtesy of Mogens Lundholm)
  - Updated seyiranalyzer to the latest version (v1.2.0)
