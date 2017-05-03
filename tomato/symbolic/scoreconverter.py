@@ -79,14 +79,12 @@ class ScoreConverter(object):
 
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
-                        mbid=None, flags=None, midi_instrument=None):
+                        flags=None, midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
 
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(mu2_file)
-
-        mbid_url = cls._get_mbid_url(mbid, symbtr_name)
 
         # MusikiToMusicXml saves the output to the same folder of the
         # mu2_file, by only changing the extension to xml. To avoid this
@@ -114,11 +112,12 @@ class ScoreConverter(object):
 
             # specify the output filename
             if 'P' in flags:  # Musescore pretty print
-                temp_out_file = os.path.splitext(temp_in_file)[0] + \
-                                '.musescore-print.xml'
+                temp_out_file = u'{0:s}.musescore-print.xml'.format(
+                    os.path.splitext(temp_in_file)[0])
             else:
                 # 3. define the temporary xml file with the same name
-                temp_out_file = os.path.splitext(temp_in_file)[0] + '.xml'
+                temp_out_file = '{0:s}.xml'.format(
+                    os.path.splitext(temp_in_file)[0])
 
             callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
                                                         flag_str, midi_str)
