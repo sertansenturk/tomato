@@ -8,10 +8,16 @@
 !.codeclimate.yml
 build/
 dist/
+
+# binaries
 *alignAudioScore*
 *extractTonicTempoTuning*
 *phraseSeg*
+*MusikiToMusicXml*
+
+# score outputs
 *.svg
 *.xml
 *.ly
+
 *.pkl
