@@ -77,8 +77,8 @@ class ScoreConverter(object):
             piece.writexml(xml_out)  # save to filename
             return xml_out  # return filename
 
-    @staticmethod
-    def mu2_to_musicxml(mu2_file, xml_out=None, symbtr_name=None,
+    @classmethod
+    def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
                         flags=None, midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
@@ -96,26 +96,9 @@ class ScoreConverter(object):
         temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
                                            dir=tmp_dir)
 
-        # specify the output filename
-        if 'P' in flags:  # Musescore pretty print
-            temp_out_file = u'{0:s}.musescore-print.xml'.format(
-                os.path.splitext(temp_in_file)[0])
-        else:
-            # 3. define the temporary xml file with the same name
-            temp_out_file = '{0:s}.xml'.format(
-                os.path.splitext(temp_in_file)[0])
-
-        # specify midi instrument
-        if midi_instrument is None:
-            midi_str = u''
-        else:
-            midi_str = u'-I {0:d}'.format(midi_instrument)
-
-        # parse MusikiToMusicXml flags
-        if flags is None:
-            flag_str = u''
-        else:
-            flag_str = u'-{0:s}'.format(flags)
+        # parse
+        temp_out_file, midi_str, flag_str = cls._parse_musikitomusicxml_inputs(
+            temp_in_file, midi_instrument, flags)
 
         try:
             # 3. call MusikiToMusicXml ...
@@ -146,6 +129,30 @@ class ScoreConverter(object):
                 f.write(xmlstr)
 
             return xml_out  # return filename
+
+    @staticmethod
+    def _parse_musikitomusicxml_inputs(temp_in_file, midi_instrument, flags):
+        # specify the output filename
+        if 'P' in flags:  # Musescore pretty print
+            out_file = u'{0:s}.musescore-print.xml'.format(
+                os.path.splitext(temp_in_file)[0])
+        else:
+            # 3. define the temporary xml file with the same name
+            out_file = '{0:s}.xml'.format(
+                os.path.splitext(temp_in_file)[0])
+
+        # specify midi instrument
+        if midi_instrument is None:
+            midi_str = u''
+        else:
+            midi_str = u'-I {0:d}'.format(midi_instrument)
+
+        # parse MusikiToMusicXml flags
+        if flags is None:
+            flag_str = u''
+        else:
+            flag_str = u'-{0:s}'.format(flags)
+        return out_file, midi_str, flag_str
 
     @classmethod
     def _get_mbid_url(cls, mbid, symbtr_name):
