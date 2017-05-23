@@ -17,7 +17,7 @@ If you are using **tomato** in your work, please cite the dissertation:
 
 > Şentürk, S. (2016). [Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music](http://sertansenturk.com/research/works/phd-thesis/). PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-<!--- For the methodologies and their implementations in the toolbox, please refer to the [References](#references). ---!>
+For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
 
 Tomato in a Nutshell
 -------
@@ -115,11 +115,9 @@ To install LilyPond in Mac OSX, simply go to the [Download](http://lilypond.org/
 
 In most Linux distributions, you can install LilyPond from the software repository of your distribution. However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
 
-<!--- 
 Documentation
 ------
 Coming soon...
----!>
 
 License
 ------
