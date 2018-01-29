@@ -3,7 +3,6 @@
 git+https://github.com/sertansenturk/makammusicbrainz.git@v1.4.0#egg=makammusicbrainz
 
 # predominant melody extraction and correction
-git+https://github.com/sertansenturk/predominantmelodymakam.git@v1.2.1#egg=predominantmelodymakam
 git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
 
 # melody progression analysis

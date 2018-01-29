@@ -26,8 +26,7 @@ import timeit
 import six
 
 from makammusicbrainz.audiometadata import AudioMetadata
-from predominantmelodymakam.predominantmelodymakam import \
-    PredominantMelodyMakam
+from .predominantmelodymakam import PredominantMelodyMakam
 from pitchfilter.pitchfilter import PitchFilter
 from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
 from tonicidentifier.toniclastnote import TonicLastNote
