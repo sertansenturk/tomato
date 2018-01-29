@@ -11,10 +11,8 @@ try:
 except ImportError:
     from urllib.request import urlopen  # python 3
 import zipfile
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
+from six import BytesIO
+
 try:
     from setuptools import setup
     from setuptools import find_packages
@@ -64,7 +62,9 @@ class CustomInstall(_install):
 
     @staticmethod
     def _get_os():
-        process_out = subprocess.check_output(['uname']).lower()
+        process_out = subprocess.check_output(['uname']).lower().decode(
+            "utf-8")
+
         if any(ss in process_out for ss in ['darwin', 'macosx']):
             sys_os = 'macosx'
         elif 'linux' in process_out:
@@ -79,14 +79,14 @@ class CustomInstall(_install):
         print(u"- Downloading binary: {0:s}".format(bin_url))
         response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
-            with zipfile.ZipFile(StringIO(response.read())) as z:
+            with zipfile.ZipFile(BytesIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))
             if sys_os == 'macosx':  # mac executables are actually in an app
                 fpath = os.path.splitext(fpath)[0] + '.app'
             else:  # remove the zip extension
                 fpath = os.path.splitext(fpath)[0]
         else:  # binary itself
-            with open(fpath, 'w+') as fp:
+            with open(fpath, 'wb') as fp:
                 fp.write(response.read())
 
         # make the binary executable
