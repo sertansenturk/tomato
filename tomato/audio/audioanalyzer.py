@@ -26,7 +26,7 @@ import timeit
 import six
 
 from makammusicbrainz.audiometadata import AudioMetadata
-from .predominantmelodymakam import PredominantMelodyMakam
+from .predominantmelody import PredominantMelody
 from pitchfilter.pitchfilter import PitchFilter
 from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
 from tonicidentifier.toniclastnote import TonicLastNote
@@ -70,7 +70,7 @@ class AudioAnalyzer(Analyzer):
 
         # extractors
         self._metadata_getter = AudioMetadata(get_work_attributes=True)
-        self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)  #
+        self._pitch_extractor = PredominantMelody(filter_pitch=False)  #
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
         self._pitch_filter = PitchFilter()
