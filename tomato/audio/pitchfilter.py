@@ -3,6 +3,13 @@
 
 # Copyright 2014 - 2018 Hasan Sercan Atlı & Sertan Şentürk
 #
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 # FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -11,10 +18,14 @@
 # You should have received a copy of the GNU Affero General Public License v3.0
 # along with this program. If not, see http://www.gnu.org/licenses/
 #
+# If you are using this extractor please cite the following paper:
+#
+# Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio
+# feature extraction for exploring Turkish makam music. In Proceedings of 3rd
+# International Conference on Audio Technologies for Music and Media, Ankara,
+# Turkey.
 
 import numpy as np
-
-__author__ = 'hsercanatli'
 
 
 class PitchFilter(object):
