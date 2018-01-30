@@ -2,9 +2,6 @@
 # metadata extraction
 git+https://github.com/sertansenturk/makammusicbrainz.git@v1.4.0#egg=makammusicbrainz
 
-# predominant melody extraction and correction
-git+https://github.com/hsercanatli/pitchfilter.git@v1.2.1#egg=pitchfilter
-
 # melody progression analysis
 git+https://github.com/sertansenturk/seyiranalyzer.git@v1.2.0#egg=seyiranalyzer
 
