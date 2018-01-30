@@ -27,7 +27,7 @@ import six
 
 from makammusicbrainz.audiometadata import AudioMetadata
 from .predominantmelody import PredominantMelody
-from pitchfilter.pitchfilter import PitchFilter
+from .pitchfilter import PitchFilter
 from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
 from tonicidentifier.toniclastnote import TonicLastNote
 from ahenkidentifier.ahenkidentifier import AhenkIdentifier
