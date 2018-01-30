@@ -28,7 +28,7 @@ import six
 from makammusicbrainz.audiometadata import AudioMetadata
 from .predominantmelody import PredominantMelody
 from .pitchfilter import PitchFilter
-from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
+from .seyiranalyzer import SeyirAnalyzer
 from tonicidentifier.toniclastnote import TonicLastNote
 from ahenkidentifier.ahenkidentifier import AhenkIdentifier
 from notemodel.notemodel import NoteModel
@@ -74,7 +74,7 @@ class AudioAnalyzer(Analyzer):
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
         self._pitch_filter = PitchFilter()
-        self._melodic_progression_analyzer = AudioSeyirAnalyzer()
+        self._melodic_progression_analyzer = SeyirAnalyzer()
         self._tonic_identifier = TonicLastNote()  # We prefer last note
         # detection over distribution matching as it's more generalizable.
 

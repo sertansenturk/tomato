@@ -24,7 +24,7 @@ from matplotlib import gridspec
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.ticker import FixedLocator
-from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
+from .audio.seyiranalyzer import SeyirAnalyzer as AudioSeyirAnalyzer
 import copy
 import logging
 logging.basicConfig(level=logging.INFO)
