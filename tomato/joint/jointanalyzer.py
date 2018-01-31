@@ -31,7 +31,7 @@ import tempfile
 from copy import deepcopy
 import timeit
 
-from alignedpitchfilter.alignedpitchfilter import AlignedPitchFilter
+from .alignedpitchfilter import AlignedPitchFilter
 from alignednotemodel.alignednotemodel import AlignedNoteModel
 
 from ..bincaller import BinCaller
