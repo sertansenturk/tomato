@@ -1,0 +1,740 @@
+{
+   "B5b5": {
+      "reference": "C0", 
+      "theoretical_name": "s\u00fcnb\u00fcle", 
+      "Unit": "cent", 
+      "Value": 6986
+   }, 
+   "B5b4": {
+      "reference": "C0", 
+      "theoretical_name": "dik s\u00fcnb\u00fcle", 
+      "Unit": "cent", 
+      "Value": 7009
+   }, 
+   "B3b1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 4672
+   }, 
+   "B5b1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 7077
+   }, 
+   "B3b5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 4584
+   }, 
+   "B3b4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 4607
+   }, 
+   "D4#5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba hisar", 
+      "Unit": "cent", 
+      "Value": 5110
+   }, 
+   "D4#4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim hisar", 
+      "Unit": "cent", 
+      "Value": 5088
+   }, 
+   "D6#5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz hisar", 
+      "Unit": "cent", 
+      "Value": 7512
+   }, 
+   "D6#4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz nim hisar", 
+      "Unit": "cent", 
+      "Value": 7490
+   }, 
+   "D6#8": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik hisar", 
+      "Unit": "cent", 
+      "Value": 7580
+   }, 
+   "D4#8": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik hisar", 
+      "Unit": "cent", 
+      "Value": 5181
+   }, 
+   "G5": {
+      "reference": "C0", 
+      "theoretical_name": "gerdaniye", 
+      "Unit": "cent", 
+      "Value": 6700
+   }, 
+   "G4": {
+      "reference": "C0", 
+      "theoretical_name": "rast", 
+      "Unit": "cent", 
+      "Value": 5500
+   }, 
+   "D5#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik hisar", 
+      "Unit": "cent", 
+      "Value": 6378
+   }, 
+   "D5#4": {
+      "reference": "C0", 
+      "theoretical_name": "nim hisar", 
+      "Unit": "cent", 
+      "Value": 6288
+   }, 
+   "B4b1": {
+      "reference": "C0", 
+      "theoretical_name": "seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 5872
+   }, 
+   "B4b4": {
+      "reference": "C0", 
+      "theoretical_name": "dik k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 5803
+   }, 
+   "B4b5": {
+      "reference": "C0", 
+      "theoretical_name": "k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 5781
+   }, 
+   "G4b4": {
+      "reference": "C0", 
+      "theoretical_name": "geve\u015ft", 
+      "Unit": "cent", 
+      "Value": 5409
+   }, 
+   "C5b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik buselik", 
+      "Unit": "cent", 
+      "Value": 5976
+   }, 
+   "A5": {
+      "reference": "C0", 
+      "theoretical_name": "muhayyer", 
+      "Unit": "cent", 
+      "Value": 6900
+   }, 
+   "C5#4": {
+      "reference": "C0", 
+      "theoretical_name": "nim hicaz", 
+      "Unit": "cent", 
+      "Value": 6089
+   }, 
+   "G5b4": {
+      "reference": "C0", 
+      "theoretical_name": "m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 6607
+   }, 
+   "E4b5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim hisar", 
+      "Unit": "cent", 
+      "Value": 5088
+   }, 
+   "E4b4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba hisar", 
+      "Unit": "cent", 
+      "Value": 5110
+   }, 
+   "E4b1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik hisar", 
+      "Unit": "cent", 
+      "Value": 5176
+   }, 
+   "F4": {
+      "reference": "C0", 
+      "theoretical_name": "acema\u015f\u00eeran", 
+      "Unit": "cent", 
+      "Value": 5300
+   }, 
+   "A4b4": {
+      "reference": "C0", 
+      "theoretical_name": "zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5607
+   }, 
+   "A3#8": {
+      "reference": "C0", 
+      "theoretical_name": "kaba seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 4679
+   }, 
+   "A3#5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 4607
+   }, 
+   "A3#4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 4584
+   }, 
+   "E6b5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz nim hisar", 
+      "Unit": "cent", 
+      "Value": 7485
+   }, 
+   "E6b4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz hisar", 
+      "Unit": "cent", 
+      "Value": 7508
+   }, 
+   "E6b1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik hisar", 
+      "Unit": "cent", 
+      "Value": 7576
+   }, 
+   "A5b4": {
+      "reference": "C0", 
+      "theoretical_name": "\u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 6809
+   }, 
+   "A5b5": {
+      "reference": "C0", 
+      "theoretical_name": "nim \u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 6786
+   }, 
+   "D5b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik hicaz", 
+      "Unit": "cent", 
+      "Value": 6175
+   }, 
+   "A5b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik \u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 6876
+   }, 
+   "B3": {
+      "reference": "C0", 
+      "theoretical_name": "kaba buselik", 
+      "Unit": "cent", 
+      "Value": 4700
+   }, 
+   "G6b5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz evi\u00e7", 
+      "Unit": "cent", 
+      "Value": 7784
+   }, 
+   "G6b4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 7807
+   }, 
+   "G6b1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 7874
+   }, 
+   "G6b8": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik acem", 
+      "Unit": "cent", 
+      "Value": 7716
+   }, 
+   "B4": {
+      "reference": "C0", 
+      "theoretical_name": "buselik", 
+      "Unit": "cent", 
+      "Value": 5900
+   }, 
+   "B5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz buselik", 
+      "Unit": "cent", 
+      "Value": 7100
+   }, 
+   "G4b5": {
+      "reference": "C0", 
+      "theoretical_name": "\u0131rak", 
+      "Unit": "cent", 
+      "Value": 5386
+   }, 
+   "G5b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 6673
+   }, 
+   "G4b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik geve\u015ft", 
+      "Unit": "cent", 
+      "Value": 5473
+   }, 
+   "G5b5": {
+      "reference": "C0", 
+      "theoretical_name": "evi\u00e7", 
+      "Unit": "cent", 
+      "Value": 6584
+   }, 
+   "E5": {
+      "reference": "C0", 
+      "theoretical_name": "h\u00fcseyn\u00ee", 
+      "Unit": "cent", 
+      "Value": 6400
+   }, 
+   "E4": {
+      "reference": "C0", 
+      "theoretical_name": "h\u00fcseyn\u00ee a\u015f\u00eeran", 
+      "Unit": "cent", 
+      "Value": 5200
+   }, 
+   "G5b8": {
+      "reference": "C0", 
+      "theoretical_name": "dik acem", 
+      "Unit": "cent", 
+      "Value": 6516
+   }, 
+   "E6": {
+      "reference": "C0", 
+      "theoretical_name": "tiz h\u00fcseyni", 
+      "Unit": "cent", 
+      "Value": 7600
+   }, 
+   "G4b8": {
+      "reference": "C0", 
+      "theoretical_name": "dik acema\u015f\u00eeran", 
+      "Unit": "cent", 
+      "Value": 5319
+   }, 
+   "F4#5": {
+      "reference": "C0", 
+      "theoretical_name": "geve\u015ft", 
+      "Unit": "cent", 
+      "Value": 5409
+   }, 
+   "F4#4": {
+      "reference": "C0", 
+      "theoretical_name": "\u0131rak", 
+      "Unit": "cent", 
+      "Value": 5386
+   }, 
+   "F4#1": {
+      "reference": "C0", 
+      "theoretical_name": "dik acema\u015f\u00eeran", 
+      "Unit": "cent", 
+      "Value": 5319
+   }, 
+   "C4b1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik buselik", 
+      "Unit": "cent", 
+      "Value": 4776
+   }, 
+   "F4#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik geve\u015ft", 
+      "Unit": "cent", 
+      "Value": 5478
+   }, 
+   "F6#8": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 7879
+   }, 
+   "F6#1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik acem", 
+      "Unit": "cent", 
+      "Value": 7721
+   }, 
+   "E5#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik hicaz", 
+      "Unit": "cent", 
+      "Value": 6579
+   }, 
+   "F6#5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 7812
+   }, 
+   "F6#4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz evi\u00e7", 
+      "Unit": "cent", 
+      "Value": 7788
+   }, 
+   "A3b1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4476
+   }, 
+   "A3b4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4403
+   }, 
+   "A3b5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4386
+   }, 
+   "D5#5": {
+      "reference": "C0", 
+      "theoretical_name": "hisar", 
+      "Unit": "cent", 
+      "Value": 6310
+   }, 
+   "D5b5": {
+      "reference": "C0", 
+      "theoretical_name": "nim hicaz", 
+      "Unit": "cent", 
+      "Value": 6083
+   }, 
+   "B3#1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik buselik", 
+      "Unit": "cent", 
+      "Value": 4721
+   }, 
+   "D4b1": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik hicaz", 
+      "Unit": "cent", 
+      "Value": 4978
+   }, 
+   "D6b1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik hicaz", 
+      "Unit": "cent", 
+      "Value": 7375
+   }, 
+   "B5#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik \u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 7280
+   }, 
+   "D6b4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz hicaz", 
+      "Unit": "cent", 
+      "Value": 7308
+   }, 
+   "D6b5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz nim hicaz", 
+      "Unit": "cent", 
+      "Value": 7285
+   }, 
+   "B5#1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik buselik", 
+      "Unit": "cent", 
+      "Value": 7123
+   }, 
+   "C6b1": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik buselik", 
+      "Unit": "cent", 
+      "Value": 7176
+   }, 
+   "B4#1": {
+      "reference": "C0", 
+      "theoretical_name": "dik buselik", 
+      "Unit": "cent", 
+      "Value": 5918
+   }, 
+   "D5b4": {
+      "reference": "C0", 
+      "theoretical_name": "hicaz", 
+      "Unit": "cent", 
+      "Value": 6108
+   }, 
+   "D4b4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba hicaz", 
+      "Unit": "cent", 
+      "Value": 4911
+   }, 
+   "D4b5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim hicaz", 
+      "Unit": "cent", 
+      "Value": 4886
+   }, 
+   "F5#4": {
+      "reference": "C0", 
+      "theoretical_name": "evi\u00e7", 
+      "Unit": "cent", 
+      "Value": 6588
+   }, 
+   "F5#5": {
+      "reference": "C0", 
+      "theoretical_name": "m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 6612
+   }, 
+   "F5#1": {
+      "reference": "C0", 
+      "theoretical_name": "dik acem", 
+      "Unit": "cent", 
+      "Value": 6521
+   }, 
+   "C6": {
+      "reference": "C0", 
+      "theoretical_name": "tiz \u00e7arg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 7200
+   }, 
+   "C5": {
+      "reference": "C0", 
+      "theoretical_name": "\u00e7arg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 6000
+   }, 
+   "C4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba \u00e7arg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 4800
+   }, 
+   "C4#8": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik hicaz", 
+      "Unit": "cent", 
+      "Value": 4978
+   }, 
+   "C4#4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim hicaz", 
+      "Unit": "cent", 
+      "Value": 4893
+   }, 
+   "C4#5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba hicaz", 
+      "Unit": "cent", 
+      "Value": 4911
+   }, 
+   "E5b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik hisar", 
+      "Unit": "cent", 
+      "Value": 6376
+   }, 
+   "E5b4": {
+      "reference": "C0", 
+      "theoretical_name": "hisar", 
+      "Unit": "cent", 
+      "Value": 6308
+   }, 
+   "E5b5": {
+      "reference": "C0", 
+      "theoretical_name": "nim hisar", 
+      "Unit": "cent", 
+      "Value": 6285
+   }, 
+   "A4b1": {
+      "reference": "C0", 
+      "theoretical_name": "dik zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5676
+   }, 
+   "A4b5": {
+      "reference": "C0", 
+      "theoretical_name": "nim zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5586
+   }, 
+   "F5": {
+      "reference": "C0", 
+      "theoretical_name": "acem", 
+      "Unit": "cent", 
+      "Value": 6500
+   }, 
+   "F6": {
+      "reference": "C0", 
+      "theoretical_name": "tiz acem", 
+      "Unit": "cent", 
+      "Value": 7700
+   }, 
+   "F5#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik m\u00e2hur", 
+      "Unit": "cent", 
+      "Value": 6678
+   }, 
+   "G3#5": {
+      "reference": "C0", 
+      "theoretical_name": "kaba zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4411
+   }, 
+   "G3#4": {
+      "reference": "C0", 
+      "theoretical_name": "kaba nim zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4386
+   }, 
+   "G3#8": {
+      "reference": "C0", 
+      "theoretical_name": "kaba dik zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 4476
+   }, 
+   "C6#8": {
+      "reference": "C0", 
+      "theoretical_name": "tiz dik hicaz", 
+      "Unit": "cent", 
+      "Value": 7380
+   }, 
+   "C6#4": {
+      "reference": "C0", 
+      "theoretical_name": "tiz nim hicaz", 
+      "Unit": "cent", 
+      "Value": 7289
+   }, 
+   "C6#5": {
+      "reference": "C0", 
+      "theoretical_name": "tiz hicaz", 
+      "Unit": "cent", 
+      "Value": 7311
+   }, 
+   "G4#4": {
+      "reference": "C0", 
+      "theoretical_name": "nim zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5590
+   }, 
+   "G4#5": {
+      "reference": "C0", 
+      "theoretical_name": "zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5611
+   }, 
+   "A3": {
+      "reference": "C0", 
+      "theoretical_name": "kaba d\u00fcgah", 
+      "Unit": "cent", 
+      "Value": 4500
+   }, 
+   "C5#5": {
+      "reference": "C0", 
+      "theoretical_name": "hicaz", 
+      "Unit": "cent", 
+      "Value": 6111
+   }, 
+   "A4": {
+      "reference": "C0", 
+      "theoretical_name": "d\u00fcg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 5700
+   }, 
+   "A6": {
+      "reference": "C0", 
+      "theoretical_name": "tiz gerdaniye", 
+      "Unit": "cent", 
+      "Value": 8100
+   }, 
+   "G5#5": {
+      "reference": "C0", 
+      "theoretical_name": "\u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 6809
+   }, 
+   "G5#4": {
+      "reference": "C0", 
+      "theoretical_name": "nim \u015fehnaz", 
+      "Unit": "cent", 
+      "Value": 6788
+   }, 
+   "G4#8": {
+      "reference": "C0", 
+      "theoretical_name": "dik zirg\u00fcle", 
+      "Unit": "cent", 
+      "Value": 5680
+   }, 
+   "A4#4": {
+      "reference": "C0", 
+      "theoretical_name": "k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 5788
+   }, 
+   "A4#5": {
+      "reference": "C0", 
+      "theoretical_name": "dik k\u00fcrd\u00ee", 
+      "Unit": "cent", 
+      "Value": 5811
+   }, 
+   "A4#8": {
+      "reference": "C0", 
+      "theoretical_name": "seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 5879
+   }, 
+   "A5#5": {
+      "reference": "C0", 
+      "theoretical_name": "dik s\u00fcnb\u00fcle", 
+      "Unit": "cent", 
+      "Value": 7012
+   }, 
+   "A5#4": {
+      "reference": "C0", 
+      "theoretical_name": "s\u00fcnb\u00fcle", 
+      "Unit": "cent", 
+      "Value": 6990
+   }, 
+   "D6": {
+      "reference": "C0", 
+      "theoretical_name": "tiz nev\u00e2", 
+      "Unit": "cent", 
+      "Value": 7400
+   }, 
+   "D4": {
+      "reference": "C0", 
+      "theoretical_name": "yeg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 5000
+   }, 
+   "D5": {
+      "reference": "C0", 
+      "theoretical_name": "nev\u00e2", 
+      "Unit": "cent", 
+      "Value": 6200
+   }, 
+   "A5#8": {
+      "reference": "C0", 
+      "theoretical_name": "tiz seg\u00e2h", 
+      "Unit": "cent", 
+      "Value": 7081
+   }
+}

@@ -1,0 +1,4178 @@
+{
+    "acem": {
+        "dunya_name": "Acem", 
+        "dunya_uuid": "bd75cc26-7583-4a75-9f42-e52ba47829c3", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "acem"
+        ], 
+        "mu2_name": "Acem", 
+        "symbtr_slug": "acem"
+    }, 
+    "acem_nevruz": {
+        "dunya_name": "Acem Nevruz", 
+        "dunya_uuid": "79b730b0-8b06-4d6a-aa9b-bebe91792100", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "acem_rast": {
+        "dunya_name": "Acem Rast", 
+        "dunya_uuid": "aad7c926-7681-487c-b831-f1f29036aa78", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "acem_zemzeme": {
+        "dunya_name": "Acem Zemzeme", 
+        "dunya_uuid": "5b56436f-4f26-4c0f-8dcd-8032af9fbe46", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "acemasiran": {
+        "dunya_name": "Acema\u015firan", 
+        "dunya_uuid": "c3830d5c-93bf-400a-8351-7a9f26de12f6", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "acema\u015firan"
+        ], 
+        "mu2_name": "Acema\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "acemasiran"
+    }, 
+    "acembuselik": {
+        "dunya_name": "Acembuselik", 
+        "dunya_uuid": "abc3d88e-676b-47df-ae7a-0ec1f4e6b36e", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "acembuselik"
+        ], 
+        "mu2_name": "Acemb\u00fbselik", 
+        "symbtr_slug": "acembuselik"
+    }, 
+    "acemkurdi": {
+        "dunya_name": "Acemk\u00fcrdi", 
+        "dunya_uuid": "0fd34acc-e406-4c3b-adce-7a989b1949dd", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "acemk\u00fcrdi"
+        ], 
+        "mu2_name": "Acemk\u00fcrd\u00ee", 
+        "symbtr_slug": "acemkurdi"
+    }, 
+    "acemli_yegah": {
+        "dunya_name": "Acemli Yegah", 
+        "dunya_uuid": "25686828-6e7a-41bd-8f3e-2f5e1af13b9b", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "acemtarab": {
+        "dunya_name": "Acemtarab", 
+        "dunya_uuid": "099d4283-b69d-41e4-9b26-45ea8a507831", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Acemtarab", 
+        "symbtr_slug": "acemtarab"
+    }, 
+    "aheng_i_tarab": {
+        "dunya_name": "Aheng-i Tarab", 
+        "dunya_uuid": "414e96e2-c8c2-4c41-81ad-7fed38deb00e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ak_dugah": {
+        "dunya_name": "Ak D\u00fcgah", 
+        "dunya_uuid": "e41dd55a-5a5c-44c8-8f1d-e63fa0857cc1", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ambiguous": {
+        "dunya_name": "ambiguous", 
+        "dunya_uuid": "ea88cb8d-6b18-42b2-93c6-31916fc919d8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "belirsiz"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "anberefsan": {
+        "dunya_name": "Anberef\u015fan", 
+        "dunya_uuid": "0aba7a4d-e3a5-4e62-adb7-d241777665d1", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "araban": {
+        "dunya_name": "Araban", 
+        "dunya_uuid": "d14f59cb-97c0-4750-92d5-abd002063e0e", 
+        "karar_midi_freq": 587.33, 
+        "karar_symbol": "D5", 
+        "key_signature": [
+            "B4b4", 
+            "E5b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Arab\u00e2n", 
+        "symbtr_slug": "araban"
+    }, 
+    "arabanbuselik": {
+        "dunya_name": "Arabanbuselik", 
+        "dunya_uuid": "b229ed13-f838-4b19-b984-39376606b3a5", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "arabankurdi": {
+        "dunya_name": "Arabankurdi", 
+        "dunya_uuid": "4a5d8805-bccb-4c60-8888-df8b1bcae6f9", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "aram_i_can": {
+        "dunya_name": "Aram-\u0131 Can", 
+        "dunya_uuid": "d5a30e8b-bf36-491a-b387-50bcda6b5413", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "aram_i_dil": {
+        "dunya_name": "Aram-\u0131 Dil", 
+        "dunya_uuid": "ddc90fa0-be84-4778-a385-21e88a27e05c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "arazbar": {
+        "dunya_name": "Arazbar", 
+        "dunya_uuid": "92197b3e-0948-4992-8745-b0c14198c6ee", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1"
+        ], 
+        "mb_tag": [
+            "arazbar"
+        ], 
+        "mu2_name": "Arazb\u00e2r", 
+        "symbtr_slug": "arazbar"
+    }, 
+    "arazbar_zemzeme": {
+        "dunya_name": "Arazbar Zemzeme", 
+        "dunya_uuid": "eba2eee7-07b0-4f33-a9b0-6ae017caae6d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "arazbarbuselik": {
+        "dunya_name": "Arazbarbuselik", 
+        "dunya_uuid": "0701d6e7-3e11-4886-aa06-7481b37d6451", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1"
+        ], 
+        "mb_tag": [
+            "arazbarbuselik"
+        ], 
+        "mu2_name": "Arazb\u00e2rb\u00fbselik", 
+        "symbtr_slug": "arazbarbuselik"
+    }, 
+    "arazbarek": {
+        "dunya_name": "Arazbarek", 
+        "dunya_uuid": "bee02d3b-6e9b-4988-b2bc-bcf63e934626", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "asiranmaye": {
+        "dunya_name": "A\u015firan Maye", 
+        "dunya_uuid": "1eaee557-53e2-45a3-a70a-915165648de0", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "A\u015f\u00eer\u00e2n-M\u00e2ye", 
+        "symbtr_slug": "asiranmaye"
+    }, 
+    "asiranzemzeme": {
+        "dunya_name": "A\u015firan Zemzeme", 
+        "dunya_uuid": "5d7df3d9-70b1-4cf9-803b-0d5a0a399918", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "A\u015f\u00eer\u00e2n Zemzeme", 
+        "symbtr_slug": "asiranzemzeme"
+    }, 
+    "askefza": {
+        "dunya_name": "A\u015fkefza", 
+        "dunya_uuid": "521ca567-56fd-4a36-ad5f-034be2eeb960", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [], 
+        "mb_tag": [
+            "a\u015fkefza"
+        ], 
+        "mu2_name": "A\u015fkefz\u00e2", 
+        "symbtr_slug": "askefza"
+    }, 
+    "bahrinazik": {
+        "dunya_name": "Bahr-\u0131 Nazik", 
+        "dunya_uuid": "68ffc8f9-d25a-4b11-8f1a-01ac46188573", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Bahr-i-N\u00e2zik", 
+        "symbtr_slug": "bahrinazik"
+    }, 
+    "bendihisar": {
+        "dunya_name": "Bend-i Hisar", 
+        "dunya_uuid": "bb5f04f1-4ef7-4948-8912-7698ac914e12", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "G5#4", 
+            "D5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Bend-i-Hisar", 
+        "symbtr_slug": "bendihisar"
+    }, 
+    "beste_hicaz": {
+        "dunya_name": "Beste Hicaz", 
+        "dunya_uuid": "7a8d72f3-9a25-4f67-b8a4-2c4790bec72c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "beste_hisar": {
+        "dunya_name": "Beste Hisar", 
+        "dunya_uuid": "4a7bd70a-6acd-45c4-a675-a8865fcdaacd", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "besteisfahan": {
+        "dunya_name": "Beste Isfahan", 
+        "dunya_uuid": "a9e37c6a-42e4-429d-aec5-a871665e5fae", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Beste-Isfahan", 
+        "symbtr_slug": "besteisfahan"
+    }, 
+    "bestenigar": {
+        "dunya_name": "Bestenigar", 
+        "dunya_uuid": "3aa8559c-059b-46c6-bd4e-4cb29e1a6c31", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "bestenigar"
+        ], 
+        "mu2_name": "Bestenig\u00e2r", 
+        "symbtr_slug": "bestenigar"
+    }, 
+    "beyati": {
+        "dunya_name": "Beyati", 
+        "dunya_uuid": "cd2a85b2-d9f7-4d64-aeb5-5f3b04fd3e07", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "bayati", 
+            "beyati"
+        ], 
+        "mu2_name": "Bey\u00e2t\u00ee", 
+        "symbtr_slug": "beyati"
+    }, 
+    "beyati_araban": {
+        "dunya_name": "Beyati Araban", 
+        "dunya_uuid": "c3296d7b-e2e9-406d-86e8-7e9f6c98e388", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "beyati-araban", 
+            "beyatiaraban"
+        ], 
+        "mu2_name": "Bey\u00e2t\u00ee-Arab\u00e2n", 
+        "symbtr_slug": "beyati_araban"
+    }, 
+    "beyati_arabanbuselik": {
+        "dunya_name": "Beyati Arabanbuselik", 
+        "dunya_uuid": "4526e4d9-2584-4357-9767-5769842ffda8", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Bey\u00e2t\u00ee-Arab\u00e2nb\u00fbselik", 
+        "symbtr_slug": "beyati_arabanbuselik"
+    }, 
+    "beyati_arabankurdi": {
+        "dunya_name": "Beyati Arabank\u00fcrdi", 
+        "dunya_uuid": "6b1ac3db-2797-4baa-9bad-a8261194e5ae", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "beyati_ruy_i_acem": {
+        "dunya_name": "Beyati Ruy-i Acem", 
+        "dunya_uuid": "4a184f90-488e-413b-8e41-18dfe521c153", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "beyatibuselik": {
+        "dunya_name": "Beyatibuselik", 
+        "dunya_uuid": "ed602586-1309-4296-ae04-e389d1e5fc47", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Bey\u00e2t\u00eeb\u00fbselik", 
+        "symbtr_slug": "beyatibuselik"
+    }, 
+    "bezm_i_tarab": {
+        "dunya_name": "Bezm-i Tarab", 
+        "dunya_uuid": "353a49de-c3de-43a2-9038-7ca0a58a9e0e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "buselik": {
+        "dunya_name": "Buselik", 
+        "dunya_uuid": "4ed8b9fe-e4c8-48ac-bf8f-dcfab6f72f45", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [], 
+        "mb_tag": [
+            "buselik"
+        ], 
+        "mu2_name": "B\u00fbselik", 
+        "symbtr_slug": "buselik"
+    }, 
+    "buselikasiran": {
+        "dunya_name": "Buselika\u015firan", 
+        "dunya_uuid": "6f200586-f116-4681-b365-9cced7f8365d", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [], 
+        "mb_tag": [
+            "a\u015firanbuselik", 
+            "buselik-a\u015firan", 
+            "buselika\u015firan"
+        ], 
+        "mu2_name": "B\u00fbselika\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "buselikasiran"
+    }, 
+    "buzurk": {
+        "dunya_name": "B\u00fcz\u00fcrk", 
+        "dunya_uuid": "7efcf8be-765e-40fe-b641-62c94f7270c7", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "b\u00fcz\u00fcrg", 
+            "b\u00fcz\u00fcrk"
+        ], 
+        "mu2_name": "B\u00fcz\u00fcrk", 
+        "symbtr_slug": "buzurk"
+    }, 
+    "canfeza": {
+        "dunya_name": "Canfeza", 
+        "dunya_uuid": "7004600d-ba23-4cbc-bcba-6c8b4e30e6cc", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "canfeza"
+        ], 
+        "mu2_name": "Canfez\u00e2", 
+        "symbtr_slug": "canfeza"
+    }, 
+    "cargah": {
+        "dunya_name": "\u00c7argah", 
+        "dunya_uuid": "9a96d023-8a83-46d5-b39a-6b59e6f8c5ef", 
+        "karar_midi_freq": 523.25, 
+        "karar_symbol": "C5", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "\u00e7argah"
+        ], 
+        "mu2_name": "\u00c7arg\u00e2h", 
+        "symbtr_slug": "cargah"
+    }, 
+    "cehar_agazin": {
+        "dunya_name": "\u00c7ehar Agazin", 
+        "dunya_uuid": "fbe74c5d-090f-409f-b547-f5f0aca8d4ea", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "danisveran": {
+        "dunya_name": "Dani\u015fveran", 
+        "dunya_uuid": "a7f8fcfc-9196-4a33-8552-279e9bbd7246", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dil_efruz": {
+        "dunya_name": "Dil Efruz", 
+        "dunya_uuid": "2874cd78-505b-4838-8f9c-c74a5805d8c1", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dildar": {
+        "dunya_name": "Dildar", 
+        "dunya_uuid": "66ce8675-f7de-4b2e-9b33-f9a1d0a6f7a4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dilkes": {
+        "dunya_name": "Dilke\u015f", 
+        "dunya_uuid": "911d58a1-0803-4b25-b08e-476be0a64fdb", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dilkeshaveran": {
+        "dunya_name": "Dilke\u015fhaveran", 
+        "dunya_uuid": "c773ceaf-f1af-4b28-ba26-f3745fb4d02f", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "dilke\u015fhaveran"
+        ], 
+        "mu2_name": "Dilke\u015fh\u00e2veran", 
+        "symbtr_slug": "dilkeshaveran"
+    }, 
+    "dilkeside": {
+        "dunya_name": "Dilkeside", 
+        "dunya_uuid": "2352b5f1-c6f7-4a6a-b412-949d2c3cfc1f", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "dilke\u015fide"
+        ], 
+        "mu2_name": "Dilke\u015f\u00eede", 
+        "symbtr_slug": "dilkeside"
+    }, 
+    "dilkusa": {
+        "dunya_name": "Dilk\u00fc\u015fa", 
+        "dunya_uuid": "80a77208-5d2d-4d81-99dd-2287c264cddd", 
+        "karar_midi_freq": 587.33, 
+        "karar_symbol": "D5", 
+        "key_signature": [
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Dilk\u00fc\u015f\u00e2", 
+        "symbtr_slug": "dilkusa"
+    }, 
+    "dilnevaz": {
+        "dunya_name": "Dilnevaz", 
+        "dunya_uuid": "37b42e14-03a5-46ee-8762-c08d22f20525", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dilnisin": {
+        "dunya_name": "Dilni\u015fin", 
+        "dunya_uuid": "271073ed-6465-42ae-b54b-f456308bedd6", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Dilni\u015f\u00een", 
+        "symbtr_slug": "dilnisin"
+    }, 
+    "dugah": {
+        "dunya_name": "D\u00fcgah", 
+        "dunya_uuid": "cfdbaf3a-fe27-4913-98bc-123fe507bd7b", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "d\u00fcgah"
+        ], 
+        "mu2_name": "D\u00fcg\u00e2h", 
+        "symbtr_slug": "dugah"
+    }, 
+    "dugah_maye": {
+        "dunya_name": "D\u00fcgah Maye", 
+        "dunya_uuid": "a27a4123-1866-411f-9963-72e4cd7ab117", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "D\u00fcg\u00e2h-M\u00e2ye", 
+        "symbtr_slug": "dugah_maye"
+    }, 
+    "dugahbuselik": {
+        "dunya_name": "D\u00fcgahbuselik", 
+        "dunya_uuid": "b39c2aa3-ce7b-44fe-9871-6c39a470f2f8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "dusems": {
+        "dunya_name": "D\u00fc\u015fems", 
+        "dunya_uuid": "04e901cb-2337-46db-b7c2-3e9cb0027340", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "eski_sipihr": {
+        "dunya_name": "Eski Sipihr", 
+        "dunya_uuid": "f280f9e8-651c-49d5-bbf5-5b7005630b83", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "eski-sipihr"
+        ], 
+        "mu2_name": "Eski-Sipihr", 
+        "symbtr_slug": "eski_sipihr"
+    }, 
+    "evcara": {
+        "dunya_name": "Evcara", 
+        "dunya_uuid": "d7b66b0e-af20-493c-90ce-d80cc89cbc3c", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4", 
+            "C5#4", 
+            "A4#4", 
+            "E5#4"
+        ], 
+        "mb_tag": [
+            "evcara"
+        ], 
+        "mu2_name": "Evc\u00e2r\u00e2", 
+        "symbtr_slug": "evcara"
+    }, 
+    "evchuzi": {
+        "dunya_name": "Evi\u00e7 Huzi", 
+        "dunya_uuid": "ae68d3f2-90b1-478a-9a9c-60879765d55b", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Evi\u00e7-H\u00fbz\u00ee", 
+        "symbtr_slug": "evchuzi"
+    }, 
+    "evic": {
+        "dunya_name": "Evi\u00e7", 
+        "dunya_uuid": "58b2f434-fbac-4575-bd5c-bda725717cfe", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "evi\u00e7"
+        ], 
+        "mu2_name": "Evi\u00e7", 
+        "symbtr_slug": "evic"
+    }, 
+    "evic_bahr_i_nazik": {
+        "dunya_name": "Evi\u00e7 Bahr-i Nazik", 
+        "dunya_uuid": "32f1eb39-386e-409c-a4cd-8f6e9f7aae52", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "evic_maye": {
+        "dunya_name": "Evi\u00e7 Maye", 
+        "dunya_uuid": "3a5b849e-b794-402b-8755-296c74d8a9d0", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "evic_ruy_i_neva": {
+        "dunya_name": "Evi\u00e7 Ruy-i Neva", 
+        "dunya_uuid": "27ce777e-dd6c-4ce0-b87b-1ea96fbafc68", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "evic_saba": {
+        "dunya_name": "Evi\u00e7 Saba", 
+        "dunya_uuid": "39785ddc-2ccc-4998-9b8f-a40547f34430", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "evic_sevk": {
+        "dunya_name": "Evi\u00e7 \u015eevk", 
+        "dunya_uuid": "d4351055-ec54-4d72-a83b-560e7909aabe", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "evicbuselik": {
+        "dunya_name": "Evi\u00e7buselik", 
+        "dunya_uuid": "dca9f5e8-5274-41c0-96f2-ddfdfcdbb63c", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "evi\u00e7buselik"
+        ], 
+        "mu2_name": "Evi\u00e7b\u00fbselik", 
+        "symbtr_slug": "evicbuselik"
+    }, 
+    "evickurdi": {
+        "dunya_name": "Evi\u00e7k\u00fcrdi", 
+        "dunya_uuid": "4af42c9e-4a67-4a2d-9af9-5b292d44b47e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ferahfeza": {
+        "dunya_name": "Ferahfeza", 
+        "dunya_uuid": "e31cd96e-3b31-49a0-b9fe-432a5bb4e19a", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "ferahfeza"
+        ], 
+        "mu2_name": "Ferahfez\u00e2", 
+        "symbtr_slug": "ferahfeza"
+    }, 
+    "ferahnak": {
+        "dunya_name": "Ferahnak", 
+        "dunya_uuid": "e0f13684-438b-4bd5-81e7-35c28a5bb288", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "ferahnak"
+        ], 
+        "mu2_name": "Ferahn\u00e2k", 
+        "symbtr_slug": "ferahnak"
+    }, 
+    "ferahnakasiran": {
+        "dunya_name": "Ferahnaka\u015firan", 
+        "dunya_uuid": "5ecdfffe-c817-475a-b04b-07f89358fefa", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "ferahnaka\u015firan"
+        ], 
+        "mu2_name": "Ferahn\u00e2ka\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "ferahnakasiran"
+    }, 
+    "ferahnuma": {
+        "dunya_name": "Ferahn\u00fcma", 
+        "dunya_uuid": "cb5c43f3-c834-4df0-b1f4-d874974b3e09", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Ferahn\u00fcm\u00e2", 
+        "symbtr_slug": "ferahnuma"
+    }, 
+    "ferahzad": {
+        "dunya_name": "Ferahzad", 
+        "dunya_uuid": "66574650-166c-47ad-89a4-c59e87a2f637", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "feth_i_bagdad": {
+        "dunya_name": "Feth-i Ba\u011fdad", 
+        "dunya_uuid": "7e29c6dc-f22d-435b-8a60-3b6ffb24b446", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "feth_i_belgrad": {
+        "dunya_name": "Feth-i Belgrad", 
+        "dunya_uuid": "4d6eaa9d-08b5-4ca6-9924-54aa7df43be4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "feth_i_dil": {
+        "dunya_name": "Feth-i Dil", 
+        "dunya_uuid": "6de19c6d-fc25-45b1-9758-d511b33c4e6d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "feth_i_hicaz": {
+        "dunya_name": "Feth-i Hicaz", 
+        "dunya_uuid": "7c3bc9ef-1209-4cd2-ac6e-e1e347cb7e5d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gerdaniye": {
+        "dunya_name": "Gerdaniye", 
+        "dunya_uuid": "ba450f6e-9e43-48fd-9b39-a0893c634663", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "gerdaniye"
+        ], 
+        "mu2_name": "Gerd\u00e2niye", 
+        "symbtr_slug": "gerdaniye"
+    }, 
+    "gerdaniyebuselik": {
+        "dunya_name": "Gerdaniyebuselik", 
+        "dunya_uuid": "074c5935-8840-43ce-bedc-588f668ce206", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Gerd\u00e2niyeb\u00fbselik", 
+        "symbtr_slug": "gerdaniyebuselik"
+    }, 
+    "gerdaniyekurdi": {
+        "dunya_name": "Gerdaniyek\u00fcrdi", 
+        "dunya_uuid": "95be457f-534c-4e94-a0e3-e865c8f21f28", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gestu_guzar_i_bahar": {
+        "dunya_name": "Ge\u015ft\u00fc G\u00fczar-\u0131 Bahar", 
+        "dunya_uuid": "8ca8fdaf-b86a-4b57-9e99-09f6fdb2998e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gevest": {
+        "dunya_name": "Geve\u015ft", 
+        "dunya_uuid": "1bc5986e-ac31-42c2-93ad-48545397c373", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#5", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Geve\u015ft", 
+        "symbtr_slug": "gevest"
+    }, 
+    "goncairana": {
+        "dunya_name": "Gonca-i Rana", 
+        "dunya_uuid": "2707d477-ac49-4c8c-8de2-4eb9a1860ff1", 
+        "karar_midi_freq": 587.33, 
+        "karar_symbol": "D5", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Gonca-i-R\u00e2n\u00e2", 
+        "symbtr_slug": "goncairana"
+    }, 
+    "guldeste": {
+        "dunya_name": "G\u00fcldeste", 
+        "dunya_uuid": "f48a8054-5bbd-4236-8932-c304f1d3a0e4", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "D5#4", 
+            "F5#5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "G\u00fcldeste", 
+        "symbtr_slug": "guldeste"
+    }, 
+    "gulizar": {
+        "dunya_name": "G\u00fclizar", 
+        "dunya_uuid": "19707431-da51-4304-aeda-8536febf2cd4", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "g\u00fclizar"
+        ], 
+        "mu2_name": "G\u00fcliz\u00e2r", 
+        "symbtr_slug": "gulizar"
+    }, 
+    "gulizarbuselik": {
+        "dunya_name": "G\u00fclizarbuselik", 
+        "dunya_uuid": "0c4cc473-23a3-4859-88ea-f7f735c220f8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gulnari": {
+        "dunya_name": "G\u00fclnari", 
+        "dunya_uuid": "73a62f5a-f44f-4212-95fa-9faa970b4a94", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gulruh": {
+        "dunya_name": "G\u00fclruh", 
+        "dunya_uuid": "20ae3632-6009-418c-ada2-a868cca8d3c3", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "gulsen_ivefa": {
+        "dunya_name": "G\u00fcl\u015fen-i Vefa", 
+        "dunya_uuid": "153dcd09-1879-47ab-adf3-50a040c7457a", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "G\u00fcl\u015fen-i-Vef\u00e2", 
+        "symbtr_slug": "gulsen_ivefa"
+    }, 
+    "gulzar": {
+        "dunya_name": "G\u00fclzar", 
+        "dunya_uuid": "19edceff-3c71-4f91-ac07-28c740b8bc9e", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "g\u00fclzar"
+        ], 
+        "mu2_name": "G\u00fclz\u00e2r", 
+        "symbtr_slug": "gulzar"
+    }, 
+    "haver": {
+        "dunya_name": "Haver", 
+        "dunya_uuid": "3eccd7ca-0db8-43ed-9c4d-5f4b1b5ba6a4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "heftgah": {
+        "dunya_name": "Heftgah", 
+        "dunya_uuid": "c7cec1e7-dc26-4c0d-818c-8af3edd1908e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicaz": {
+        "dunya_name": "Hicaz", 
+        "dunya_uuid": "4359783d-4be9-46fb-9b52-bf51a39c7122", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "hicaz"
+        ], 
+        "mu2_name": "Hicaz", 
+        "symbtr_slug": "hicaz"
+    }, 
+    "hicaz_buzurk": {
+        "dunya_name": "Hicaz B\u00fcz\u00fcrk", 
+        "dunya_uuid": "cf77395e-8af8-4c18-bf68-ae7a5969dc1a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicaz_dilkes": {
+        "dunya_name": "Hicaz Dilke\u015f", 
+        "dunya_uuid": "be3be4d0-b38f-4aa2-bade-f6fa009b6788", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicaz_humayun": {
+        "dunya_name": "Hicaz H\u00fcmayun", 
+        "dunya_uuid": "457bda79-a60c-4be1-8376-c526f6074a0d", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "hicaz-h\u00fcmayun", 
+            "hicaz-h\u00fcmay\u00fcn"
+        ], 
+        "mu2_name": "Hicaz-H\u00fcm\u00e2y\u00fbn", 
+        "symbtr_slug": "hicaz_humayun"
+    }, 
+    "hicaz_uzzal": {
+        "dunya_name": "Hicaz Uzzal", 
+        "dunya_uuid": "fbc519a3-98bd-4bb1-9ef6-5b358809b87b", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "hicaz-uzzal"
+        ], 
+        "mu2_name": "Hicaz-Uzz\u00e2l", 
+        "symbtr_slug": "hicaz_uzzal"
+    }, 
+    "hicaz_zemzeme": {
+        "dunya_name": "Hicaz Zemzeme", 
+        "dunya_uuid": "e6822920-9f30-4755-bbe7-0506cd47f5fe", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Hicaz-Zemzeme", 
+        "symbtr_slug": "hicaz_zemzeme"
+    }, 
+    "hicaz_zirgule": {
+        "dunya_name": "Hicaz Zirg\u00fcle", 
+        "dunya_uuid": "948ee894-0275-41f0-823f-fe5ea6030808", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#1", 
+            "C5#4", 
+            "G5#4"
+        ], 
+        "mb_tag": [
+            "hicaz-zirg\u00fcle", 
+            "hicaz-z\u00fcrgile"
+        ], 
+        "mu2_name": "Hicaz-Zirg\u00fcle", 
+        "symbtr_slug": "hicaz_zirgule"
+    }, 
+    "hicazasiran": {
+        "dunya_name": "Hicaza\u015firan", 
+        "dunya_uuid": "ee3d73b0-7939-474a-8563-1f78314edd78", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Hicaza\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "hicazasiran"
+    }, 
+    "hicazbuselik": {
+        "dunya_name": "Hicazbuselik", 
+        "dunya_uuid": "4b83af38-0c38-4a4a-99b7-a0447225c5ec", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Hicazb\u00fbselik", 
+        "symbtr_slug": "hicazbuselik"
+    }, 
+    "hicazeyn": {
+        "dunya_name": "Hicazeyn", 
+        "dunya_uuid": "88ec410d-135e-436f-9a70-98cc77871852", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazi_acem": {
+        "dunya_name": "Hicazi Acem", 
+        "dunya_uuid": "26d44cd5-770c-4418-9429-a66d0953a996", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazi_irak": {
+        "dunya_name": "Hicazi Irak", 
+        "dunya_uuid": "88470f7b-e69f-4860-8463-039f3a62bc83", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazi_muhalif": {
+        "dunya_name": "Hicazi Muhalif", 
+        "dunya_uuid": "877aeee7-0ead-45d2-9e47-383bc7fbeb43", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazi_rumi": {
+        "dunya_name": "Hicazi Rumi", 
+        "dunya_uuid": "6f4938d8-ca3d-4b0b-816d-4df0539fa28d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazi_turki": {
+        "dunya_name": "Hicazi T\u00fcrki", 
+        "dunya_uuid": "821abb1b-fa5c-4c97-b85f-404996dbc198", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicaziussak": {
+        "dunya_name": "Hicazi U\u015f\u015fak", 
+        "dunya_uuid": "d16fe877-5335-4d1f-beba-aaf883fd08ea", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Hic\u00e2z\u00ee-U\u015f\u015fak", 
+        "symbtr_slug": "hicaziussak"
+    }, 
+    "hicazkar": {
+        "dunya_name": "Hicazkar", 
+        "dunya_uuid": "af5f8f9a-1c79-407e-9ea2-4f5b794fc218", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "A4b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "hicazkar", 
+            "hicazlar"
+        ], 
+        "mu2_name": "Hicazk\u00e2r", 
+        "symbtr_slug": "hicazkar"
+    }, 
+    "hicazkar_i_kadim": {
+        "dunya_name": "Hicazkar-\u0131 Kadim", 
+        "dunya_uuid": "cb84e777-02a4-4203-8176-7f91a7a51245", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazkarbuselik": {
+        "dunya_name": "Hicazkarbuselik", 
+        "dunya_uuid": "7d185d62-a582-445b-ad05-47f8fea5dd42", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hicazkarkurdi": {
+        "dunya_name": "Hicazkar-K\u00fcrdi", 
+        "dunya_uuid": "22c64d65-1d05-4c87-b453-9e49fec33fe1", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5", 
+            "A4b5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Hicazk\u00e2r-K\u00fcrd\u00ee", 
+        "symbtr_slug": "hicazkarkurdi"
+    }, 
+    "hicazkurdi": {
+        "dunya_name": "Hicazk\u00fcrdi", 
+        "dunya_uuid": "4026e522-dc6e-44db-9cdb-6d65825f8b44", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "hicazk\u00fcrdi"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hisar": {
+        "dunya_name": "Hisar", 
+        "dunya_uuid": "05f5941b-d3d0-49be-b41a-f784c1a2e2bb", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "hisar"
+        ], 
+        "mu2_name": "Hisar", 
+        "symbtr_slug": "hisar"
+    }, 
+    "hisar_vech_i_sehnaz": {
+        "dunya_name": "Hisar Vech-i \u015eehnaz", 
+        "dunya_uuid": "f8e30f17-3897-409b-bd16-19802ad53d73", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hisarbuselik": {
+        "dunya_name": "Hisarbuselik", 
+        "dunya_uuid": "501bf82d-66bf-4618-b8e8-189e5a9aa02c", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "F5#1", 
+            "G5#4", 
+            "D5#4"
+        ], 
+        "mb_tag": [
+            "hisarbuselik"
+        ], 
+        "mu2_name": "Hisarb\u00fbselik", 
+        "symbtr_slug": "hisarbuselik"
+    }, 
+    "horasan": {
+        "dunya_name": "Horasan", 
+        "dunya_uuid": "42c41e5a-1bf8-453c-ad94-cf11860c1ac7", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "horosani_beyati": {
+        "dunya_name": "Horosani Beyati", 
+        "dunya_uuid": "160befc1-a2bc-4173-bbb8-110a37ced14f", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hos_aver": {
+        "dunya_name": "Ho\u015f Aver", 
+        "dunya_uuid": "812de1f1-f2a9-424e-be27-4561243d124b", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "hudavendigar": {
+        "dunya_name": "H\u00fcdavendigar", 
+        "dunya_uuid": "fef08ffe-8be1-44ac-997e-f640bf46d4fb", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "huseyni": {
+        "dunya_name": "H\u00fcseyni", 
+        "dunya_uuid": "67eb74b8-0e5b-49ac-88d0-3699c020b01a", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "h\u00fcseyni", 
+            "karc\u0131\u011far"
+        ], 
+        "mu2_name": "H\u00fcseyn\u00ee", 
+        "symbtr_slug": "huseyni"
+    }, 
+    "huseyni_araban": {
+        "dunya_name": "H\u00fcseyni Araban", 
+        "dunya_uuid": "cb943683-0171-4a01-8b00-9c0588ae4ed6", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "huseyni_gulizar": {
+        "dunya_name": "H\u00fcseyni G\u00fclizar", 
+        "dunya_uuid": "1b07a462-6c06-4f18-a0ad-72d1cf7bd512", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "H\u00fcseyn\u00eeg\u00fcliz\u00e2r", 
+        "symbtr_slug": "huseyni_gulizar"
+    }, 
+    "huseyni_zemzeme": {
+        "dunya_name": "H\u00fcseyni Zemzeme", 
+        "dunya_uuid": "8b2f9f51-469a-40b9-8435-bf4eb1d7d436", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "huseyniasiran": {
+        "dunya_name": "H\u00fcseynia\u015firan", 
+        "dunya_uuid": "2b47c658-9e84-4905-9768-07679c580d12", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "h\u00fcseynia\u015firan"
+        ], 
+        "mu2_name": "H\u00fcseyn\u00eea\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "huseyniasiran"
+    }, 
+    "huseynibuselik": {
+        "dunya_name": "H\u00fcseynibuselik", 
+        "dunya_uuid": "50577b6c-a5d3-4e89-ae8c-055bd9a69dc7", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "huzi": {
+        "dunya_name": "Huzi", 
+        "dunya_uuid": "c94267ed-f7c5-4c81-a686-f00cf6734bc7", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "huzi"
+        ], 
+        "mu2_name": "H\u00fbz\u00ee", 
+        "symbtr_slug": "huzi"
+    }, 
+    "huzzam": {
+        "dunya_name": "H\u00fczzam", 
+        "dunya_uuid": "c5fa8f01-6959-4e6d-a998-d31d0fc17182", 
+        "karar_midi_freq": 487.46, 
+        "karar_symbol": "B4b1", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "h\u00fczzam"
+        ], 
+        "mu2_name": "H\u00fczzam", 
+        "symbtr_slug": "huzzam"
+    }, 
+    "huzzam_icedid": {
+        "dunya_name": "H\u00fczzam-\u0131 Cedid", 
+        "dunya_uuid": "db752798-2b88-420a-a968-5483d764a50c", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "H\u00fczzam-\u0131-Ced\u00eed", 
+        "symbtr_slug": "huzzam_icedid"
+    }, 
+    "ibrahimi": {
+        "dunya_name": "\u0130brahimi", 
+        "dunya_uuid": "a77ce9af-993b-4fe3-9771-7d0092b500f8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "irak": {
+        "dunya_name": "Irak", 
+        "dunya_uuid": "d3b76962-b52e-4bfb-8698-61aac7979190", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "irak", 
+            "\u0131rak"
+        ], 
+        "mu2_name": "Irak", 
+        "symbtr_slug": "irak"
+    }, 
+    "irakasiran": {
+        "dunya_name": "Iraka\u015firan", 
+        "dunya_uuid": "72f2a941-6008-4465-8556-289813a84cd4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "isfahan": {
+        "dunya_name": "Isfahan", 
+        "dunya_uuid": "dd21336c-3ef2-4405-abb8-749bb3ca1640", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "isfahan", 
+            "\u0131sfahan"
+        ], 
+        "mu2_name": "Isfah\u00e2n", 
+        "symbtr_slug": "isfahan"
+    }, 
+    "isfahan_i_cedid": {
+        "dunya_name": "Isfahan-\u0131 Cedid", 
+        "dunya_uuid": "ba77df69-8529-4f73-a8ac-8d95df04927c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "isfahan_ruy_i_neva": {
+        "dunya_name": "Isfahan Ruy-i Neva", 
+        "dunya_uuid": "6d889770-b322-4c54-8a5f-d092e6466057", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "isfahan_zemzeme": {
+        "dunya_name": "Isfahan Zemzeme", 
+        "dunya_uuid": "c908ac93-c0d7-4cab-82e4-b3fbd2667c8a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "isfahanbuselik": {
+        "dunya_name": "Isfahanbuselik", 
+        "dunya_uuid": "f7d0b317-e0b5-4f08-9f45-e2605be47017", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "isfahanek": {
+        "dunya_name": "Isfahanek", 
+        "dunya_uuid": "38847f23-9c82-4cc5-8e23-d1f568773e8f", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "\u0131sfahanek"
+        ], 
+        "mu2_name": "Isfah\u00e2nek", 
+        "symbtr_slug": "isfahanek"
+    }, 
+    "isfahani": {
+        "dunya_name": "Isfahani", 
+        "dunya_uuid": "2f6e65fa-49ab-4564-80e0-de7c6224d89c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "karabagi": {
+        "dunya_name": "Karaba\u011f\u0131", 
+        "dunya_uuid": "3992ba40-3df8-4053-b9bf-29114edb8f71", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "karcigar": {
+        "dunya_name": "Karc\u0131\u011far", 
+        "dunya_uuid": "cb2eb13d-81df-4b4a-97dd-b88fad730e34", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "ku\u00e7ek"
+        ], 
+        "mu2_name": "Karc\u0131\u011far", 
+        "symbtr_slug": "karcigar"
+    }, 
+    "kebuter": {
+        "dunya_name": "Keb\u00fcter", 
+        "dunya_uuid": "a8193385-8bb8-4920-81ed-30aafe9f466f", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "kucek": {
+        "dunya_name": "K\u00fc\u00e7ek", 
+        "dunya_uuid": "eb9a8c60-ab52-4c73-bab6-83325ca5115d", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "K\u00fb\u00e7ek", 
+        "symbtr_slug": "kucek"
+    }, 
+    "kucekneva": {
+        "dunya_name": "K\u00fc\u00e7ekneva", 
+        "dunya_uuid": "2045962a-0f6e-4ce5-9b59-339c10a53a3e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "kurdi": {
+        "dunya_name": "K\u00fcrdi", 
+        "dunya_uuid": "dd89cdbb-e4cf-4d06-a657-42657907cf0b", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "k\u00fcrdi"
+        ], 
+        "mu2_name": "K\u00fcrd\u00ee", 
+        "symbtr_slug": "kurdi"
+    }, 
+    "kurdi_gerdaniye": {
+        "dunya_name": "K\u00fcrdi Gerdaniye", 
+        "dunya_uuid": "94914b60-f233-4db3-871e-a1fc213f27ea", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "K\u00fcrd\u00ee-Gerd\u00e2niye", 
+        "symbtr_slug": "kurdi_gerdaniye"
+    }, 
+    "kurdilihicazkar": {
+        "dunya_name": "K\u00fcrdilihicazkar", 
+        "dunya_uuid": "e54629b0-b917-4fd4-b73f-162d40ce3541", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5", 
+            "A4b5"
+        ], 
+        "mb_tag": [
+            "k\u00fcrdilihicazkar", 
+            "k\u00fcrdilihicaz"
+        ], 
+        "mu2_name": "K\u00fcrd\u00eelihicazk\u00e2r", 
+        "symbtr_slug": "kurdilihicazkar"
+    }, 
+    "lalegul": {
+        "dunya_name": "Laleg\u00fcl", 
+        "dunya_uuid": "330aa20f-6c5e-4739-85bc-30ef3ea7610a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "mahur": {
+        "dunya_name": "Mahur", 
+        "dunya_uuid": "5755fc73-6c4b-49b3-90bc-ee0bacabf85c", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "F5#5"
+        ], 
+        "mb_tag": [
+            "mahur"
+        ], 
+        "mu2_name": "M\u00e2hur", 
+        "symbtr_slug": "mahur"
+    }, 
+    "mahurbuselik": {
+        "dunya_name": "Mahurbuselik", 
+        "dunya_uuid": "c1cbbc33-c13c-41f8-95db-9fd3029c425e", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "F5#5"
+        ], 
+        "mb_tag": [
+            "mahurbuselik"
+        ], 
+        "mu2_name": "M\u00e2hurb\u00fbselik", 
+        "symbtr_slug": "mahurbuselik"
+    }, 
+    "mahurhan": {
+        "dunya_name": "Mahurhan", 
+        "dunya_uuid": "f421d819-3489-46cb-8f5b-f04c63fc1556", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "mate": {
+        "dunya_name": "Mate", 
+        "dunya_uuid": "c8926350-115b-4165-9770-c359572a008a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "maver": {
+        "dunya_name": "Maver", 
+        "dunya_uuid": "8bf81b07-1fdd-4333-8459-c3c211920109", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "mavera": {
+        "dunya_name": "Mavera", 
+        "dunya_uuid": "fe2f6808-376c-44eb-9fc1-fa22a51c9b24", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "maveraunnehr": {
+        "dunya_name": "Mavera\u00fcnnehir", 
+        "dunya_uuid": "722617d9-f00f-4bb1-afe3-5683f9c284fc", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "M\u00e2ver\u00e2\u00fcnnehr", 
+        "symbtr_slug": "maveraunnehr"
+    }, 
+    "maye": {
+        "dunya_name": "Maye", 
+        "dunya_uuid": "fc591c6b-0e00-457d-811b-465e279b8cae", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "maye"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "meclis_efruz": {
+        "dunya_name": "Meclis Efruz", 
+        "dunya_uuid": "c83d0079-e885-4ce1-ad9c-6b923f533fbc", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muberka": {
+        "dunya_name": "M\u00fcberka", 
+        "dunya_uuid": "092262c1-a72d-42ac-93b5-e44d3e4bd179", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "m\u00fcberka"
+        ], 
+        "mu2_name": "M\u00fcberka", 
+        "symbtr_slug": "muberka"
+    }, 
+    "muhalif": {
+        "dunya_name": "Muhalif", 
+        "dunya_uuid": "0ab82796-bc8b-48ce-aa7b-1fb62fcbf4bf", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Muh\u00e2lif", 
+        "symbtr_slug": "muhalif"
+    }, 
+    "muhalif_i_irak": {
+        "dunya_name": "Muhalif-i Irak", 
+        "dunya_uuid": "77599112-22c7-4b83-ac71-a7357983d032", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muhalif_i_rast": {
+        "dunya_name": "Muhalif-i Rast", 
+        "dunya_uuid": "5a596f1d-eb08-4fa4-8666-08606bb2d857", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muhalif_i_ussak": {
+        "dunya_name": "Muhalif-i U\u015f\u015fak", 
+        "dunya_uuid": "c15372c9-ac2c-4a2d-bd20-05756990567d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muhayyer": {
+        "dunya_name": "Muhayyer", 
+        "dunya_uuid": "21a2936b-eeef-4eec-b3c0-05dff6b0524a", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "muhayyer"
+        ], 
+        "mu2_name": "Muhayyer", 
+        "symbtr_slug": "muhayyer"
+    }, 
+    "muhayyer_zengule": {
+        "dunya_name": "Muhayyer Zeng\u00fcle", 
+        "dunya_uuid": "ae9278de-a89a-40aa-b36c-9d98d767cb76", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muhayyerbuselik": {
+        "dunya_name": "Muhayyerbuselik", 
+        "dunya_uuid": "943293fa-9ff6-4902-b5c2-85e18e70a4ac", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Muhayyerb\u00fbselik", 
+        "symbtr_slug": "muhayyerbuselik"
+    }, 
+    "muhayyerkurdi": {
+        "dunya_name": "Muhayyerk\u00fcrdi", 
+        "dunya_uuid": "8b7734c3-c1ae-408c-bf02-c822185f8930", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            "muhayyerk\u00fcrdi"
+        ], 
+        "mu2_name": "Muhayyerk\u00fcrd\u00ee", 
+        "symbtr_slug": "muhayyerkurdi"
+    }, 
+    "muhayyersunbule": {
+        "dunya_name": "Muhayyer S\u00fcnb\u00fcle", 
+        "dunya_uuid": "40e438ba-cdaf-4436-891d-8c91d39900c8", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "muhayyers\u00fcnb\u00fcle"
+        ], 
+        "mu2_name": "Muhayyers\u00fcnb\u00fcle", 
+        "symbtr_slug": "muhayyersunbule"
+    }, 
+    "murekkep_isfahan": {
+        "dunya_name": "M\u00fcrekkep Isfahan", 
+        "dunya_uuid": "14e94903-7292-4e4c-948a-a5b67ab82f18", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "M\u00fcrekkep-Isfahan", 
+        "symbtr_slug": "murekkep_isfahan"
+    }, 
+    "muselles": {
+        "dunya_name": "M\u00fcselles", 
+        "dunya_uuid": "15fb164a-7967-49d8-8a15-c80713a6053c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "muskuye": {
+        "dunya_name": "M\u00fc\u015fk\u00fcye", 
+        "dunya_uuid": "02e3d902-f273-47da-82c1-9529d0e20dac", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "mustear": {
+        "dunya_name": "M\u00fcstear", 
+        "dunya_uuid": "aadb0eba-c6b3-4bea-9ac5-323d5ba4d95a", 
+        "karar_midi_freq": 487.46, 
+        "karar_symbol": "B4b1", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "m\u00fcstear"
+        ], 
+        "mu2_name": "M\u00fcstear", 
+        "symbtr_slug": "mustear"
+    }, 
+    "narefte": {
+        "dunya_name": "Narefte", 
+        "dunya_uuid": "178cdf25-4504-4fd4-8cff-f4cbeb89b16c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "necd_i_huseyni": {
+        "dunya_name": "Necd-i H\u00fcseyni", 
+        "dunya_uuid": "0eaa7f30-4b69-47cb-b5ec-31f5a954105f", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neresin": {
+        "dunya_name": "Neresin", 
+        "dunya_uuid": "60d42028-04c8-4bc7-ae17-fb4446bcfdd8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "nesataver": {
+        "dunya_name": "Ne\u015fataver", 
+        "dunya_uuid": "d19aa37d-d560-447d-85d2-8d0f2ffa6256", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neva": {
+        "dunya_name": "Neva", 
+        "dunya_uuid": "4b5bac42-e10b-4f65-8900-d454fe6d359b", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "neva"
+        ], 
+        "mu2_name": "Nev\u00e2", 
+        "symbtr_slug": "neva"
+    }, 
+    "neva_bagdat": {
+        "dunya_name": "Neva Ba\u011fdat", 
+        "dunya_uuid": "fd96edf3-e24f-47f5-859b-7fd9ba1c2a44", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neva_dilkes": {
+        "dunya_name": "Neva Dilke\u015f", 
+        "dunya_uuid": "adbc6264-bd14-4910-b43d-c7a233c77691", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neva_kurdi": {
+        "dunya_name": "Nevak\u00fcrdi", 
+        "dunya_uuid": "77a1a0b1-031e-499d-a6a5-aab0b7240cb6", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "nevak\u00fcrdi"
+        ], 
+        "mu2_name": "Nev\u00e2k\u00fcrd\u00ee", 
+        "symbtr_slug": "neva_kurdi"
+    }, 
+    "nevabuselik": {
+        "dunya_name": "Nevabuselik", 
+        "dunya_uuid": "9213f44a-e413-4564-930d-ced111876e55", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "nevabuselik"
+        ], 
+        "mu2_name": "Nev\u00e2b\u00fbselik", 
+        "symbtr_slug": "nevabuselik"
+    }, 
+    "nevazis": {
+        "dunya_name": "Nevazi\u015f", 
+        "dunya_uuid": "006790b9-24d8-46b7-9041-92bab9e02ee2", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neveda": {
+        "dunya_name": "Neveda", 
+        "dunya_uuid": "3c85fff1-31b5-4203-bf5a-93908a8aebc3", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "neveser": {
+        "dunya_name": "Neveser", 
+        "dunya_uuid": "8a707b22-23c3-47a5-b1a9-7b0374c92a9a", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b4", 
+            "E5b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "nev'eser", 
+            "neveser"
+        ], 
+        "mu2_name": "Nev'eser", 
+        "symbtr_slug": "neveser"
+    }, 
+    "nevkes": {
+        "dunya_name": "Nevke\u015f", 
+        "dunya_uuid": "67a123a5-67e4-4e1d-b9bd-22aef116f1ab", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "nevruz": {
+        "dunya_name": "Nevruz", 
+        "dunya_uuid": "5c328265-d51f-4bb8-a183-7c1eeb2f4954", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Nevr\u00fbz", 
+        "symbtr_slug": "nevruz"
+    }, 
+    "nevruzi_rumi": {
+        "dunya_name": "Nevruzi Rumi", 
+        "dunya_uuid": "66522d01-3e8a-45aa-aee2-d46f3975abaf", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "nigar": {
+        "dunya_name": "Nigar", 
+        "dunya_uuid": "9a770732-4e97-4087-94d9-2ccd6c3ccb94", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Nig\u00e2r", 
+        "symbtr_slug": "nigar"
+    }, 
+    "nihavendikebir": {
+        "dunya_name": "Nihavend-i Kebir", 
+        "dunya_uuid": "457907b9-948d-4033-af53-16d349080d36", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5"
+        ], 
+        "mb_tag": [
+            "nihavend-i-kebir"
+        ], 
+        "mu2_name": "Nih\u00e2vend-i-Keb\u00eer", 
+        "symbtr_slug": "nihavendikebir"
+    }, 
+    "nihavendirumi": {
+        "dunya_name": "Nihavend-i Rumi", 
+        "dunya_uuid": "55700621-48e5-4ad2-b5bc-ed567156b060", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Nih\u00e2vend-i-R\u00fbm\u00ee", 
+        "symbtr_slug": "nihavendirumi"
+    }, 
+    "nihavent": {
+        "dunya_name": "Nihavent", 
+        "dunya_uuid": "0f5407cc-1a9a-4c7d-a19b-c00f80d57494", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b5"
+        ], 
+        "mb_tag": [
+            "nihavend", 
+            "nihavent"
+        ], 
+        "mu2_name": "Nih\u00e2vent", 
+        "symbtr_slug": "nihavent"
+    }, 
+    "nikriz": {
+        "dunya_name": "Nikriz", 
+        "dunya_uuid": "360d730f-22d5-49d2-b4b8-edda8b33856b", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "nikriz"
+        ], 
+        "mu2_name": "Nikr\u00eez", 
+        "symbtr_slug": "nikriz"
+    }, 
+    "nisabur": {
+        "dunya_name": "Ni\u015fabur", 
+        "dunya_uuid": "a77f317f-4b99-4ff8-a889-283f95ca6681", 
+        "karar_midi_freq": 493.88, 
+        "karar_symbol": "B4", 
+        "key_signature": [
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "ni\u015fabur"
+        ], 
+        "mu2_name": "Ni\u015f\u00e2bur", 
+        "symbtr_slug": "nisabur"
+    }, 
+    "nisaburek": {
+        "dunya_name": "Ni\u015faburek", 
+        "dunya_uuid": "83eeb00c-9b02-4cce-addc-527318d85ebc", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "F5#5", 
+            "C5#4", 
+            "G5#4"
+        ], 
+        "mb_tag": [
+            "ni\u015faburek"
+        ], 
+        "mu2_name": "Ni\u015f\u00e2burek", 
+        "symbtr_slug": "nisaburek"
+    }, 
+    "nisabureyn": {
+        "dunya_name": "Ni\u015fabureyn", 
+        "dunya_uuid": "a4add1a9-5c36-43f1-80c8-a958e36cfec8", 
+        "karar_midi_freq": 493.88, 
+        "karar_symbol": "B4", 
+        "key_signature": [
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Ni\u015f\u00e2bureyn", 
+        "symbtr_slug": "nisabureyn"
+    }, 
+    "nuhuft": {
+        "dunya_name": "N\u00fch\u00fcft", 
+        "dunya_uuid": "734ec272-dafa-406a-8cb1-251ae2711613", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "n\u00fch\u00fcft"
+        ], 
+        "mu2_name": "N\u00fch\u00fcft", 
+        "symbtr_slug": "nuhuft"
+    }, 
+    "nusingul": {
+        "dunya_name": "Nu\u015fing\u00fcl", 
+        "dunya_uuid": "89fdd432-933e-4719-b990-3c18f5a1a02a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "pencgah": {
+        "dunya_name": "Pen\u00e7gah", 
+        "dunya_uuid": "a99ef0f6-11f1-4486-a927-1f5a37ed477a", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "pen\u00e7gah"
+        ], 
+        "mu2_name": "Pen\u00e7g\u00e2h", 
+        "symbtr_slug": "pencgah"
+    }, 
+    "pencgahiasl": {
+        "dunya_name": "Pen\u00e7gah-\u0131 Asl", 
+        "dunya_uuid": "d6d50c4b-3676-47de-b37b-3035e2c77414", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Pen\u00e7g\u00e2h-\u0131-Asl", 
+        "symbtr_slug": "pencgahiasl"
+    }, 
+    "pencgahizaid": {
+        "dunya_name": "Pen\u00e7gah-\u0131 Zaid", 
+        "dunya_uuid": "6c52962a-e8f1-4da8-abdf-83aaf03c3c5d", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Pen\u00e7g\u00e2h-\u0131-Z\u00e2id", 
+        "symbtr_slug": "pencgahizaid"
+    }, 
+    "perr_i_zerrin": {
+        "dunya_name": "Perr-i Zerrin", 
+        "dunya_uuid": "3b16a88d-9d59-47f3-88a0-83c320b4591c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "pesendide": {
+        "dunya_name": "Pesendide", 
+        "dunya_uuid": "a969729d-b498-483d-a117-91992c881a01", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "pesendide"
+        ], 
+        "mu2_name": "Pesend\u00eede", 
+        "symbtr_slug": "pesendide"
+    }, 
+    "peyk_i_safa": {
+        "dunya_name": "Peyk-i Safa", 
+        "dunya_uuid": "8b1edb80-c9c0-4511-9949-7c2c84a048b5", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "peyk-i-safa"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "peykinesat": {
+        "dunya_name": "Peyk-i Ne\u015fat", 
+        "dunya_uuid": "cdf6bf46-e0ae-40ad-b468-269b66b5428c", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Peyk-i-Ne\u015fat", 
+        "symbtr_slug": "peykinesat"
+    }, 
+    "rahatfeza": {
+        "dunya_name": "Rahatfeza", 
+        "dunya_uuid": "f0b4455f-4d6b-4d93-ab76-e257da09d924", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "R\u00e2hatfez\u00e2", 
+        "symbtr_slug": "rahatfeza"
+    }, 
+    "rahatulervah": {
+        "dunya_name": "Rahat\u00fclervah", 
+        "dunya_uuid": "5405afa3-cb47-41d6-b891-29fb0df7f3bd", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b4", 
+            "C5#4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "rahat\u00fclervah"
+        ], 
+        "mu2_name": "Rahat\u00fclervah", 
+        "symbtr_slug": "rahatulervah"
+    }, 
+    "ramis_i_can": {
+        "dunya_name": "Rami\u015f-i Can", 
+        "dunya_uuid": "6d535fbf-ac43-48ae-b5ab-7735b3b0c018", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rast": {
+        "dunya_name": "Rast", 
+        "dunya_uuid": "89b51083-510e-4c7e-a25b-926767008f60", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "rast"
+        ], 
+        "mu2_name": "Rast", 
+        "symbtr_slug": "rast"
+    }, 
+    "rast_haveran": {
+        "dunya_name": "Rast Haveran", 
+        "dunya_uuid": "371ca7db-219a-47df-ac1c-c404e6bee897", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rast_i_atik": {
+        "dunya_name": "Rast-\u0131 Atik", 
+        "dunya_uuid": "167b5ab8-cd3c-4cbb-a2f6-7d1bf5cd2886", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rast_i_rumi": {
+        "dunya_name": "Rast-\u0131 Rumi", 
+        "dunya_uuid": "9a16e005-be8f-4a71-be4e-0511071c8193", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rast_i_sagir": {
+        "dunya_name": "Rast-\u0131 Sa\u011f\u0131r", 
+        "dunya_uuid": "2dd9f29f-fcf4-4001-95bb-3ef2657f824d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rast_i_sultani": {
+        "dunya_name": "Rast-\u0131 Sultani", 
+        "dunya_uuid": "9db2b72e-b8b4-4e3a-a2d3-5d6a9d7773f4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rastasiran": {
+        "dunya_name": "Rasta\u015firan", 
+        "dunya_uuid": "8916a726-28e4-45c6-b69f-a6e0b7248b53", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rastdilara": {
+        "dunya_name": "Rastdilara", 
+        "dunya_uuid": "8d0c106c-060a-4d8f-8578-600b0a3b569b", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rasticedid": {
+        "dunya_name": "Rast-\u0131 Cedid", 
+        "dunya_uuid": "19063ec5-f283-47b6-80ad-4a0d66848ac7", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Rast-\u0131-Ced\u00eed", 
+        "symbtr_slug": "rasticedid"
+    }, 
+    "rastkurdi": {
+        "dunya_name": "Rastk\u00fcrdi", 
+        "dunya_uuid": "9bad30e6-4c92-468a-bfc3-5999f8220590", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rastmaye": {
+        "dunya_name": "Rast-Maye", 
+        "dunya_uuid": "f3ac4062-8ff6-40fa-a5c0-5679a597483d", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Rast-M\u00e2ye", 
+        "symbtr_slug": "rastmaye"
+    }, 
+    "rehavi": {
+        "dunya_name": "Rehavi", 
+        "dunya_uuid": "8cb98ad4-32c2-48f0-af11-d3b1f9ac703c", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "rehavi"
+        ], 
+        "mu2_name": "Reh\u00e2v\u00ee", 
+        "symbtr_slug": "rehavi"
+    }, 
+    "rekb_i_zavil": {
+        "dunya_name": "Rekb-i Zavil", 
+        "dunya_uuid": "b05416ca-67b4-4cb0-a904-6a6ed282ca61", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "rengidil": {
+        "dunya_name": "Reng-i Dil", 
+        "dunya_uuid": "4f7211ba-e302-4afb-8ffe-a208a3e85e00", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "A4b4", 
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Rengidil", 
+        "symbtr_slug": "rengidil"
+    }, 
+    "revnaknuma": {
+        "dunya_name": "Revnakn\u00fcma", 
+        "dunya_uuid": "a15b8209-1bf5-465d-b5bd-e3ed85b4ff16", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1", 
+            "F5#4", 
+            "C5#4", 
+            "A4#4"
+        ], 
+        "mb_tag": [
+            "revnakn\u00fcma"
+        ], 
+        "mu2_name": "Revn\u00e2kn\u00fcm\u00e2", 
+        "symbtr_slug": "revnaknuma"
+    }, 
+    "reyya": {
+        "dunya_name": "Reyya", 
+        "dunya_uuid": "78a3d1e6-11f8-409c-9309-8e62c13c2072", 
+        "karar_midi_freq": 275.38, 
+        "karar_symbol": "C4#4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "A4b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Reyy\u00e2", 
+        "symbtr_slug": "reyya"
+    }, 
+    "ruhnuvaz": {
+        "dunya_name": "Ruhn\u00fcvaz", 
+        "dunya_uuid": "9bc6550d-a51a-43ac-af48-55c225be69fb", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "F5#5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Ruhn\u00fcvaz", 
+        "symbtr_slug": "ruhnuvaz"
+    }, 
+    "ruy_i_neva": {
+        "dunya_name": "Ruy-i Neva", 
+        "dunya_uuid": "20b57a9d-c5c0-4d7a-ac73-a358f523c13c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "ruy-i-neva"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ruyidilara": {
+        "dunya_name": "Ruy-i Dilara", 
+        "dunya_uuid": "7754e809-a239-40e2-9ce2-4a9f97868f81", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "R\u00fby-i-Dil\u00e2r\u00e2", 
+        "symbtr_slug": "ruyidilara"
+    }, 
+    "ruyiirak": {
+        "dunya_name": "Ruy-i Irak", 
+        "dunya_uuid": "3bba8ac5-957a-4cd6-9fee-e4167cac89ca", 
+        "karar_midi_freq": 367.99, 
+        "karar_symbol": "F4#4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "R\u00fby-i-Ir\u00e2k", 
+        "symbtr_slug": "ruyiirak"
+    }, 
+    "saba": {
+        "dunya_name": "Saba", 
+        "dunya_uuid": "0a7d781b-8d78-4cde-b5ee-3bff71c65064", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "saba"
+        ], 
+        "mu2_name": "Sab\u00e2", 
+        "symbtr_slug": "saba"
+    }, 
+    "sabaasiran": {
+        "dunya_name": "Sabaa\u015firan", 
+        "dunya_uuid": "ed00c0ff-f3d7-4498-a580-b9a2b151e9e4", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Sab\u00e2a\u015f\u00eer\u00e2n", 
+        "symbtr_slug": "sabaasiran"
+    }, 
+    "sababuselik": {
+        "dunya_name": "Sababuselik", 
+        "dunya_uuid": "2d85b4bd-b662-4959-a2c3-c00d2901fd2e", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "sababuselik"
+        ], 
+        "mu2_name": "Sab\u00e2b\u00fbselik", 
+        "symbtr_slug": "sababuselik"
+    }, 
+    "sabakurdi": {
+        "dunya_name": "Sabak\u00fcrdi", 
+        "dunya_uuid": "919bbe9f-e66e-4acb-8e64-a496f3554b9a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sabazemzeme": {
+        "dunya_name": "Saba Zemzeme", 
+        "dunya_uuid": "89f3b519-85b0-4763-a4bc-378c944a20f7", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "saba-zemzeme"
+        ], 
+        "mu2_name": "Sab\u00e2-Zemzeme", 
+        "symbtr_slug": "sabazemzeme"
+    }, 
+    "sazkar": {
+        "dunya_name": "Sazkar", 
+        "dunya_uuid": "b3567b17-5236-4b72-9fc9-dffeeb94f0a6", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "sazkar"
+        ], 
+        "mu2_name": "Sazk\u00e2r", 
+        "symbtr_slug": "sazkar"
+    }, 
+    "sedaraban": {
+        "dunya_name": "\u015eedaraban", 
+        "dunya_uuid": "b12934bf-2252-4024-9a03-f078e176bcda", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b4", 
+            "E5b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "\u015fedaraban"
+        ], 
+        "mu2_name": "\u015eedarab\u00e2n", 
+        "symbtr_slug": "sedaraban"
+    }, 
+    "sedd_i_saba": {
+        "dunya_name": "\u015eedd-i Saba", 
+        "dunya_uuid": "7ff955a2-5724-499d-90eb-a82ae4f57cd1", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "segah": {
+        "dunya_name": "Segah", 
+        "dunya_uuid": "1d2f6492-c6cc-4a29-9cde-4eb159078f93", 
+        "karar_midi_freq": 487.46, 
+        "karar_symbol": "B4b1", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "segah"
+        ], 
+        "mu2_name": "Seg\u00e2h", 
+        "symbtr_slug": "segah"
+    }, 
+    "segah_araban": {
+        "dunya_name": "Segah Araban", 
+        "dunya_uuid": "e7d78a71-828f-4254-a99a-022d72e29046", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "segah_maye": {
+        "dunya_name": "Segah Maye", 
+        "dunya_uuid": "bdc5aa51-b7c0-4c22-9b84-7d9b56bfdc2c", 
+        "karar_midi_freq": 487.46, 
+        "karar_symbol": "B4b1", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Seg\u00e2h-M\u00e2ye", 
+        "symbtr_slug": "segah_maye"
+    }, 
+    "sehnaz": {
+        "dunya_name": "\u015eehnaz", 
+        "dunya_uuid": "eed89499-61ee-4edc-9823-24a96dc07df1", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#1", 
+            "C5#4", 
+            "G5#4"
+        ], 
+        "mb_tag": [
+            "\u015fehnaz"
+        ], 
+        "mu2_name": "\u015eehn\u00e2z", 
+        "symbtr_slug": "sehnaz"
+    }, 
+    "sehnaz_nisaburek": {
+        "dunya_name": "\u015eehnaz Ni\u015faburek", 
+        "dunya_uuid": "b310fd70-c23a-46c4-99e1-919173e7e267", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sehnazasiran": {
+        "dunya_name": "\u015eehnaza\u015firan", 
+        "dunya_uuid": "4ffa5f1f-51da-4d8d-9952-664e2c4c65d4", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "\u015fehnaza\u015firan"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sehnazbuselik": {
+        "dunya_name": "\u015eehnazbuselik", 
+        "dunya_uuid": "73e71844-85f8-4d9b-bfb9-fcdc536a3a3f", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [], 
+        "mb_tag": [
+            "\u015fehnazbuselik"
+        ], 
+        "mu2_name": "\u015eehn\u00e2zb\u00fbselik", 
+        "symbtr_slug": "sehnazbuselik"
+    }, 
+    "sehnazhaveran": {
+        "dunya_name": "\u015eehnazhaveran", 
+        "dunya_uuid": "8228757c-9526-4aa0-8307-94d975f6aaf8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "selmek": {
+        "dunya_name": "Selmek", 
+        "dunya_uuid": "2a892a44-ec3c-4556-b1a6-585f1aa9634b", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "selmek"
+        ], 
+        "mu2_name": "Selmek", 
+        "symbtr_slug": "selmek"
+    }, 
+    "semsefruz": {
+        "dunya_name": "\u015eemsefruz", 
+        "dunya_uuid": "d8cdf1c0-0f0a-48b1-8dd1-6699a06568a1", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sengendaz": {
+        "dunya_name": "Sengendaz", 
+        "dunya_uuid": "d9b601e8-51ec-4540-bdb9-4abb4a252814", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "seref_i_hamidi": {
+        "dunya_name": "\u015eeref-i Hamidi", 
+        "dunya_uuid": "43f5c827-f505-49d7-9784-27f57fc98f8d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "serefnuma": {
+        "dunya_name": "\u015eerefnuma", 
+        "dunya_uuid": "f42fbb70-87ce-40d0-99eb-d33761657a65", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "\u015eerefn\u00fcm\u00e2", 
+        "symbtr_slug": "serefnuma"
+    }, 
+    "sevk": {
+        "dunya_name": "\u015eevk", 
+        "dunya_uuid": "a0d2de22-3848-425c-949b-16d4aade67dc", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sevk_i_cihan": {
+        "dunya_name": "\u015eevk-i Cihan", 
+        "dunya_uuid": "d1abdde1-9915-45ec-b8f1-7a758f965e09", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sevk_i_serab": {
+        "dunya_name": "\u015eevk-i Serab", 
+        "dunya_uuid": "924cc73e-cd6b-4746-86e8-b1cdc6867869", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sevk_icedid": {
+        "dunya_name": "\u015eevk-i Cedid", 
+        "dunya_uuid": "6c9589c2-fc2b-45db-822f-87b07f2cc108", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "\u015eevk-\u0131-Ced\u00eed", 
+        "symbtr_slug": "sevk_icedid"
+    }, 
+    "sevkaver": {
+        "dunya_name": "\u015eevkaver", 
+        "dunya_uuid": "2082b565-4afa-4107-a6e2-4c0ff917cf57", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "\u015eevk\u00e2ver", 
+        "symbtr_slug": "sevkaver"
+    }, 
+    "sevkefza": {
+        "dunya_name": "\u015eevkefza", 
+        "dunya_uuid": "0a5e72b0-66ce-4f5d-bc7a-935f9dbccbda", 
+        "karar_midi_freq": 349.23, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b5", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "\u015favkefza", 
+            "\u015favkfeza", 
+            "\u015fev'efza", 
+            "\u015fevefza", 
+            "\u015fevkefza", 
+            "\u015fevkfeza", 
+            "\u015fevk'efza"
+        ], 
+        "mu2_name": "\u015eevk'efz\u00e2", 
+        "symbtr_slug": "sevkefza"
+    }, 
+    "sevkidil": {
+        "dunya_name": "\u015eevk-i Dil", 
+        "dunya_uuid": "4ac02fbc-1c53-4626-a673-e9749504fcf3", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "\u015eevk-\u0131-Dil", 
+        "symbtr_slug": "sevkidil"
+    }, 
+    "sevknuma": {
+        "dunya_name": "\u015eevkn\u00fcma", 
+        "dunya_uuid": "05b69df7-adf0-4498-ba05-852278974605", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sevkutarab": {
+        "dunya_name": "\u015eevkutarab", 
+        "dunya_uuid": "31c1a7a1-ed5a-4814-add7-88f0ba198637", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "\u015fevkutarab"
+        ], 
+        "mu2_name": "\u015eevkutarab", 
+        "symbtr_slug": "sevkutarab"
+    }, 
+    "sinaver": {
+        "dunya_name": "\u015einaver", 
+        "dunya_uuid": "3cd52633-3c0f-4eee-bc61-fca8010d23d9", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sipihr": {
+        "dunya_name": "Sipihr", 
+        "dunya_uuid": "ffcfed94-cf02-4ea2-8941-aa765d98e8c4", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "sipihr", 
+            "yeni-sipihr"
+        ], 
+        "mu2_name": "Sipihr", 
+        "symbtr_slug": "sipihr"
+    }, 
+    "siraz": {
+        "dunya_name": "\u015eiraz", 
+        "dunya_uuid": "1c352528-4fb9-4e53-bc53-2fbf65a1e96e", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sivekar": {
+        "dunya_name": "\u015eivekar", 
+        "dunya_uuid": "17538aed-abd9-40fb-b7e7-422d35bb78b5", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sivekes": {
+        "dunya_name": "\u015eiveke\u015f", 
+        "dunya_uuid": "4629ae9f-9baa-4dd5-be2d-72b8ba508967", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sivenuma": {
+        "dunya_name": "\u015eiven\u00fcma", 
+        "dunya_uuid": "2c7a222d-b610-4272-a7d1-e0d2c897f64a", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "\u015fiven\u00fcma"
+        ], 
+        "mu2_name": "\u015e\u00eeven\u00fcm\u00e2", 
+        "symbtr_slug": "sivenuma"
+    }, 
+    "sultani": {
+        "dunya_name": "Sultani", 
+        "dunya_uuid": "e3ac7a79-3b7f-4fb0-ba6b-6e3f63e22edd", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sultanibuselik": {
+        "dunya_name": "Sultan\u0131buselik", 
+        "dunya_uuid": "8daf13df-bca7-418b-aa02-c289c4b9e0bf", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sultanicedid": {
+        "dunya_name": "Sultan\u0131cedid", 
+        "dunya_uuid": "97fa32a7-c760-476d-96ad-896ca518eaf3", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sultanievic": {
+        "dunya_name": "Sultan\u0131evi\u00e7", 
+        "dunya_uuid": "dab3c049-6226-40d0-9b12-88614b9957af", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sultanihuzzam": {
+        "dunya_name": "Sultan\u0131h\u00fczzam", 
+        "dunya_uuid": "f83c0025-7f38-444b-a91b-59740dd4541d", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sultaniirak": {
+        "dunya_name": "Sultani Irak", 
+        "dunya_uuid": "ee0aa79b-f251-43a1-8f03-38600db5e119", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "sultan-\u0131-arak"
+        ], 
+        "mu2_name": "Sultan-\u0131-Irak", 
+        "symbtr_slug": "sultaniirak"
+    }, 
+    "sultanisegah": {
+        "dunya_name": "Sultan\u0131segah", 
+        "dunya_uuid": "6fc6808f-5426-41a8-82c9-af519368772c", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Sult\u00e2n\u00eeseg\u00e2h", 
+        "symbtr_slug": "sultanisegah"
+    }, 
+    "sultaniyegah": {
+        "dunya_name": "Sultan\u0131yegah", 
+        "dunya_uuid": "4f88dfe9-8aca-4faf-acd7-29472ba34810", 
+        "karar_midi_freq": 587.33, 
+        "karar_symbol": "D5", 
+        "key_signature": [
+            "B4b5", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            "sultaniyegah"
+        ], 
+        "mu2_name": "Sult\u00e2n\u00eeyeg\u00e2h", 
+        "symbtr_slug": "sultaniyegah"
+    }, 
+    "sunbule": {
+        "dunya_name": "S\u00fcnb\u00fcle", 
+        "dunya_uuid": "529b2de8-c266-4a88-9985-ea4b5518eac8", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "suri": {
+        "dunya_name": "\u015euri", 
+        "dunya_uuid": "11cd4fb9-4033-4bbc-a3e2-2ab8afc2ef4c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "sururefza": {
+        "dunya_name": "S\u00fcrurefza", 
+        "dunya_uuid": "4af11b14-1a0b-4eb9-9d0a-9f3b5aa1f478", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "suzidil": {
+        "dunya_name": "Suzidil", 
+        "dunya_uuid": "58dbc500-f618-4df4-bd6c-0f791625fcc5", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [
+            "F5#1", 
+            "G5#4", 
+            "D5#4"
+        ], 
+        "mb_tag": [
+            "suzidil"
+        ], 
+        "mu2_name": "S\u00fbzidil", 
+        "symbtr_slug": "suzidil"
+    }, 
+    "suzidilara": {
+        "dunya_name": "Suzidilara", 
+        "dunya_uuid": "ebf11def-6e61-4a72-b80b-efc598e30e4c", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "F5#5"
+        ], 
+        "mb_tag": [
+            "suzidilara"
+        ], 
+        "mu2_name": "S\u00fbzidil\u00e2r\u00e2", 
+        "symbtr_slug": "suzidilara"
+    }, 
+    "suzinak": {
+        "dunya_name": "Suzinak", 
+        "dunya_uuid": "6b9cfc57-d18e-4bee-be55-f942538069e8", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "suzinak"
+        ], 
+        "mu2_name": "S\u00fbzin\u00e2k", 
+        "symbtr_slug": "suzinak"
+    }, 
+    "suzinak_i_nev": {
+        "dunya_name": "Suzinak-\u0131 Nev", 
+        "dunya_uuid": "d26eab24-0f9e-439c-8734-2069eebe12ca", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "suzinak_zirgule": {
+        "dunya_name": "Suzinak Zirg\u00fcle", 
+        "dunya_uuid": "4c5e8d1c-a865-4476-9f9a-4aa65efe1879", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "E5b4", 
+            "A4b4", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "zirg\u00fcleli suzinak"
+        ], 
+        "mu2_name": "S\u00fbzin\u00e2k-Zirg\u00fcle", 
+        "symbtr_slug": "suzinak_zirgule"
+    }, 
+    "tahir": {
+        "dunya_name": "Tahir", 
+        "dunya_uuid": "0fe12c2f-263b-4e41-86fe-8c70f66027fa", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "tahir"
+        ], 
+        "mu2_name": "T\u00e2hir", 
+        "symbtr_slug": "tahir"
+    }, 
+    "tahirbuselik": {
+        "dunya_name": "Tahirbuselik", 
+        "dunya_uuid": "32d80fb7-9cb6-4985-8383-4ef83cf81bd8", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "tahirbuselik"
+        ], 
+        "mu2_name": "T\u00e2hirb\u00fbselik", 
+        "symbtr_slug": "tahirbuselik"
+    }, 
+    "tarz_i_cihan": {
+        "dunya_name": "Tarz-\u0131 Cihan", 
+        "dunya_uuid": "5c38212d-40bd-4eca-aa41-1993351df50c", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "tarzicedid": {
+        "dunya_name": "Tarz-\u0131 Cedid", 
+        "dunya_uuid": "d8ad061a-56b8-4bc7-80c0-b93a1be7ca2c", 
+        "karar_midi_freq": 367.0, 
+        "karar_symbol": "F4", 
+        "key_signature": [
+            "B4b5"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Tarz-\u0131-Ced\u00eed", 
+        "symbtr_slug": "tarzicedid"
+    }, 
+    "tarzinevin": {
+        "dunya_name": "Tarz-\u0131 Nevin", 
+        "dunya_uuid": "23a217af-1692-4d4e-8ac6-303ab9da6fbd", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b5", 
+            "D5b4"
+        ], 
+        "mb_tag": [
+            "tarz-\u0131-nevin"
+        ], 
+        "mu2_name": "Tarz-\u0131-Nev\u00een", 
+        "symbtr_slug": "tarzinevin"
+    }, 
+    "tebriz": {
+        "dunya_name": "Tebriz", 
+        "dunya_uuid": "8c7da971-c19e-4502-9424-33da461e557a", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "tebriz"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "teressud": {
+        "dunya_name": "Tere\u015f\u015f\u00fcd", 
+        "dunya_uuid": "8a23a35f-b2c9-4894-a264-4af8aef8181f", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "turki_hicaz": {
+        "dunya_name": "T\u00fcrki Hicaz", 
+        "dunya_uuid": "17063fe4-de65-4e9e-96d6-dd0843345437", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "tuvanger": {
+        "dunya_name": "T\u00fcvanger", 
+        "dunya_uuid": "8494a279-d82a-4fd8-a932-e6cbc399b839", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "unknown": {
+        "dunya_name": "unknown", 
+        "dunya_uuid": "8f5c4626-0e1c-403b-bd77-20d9aaef01be", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ussak": {
+        "dunya_name": "U\u015f\u015fak", 
+        "dunya_uuid": "dca65b49-3167-479f-9114-adfe277b24b0", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            "u\u015f\u015fak"
+        ], 
+        "mu2_name": "U\u015f\u015fak", 
+        "symbtr_slug": "ussak"
+    }, 
+    "ussak_ruy_i_nikriz": {
+        "dunya_name": "U\u015f\u015fak Ruy-i Nikriz", 
+        "dunya_uuid": "7c9d1f9f-2a0a-4b8a-b11e-f0ecf5276b72", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [
+            "B4b1"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "ussakasiran": {
+        "dunya_name": "U\u015f\u015faka\u015firan", 
+        "dunya_uuid": "5ec08650-c50f-44a7-9a92-b03d8368acb7", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "uzzal": {
+        "dunya_name": "Uzzal", 
+        "dunya_uuid": "bc6fe419-693b-429c-a63d-368bd00725b2", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            "uzzal"
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "vecdidil": {
+        "dunya_name": "Vecd-i Dil", 
+        "dunya_uuid": "1b252791-21e4-40f4-9f4c-b0cb9c00e415", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Vecd-i-Dil", 
+        "symbtr_slug": "vecdidil"
+    }, 
+    "vech_i_dil": {
+        "dunya_name": "Vech-i Dil", 
+        "dunya_uuid": "1464d414-6c36-418f-a26d-c309890b093f", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "vechiarazbar": {
+        "dunya_name": "Vech-i Arazbar", 
+        "dunya_uuid": "886214f0-8125-408a-91d2-4b67f29c196a", 
+        "karar_midi_freq": 487.46, 
+        "karar_symbol": "B4b1", 
+        "key_signature": [
+            "B4b1", 
+            "E5b1"
+        ], 
+        "mb_tag": [
+            "vech-i-arazbar"
+        ], 
+        "mu2_name": "Vech-i-Arazb\u00e2r", 
+        "symbtr_slug": "vechiarazbar"
+    }, 
+    "vechisehnaz": {
+        "dunya_name": "Vech-i \u015eehnaz", 
+        "dunya_uuid": "c672438d-2501-47cd-8cf4-844a47e9e1b1", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Vech-i-\u015eehn\u00e2z", 
+        "symbtr_slug": "vechisehnaz"
+    }, 
+    "yegah": {
+        "dunya_name": "Yegah", 
+        "dunya_uuid": "a2b44108-a796-49fb-8b89-1a9f927a1212", 
+        "karar_midi_freq": 293.66, 
+        "karar_symbol": "D4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            "yegah", 
+            "yegah (u\u015f\u015fak'ta)"
+        ], 
+        "mu2_name": "Yeg\u00e2h", 
+        "symbtr_slug": "yegah"
+    }, 
+    "yegah_i_acemi": {
+        "dunya_name": "Yegah-\u0131 Acemi", 
+        "dunya_uuid": "c8875b78-bd09-42c7-8b81-5c0002597738", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "yeni_cargah": {
+        "dunya_name": "\u00c7argah (Yeni)", 
+        "dunya_uuid": "9711f577-1fb4-4749-87df-0f314788ecbd", 
+        "karar_midi_freq": 523.25, 
+        "karar_symbol": "C5", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "\u00c7arg\u00e2h(Yeni)", 
+        "symbtr_slug": "yeni_cargah"
+    }, 
+    "zavil": {
+        "dunya_name": "Zavil", 
+        "dunya_uuid": "a81bd888-b564-4d5b-b83f-2060447c76da", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "F5#5"
+        ], 
+        "mb_tag": [
+            "zavil"
+        ], 
+        "mu2_name": "Z\u00e2vil", 
+        "symbtr_slug": "zavil"
+    }, 
+    "zavilasiran": {
+        "dunya_name": "Zavila\u015firan", 
+        "dunya_uuid": "f64886b7-6007-4105-a817-bae2365422b5", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "zengule": {
+        "dunya_name": "Zeng\u00fcle", 
+        "dunya_uuid": "42141260-ad64-4a12-b441-2649059644af", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "zengule_buselik": {
+        "dunya_name": "Zeng\u00fcle buselik", 
+        "dunya_uuid": "099118bf-caa2-4845-b9d2-0c83eea0d3cc", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "zenguleli_kurdi": {
+        "dunya_name": "Zeng\u00fcleli K\u00fcrdi", 
+        "dunya_uuid": "97666866-a3b6-4247-a2ff-5fed293181dd", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "zevkidil": {
+        "dunya_name": "Zevk-\u0131 Dil", 
+        "dunya_uuid": "e2f01a73-8232-4f08-8752-be97318dbbf2", 
+        "karar_midi_freq": 392.0, 
+        "karar_symbol": "G4", 
+        "key_signature": [
+            "B4b1", 
+            "F5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Zevk-i-Dil", 
+        "symbtr_slug": "zevkidil"
+    }, 
+    "zevkitarab": {
+        "dunya_name": "Zevk-\u00fc Tarab", 
+        "dunya_uuid": "8edc415a-3e6d-467d-b1a3-26360792df8c", 
+        "karar_midi_freq": 440.0, 
+        "karar_symbol": "A4", 
+        "key_signature": [
+            "B4b5", 
+            "E5b4", 
+            "F5#4", 
+            "C5#4"
+        ], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Zevk-i-Tarab", 
+        "symbtr_slug": "zevkitarab"
+    }, 
+    "zilkes": {
+        "dunya_name": "Zilke\u015f", 
+        "dunya_uuid": "bb001b45-da41-48fa-b503-cf168ac8db56", 
+        "karar_midi_freq": "", 
+        "karar_symbol": "", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "", 
+        "symbtr_slug": ""
+    }, 
+    "zirefkend": {
+        "dunya_name": "Zirefkend", 
+        "dunya_uuid": "3e71a9f6-83bb-4cc4-ad62-66407638d285", 
+        "karar_midi_freq": 329.63, 
+        "karar_symbol": "E4", 
+        "key_signature": [], 
+        "mb_tag": [
+            ""
+        ], 
+        "mu2_name": "Z\u00eerefkend", 
+        "symbtr_slug": "zirefkend"
+    }
+}

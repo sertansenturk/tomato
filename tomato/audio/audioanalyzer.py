@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2016 Sertan Şentürk
+# Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
 #
@@ -32,13 +32,15 @@ import timeit
 import six
 
 from makammusicbrainz.audiometadata import AudioMetadata
+
 from .predominantmelody import PredominantMelody
 from .pitchfilter import PitchFilter
 from .seyiranalyzer import SeyirAnalyzer
 from .toniclastnote import TonicLastNote
 from .ahenkidentifier import AhenkIdentifier
-from notemodel.notemodel import NoteModel
+from .notemodel import NoteModel
 from .pitchdistribution import PitchDistribution
+
 from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
