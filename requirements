@@ -4,7 +4,6 @@ git+https://github.com/sertansenturk/makammusicbrainz.git@v1.4.0#egg=makammusicb
 
 # histogram analysis and tuning analysis
 git+https://github.com/altugkarakurt/morty.git@v1.3.0#egg=morty
-git+https://github.com/miracatici/notemodel.git@v1.2.1#egg=notemodel
 
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
 # (meta)data extractor, including section extraction and semiotic analysis
