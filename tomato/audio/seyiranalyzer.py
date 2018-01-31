@@ -20,14 +20,14 @@
 #
 # If you are using this extractor please cite the following thesis:
 #
-# Şentürk, S. (2016). Computational Analysis of Audio Recordings and Music
-# Scores for the Description and Discovery of Ottoman-Turkish Makam Music.
-# Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 
 import numpy as np
 import matplotlib.pyplot as plt
-from morty.pitchdistribution import PitchDistribution
+from .pitchdistribution import PitchDistribution
 from morty.converter import Converter
 import json
 import copy

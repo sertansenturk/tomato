@@ -21,14 +21,15 @@
 # If you are using this extractor please cite the following paper:
 #
 # Atlı, H. S., Bozkurt, B., and Şentürk, S. (2015). A method for tonic
-# frequency identification of Turkish makam music recordings. 5th
-# International Workshop on Folk Music Analysis (FMA).
+# frequency identification of Turkish makam music recordings. In Proceedings
+# of 5th International Workshop on Folk Music Analysis (FMA 2015),
+# pages 119–122, Paris, France.
 
 from numpy import median
 from numpy import where
 import numpy as np
 from .pitchfilter import PitchFilter
-from morty.pitchdistribution import PitchDistribution
+from .pitchdistribution import PitchDistribution
 from morty.converter import Converter
 import matplotlib.pyplot as plt
 import matplotlib.ticker

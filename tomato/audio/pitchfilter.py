@@ -20,10 +20,10 @@
 #
 # If you are using this extractor please cite the following paper:
 #
-# Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio
-# feature extraction for exploring Turkish makam music. In Proceedings of 3rd
-# International Conference on Audio Technologies for Music and Media, Ankara,
-# Turkey.
+# Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014).
+# Audio feature extraction for exploring Turkish makam music. In Proceedings
+# of 3rd International Conference on Audio Technologies for Music and Media
+# (ATMM 2014), pages 142–153, Ankara, Turkey.
 
 import numpy as np
 

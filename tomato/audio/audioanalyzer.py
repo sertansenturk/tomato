@@ -20,9 +20,9 @@
 #
 # If you are using this extractor please cite the following thesis:
 #
-# Şentürk, S. (2016). Computational Analysis of Audio Recordings and Music
-# Scores for the Description and Discovery of Ottoman-Turkish Makam Music.
-# Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import numpy as np
 import copy
@@ -35,10 +35,10 @@ from makammusicbrainz.audiometadata import AudioMetadata
 from .predominantmelody import PredominantMelody
 from .pitchfilter import PitchFilter
 from .seyiranalyzer import SeyirAnalyzer
-from tonicidentifier.toniclastnote import TonicLastNote
+from .toniclastnote import TonicLastNote
 from ahenkidentifier.ahenkidentifier import AhenkIdentifier
 from notemodel.notemodel import NoteModel
-from morty.pitchdistribution import PitchDistribution
+from .pitchdistribution import PitchDistribution
 from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
