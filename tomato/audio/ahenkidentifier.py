@@ -108,7 +108,8 @@ class AhenkIdentifier(object):
     @staticmethod
     def _get_dict(dict_type):
         dict_file = os.path.join(os.path.dirname(
-            os.path.abspath(__file__)), 'data', dict_type + '.json')
+            os.path.abspath(__file__)), '..', 'models',
+            'ahenk_identification', dict_type + '.json')
         return json.load(open(dict_file))
 
     @staticmethod

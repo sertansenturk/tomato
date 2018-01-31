@@ -1,0 +1,50 @@
+{
+    "kiz": {
+        "name": "K\u0131z", 
+        "cent_transposition": 700
+    }, 
+    "sah": {
+        "name": "\u015eah", 
+        "cent_transposition": 300
+    }, 
+    "bolahenk_sipurde": {
+        "name": "Bolahenk-Sip\u00fcrde Mabeyni", 
+        "cent_transposition": 1100
+    }, 
+    "mansur_sah": {
+        "name": "Mansur-\u015eah Mabeyni", 
+        "cent_transposition": 400
+    }, 
+    "sipurde": {
+        "name": "Sip\u00fcrde", 
+        "cent_transposition": 1000
+    }, 
+    "davut": {
+        "name": "Davut", 
+        "cent_transposition": 200
+    }, 
+    "mansur": {
+        "name": "Mansur", 
+        "cent_transposition": 500
+    }, 
+    "yildiz": {
+        "name": "Y\u0131ld\u0131z", 
+        "cent_transposition": 800
+    }, 
+    "mustahsen": {
+        "name": "M\u00fcstahsen", 
+        "cent_transposition": 900
+    }, 
+    "bolahenk": {
+        "name": "Bolahenk", 
+        "cent_transposition": 0
+    }, 
+    "kiz_mansur": {
+        "name": "K\u0131z-Mansur Mabeyni", 
+        "cent_transposition": 600
+    }, 
+    "davut_bolahenk": {
+        "name": "Davut-Bolahenk Mabeyni", 
+        "cent_transposition": 100
+    }
+}
