@@ -36,7 +36,7 @@ from .predominantmelody import PredominantMelody
 from .pitchfilter import PitchFilter
 from .seyiranalyzer import SeyirAnalyzer
 from .toniclastnote import TonicLastNote
-from ahenkidentifier.ahenkidentifier import AhenkIdentifier
+from .ahenkidentifier import AhenkIdentifier
 from notemodel.notemodel import NoteModel
 from .pitchdistribution import PitchDistribution
 from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
