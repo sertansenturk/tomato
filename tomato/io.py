@@ -28,6 +28,7 @@ import tempfile
 import os
 import pickle
 import re
+import unicodedata
 from six import iteritems
 from json_tricks import np as json
 
@@ -44,6 +45,15 @@ class IO(object):
             return input_str
 
     @staticmethod
+    def slugify_tr(str_val):
+        value_slug = str_val.replace(u'\u0131', 'i')
+        value_slug = unicodedata.normalize('NFKD', value_slug)
+        value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
+        value_slug = re.sub('[^\w\s-]', '', value_slug).strip()
+
+        return re.sub('[-\s]+', '-', value_slug)
+
+    @staticmethod
     def public_noncallables(inst):
         noncallable_gen = (v for v in dir(inst)
                            if not callable(getattr(inst, v)))
@@ -55,8 +65,8 @@ class IO(object):
         return os.path.join(os.path.dirname(os.path.abspath(__file__)), *args)
 
     @staticmethod
-    def create_temp_file(extension, content_str, dir=None):
-        fd, temp_path = tempfile.mkstemp(extension, dir=dir)
+    def create_temp_file(extension, content_str, folder=None):
+        fd, temp_path = tempfile.mkstemp(extension, dir=folder)
         open_mode = 'wb' if extension in ['.mat'] else 'w'
         with open(temp_path, open_mode) as f:
             f.write(content_str)
@@ -79,7 +89,7 @@ class IO(object):
         for exp in expected:
             fpath = os.path.join(temp_out_folder, exp + '.json')
             if os.path.isfile(fpath):
-                out_dict[exp] = json.load(open(fpath, 'r'))
+                out_dict[exp] = json.load(open(fpath))
                 os.unlink(fpath)  # remove file created in the temporary folder
             else:
                 raise Exception(u'Missing output {0:s} file'.format(exp))
@@ -142,6 +152,6 @@ class IO(object):
     @staticmethod
     def from_json(input_str):
         try:  # file given
-            return json.load(open(input_str, 'r'), preserve_order=False)
+            return json.load(open(input_str), preserve_order=False)
         except IOError:  # string given
             return json.loads(input_str, 'r', preserve_order=False)

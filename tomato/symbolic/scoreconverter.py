@@ -99,8 +99,8 @@ class ScoreConverter(object):
         tmp_dir = tempfile.mkdtemp()
 
         # 2. copy the mu2 file to the temporary folder
-        temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
-                                           dir=tmp_dir)
+        temp_in_file = IO.create_temp_file(
+            '.mu2', open(mu2_file).read(), folder=tmp_dir)
 
         # parse
         temp_out_file, midi_str, flag_str = cls._parse_musikitomusicxml_inputs(
