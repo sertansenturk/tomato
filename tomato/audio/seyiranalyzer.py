@@ -27,10 +27,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-from .pitchdistribution import PitchDistribution
-from morty.converter import Converter
 import json
 import copy
+
+from .pitchdistribution import PitchDistribution
+from ..converter import Converter
 
 
 class SeyirAnalyzer(object):

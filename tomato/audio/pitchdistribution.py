@@ -26,7 +26,9 @@
 # New York, NY, USA
 
 from __future__ import division
-from morty.converter import Converter
+
+from ..converter import Converter
+
 import essentia
 import essentia.standard as std
 import numpy as np
@@ -37,6 +39,7 @@ import scipy.integrate
 import matplotlib.pyplot as plt
 import numbers
 import pickle
+
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

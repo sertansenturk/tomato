@@ -27,13 +27,14 @@
 
 from numpy import median
 from numpy import where
+from copy import deepcopy
 import numpy as np
-from .pitchfilter import PitchFilter
-from .pitchdistribution import PitchDistribution
-from morty.converter import Converter
 import matplotlib.pyplot as plt
 import matplotlib.ticker
-from copy import deepcopy
+
+from .pitchfilter import PitchFilter
+from .pitchdistribution import PitchDistribution
+from ..converter import Converter
 
 
 class TonicLastNote(object):
