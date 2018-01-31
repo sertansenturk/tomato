@@ -19,12 +19,8 @@ git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.1#egg=musicxmlconver
 git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.6#egg=musicxml2lilypond
 
 # ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
-# score informed, joint tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
-# audio score aignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is save to tomato/bin.
-
-# predominant melody filtering after alignment
-git+https://github.com/sertansenturk/alignedpitchfilter.git@v1.1.0#egg=alignedpitchfilter
-git+https://github.com/sertansenturk/alignednotemodel.git@v1.1.1#egg=alignednotemodel
+# score informed tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is saved to tomato/bin.
+# audio score alignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is saved to tomato/bin.
 
 # ---------------------------------- EXTRAS -----------------------------------
 numpy>=1.9.0  # numerical operations

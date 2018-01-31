@@ -27,8 +27,8 @@
 from ..analyzer import Analyzer
 from ..symbolic.symbtranalyzer import SymbTrAnalyzer
 from ..audio.audioanalyzer import AudioAnalyzer
-from .jointanalyzer import JointAnalyzer
 from ..io import IO
+from .jointanalyzer import JointAnalyzer
 
 
 class CompleteAnalyzer(Analyzer):

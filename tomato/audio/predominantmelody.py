@@ -25,12 +25,12 @@
 # of 3rd International Conference on Audio Technologies for Music and Media
 # (ATMM 2014), pages 142–153, Ankara, Turkey.
 
-from essentia import Pool
-from essentia import array as e_array
-import essentia.standard as estd
-from math import ceil
 import numpy as np
 import warnings
+import essentia.standard as estd
+from essentia import Pool
+from essentia import array as e_array
+from math import ceil
 
 
 class PredominantMelody(object):

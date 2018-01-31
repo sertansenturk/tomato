@@ -27,9 +27,10 @@
 from ..audio.pitchdistribution import PitchDistribution
 from ..converter import Converter
 
+from copy import deepcopy
+
 import numpy as np
 import matplotlib.pyplot as plt
-from copy import deepcopy
 import os
 import json
 import logging

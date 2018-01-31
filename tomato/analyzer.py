@@ -26,9 +26,9 @@
 
 from abc import ABCMeta, abstractmethod, abstractproperty
 from io import IO
+from six import iteritems
 import logging
 import warnings
-from six import iteritems
 
 
 class Analyzer(object):

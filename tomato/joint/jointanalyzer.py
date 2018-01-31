@@ -32,7 +32,7 @@ from copy import deepcopy
 import timeit
 
 from .alignedpitchfilter import AlignedPitchFilter
-from alignednotemodel.alignednotemodel import AlignedNoteModel
+from .alignednotemodel import AlignedNoteModel
 
 from ..bincaller import BinCaller
 from ..io import IO

@@ -26,10 +26,10 @@
 
 import tempfile
 import os
-from six import iteritems
-from json_tricks import np as json
 import pickle
 import re
+from six import iteritems
+from json_tricks import np as json
 
 
 class IO(object):

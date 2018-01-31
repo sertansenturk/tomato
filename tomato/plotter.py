@@ -25,13 +25,15 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import numpy as np
-from six import iteritems
-from matplotlib import gridspec
+import copy
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from six import iteritems
+from matplotlib import gridspec
 from matplotlib.ticker import FixedLocator
+
 from .audio.seyiranalyzer import SeyirAnalyzer as AudioSeyirAnalyzer
-import copy
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
