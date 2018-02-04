@@ -26,24 +26,28 @@
 
 import tempfile
 import os
+import sys
 import pickle
 import re
 import unicodedata
 import fnmatch
-from six import iteritems
+from future.utils import raise_
 from json_tricks import np as json
 
 
 class IO(object):
     @staticmethod
     def make_unicode(input_str):
-        if not isinstance(input_str, unicode):
-            if input_str is None:
-                return None
+        try:
+            return input_str.decode('utf-8')
+        except AttributeError as ae:
+            if ae.args[0] == "'NoneType' object has no attribute 'decode'":
+                return None  # None input
+            elif ae.args[0] == "'str' object has no attribute 'decode'":
+                return input_str  # Python 3 str
             else:
-                return input_str.decode('utf-8')
-        else:
-            return input_str
+                traceback = sys.exc_info()[2]
+                raise_(AttributeError, ae.args[0], traceback)
 
     @staticmethod
     def slugify_tr(str_val):
@@ -105,7 +109,7 @@ class IO(object):
     def dict_keys_to_snake_case(camel_case_dict):
         sdict = {}
         try:
-            for k, v in iteritems(camel_case_dict):
+            for k, v in camel_case_dict.items():
                 key = IO.first_cap_re.sub(r'\1_\2', k)
                 key = IO.all_cap_re.sub(r'\1_\2', key).lower()
 
@@ -119,7 +123,7 @@ class IO(object):
     def dict_keys_to_camel_case(snake_case_dict):
         cdict = {}
         try:
-            for k, v in iteritems(snake_case_dict):
+            for k, v in snake_case_dict.items():
                 components = k.split('_')
                 key = "".join(x.title() for x in components)
 
