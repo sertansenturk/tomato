@@ -86,7 +86,7 @@ Then change the current directory to the repository folder and install by:
     
 The requirements are installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
 
-    pip install -r requirements
+    pip install -r requirements.txt
 
 If you want to edit files in the package and want the changes reflected, you should call:
 

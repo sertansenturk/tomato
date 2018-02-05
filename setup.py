@@ -34,8 +34,8 @@ class CustomInstall(_install):
         # install tomato
         _install.run(self)
 
-        # install requirements
-        subprocess.call(["pip install -Ur requirements"], shell=True)
+        # install requirements.txt
+        subprocess.call(["pip install -Ur requirements.txt"], shell=True)
 
     @classmethod
     def _setup_binaries(cls):
@@ -136,6 +136,6 @@ discovery/recommendation and musicological analysis.
       packages=find_packages(),
       include_package_data=True,
       install_requires=[],  # dependencies are specified and installed from
-      # requirements
+      # requirements.txt
       cmdclass={'install': CustomInstall},
       )
