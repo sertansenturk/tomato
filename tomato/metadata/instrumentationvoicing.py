@@ -48,7 +48,7 @@ class InstrumentationVoicing(object):
     def duo_instrumental(instrument_vocal_list):
         return (len(instrument_vocal_list) == 2 and
                 all(iv in ['instrument', 'performer']
-                   for iv in instrument_vocal_list))
+                    for iv in instrument_vocal_list))
 
     # Trio Instrumental
     # There is no vocal and only three instrument
@@ -56,7 +56,7 @@ class InstrumentationVoicing(object):
     def trio_instrumental(instrument_vocal_list):
         return (len(instrument_vocal_list) == 3 and
                 all(iv in ['instrument', 'performer']
-                   for iv in instrument_vocal_list))
+                    for iv in instrument_vocal_list))
 
     # Ensemble
     # There is no vocal and many instruments OR Orchestra relation
@@ -99,9 +99,9 @@ class InstrumentationVoicing(object):
     def get_voicing_instrumentation(cls, audio_meta):
         vocal_instrument = []
         for a in audio_meta['artists']:
-            choir_bool = a['type'] == 'vocal' and \
-                         'attribute-list' in a.keys() and \
-                         'choir_vocals' in a['attribute-list']
+            choir_bool = (a['type'] == 'vocal' and
+                          'attribute-list' in a.keys() and
+                          'choir_vocals' in a['attribute-list'])
             if choir_bool:
                 vocal_instrument.append(a['attribute-list'])
             elif a['type'] in ['conductor']:
