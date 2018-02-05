@@ -25,13 +25,13 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import json
-import os
 from copy import deepcopy
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
+from ..metadata.attribute import Attribute
 from ..io import IO
 
 from ..converter import Converter
@@ -110,15 +110,11 @@ class NoteModel(object):
     def _get_theoretical_intervals_to_search(self, makam):
         # Reading dictionary which contains note symbol, theoretical names and
         # their cent values
-        note_file = IO.get_abspath_from_relpath_in_tomato(
-            'models', 'note_modeling', 'note_dict.json')
-        note_dict = json.load(open(note_file))
+        note_dict = IO.load_music_theory('note')
 
         # Reading dictionary which contains theoretical information about each
         # makam
-        makam_file = IO.get_abspath_from_relpath_in_tomato(
-            'models', 'note_modeling', 'makam_extended.json')
-        makam_dict = json.load(open(makam_file))
+        makam_dict = IO.load_music_theory('makam')
 
         # get the key signature
         try:

@@ -24,7 +24,6 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import os
 import json
 import numpy as np
 from future.utils import iteritems
@@ -39,8 +38,8 @@ class Ahenk(object):
         assert 20.0 <= tonic_freq <= 20000.0, "The input tonic frequency " \
                                               "must be between and 20000 Hz"
 
-        tonic_dict = cls._get_dict('tonic')
-        ahenks = cls._get_dict('ahenk')
+        tonic_dict = IO.load_music_theory('tonic')
+        ahenks = IO.load_music_theory('ahenk')
 
         # get the tonic symbol and frequency
         tonic_symbol, tonic_bolahenk_freq, makam = cls._get_tonic_symbol(
@@ -105,13 +104,6 @@ class Ahenk(object):
                     raise KeyError("The tonic of this makam is not known.")
                 break
         return tonic_symbol, tonic_bolahenk_freq
-
-    @staticmethod
-    def _get_dict(dict_type):
-        dict_file = IO.get_abspath_from_relpath_in_tomato(
-            'models', 'ahenk_identification', dict_type + '.json')
-
-        return json.load(open(dict_file))
 
     @staticmethod
     def _hz_to_cent(hz_track, ref_freq):

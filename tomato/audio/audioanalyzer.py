@@ -180,11 +180,9 @@ class AudioAnalyzer(Analyzer):
 
     @staticmethod
     def _get_makam_tonic_training():
-        makam_tonic_training_path = IO.get_abspath_from_relpath_in_tomato(
-            'models', 'makam_tonic_estimation')
-        training_filename = 'training_model--pcd--7_5--15_0--dlfm2016.pkl'
-        makam_tonic_training_file = os.path.join(makam_tonic_training_path,
-                                                 training_filename)
+        makam_tonic_training_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'makam_tonic_estimation',
+            'training_model--pcd--7_5--15_0--dlfm2016.pkl')
 
         return pickle.load(open(makam_tonic_training_file))
 

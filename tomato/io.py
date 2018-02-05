@@ -101,17 +101,23 @@ class IO(object):
 
         return out_dict
 
-    # compiled regular expressions for dict_keys_to_snake_case
-    first_cap_re = re.compile('(.)([A-Z][a-z]+)')
-    all_cap_re = re.compile('([a-z0-9])([A-Z])')
+    @staticmethod
+    def load_music_theory(attrstr):
+        attrfile = IO.get_abspath_from_relpath_in_tomato(
+            'musictheory', attrstr + '.json')
+        return json.load(open(attrfile))
 
     @staticmethod
     def dict_keys_to_snake_case(camel_case_dict):
+        # compiled regular expressions for dict_keys_to_snake_case
+        first_cap_re = re.compile('(.)([A-Z][a-z]+)')
+        all_cap_re = re.compile('([a-z0-9])([A-Z])')
+
         sdict = {}
         try:
             for k, v in camel_case_dict.items():
-                key = IO.first_cap_re.sub(r'\1_\2', k)
-                key = IO.all_cap_re.sub(r'\1_\2', key).lower()
+                key = first_cap_re.sub(r'\1_\2', k)
+                key = all_cap_re.sub(r'\1_\2', key).lower()
 
                 sdict[key] = IO.dict_keys_to_snake_case(v)
         except AttributeError:  # input is not a dict, return
