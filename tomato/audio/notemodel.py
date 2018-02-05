@@ -26,13 +26,14 @@
 
 import json
 import os
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.ticker
 from copy import deepcopy
 
+import matplotlib.pyplot as plt
+import matplotlib.ticker
+import numpy as np
+from tomato.audio.makamtonic.toniclastnote import TonicLastNote
+
 from ..converter import Converter
-from .toniclastnote import TonicLastNote
 
 
 class NoteModel(object):

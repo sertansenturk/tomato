@@ -32,9 +32,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 
-from .pitchfilter import PitchFilter
-from .pitchdistribution import PitchDistribution
-from ..converter import Converter
+from tomato.audio.pitchfilter import PitchFilter
+from tomato.audio.pitchdistribution import PitchDistribution
+from tomato.converter import Converter
 
 
 class TonicLastNote(object):

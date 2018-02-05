@@ -24,33 +24,31 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import numpy as np
 import copy
-import pickle
+import logging
 import os
+import pickle
 import timeit
+import warnings
+
+import numpy as np
 import six
-
 from makammusicbrainz.audiometadata import AudioMetadata
-
-from .predominantmelody import PredominantMelody
-from .pitchfilter import PitchFilter
-from .seyiranalyzer import SeyirAnalyzer
-from .toniclastnote import TonicLastNote
-from .ahenkidentifier import AhenkIdentifier
-from .notemodel import NoteModel
-from .pitchdistribution import PitchDistribution
-
-from .classifiers.knnclassifier import KNNClassifier as MakamClassifier
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
+from tomato.audio.makamtonic.toniclastnote import TonicLastNote
 
+from .ahenkidentifier import AhenkIdentifier
+from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
+from .notemodel import NoteModel
+from .pitchdistribution import PitchDistribution
+from .pitchfilter import PitchFilter
+from .predominantmelody import PredominantMelody
+from .seyiranalyzer import SeyirAnalyzer
 from ..analyzer import Analyzer
-from ..plotter import Plotter
 from ..io import IO
+from ..plotter import Plotter
 
-import warnings
-import logging
 logging.basicConfig(level=logging.INFO)
 
 
