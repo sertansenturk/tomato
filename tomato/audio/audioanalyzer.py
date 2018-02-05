@@ -33,7 +33,7 @@ import warnings
 
 import numpy as np
 import six
-from makammusicbrainz.audiometadata import AudioMetadata
+from ..makammusicbrainz.audiometadata import AudioMetadata
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
