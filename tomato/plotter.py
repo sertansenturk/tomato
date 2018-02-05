@@ -32,7 +32,7 @@ from six import iteritems
 from matplotlib import gridspec
 from matplotlib.ticker import FixedLocator
 
-from .audio.seyiranalyzer import SeyirAnalyzer as AudioSeyirAnalyzer
+from .audio.seyir import Seyir as AudioSeyirAnalyzer
 
 import logging
 logging.basicConfig(level=logging.INFO)

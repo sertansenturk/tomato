@@ -31,7 +31,7 @@ from future.utils import iteritems
 from ..io import IO
 
 
-class AhenkIdentifier(object):
+class Ahenk(object):
     CENTS_IN_OCTAVE = 1200  # cents
 
     @classmethod

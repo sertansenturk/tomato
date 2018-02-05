@@ -38,13 +38,13 @@ from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
 
-from .ahenkidentifier import AhenkIdentifier
+from .ahenk import Ahenk
 from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
 from .notemodel import NoteModel
 from .pitchdistribution import PitchDistribution
 from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
-from .seyiranalyzer import SeyirAnalyzer
+from .seyir import Seyir
 from ..analyzer import Analyzer
 from ..io import IO
 from ..plotter import Plotter
@@ -80,7 +80,7 @@ class AudioAnalyzer(Analyzer):
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
         self._pitch_filter = PitchFilter()
-        self._melodic_progression_analyzer = SeyirAnalyzer()
+        self._melodic_progression_analyzer = Seyir()
         self._tonic_identifier = TonicLastNote()  # We prefer last note
         # detection over distribution matching as it's more generalizable.
 
@@ -311,7 +311,7 @@ class AudioAnalyzer(Analyzer):
         tic = timeit.default_timer()
         self.vprint(u"- Identifying the transposition of {0:s}".format(
             tonic['source']))
-        transposition = AhenkIdentifier.identify(
+        transposition = Ahenk.identify(
             tonic['value'], makam_tonic_str)
         transposition['source'] = tonic['source']
 

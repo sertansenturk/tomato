@@ -34,7 +34,7 @@ from .pitchdistribution import PitchDistribution
 from ..converter import Converter
 
 
-class SeyirAnalyzer(object):
+class Seyir(object):
     _dummy_ref_freq = 440.0  # hz
     citation = u"B. Bozkurt, Computational analysis of overall melodic " \
                u"progression for Turkish Makam Music, in Penser " \
@@ -127,7 +127,7 @@ class SeyirAnalyzer(object):
     @staticmethod
     def to_json(seyir_features, json_out=None):
         seyir_copy = copy.deepcopy(seyir_features)
-        SeyirAnalyzer.serialize(seyir_copy)
+        Seyir.serialize(seyir_copy)
 
         if json_out is None:
             return json.dumps(seyir_copy)
@@ -141,7 +141,7 @@ class SeyirAnalyzer(object):
         except IOError:
             seyir_features = json.loads(json_in)
 
-        SeyirAnalyzer.deserialize(seyir_features)
+        Seyir.deserialize(seyir_features)
 
         return seyir_features
 
@@ -173,13 +173,13 @@ class SeyirAnalyzer(object):
             fig, ax = plt.subplots()
 
         if plot_distribution:
-            SeyirAnalyzer._pitch_distrib_plotter(ax, seyir_features)
+            Seyir._pitch_distrib_plotter(ax, seyir_features)
 
         if plot_stable_pitches:
-            SeyirAnalyzer._stable_pitch_plotter(ax, seyir_features)
+            Seyir._stable_pitch_plotter(ax, seyir_features)
 
         if plot_average_pitch:
-            SeyirAnalyzer._average_pitch_plotter(ax, seyir_features)
+            Seyir._average_pitch_plotter(ax, seyir_features)
 
         ax.set_xlim([seyir_features[0]['time_interval'][0],
                      seyir_features[-1]['time_interval'][1]])
