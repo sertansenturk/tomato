@@ -41,7 +41,7 @@ from .ahenkidentifier import AhenkIdentifier
 from .notemodel import NoteModel
 from .pitchdistribution import PitchDistribution
 
-from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
+from .classifiers.knnclassifier import KNNClassifier as MakamClassifier
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
