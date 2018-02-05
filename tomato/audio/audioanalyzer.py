@@ -26,7 +26,6 @@
 
 import copy
 import logging
-import os
 import pickle
 import timeit
 import warnings

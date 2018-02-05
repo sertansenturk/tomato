@@ -24,14 +24,12 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import json
 from copy import deepcopy
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
-from ..metadata.attribute import Attribute
 from ..io import IO
 
 from ..converter import Converter

@@ -24,7 +24,6 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import json
 import numpy as np
 from future.utils import iteritems
 from ..io import IO

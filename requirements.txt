@@ -1,7 +1,3 @@
-# ------------------- AUDIO ANALYSIS REPOSITORIES -----------------------------
-# metadata extraction
-git+https://github.com/sertansenturk/makammusicbrainz.git@v1.4.0#egg=makammusicbrainz
-
 # ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
 # (meta)data extractor, including section extraction and semiotic analysis
 git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.1.0#egg=symbtrdataextractor
