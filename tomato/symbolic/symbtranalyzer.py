@@ -89,7 +89,7 @@ class SymbTrAnalyzer(Analyzer):
     def _partial_call_extract_data(self, features, txt_filepath, mu2_filepath,
                                    symbtr_name):
         # If MusicBrainz is not available, crawling will be skipped by the
-        # makammusicbrainz package
+        # metadata package
         score_data = self._partial_caller(
             features['score_features'], self.extract_data, txt_filepath,
             mu2_filepath, symbtr_name=symbtr_name, mbid=features['mbid'],
