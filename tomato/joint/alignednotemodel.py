@@ -45,7 +45,7 @@ class AlignedNoteModel(object):
         # pitches to be considered close. Used in stable pitch computation
 
     def get_models(self, pitch, alignednotes, tonic_symbol):
-        note_dict = IO.load_music_theory('note')
+        note_dict = IO.load_musical_attributes('note')
 
         pitch = np.array(pitch)
         alignednotes_ext = deepcopy(alignednotes)

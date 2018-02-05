@@ -37,8 +37,8 @@ class Ahenk(object):
         assert 20.0 <= tonic_freq <= 20000.0, "The input tonic frequency " \
                                               "must be between and 20000 Hz"
 
-        tonic_dict = IO.load_music_theory('tonic')
-        ahenks = IO.load_music_theory('ahenk')
+        tonic_dict = IO.load_musical_attributes('tonic')
+        ahenks = IO.load_musical_attributes('ahenk')
 
         # get the tonic symbol and frequency
         tonic_symbol, tonic_bolahenk_freq, makam = cls._get_tonic_symbol(

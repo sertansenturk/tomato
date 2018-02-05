@@ -102,9 +102,9 @@ class IO(object):
         return out_dict
 
     @staticmethod
-    def load_music_theory(attrstr):
+    def load_musical_attributes(attrstr):
         attrfile = IO.get_abspath_from_relpath_in_tomato(
-            'musictheory', attrstr + '.json')
+            'musicalattributes', attrstr + '.json')
         return json.load(open(attrfile))
 
     @staticmethod
