@@ -28,7 +28,7 @@ eyeD3>=0.7.5  # reading metadata embedded in the audio recordings
 six>=1.10.0  # Python 2*3 support
 
 # metadata crawling from musicbrainz
-git+https://github.com/alastair/python-musicbrainzngs.git@v0.6#egg=musicbrainzngs
+musicbrainzngs==0.6
 
 # demos
 jupyter>=1.0.0
