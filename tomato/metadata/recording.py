@@ -1,6 +1,6 @@
 import eyed3
 from . attribute import Attribute
-from . workmetadata import WorkMetadata
+from . work import Work
 from . instrumentationvoicing import InstrumentationVoicing
 import musicbrainzngs as mb
 from six import iteritems
@@ -17,7 +17,7 @@ except AttributeError:
     eyed3.log.setLevel("ERROR")
 
 
-class AudioMetadata(object):
+class Recording(object):
     def __init__(self, get_work_attributes=True, print_warnings=None):
         self.print_warnings = print_warnings
         self.get_work_attributes = get_work_attributes
@@ -25,7 +25,7 @@ class AudioMetadata(object):
     def from_musicbrainz(self, audio_in):
         try:  # audio file input
             mbid, duration, sampling_frequency, bit_rate = \
-                AudioMetadata.get_file_metadata(audio_in)
+                Recording.get_file_metadata(audio_in)
             audio_meta = {'mbid': mbid, 'path': audio_in, 'duration': duration,
                           'sampling_frequency': sampling_frequency,
                           'bit_rate': bit_rate}
@@ -66,7 +66,7 @@ class AudioMetadata(object):
         return audio_meta
 
     def _get_attributes_from_works(self, audio_meta):
-        work_metadata = WorkMetadata(print_warnings=self.print_warnings)
+        work_metadata = Work(print_warnings=self.print_warnings)
         attribute_keys = ['makam', 'form', 'usul']
         for w in audio_meta['works']:
             work_meta = work_metadata.from_musicbrainz(w['mbid'])

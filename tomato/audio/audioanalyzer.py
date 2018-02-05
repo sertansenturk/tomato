@@ -33,7 +33,7 @@ import warnings
 
 import numpy as np
 import six
-from ..metadata.audiometadata import AudioMetadata
+from ..metadata.recording import Recording
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
@@ -75,7 +75,7 @@ class AudioAnalyzer(Analyzer):
                                     'distance_method': 'bhat'}
 
         # extractors
-        self._metadata_getter = AudioMetadata(get_work_attributes=True)
+        self._metadata_getter = Recording(get_work_attributes=True)
         self._pitch_extractor = PredominantMelody(filter_pitch=False)  #
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation

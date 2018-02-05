@@ -7,7 +7,7 @@ import musicbrainzngs as mb
 mb.set_useragent("Makam corpus metadata", "1.2.0", "compmusic.upf.edu")
 
 
-class WorkMetadata(object):
+class Work(object):
     def __init__(self, get_recording_rels=True, print_warnings=None):
         self.get_recording_rels = get_recording_rels
         self.print_warnings = print_warnings
