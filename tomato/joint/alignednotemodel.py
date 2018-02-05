@@ -25,13 +25,13 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from ..audio.pitchdistribution import PitchDistribution
+from ..io import IO
 from ..converter import Converter
 
 from copy import deepcopy
 
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 import json
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -45,9 +45,9 @@ class AlignedNoteModel(object):
         # pitches to be considered close. Used in stable pitch computation
 
     def get_models(self, pitch, alignednotes, tonic_symbol):
-        note_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'note_modeling', 'note_dict.json')
+        note_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'note_modeling', 'note_dict.json')
+
         note_dict = json.load(open(note_file))
 
         pitch = np.array(pitch)

@@ -28,6 +28,7 @@ import os
 import json
 import numpy as np
 from future.utils import iteritems
+from ..io import IO
 
 
 class AhenkIdentifier(object):
@@ -107,9 +108,9 @@ class AhenkIdentifier(object):
 
     @staticmethod
     def _get_dict(dict_type):
-        dict_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'ahenk_identification', dict_type + '.json')
+        dict_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'ahenk_identification', dict_type + '.json')
+
         return json.load(open(dict_file))
 
     @staticmethod

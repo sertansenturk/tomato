@@ -32,6 +32,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
 from tomato.audio.makamtonic.toniclastnote import TonicLastNote
+from ..io import IO
 
 from ..converter import Converter
 
@@ -109,16 +110,14 @@ class NoteModel(object):
     def _get_theoretical_intervals_to_search(self, makam):
         # Reading dictionary which contains note symbol, theoretical names and
         # their cent values
-        note_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'note_modeling', 'note_dict.json')
+        note_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'note_modeling', 'note_dict.json')
         note_dict = json.load(open(note_file))
 
         # Reading dictionary which contains theoretical information about each
         # makam
-        makam_file = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            '..', 'models', 'note_modeling', 'makam_extended.json')
+        makam_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'note_modeling', 'makam_extended.json')
         makam_dict = json.load(open(makam_file))
 
         # get the key signature

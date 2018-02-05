@@ -28,12 +28,14 @@ from six.moves import configparser
 import os
 import subprocess
 
+from io import IO
+
 
 class BinCaller(object):
     def __init__(self):
-        self.mcr_filepath = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
+        self.mcr_filepath = IO.get_abspath_from_relpath_in_tomato(
             'config', 'mcr_path.cfg')
+
         self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
@@ -85,11 +87,10 @@ class BinCaller(object):
 
     def get_mcr_binary_path(self, bin_name):
         if self.sys_os == 'linux':
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'bin', bin_name)
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
+                'bin', bin_name)
         elif self.sys_os == 'macosx':
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
                 'bin', bin_name + '.app', 'Contents', 'MacOS', bin_name)
         else:
             raise ValueError('Unsupported OS.')
@@ -100,9 +101,8 @@ class BinCaller(object):
 
     def get_musikitomusicxml_binary_path(self):
         if self.sys_os in ['linux', 'macosx']:
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'bin',
-                'MusikiToMusicXml')
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
+                'bin', 'MusikiToMusicXml')
         else:
             raise ValueError('Unsupported OS.')
 
@@ -112,8 +112,8 @@ class BinCaller(object):
 
     def get_lilypond_bin_path(self):
         config = configparser.SafeConfigParser()
-        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    'config', 'lilypond.cfg')
+        lily_cfgfile = IO.get_abspath_from_relpath_in_tomato(
+            'config', 'lilypond.cfg')
         config.read(lily_cfgfile)
 
         # check custom
