@@ -1,27 +1,28 @@
 import json
-import os
 import logging
+from ..io import IO
+
 logging.basicConfig(level=logging.INFO)
 
 
 class Attribute(object):
     @staticmethod
     def _get_attrib_dict(attrstr):
-        attrfile = os.path.join(os.path.dirname(
-            os.path.abspath(__file__)), 'makam_data', attrstr + '.json')
-        return json.load(open(attrfile, 'r'))
+        attrfile = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'makam_data', attrstr + '.json')
+        return json.load(open(attrfile))
 
     @classmethod
     def get_attr_key_from_mb_attr(cls, attr_str, attr_type):
         attr_dict = cls._get_attrib_dict(attr_type)
-        for attr_key, attr_val in attr_dict.iteritems():
+        for attr_key, attr_val in attr_dict.items():
             if attr_val['dunya_name'] == attr_str:
                 return attr_key
 
     @classmethod
     def _get_attr_key_from_mb_tag(cls, attr_str, attr_type):
         attr_dict = cls._get_attrib_dict(attr_type)
-        for attr_key, attr_val in attr_dict.iteritems():
+        for attr_key, attr_val in attr_dict.items():
             if attr_str in attr_val['mb_tag']:
                 return attr_key
 
