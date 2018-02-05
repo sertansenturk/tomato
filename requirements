@@ -33,8 +33,5 @@ six>=1.10.0  # Python 2*3 support
 # metadata crawling from musicbrainz
 git+https://github.com/alastair/python-musicbrainzngs.git@v0.6#egg=musicbrainzngs
 
-# basic file manipulations and Turkish string slugification
-git+https://github.com/sertansenturk/fileoperations_python.git@v1.1.1#egg=fileoperations_python
-
 # demos
 jupyter>=1.0.0

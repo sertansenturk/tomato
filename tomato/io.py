@@ -45,7 +45,7 @@ class IO(object):
                 return None  # None input
             elif ae.args[0] == "'str' object has no attribute 'decode'":
                 return input_str  # Python 3 str
-            else:
+            else:  # other; re-throw error
                 traceback = sys.exc_info()[2]
                 raise_(AttributeError, ae.args[0], traceback)
 
