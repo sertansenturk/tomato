@@ -26,8 +26,8 @@
 
 import string
 import os
-import json
 from copy import deepcopy
+from ...io import IO
 
 
 class ScoreProcessor(object):
@@ -73,7 +73,7 @@ class ScoreProcessor(object):
     @staticmethod
     def get_all_symbtr_labels():
         all_labels = [l for sub_list in
-                      ScoreProcessor.get_grouped_symbtr_labels().values()
+                      IO.load_musical_attributes('symbTrLabels').values()
                       for l in sub_list]
 
         return all_labels
@@ -83,14 +83,6 @@ class ScoreProcessor(object):
         for ii, code in enumerate(score['code']):
             if code not in range(50, 57):
                 return ii
-
-    @staticmethod
-    def get_grouped_symbtr_labels():
-        symbtr_label_file = os.path.join(os.path.dirname(
-            os.path.abspath(__file__)), 'makam_data', 'symbTrLabels.json')
-        symbtr_label = json.load(open(symbtr_label_file, 'r'))
-
-        return symbtr_label
 
     @staticmethod
     def synth_melody(score, max_denum):

@@ -29,6 +29,7 @@ import json
 import warnings
 from .mu2 import Mu2Metadata
 from .musicbrainz import MusicBrainzMetadata
+from ....io import IO
 
 
 class MetadataExtractor(object):
@@ -99,8 +100,8 @@ class MetadataExtractor(object):
 
     @staticmethod
     def _get_attribute_key(attr_str, attr_type):
-        attr_dict = MetadataExtractor.get_attribute_dict(attr_type)
-        for attr_key, attr_val in attr_dict.iteritems():
+        attr_dict = IO.load_musical_attributes(attr_type)
+        for attr_key, attr_val in attr_dict.items():
             if attr_val['symbtr_slug'] == attr_str:
                 return attr_key
 
@@ -137,16 +138,9 @@ class MetadataExtractor(object):
 
         return True
 
-    @staticmethod
-    def get_attribute_dict(attrstr):
-        attrfile = os.path.join(os.path.dirname(
-            os.path.abspath(__file__)), '..', 'makam_data', attrstr + '.json')
-
-        return json.load(open(attrfile, 'r'))
-
     @classmethod
     def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
-        attr_dict = MetadataExtractor.get_attribute_dict('makam')
+        attr_dict = IO.load_musical_attributes('makam')
         key_sig_makam = attr_dict[makam_slug]['key_signature']
 
         # the number of accidentals should be the same
@@ -182,7 +176,7 @@ class MetadataExtractor(object):
 
     @staticmethod
     def _get_attr(slug, attr_name):
-        attr_dict = MetadataExtractor.get_attribute_dict(attr_name)
+        attr_dict = IO.load_musical_attributes(attr_name)
 
         for attr in attr_dict.values():
             if attr['symbtr_slug'] == slug:

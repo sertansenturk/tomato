@@ -24,19 +24,16 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from .metadata.metadataextractor import MetadataExtractor
 import warnings
+from ...io import IO
 
 
 class RhythmicFeatureExtractor(object):
-    """
-
-    """
     @classmethod
     def extract_rhythmic_structure(cls, score):
         usul_bounds = [ii for ii, code in enumerate(score['code'])
                        if code == 51]
-        usul_dict = MetadataExtractor.get_attribute_dict('usul')
+        usul_dict = IO.load_musical_attributes('usul')
 
         rhythmic_structure = []
         for ii, ub in enumerate(usul_bounds):
@@ -66,7 +63,7 @@ class RhythmicFeatureExtractor(object):
     @staticmethod
     def get_usul_symbtr_slug(score, usul_bound, usul_dict):
         # search the usul slug
-        for usul_key, usul in usul_dict.iteritems():
+        for usul_key, usul in usul_dict.items():
             for var in usul['variants']:
                 if score['lyrics'][usul_bound] == var['mu2_name']:
                     return usul_key
