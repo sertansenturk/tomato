@@ -1,5 +1,31 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright 2015 - 2018 Sertan Şentürk
+#
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Affero General Public License v3.0
+# along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following thesis:
+#
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+
 from math import floor
-from fileoperations.slugify_tr import slugify_tr
+from ...io import IO
 from . scoreprocessor import ScoreProcessor
 from . structurelabeler import StructureLabeler
 from . offset import OffsetProcessor
@@ -95,7 +121,7 @@ class SectionExtractor(object):
         sections = []
         for i, l in enumerate(score['lyrics']):
             if l in struct_lbl:  # note the explicit structures
-                sections.append({'name': l, 'slug': slugify_tr(l),
+                sections.append({'name': l, 'slug': IO.slugify_tr(l),
                                  'start_note': i, 'end_note': [],
                                  'lyrics': ''})
             elif '  ' in l:  # lyrics end marker
