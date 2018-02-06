@@ -57,7 +57,8 @@ class SectionExtractor(object):
             self.offsetProcessor.find_measure_start_idx(score['offset'])
 
         # Check lyrics information
-        if all(l == '' for l in score['lyrics']):
+        is_all_lyrics_empty = all(sl == '' for sl in score['lyrics'])
+        if is_all_lyrics_empty:
             # empty lyrics field; we cannot really do anything without
             # symbolic analysis
             sections = []
