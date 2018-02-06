@@ -27,8 +27,8 @@
 from musicxmlconverter import symbtr2musicxml
 from musicxml2lilypond import scoreconverter as musicxml2lilypond
 from symbtrextras.scoreextras import ScoreExtras
-from .symbtrdataextractor.reader.symbtr import SymbTrReader
-from .symbtrdataextractor.metadata.musicbrainz import MusicBrainzMetadata
+from .symbtr.reader.symbtr import SymbTrReader
+from .symbtr.metadata.musicbrainz import MusicBrainzMetadata
 from ..io import IO
 from ..bincaller import BinCaller
 import os
