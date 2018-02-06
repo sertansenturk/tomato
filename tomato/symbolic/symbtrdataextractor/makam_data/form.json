@@ -1,0 +1,1032 @@
+{
+    "mandra": {
+        "dunya_uuid": "04d94660-f411-472d-9067-7881f29e0511", 
+        "mb_tag": "mandra", 
+        "dunya_name": "Mandra", 
+        "mu2_name": "Mandra", 
+        "repetitive_section": "", 
+        "symbtr_slug": "mandra", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "methiye": {
+        "dunya_uuid": "1c388dec-73ac-42ac-9423-2b3db94a0327", 
+        "mb_tag": "methiye", 
+        "dunya_name": "Methiye", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "mehter": {
+        "dunya_uuid": "01104858-0727-4fdf-890e-eec8ca93f8a9", 
+        "mb_tag": "", 
+        "dunya_name": "Mehter", 
+        "mu2_name": "Mehter", 
+        "repetitive_section": "", 
+        "symbtr_slug": "mehter", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "tesbihilahi": {
+        "dunya_uuid": "c54d8421-5139-48f9-9be8-24118dcd4b6f", 
+        "mb_tag": "", 
+        "dunya_name": "Tesbihilahi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "oyunhavasi": {
+        "dunya_uuid": "663c1043-85dc-4981-b125-e071d7c4e442", 
+        "mb_tag": "oyunhavas\u0131", 
+        "dunya_name": "Oyunhavas\u0131", 
+        "mu2_name": "Oyunhavas\u0131", 
+        "repetitive_section": "", 
+        "symbtr_slug": "oyunhavasi", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "varsak": {
+        "dunya_uuid": "270e8ac1-31c7-4888-bec9-7cecc840c6e4", 
+        "mb_tag": "varsak,varsa\u011f\u0131", 
+        "dunya_name": "Varsak", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "ilahi": {
+        "dunya_uuid": "f9180472-14c8-4470-a8c0-af0a6b6e4510", 
+        "mb_tag": "ilahi", 
+        "dunya_name": "\u0130lahi", 
+        "mu2_name": "\u0130l\u00e2h\u00ee", 
+        "repetitive_section": "", 
+        "symbtr_slug": "ilahi", 
+        "genre": "THM,TSM", 
+        "type": "vocal"
+    }, 
+    "ayin_i_serif": {
+        "dunya_uuid": "bc79cde5-2df6-4a9e-8692-2462e76d5a4f", 
+        "mb_tag": "ayin-i \u015ferif,ayin-i\u015ferif", 
+        "dunya_name": "Ayin-i \u015eerif", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "pesrev": {
+        "dunya_uuid": "4a4b7ded-7b8a-4577-91c2-a6115556b85f", 
+        "mb_tag": "pe\u015frev", 
+        "dunya_name": "Pe\u015frev", 
+        "mu2_name": "Pe\u015frev", 
+        "repetitive_section": "TESLIM,TESL\u0130M,M\u00dcL\u00c2Z\u0130ME,MULAZIME", 
+        "symbtr_slug": "pesrev", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "sazeseri": {
+        "dunya_uuid": "841b6f5a-e684-4e40-851a-7e84091c43f4", 
+        "mb_tag": "sazeseri", 
+        "dunya_name": "Sazeseri", 
+        "mu2_name": "Sazeseri", 
+        "repetitive_section": "", 
+        "symbtr_slug": "sazeseri", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "agirsemai": {
+        "dunya_uuid": "ea3044b1-ebf0-4aed-8ac3-d789aafacfd9", 
+        "mb_tag": "a\u011f\u0131rsemai", 
+        "dunya_name": "A\u011f\u0131rsemai", 
+        "mu2_name": "A\u011f\u0131rsem\u00e2\u00ee", 
+        "repetitive_section": "", 
+        "symbtr_slug": "agirsemai", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "savt": {
+        "dunya_uuid": "6d85eaef-6d0b-400c-83fb-42ec6275f4b1", 
+        "mb_tag": "", 
+        "dunya_name": "Savt", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "beste": {
+        "dunya_uuid": "fc53e491-d5eb-443d-bbbe-ff8e2c457382", 
+        "mb_tag": "beste", 
+        "dunya_name": "Beste", 
+        "mu2_name": "Beste", 
+        "repetitive_section": "", 
+        "symbtr_slug": "beste", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "ninni": {
+        "dunya_uuid": "54b0a0e7-b471-44df-8ac7-1f99a6e4739d", 
+        "mb_tag": "ninni", 
+        "dunya_name": "Ninni", 
+        "mu2_name": "Ninni", 
+        "repetitive_section": "", 
+        "symbtr_slug": "ninni", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "telbiye": {
+        "dunya_uuid": "bfb16662-1532-4e0c-87a2-2bdf481d77f4", 
+        "mb_tag": "telbiye", 
+        "dunya_name": "Telbiye", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "uzunhava": {
+        "dunya_uuid": "baaabf8e-b495-49f0-b080-f3700eee4def", 
+        "mb_tag": "uzunhava", 
+        "dunya_name": "Uzunhava", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "miraciye": {
+        "dunya_uuid": "b959434b-eebc-4827-81a2-be1497bb6d6a", 
+        "mb_tag": "mi'raciye", 
+        "dunya_name": "Miraciye", 
+        "mu2_name": "M\u00ee'r\u00e2ciye", 
+        "repetitive_section": "", 
+        "symbtr_slug": "miraciye", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "maya": {
+        "dunya_uuid": "d9018ff9-a75e-4bf7-aacb-e44b98984649", 
+        "mb_tag": "maya", 
+        "dunya_name": "Maya", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "bozlak": {
+        "dunya_uuid": "8f683cfa-c2a5-43c0-9d89-7a1dd7eae3d6", 
+        "mb_tag": "bozlak", 
+        "dunya_name": "Bozlak", 
+        "mu2_name": "Bozlak", 
+        "repetitive_section": "", 
+        "symbtr_slug": "bozlak", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "mevlidiserif": {
+        "dunya_uuid": "9f427106-2bb0-44e2-b8b8-d64564f60827", 
+        "mb_tag": "mevlidi\u015ferif", 
+        "dunya_name": "Mevlidi\u015ferif", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "sonata": {
+        "dunya_uuid": "6ad160c0-21ac-4092-81e0-e036b1f211de", 
+        "mb_tag": "sonat", 
+        "dunya_name": "Sonata", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "hanende_semaisi": {
+        "dunya_uuid": "330b0f3c-b3bc-42ff-afa0-9b712cf87008", 
+        "mb_tag": "hanende semais,hanendesemaisii", 
+        "dunya_name": "Hanende Semaisi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "gulbang": {
+        "dunya_uuid": "58a658cd-3428-4cb3-8a1e-5a608b1df922", 
+        "mb_tag": "g\u00fclbang", 
+        "dunya_name": "G\u00fclbang", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "fihrist_taksim": {
+        "dunya_uuid": "285948da-7a74-4926-a47f-25fc945b2fa3", 
+        "mb_tag": "fihrist taksim", 
+        "dunya_name": "Fihrist Taksim", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "sazende_semaisi": {
+        "dunya_uuid": "42327732-1d4d-4e6e-9713-39d967a19ef1", 
+        "mb_tag": "sazende semaisi", 
+        "dunya_name": "Sazende Semaisi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kar_i_nev": {
+        "dunya_uuid": "35c548d5-92be-4b31-8d6b-dad3370d6260", 
+        "mb_tag": "kar-\u0131 nev", 
+        "dunya_name": "Kar-\u0131 Nev", 
+        "mu2_name": "K\u00e2r-\u0131 Nev", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kar_i_nev", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "kosma": {
+        "dunya_uuid": "3931901c-80af-4c3c-ab97-fcc7a6962eca", 
+        "mb_tag": "ko\u015fma", 
+        "dunya_name": "Ko\u015fma", 
+        "mu2_name": "Ko\u015fma", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kosma", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "tevsihilahi": {
+        "dunya_uuid": "9b9ae076-2d3a-4c05-9d46-ca9971bd8c09", 
+        "mb_tag": "tev\u015fihilahi,tev\u015fih", 
+        "dunya_name": "Tev\u015fihilahi", 
+        "mu2_name": "Tev\u015fihil\u00e2hi", 
+        "repetitive_section": "", 
+        "symbtr_slug": "tevsihilahi", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "terennum": {
+        "dunya_uuid": "cb07f7d8-83fa-43ae-a7a3-1ba1a5200314", 
+        "mb_tag": "terenn\u00fcm", 
+        "dunya_name": "Terenn\u00fcm", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "mersiye": {
+        "dunya_uuid": "d9cc0fc6-7ca8-49e4-b2dd-3897c19ecdd5", 
+        "mb_tag": "mersiye", 
+        "dunya_name": "Mersiye", 
+        "mu2_name": "Mersiye", 
+        "repetitive_section": "", 
+        "symbtr_slug": "mersiye", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "temcidmunacati": {
+        "dunya_uuid": "9bb2571b-56e8-43e1-a8fb-c0a23d022cc6", 
+        "mb_tag": "", 
+        "dunya_name": "Temcidm\u00fcnacat\u0131", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "naat": {
+        "dunya_uuid": "42569def-bb7f-44ff-b93e-cd841fa95887", 
+        "mb_tag": "naat", 
+        "dunya_name": "Naat", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "tavsanca": {
+        "dunya_uuid": "b241a4eb-da01-40cb-bec4-686ab103407e", 
+        "mb_tag": "tav\u015fanca", 
+        "dunya_name": "Tav\u015fanca", 
+        "mu2_name": "Tav\u015fanca", 
+        "repetitive_section": "", 
+        "symbtr_slug": "tavsanca", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "nefes": {
+        "dunya_uuid": "885dfa98-13fd-4cad-b0aa-140c9ee59226", 
+        "mb_tag": "nefes", 
+        "dunya_name": "Nefes", 
+        "mu2_name": "Nefes", 
+        "repetitive_section": "", 
+        "symbtr_slug": "nefes", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "turku": {
+        "dunya_uuid": "25c2546e-96d4-4ce1-a8ef-96353499fecb", 
+        "mb_tag": "t\u00fcrk\u00fc", 
+        "dunya_name": "T\u00fcrk\u00fc", 
+        "mu2_name": "T\u00fcrk\u00fc", 
+        "repetitive_section": "", 
+        "symbtr_slug": "turku", 
+        "genre": "THM,TSM", 
+        "type": "vocal"
+    }, 
+    "nakis_beste": {
+        "dunya_uuid": "24784dcd-3291-4e47-bbeb-7d971731bd13", 
+        "mb_tag": "nak\u0131\u015f beste,nak\u0131\u015f-beste", 
+        "dunya_name": "Nak\u0131\u015f Beste", 
+        "mu2_name": "Nak\u0131\u015f Beste", 
+        "repetitive_section": "", 
+        "symbtr_slug": "nakis_beste", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "rumeliturkusu": {
+        "dunya_uuid": "fe97b0f3-bda5-4486-bd78-f1be9a343ac6", 
+        "mb_tag": "rumelit\u00fcrk\u00fcs\u00fc", 
+        "dunya_name": "Rumeli T\u00fcrk\u00fcs\u00fc", 
+        "mu2_name": "Rumelit\u00fcrk\u00fcs\u00fc", 
+        "repetitive_section": "", 
+        "symbtr_slug": "rumeliturkusu", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "kocekce": {
+        "dunya_uuid": "4f0903a9-5e7e-44a3-827e-2b4cb50ff4a9", 
+        "mb_tag": "k\u00f6\u00e7ek\u00e7e", 
+        "dunya_name": "K\u00f6\u00e7ek\u00e7e", 
+        "mu2_name": "K\u00f6\u00e7ek\u00e7e", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kocekce", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "kamet": {
+        "dunya_uuid": "04f1b3b1-7dfc-4c31-98aa-0e5fd41871b1", 
+        "mb_tag": "kamet", 
+        "dunya_name": "Kamet", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "sarki": {
+        "dunya_uuid": "20edad19-60a7-49cf-a349-266b80af7e8d", 
+        "mb_tag": "\u015fark\u0131", 
+        "dunya_name": "\u015eark\u0131", 
+        "mu2_name": "\u015eark\u0131", 
+        "repetitive_section": "NAKARAT", 
+        "symbtr_slug": "sarki", 
+        "genre": "TSM", 
+        "type": "vocal"
+    }, 
+    "beste_murabba": {
+        "dunya_uuid": "e9a784e4-c622-44c6-80b0-e4a68f1a18d8", 
+        "mb_tag": "Beste-murabba,beste mubabba", 
+        "dunya_name": "Beste murabba", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kar_i_sesavaz": {
+        "dunya_uuid": "8e88dfa3-5f91-45c8-b0a8-12d4647728cd", 
+        "mb_tag": "kar-\u0131 \u015fe\u015favaz", 
+        "dunya_name": "Kar-\u0131 \u015fe\u015favaz", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "salatuselam": {
+        "dunya_uuid": "4712a993-1c2e-4da3-ae6e-89e91cc909b7", 
+        "mb_tag": "", 
+        "dunya_name": "Salat\u00fcselam", 
+        "mu2_name": "Sal\u00e2t\u00fcsel\u00e2m", 
+        "repetitive_section": "", 
+        "symbtr_slug": "salatuselam", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "cocuksarkisi": {
+        "dunya_uuid": "305ea485-15f0-4766-a4c3-91ee9d687eba", 
+        "mb_tag": "", 
+        "dunya_name": "\u00c7ocuk \u015fark\u0131s\u0131", 
+        "mu2_name": "\u00c7ocuk \u015eark\u0131s\u0131", 
+        "repetitive_section": "", 
+        "symbtr_slug": "cocuksarkisi", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "zikir": {
+        "dunya_uuid": "d2424e8e-02f1-41e3-993f-9e26b3033fd9", 
+        "mb_tag": "zikir", 
+        "dunya_name": "Zikir", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "tekbir": {
+        "dunya_uuid": "18f0ccef-8f7a-496d-b1ff-a293768e12a3", 
+        "mb_tag": "tekbir", 
+        "dunya_name": "Tekbir", 
+        "mu2_name": "Tekb\u00eer", 
+        "repetitive_section": "", 
+        "symbtr_slug": "tekbir", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "halk_turkusu": {
+        "dunya_uuid": "f85a1474-ad5e-41a2-a0c4-cacb56babcf0", 
+        "mb_tag": "", 
+        "dunya_name": "Halk T\u00fcrk\u00fcs\u00fc", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kaside": {
+        "dunya_uuid": "0f1f75b7-eea1-40ba-9f71-70be37754eb5", 
+        "mb_tag": "kaside", 
+        "dunya_name": "Kaside", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "ciftetelli": {
+        "dunya_uuid": "3081e6a7-a054-4622-bf30-7f64d2a16b6a", 
+        "mb_tag": "\u00e7iftetelli", 
+        "dunya_name": "\u00c7iftetelli", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "medhal": {
+        "dunya_uuid": "ab11f70c-18e2-4739-a279-aef9421f2336", 
+        "mb_tag": "medhal", 
+        "dunya_name": "Medhal", 
+        "mu2_name": "Medhal", 
+        "repetitive_section": "", 
+        "symbtr_slug": "medhal", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "zeybek": {
+        "dunya_uuid": "3d4b411e-be36-42d6-9c75-ddf3a30c44db", 
+        "mb_tag": "zeybek", 
+        "dunya_name": "Zeybek", 
+        "mu2_name": "Zeybek", 
+        "repetitive_section": "", 
+        "symbtr_slug": "zeybek", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "murabba": {
+        "dunya_uuid": "b6cbe90d-28ae-4caa-a447-c24496931c4d", 
+        "mb_tag": "murabba", 
+        "dunya_name": "Murabba", 
+        "mu2_name": "Murabb\u00e2", 
+        "repetitive_section": "", 
+        "symbtr_slug": "murabba", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "gazel": {
+        "dunya_uuid": "a1d59289-ea72-4050-9253-01ca12bb5556", 
+        "mb_tag": "gazel", 
+        "dunya_name": "Gazel", 
+        "mu2_name": "", 
+        "repetitive_section": "-", 
+        "symbtr_slug": "", 
+        "genre": "TSM", 
+        "type": "vocal"
+    }, 
+    "guvende": {
+        "dunya_uuid": "023d722d-3fd7-4bb7-82d1-ef02a86ad6cd", 
+        "mb_tag": "", 
+        "dunya_name": "G\u00fcvende", 
+        "mu2_name": "G\u00fcvende", 
+        "repetitive_section": "", 
+        "symbtr_slug": "guvende", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "kanto": {
+        "dunya_uuid": "ee0a1bea-3eca-4051-baa1-fd038f12d572", 
+        "mb_tag": "kanto", 
+        "dunya_name": "Kanto", 
+        "mu2_name": "Kanto", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kanto", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "yuruksemai": {
+        "dunya_uuid": "98c3d99d-97de-4ca0-9aa8-1895e3a52293", 
+        "mb_tag": "y\u00fcr\u00fcksemai", 
+        "dunya_name": "Y\u00fcr\u00fcksemai", 
+        "mu2_name": "Y\u00fcr\u00fcksem\u00e2\u00ee", 
+        "repetitive_section": "", 
+        "symbtr_slug": "yuruksemai", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "unknown": {
+        "dunya_uuid": "ba246a9e-f91d-4e2e-b2db-56ac99978ad4", 
+        "mb_tag": "", 
+        "dunya_name": "unknown", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "tango": {
+        "dunya_uuid": "35db4236-42d2-44a5-a47f-eeb61484cdd6", 
+        "mb_tag": "tango", 
+        "dunya_name": "Tango", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "ezan": {
+        "dunya_uuid": "586fb1f3-5335-4374-8c05-51ea97da088b", 
+        "mb_tag": "ezan", 
+        "dunya_name": "Ezan", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "hutbe": {
+        "dunya_uuid": "28cef7d6-448a-4c19-9c69-8b608fc4e325", 
+        "mb_tag": "", 
+        "dunya_name": "Hutbe", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kurthavasi": {
+        "dunya_uuid": "ce556e44-9c02-4956-ac61-90fee2af078d", 
+        "mb_tag": "", 
+        "dunya_name": "K\u00fcrthavas\u0131", 
+        "mu2_name": "K\u00fcrthavas\u0131", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kurthavasi", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "mars": {
+        "dunya_uuid": "3b140f39-4ee6-410e-a487-9a57ad7485e3", 
+        "mb_tag": "mar\u015f", 
+        "dunya_name": "Mar\u015f", 
+        "mu2_name": "Mar\u015f", 
+        "repetitive_section": "", 
+        "symbtr_slug": "mars", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "yuruk_sazsemaisi": {
+        "dunya_uuid": "fbc245a2-4124-4078-a105-51f27e96940e", 
+        "mb_tag": "y\u00fcr\u00fck sazsemaisi", 
+        "dunya_name": "Y\u00fcr\u00fck Sazsemaisi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "munacaat": {
+        "dunya_uuid": "d7f70069-6113-48ac-be03-cac6903020b5", 
+        "mb_tag": "m\u00fcnacaat", 
+        "dunya_name": "M\u00fcnacaat", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "sazsemaisi": {
+        "dunya_uuid": "9a33c7d6-7fe4-485d-aea6-0af3673e9ac1", 
+        "mb_tag": "sazsemaisi", 
+        "dunya_name": "Sazsemaisi", 
+        "mu2_name": "Sazsem\u00e2\u00eesi", 
+        "repetitive_section": "TESLIM,TESL\u0130M,M\u00dcL\u00c2Z\u0130ME,MULAZIME", 
+        "symbtr_slug": "sazsemaisi", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "no_form": {
+        "dunya_uuid": "1fc28b07-8836-4ac8-b7ca-3ef461c9045d", 
+        "mb_tag": "", 
+        "dunya_name": "No Form", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kasaphavasi": {
+        "dunya_uuid": "776294f3-4e3a-44a5-b3ac-c2492a90e632", 
+        "mb_tag": "", 
+        "dunya_name": "Kasaphavas\u0131", 
+        "mu2_name": "Kasaphavas\u0131", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kasaphavasi", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "seyir": {
+        "dunya_uuid": "b12e62fd-b244-4165-bc33-8d3464850cfc", 
+        "mb_tag": "seyir", 
+        "dunya_name": "Seyir", 
+        "mu2_name": "Seyir", 
+        "repetitive_section": "", 
+        "symbtr_slug": "seyir", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "ayin": {
+        "dunya_uuid": "2ae5faa4-49de-421f-bdc3-b4a5b7336b63", 
+        "mb_tag": "ayin", 
+        "dunya_name": "Ayin", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kupe": {
+        "dunya_uuid": "093c80bc-4baf-446b-a4ea-5be7c248adf3", 
+        "mb_tag": "k\u00fcpe", 
+        "dunya_name": "K\u00fcpe", 
+        "mu2_name": "K\u00fcpe", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kupe", 
+        "genre": "TSM", 
+        "type": "vocal"
+    }, 
+    "fantezi": {
+        "dunya_uuid": "3679724d-cabf-4192-8213-d579befcf254", 
+        "mb_tag": "fantezi", 
+        "dunya_name": "Fantezi", 
+        "mu2_name": "Fantezi", 
+        "repetitive_section": "", 
+        "symbtr_slug": "fantezi", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "tesbih": {
+        "dunya_uuid": "c51871e3-de69-45fc-aefb-2beda3f51c13", 
+        "mb_tag": "tesbih", 
+        "dunya_name": "Tesbih", 
+        "mu2_name": "Tesbih", 
+        "repetitive_section": "", 
+        "symbtr_slug": "tesbih", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "koda": {
+        "dunya_uuid": "353decc1-9af9-441f-972e-92ed77b9e7f7", 
+        "mb_tag": "", 
+        "dunya_name": "Koda", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "durak": {
+        "dunya_uuid": "49cc57ff-9e5b-431d-92c6-c65a53a64a3d", 
+        "mb_tag": "durak", 
+        "dunya_name": "Durak", 
+        "mu2_name": "Durak", 
+        "repetitive_section": "", 
+        "symbtr_slug": "durak", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "nakis": {
+        "dunya_uuid": "dfdb4aad-dd4d-4c29-8971-5b78ae93cf41", 
+        "mb_tag": "nak\u0131\u015f, a\u011f\u0131rsemai nak\u0131\u015f", 
+        "dunya_name": "Nak\u0131\u015f", 
+        "mu2_name": "Nak\u0131\u015f", 
+        "repetitive_section": "", 
+        "symbtr_slug": "nakis", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "salat": {
+        "dunya_uuid": "be3ac2e5-e969-48e9-84a7-7209dc6bfe05", 
+        "mb_tag": "salat", 
+        "dunya_name": "Salat", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "cumhurilahi": {
+        "dunya_uuid": "1e7ebde6-e809-481c-8697-57dae71cb1e6", 
+        "mb_tag": "cumhurilahi", 
+        "dunya_name": "Cumhurilahi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "yuruksemai_nakis": {
+        "dunya_uuid": "9b36e3b0-88fc-4dcb-8486-2cbfac0f89eb", 
+        "mb_tag": "y\u00fcr\u00fcksemai nak\u0131\u015f", 
+        "dunya_name": "Y\u00fcr\u00fcksemai nak\u0131\u015f", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "aranagme": {
+        "dunya_uuid": "74fe3750-99db-4e13-974e-5cc0bed95861", 
+        "mb_tag": "arana\u011fme", 
+        "dunya_name": "Arana\u011fme", 
+        "mu2_name": "Arana\u011fme", 
+        "repetitive_section": "", 
+        "symbtr_slug": "aranagme", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "waltz": {
+        "dunya_uuid": "3412e93f-2608-406c-bbfa-8f779cdb8d5f", 
+        "mb_tag": "waltz", 
+        "dunya_name": "Waltz", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "mahfelsurmesi": {
+        "dunya_uuid": "64069c1d-fbc3-48d9-8694-5dc376340fce", 
+        "mb_tag": "", 
+        "dunya_name": "Mahfels\u00fcrmesi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "longa": {
+        "dunya_uuid": "01adb52a-dac0-4d0b-bdd0-9553044002eb", 
+        "mb_tag": "longa", 
+        "dunya_name": "Longa", 
+        "mu2_name": "Longa", 
+        "repetitive_section": "", 
+        "symbtr_slug": "longa", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "tevhid": {
+        "dunya_uuid": "933d1a14-6f53-4074-90b2-cc2c92c03fcd", 
+        "mb_tag": "tevhid", 
+        "dunya_name": "Tevhid", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "karce": {
+        "dunya_uuid": "b4847fa2-e334-446d-aee7-30b0e0b82a82", 
+        "mb_tag": "kar\u00e7e", 
+        "dunya_name": "Kar\u00e7e", 
+        "mu2_name": "K\u00e2r\u00e7e", 
+        "repetitive_section": "", 
+        "symbtr_slug": "karce", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "kelime_i_tevhid": {
+        "dunya_uuid": "1adb04b5-d8fa-410e-8d52-e2b45a4efd0f", 
+        "mb_tag": "kelime-itevhid", 
+        "dunya_name": "Kelime-i tevhid", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kalenderi": {
+        "dunya_uuid": "499a53fd-5387-4f5d-b86f-90a721ba68a6", 
+        "mb_tag": "kalenderi", 
+        "dunya_name": "Kalenderi", 
+        "mu2_name": "Kalender\u00ee", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kalenderi", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "destan": {
+        "dunya_uuid": "90f7d813-ca25-48de-a180-36ae85fb2e9a", 
+        "mb_tag": "destan", 
+        "dunya_name": "Destan", 
+        "mu2_name": "Destan", 
+        "repetitive_section": "", 
+        "symbtr_slug": "destan", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "salatiummiye": {
+        "dunya_uuid": "6f157c58-965f-4bed-9b21-d0fa81ec704a", 
+        "mb_tag": "salat\u0131\u00fcmmiye", 
+        "dunya_name": "Salat\u0131\u00fcmmiye", 
+        "mu2_name": "Sal\u00e2t\u0131\u00fcmmiye", 
+        "repetitive_section": "", 
+        "symbtr_slug": "salatiummiye", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "divan": {
+        "dunya_uuid": "ef53403e-89c7-4daa-a2a6-0d5e0c6f95aa", 
+        "mb_tag": "divan", 
+        "dunya_name": "Divan", 
+        "mu2_name": "D\u00eev\u00e2n", 
+        "repetitive_section": "", 
+        "symbtr_slug": "divan", 
+        "genre": "THM,TSM", 
+        "type": ""
+    }, 
+    "natipeygamberi": {
+        "dunya_uuid": "554e6ba0-768c-44d4-8280-1abda1c99e58", 
+        "mb_tag": "", 
+        "dunya_name": "Natipeygamberi", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "karsilama": {
+        "dunya_uuid": "1f9fe17d-82ac-4741-99f5-4affcb1a9b23", 
+        "mb_tag": "kar\u015f\u0131lama", 
+        "dunya_name": "Kar\u015f\u0131lama", 
+        "mu2_name": "Kar\u015f\u0131lama", 
+        "repetitive_section": "", 
+        "symbtr_slug": "karsilama", 
+        "genre": "THM", 
+        "type": ""
+    }, 
+    "raksiyye": {
+        "dunya_uuid": "3154189b-41a2-41b7-8367-13aa1b838746", 
+        "mb_tag": "raksiyye", 
+        "dunya_name": "Raksiyye", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "kar_i_natik": {
+        "dunya_uuid": "de7cd667-54fe-4ad9-9128-04b7f5f22c11", 
+        "mb_tag": "kar-\u0131 nat\u0131k", 
+        "dunya_name": "Kar-\u0131 Nat\u0131k", 
+        "mu2_name": "K\u00e2r-\u0131 N\u00e2t\u0131k", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kar_i_natik", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "etud": {
+        "dunya_uuid": "bf4ea6e5-5d6e-4832-b272-e265231d621a", 
+        "mb_tag": "et\u00fcd", 
+        "dunya_name": "Et\u00fcd", 
+        "mu2_name": "Et\u00fcd", 
+        "repetitive_section": "", 
+        "symbtr_slug": "etud", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "kar": {
+        "dunya_uuid": "6d62a093-4d01-44e0-bee4-c465ab918909", 
+        "mb_tag": "kar", 
+        "dunya_name": "Kar", 
+        "mu2_name": "K\u00e2r", 
+        "repetitive_section": "", 
+        "symbtr_slug": "kar", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "sirto": {
+        "dunya_uuid": "b6fd9ae6-2114-42bd-a1f1-2f8dd31f0fb0", 
+        "mb_tag": "sirto", 
+        "dunya_name": "Sirto", 
+        "mu2_name": "Sirto", 
+        "repetitive_section": "", 
+        "symbtr_slug": "sirto", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }, 
+    "kuran_i_kerim": {
+        "dunya_uuid": "f68c56af-7537-4881-b35b-21423b7f4dfd", 
+        "mb_tag": "Kur'an-\u0131kerim,kur`an-\u0131kerim,kuran-\u0131kerim", 
+        "dunya_name": "Kur'an-\u0131 Kerim", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "ambiguous": {
+        "dunya_uuid": "4007f266-6a2c-4102-a699-5d030eb91c7b", 
+        "mb_tag": "", 
+        "dunya_name": "ambiguous", 
+        "mu2_name": "", 
+        "repetitive_section": "", 
+        "symbtr_slug": "", 
+        "genre": "", 
+        "type": ""
+    }, 
+    "ornek_oz": {
+        "dunya_uuid": "ac33e68a-7563-4f01-bb0b-feaa975859fc", 
+        "mb_tag": "", 
+        "dunya_name": "\u00d6rnek \u00d6z", 
+        "mu2_name": "\u00d6rnek-\u00f6z", 
+        "repetitive_section": "", 
+        "symbtr_slug": "ornek_oz", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "selam": {
+        "dunya_uuid": "16162f6e-01b3-42ad-9b3b-c8419d432ee2", 
+        "mb_tag": "selam", 
+        "dunya_name": "Selam", 
+        "mu2_name": "Selam", 
+        "repetitive_section": "", 
+        "symbtr_slug": "selam", 
+        "genre": "TSM", 
+        "type": "vocal"
+    }, 
+    "popsarkisi": {
+        "dunya_uuid": "4e6e2c4b-98ed-4f87-9536-0e4fe9a857c9", 
+        "mb_tag": "", 
+        "dunya_name": "Pop \u015fark\u0131s\u0131", 
+        "mu2_name": "Pop \u015eark\u0131s\u0131", 
+        "repetitive_section": "", 
+        "symbtr_slug": "popsarkisi", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "sugul": {
+        "dunya_uuid": "32f88d10-4112-4cd1-896a-255a2613b516", 
+        "mb_tag": "\u015fu\u011ful", 
+        "dunya_name": "\u015eu\u011ful", 
+        "mu2_name": "\u015eu\u011ful", 
+        "repetitive_section": "", 
+        "symbtr_slug": "sugul", 
+        "genre": "TSM", 
+        "type": ""
+    }, 
+    "taksim": {
+        "dunya_uuid": "b4658cef-f3cd-4ced-a534-1dd0a0d5b2de", 
+        "mb_tag": "taksim", 
+        "dunya_name": "Taksim", 
+        "mu2_name": "Taksim", 
+        "repetitive_section": "-", 
+        "symbtr_slug": "taksim", 
+        "genre": "TSM", 
+        "type": "instrumental"
+    }
+}

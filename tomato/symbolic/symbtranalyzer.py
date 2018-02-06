@@ -29,8 +29,8 @@ import os
 import warnings
 import timeit
 
-from symbtrdataextractor.dataextractor import DataExtractor
-from symbtrdataextractor.reader.mu2 import Mu2Reader
+from .symbtrdataextractor.dataextractor import DataExtractor
+from .symbtrdataextractor.reader.mu2 import Mu2Reader
 from symbtrextras.scoreextras import ScoreExtras
 
 from ..bincaller import BinCaller
