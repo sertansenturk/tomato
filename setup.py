@@ -77,7 +77,7 @@ class CustomInstall(_install):
 
     @staticmethod
     def _download_binary(fpath, bin_url, sys_os):
-        print(u"- Downloading binary: {0:s}".format(bin_url))
+        print(u"  Downloading binary: {0:s}".format(bin_url))
         response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
             from six import BytesIO
