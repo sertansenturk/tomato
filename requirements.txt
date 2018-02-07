@@ -1,4 +1,3 @@
-git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.1#egg=musicxmlconverter
 git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.6#egg=musicxml2lilypond
 
 numpy>=1.9.0  # numerical operations
@@ -10,5 +9,6 @@ eyeD3>=0.7.5  # reading metadata embedded in the audio recordings
 six>=1.10.0  # Python 2*3 support
 python-Levenshtein==0.12.0  # semiotic structure labeling similarity
 networkx==1.11  # semiotic structure labeling clique computation
+lxml>=3.6.0  # musicxml conversion
 musicbrainzngs==0.6  # metadata crawling from musicbrainz
 jupyter>=1.0.0  # demos

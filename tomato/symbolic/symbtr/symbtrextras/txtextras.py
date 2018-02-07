@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from musicxmlconverter.symbtr2musicxml import SymbTrScore
+from ..musicxmlconverter.symbtr2musicxml import SymbTrScore
 from .scoreextras import ScoreExtras
 import pandas as pd
 import os
