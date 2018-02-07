@@ -1,21 +1,7 @@
-# ------------------- SYMBOLIC ANALYSIS REPOSITORIES --------------------------
-# (meta)data extractor, including section extraction and semiotic analysis
-git+https://github.com/sertansenturk/symbtrdataextractor.git@v2.1.0#egg=symbtrdataextractor
-
-# extra tools such as SymbTr score manipulation and basic stats
 git+https://github.com/MTG/SymbTr-extras.git@v0.4.0#egg=symbtrextras
-
-# phrase segmentation is download as a MATLAB binary from tomato_binaries. It is saved to tomato/bin/
-
-# txt-score to MusicXML to LilyPond to svg conversion
 git+https://github.com/burakuyar/MusicXMLConverter.git@v1.2.1#egg=musicxmlconverter
 git+https://github.com/hsercanatli/makam-musicxml2lilypond.git@v0.9.6#egg=musicxml2lilypond
 
-# ------------------- JOINT ANALYSIS REPOSITORIES -----------------------------
-# score informed tonic identification, tempo estimation and tuning analysis is downloaded as a MATLAB binary from tomato_binaries. It is saved to tomato/bin.
-# audio score alignment (section linking + note-level alignment) is downloaded as a MATLAB binary from tomato_binaries. It is saved to tomato/bin.
-
-# ---------------------------------- EXTRAS -----------------------------------
 numpy>=1.9.0  # numerical operations
 scipy>=0.17.0  # temporary mat file saving for MCR binary inputs
 matplotlib>=1.5.1  # plotting
@@ -24,9 +10,5 @@ eyeD3>=0.7.5  # reading metadata embedded in the audio recordings
 six>=1.10.0  # Python 2*3 support
 python-Levenshtein==0.12.0  # semiotic structure labeling similarity
 networkx==1.11  # semiotic structure labeling clique computation
-
-# metadata crawling from musicbrainz
-musicbrainzngs==0.6
-
-# demos
-jupyter>=1.0.0
+musicbrainzngs==0.6  # metadata crawling from musicbrainz
+jupyter>=1.0.0  # demos

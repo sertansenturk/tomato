@@ -75,10 +75,6 @@ It is recommended to install **tomato** and its dependencies into a virtualenv. 
     virtualenv env
     source env/bin/activate
     
-The setup handles installation for both Python 2 and 3. Initially you have to install the _six_ paxkage via _pip_:
-
-    pip install six
-      
 Then change the current directory to the repository folder and install by:
 
     cd path/to/tomato
@@ -92,10 +88,6 @@ If you want to edit files in the package and want the changes reflected, you sho
 
     cd path/to/tomato
     pip install -e .
-    
-To run the demos, you need to install Jupyter Notebook:
-
-    pip install jupyter
 
 #### <a name="essentia_install"></a>Installing Essentia
 

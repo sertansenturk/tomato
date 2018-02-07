@@ -27,13 +27,13 @@
 import warnings
 import musicbrainzngs
 from urlparse import urlparse
-from makammusicbrainz.audiometadata import AudioMetadata
-from makammusicbrainz.workmetadata import WorkMetadata
+from ....metadata.recording import Recording as RecordingMetadata
+from ....metadata.work import Work as WorkMetadata
 
 
 class MusicBrainzMetadata(object):
     def __init__(self, get_recording_rels=False):
-        self._audioMetadata = AudioMetadata(
+        self._recordingMetadata = RecordingMetadata(
             get_work_attributes=False, print_warnings=False)
         self._workMetadata = WorkMetadata(
             get_recording_rels=get_recording_rels, print_warnings=False)
@@ -58,7 +58,7 @@ class MusicBrainzMetadata(object):
                 data['work'] = {'title': data.pop("title", None),
                                 'mbid': data.pop('mbid', None)}
             except musicbrainzngs.ResponseError:  # assume mbid is a recording
-                data = self._audioMetadata.from_musicbrainz(mbid)
+                data = self._recordingMetadata.from_musicbrainz(mbid)
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
                 if self.get_recording_rels:
