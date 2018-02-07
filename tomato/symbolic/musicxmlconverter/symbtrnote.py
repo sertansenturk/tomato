@@ -118,7 +118,7 @@ class Note(object):
                 self.payda = '0'
             if self.rest == 0:
                 self.get_pitch()
-            # BURASI DÜZELEECEK
+            # PAST NOTE: HAS TO FIX HERE (WHATEVER THERE IS TO BE FIXED)
             if self.grace == 0 and self.payda != '0' and self.kod != '0':
                 self.get_note_type()
                 self.get_accidental()
@@ -165,12 +165,12 @@ class Note(object):
             self.silentgrace = 1
 
     def get_pitch(self):
-        try:
-            self.step = self.notaAE[0]
-            self.octave = self.notaAE[1]
-        except:
-            raise ValueError(u'Pitch at line {0:s} with the value "{1:s}" is '
-                             u'invalid.'.format(self.sira, self.notaAE))
+        # try:
+        self.step = self.notaAE[0]
+        self.octave = self.notaAE[1]
+        # except:
+        #     raise ValueError(u'Pitch at line {0:s} with the value "{1:s}" '
+        #                      u'is invalid.'.format(self.sira, self.notaAE))
 
     def get_note_type(self):
         # print(self.sira, self.kod, "symbtrnote.get_note_type")
