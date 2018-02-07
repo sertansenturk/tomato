@@ -1,9 +1,37 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
+#
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Affero General Public License v3.0
+# along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following paper:
+#
+# Karakurt, A., Şentürk S., and Serra X. (2016). MORTY: A toolbox for mode
+# recognition and tonic identification. In Proceedings of 3rd International
+# Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
+# New York, NY, USA
+
+import logging
+import copy
+
 import numpy as np
 from ..pitchdistribution import PitchDistribution
 from ...converter import Converter
-import logging
-import copy
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -46,11 +74,10 @@ class InputParser(object):
             input_copy = copy.deepcopy(test_input)
             input_copy.hz_to_cent(self._dummy_ref_freq)
             return input_copy
-        else:  # pitch track or file
-            pitch_cent = self._parse_pitch_input(test_input,
-                                                 self._dummy_ref_freq)
-            return self._cent_pitch_to_feature(pitch_cent,
-                                               self._dummy_ref_freq)
+        
+        # pitch track or file
+        pitch_cent = self._parse_pitch_input(test_input, self._dummy_ref_freq)
+        return self._cent_pitch_to_feature(pitch_cent, self._dummy_ref_freq)
 
     def _parse_mode_estimate_input(self, feature_in, tonic=None):
         if isinstance(feature_in, PitchDistribution):

@@ -1,8 +1,35 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import numpy as np
+
+# Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
+#
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Affero General Public License v3.0
+# along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following paper:
+#
+# Karakurt, A., Şentürk S., and Serra X. (2016). MORTY: A toolbox for mode
+# recognition and tonic identification. In Proceedings of 3rd International
+# Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
+# New York, NY, USA
+
 import pickle
 import json
 import copy
+
+import numpy as np
 
 from .inputparser import InputParser
 from .knn import KNN

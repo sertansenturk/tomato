@@ -25,8 +25,6 @@
 # of 5th International Workshop on Folk Music Analysis (FMA 2015),
 # pages 119–122, Paris, France.
 
-from numpy import median
-from numpy import where
 from copy import deepcopy
 import numpy as np
 import matplotlib.pyplot as plt
@@ -107,11 +105,11 @@ class TonicLastNote(object):
         # try all chunks starting from the last as the tonic candidate,
         # considering the octaves
         for chunk in reversed(pitch_chunks):
-            last_note = median(chunk[:, 1])
+            last_note = np.median(chunk[:, 1])
 
             # check all the pitch classes of the last note as a tonic candidate
             # by checking the vicinity in the stable pitches
-            tonic_candidate = self.check_tonic_with_octave_correction(
+            tonic_candidate = self.check_tonic_w_octave_cor(
                 last_note, deepcopy(distribution))
 
             # assign the tonic if there is an estimation
@@ -128,7 +126,7 @@ class TonicLastNote(object):
 
         return tonic, pitch_sliced, pitch_chunks, distribution
 
-    def check_tonic_with_octave_correction(self, tonic, distribution):
+    def check_tonic_w_octave_cor(self, tonic, distribution):
         # shift the distribution to tonic
         distribution.bins -= Converter.hz_to_cent(tonic, distribution.ref_freq)
         distribution.ref_freq = tonic
@@ -162,8 +160,7 @@ class TonicLastNote(object):
 
     @staticmethod
     def plot(pitch, tonic, pitch_chunks, distribution):
-        fig, (ax1, ax2, ax3) = plt.subplots(3, num=None, figsize=(18, 8),
-                                            dpi=80)
+        _, (ax1, ax2, ax3) = plt.subplots(3, num=None, figsize=(18, 8), dpi=80)
         plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
                             wspace=0, hspace=0.4)
 
@@ -187,7 +184,7 @@ class TonicLastNote(object):
 
         # tonic
         ax1.plot(tonic['value'],
-                 distribution.vals[where(
+                 distribution.vals[np.where(
                      distribution.bins == tonic['value'])[0]], 'cD', ms=10)
 
         # pitch distributiongram

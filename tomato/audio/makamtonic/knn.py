@@ -1,9 +1,35 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+# Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
+#
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Affero General Public License v3.0
+# along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following paper:
+#
+# Karakurt, A., Şentürk S., and Serra X. (2016). MORTY: A toolbox for mode
+# recognition and tonic identification. In Proceedings of 3rd International
+# Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
+# New York, NY, USA
+
 from __future__ import division
-from scipy.spatial import distance as spdistance
 import collections
-import numpy as np
 import copy
+import numpy as np
+from scipy.spatial import distance as spdistance
 
 
 class KNN(object):
@@ -93,33 +119,35 @@ class KNN(object):
          corr         : Correlation
          -------------------------------------------------------------------"""
         if method in ['manhattan', 'l1']:
-            return spdistance.minkowski(vals_1, vals_2, 1)
+            dist = spdistance.minkowski(vals_1, vals_2, 1)
         elif method in ['euclidean', 'l2']:
-            return spdistance.euclidean(vals_1, vals_2)
+            dist = spdistance.euclidean(vals_1, vals_2)
         elif method == 'l3':
-            return spdistance.minkowski(vals_1, vals_2, 3)
+            dist = spdistance.minkowski(vals_1, vals_2, 3)
         elif method == 'bhat':  # bhattacharrya distance
-            return -np.log(np.sum(np.sqrt(vals_1 * vals_2)))
+            dist = -np.log(np.sum(np.sqrt(vals_1 * vals_2)))
         elif method == 'jeffrey':  # Jeffrey's divergence
-            return (np.sum(vals_1 * np.log(vals_1 / vals_2)) +
+            dist = (np.sum(vals_1 * np.log(vals_1 / vals_2)) +
                     np.sum(vals_2 * np.log(vals_2 / vals_1)))
         elif method == 'js':  # Jensen–Shannon distance
-            return np.sqrt(
+            dist = np.sqrt(
                 np.sum(vals_1 * np.log(2 * vals_1 / (vals_1 + vals_2))) * 0.5 +
                 np.sum(vals_2 * np.log(2 * vals_2 / (vals_1 + vals_2))) * 0.5)
         # Since correlation and intersection are actually similarity measures,
         # we convert them to dissimilarities, by taking 1 - similarity
         elif method == 'dis_intersect':
-            return 1.0 - np.sum(np.minimum(vals_1, vals_2)) / np.size(vals_1)
+            dist = 1.0 - np.sum(np.minimum(vals_1, vals_2)) / np.size(vals_1)
         elif method == 'dis_corr':
-            return 1.0 - np.correlate(vals_1, vals_2)
+            dist = 1.0 - np.correlate(vals_1, vals_2)
         else:
-            return 0
+            raise ValueError("Unknown method")
+
+        return dist
 
     @staticmethod
     def get_nearest_neighbors(sorted_pair, k_neighbor):
         # parse mode/tonic pairs
-        pairs = [pair for pair, dist in sorted_pair[:k_neighbor]]
+        pairs = [pair for pair, _ in sorted_pair[:k_neighbor]]
 
         # find the most common pairs
         counter = collections.Counter(pairs)
