@@ -300,7 +300,7 @@ class KNNClassifier(InputParser):
 
         # compute ranked estimations
         ranked_pairs = []
-        for r in range(min(rank, max_rank)):
+        for _ in range(min(rank, max_rank)):
             cand_pairs = KNN.get_nearest_neighbors(sorted_pairs, k_neighbor)
             estimation, sorted_pairs = KNN.classify(cand_pairs, sorted_pairs)
             ranked_pairs.append(estimation)
