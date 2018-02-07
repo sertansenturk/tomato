@@ -100,7 +100,7 @@ class MetadataExtractor(object):
 
     @staticmethod
     def _get_attribute_key(attr_str, attr_type):
-        attr_dict = IO.load_musical_attributes(attr_type)
+        attr_dict = IO.load_music_data(attr_type)
         for attr_key, attr_val in attr_dict.items():
             if attr_val['symbtr_slug'] == attr_str:
                 return attr_key
@@ -140,7 +140,7 @@ class MetadataExtractor(object):
 
     @classmethod
     def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
-        attr_dict = IO.load_musical_attributes('makam')
+        attr_dict = IO.load_music_data('makam')
         key_sig_makam = attr_dict[makam_slug]['key_signature']
 
         # the number of accidentals should be the same
@@ -176,7 +176,7 @@ class MetadataExtractor(object):
 
     @staticmethod
     def _get_attr(slug, attr_name):
-        attr_dict = IO.load_musical_attributes(attr_name)
+        attr_dict = IO.load_music_data(attr_name)
 
         for attr in attr_dict.values():
             if attr['symbtr_slug'] == slug:

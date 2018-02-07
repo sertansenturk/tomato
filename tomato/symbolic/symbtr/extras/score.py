@@ -22,7 +22,7 @@ class Score(object):
             warnings.warn("symbtr_mbid.json is not found in the local "
                           "search path. Using the back-up "
                           "symbtr_mbid.json included in this repository.")
-            return IO.load_musical_attributes('symbTr_mbid')
+            return IO.load_music_data('symbTr_mbid')
 
     _iconv_map = {'utf-16le': 'UTF-16',
                   'Little-endian UTF-16 Unicode': 'UTF-16',
@@ -49,7 +49,7 @@ class Score(object):
     def parse_usul_dict(cls):
         mu2_usul_dict = {}
         inv_mu2_usul_dict = {}
-        usul_dict = IO.load_musical_attributes('usul')
+        usul_dict = IO.load_music_data('usul')
         for key, val in usul_dict.items():
             for vrt in val['variants']:
                 if vrt['mu2_name']:  # if it doesn't have a mu2 name, the usul

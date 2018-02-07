@@ -226,7 +226,7 @@ class Txt(object):
 
     @staticmethod
     def _get_usul_variant(data):
-        usul_dict = IO.load_musical_attributes('usul')
+        usul_dict = IO.load_music_data('usul')
         vrts = usul_dict[data['usul']['symbtr_slug']]['variants']
         for v in vrts:
             if v['mu2_name'] == data['usul']['mu2_name']:
@@ -237,7 +237,7 @@ class Txt(object):
 
     @staticmethod
     def _get_zaman_mertebe(data):
-        usul_dict = IO.load_musical_attributes('usul')
+        usul_dict = IO.load_music_data('usul')
         for usul in usul_dict.values():
             for uv in usul['variants']:
                 if uv['mu2_name'] == data['usul']['mu2_name']:

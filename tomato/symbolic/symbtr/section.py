@@ -107,7 +107,7 @@ class SectionExtractor(object):
     def _get_structure_labels(self):
         all_labels = ScoreProcessor.get_all_symbtr_labels()
         struct_lbl = all_labels if self.extract_all_labels else \
-            IO.load_musical_attributes('symbtr_labels')['structure']
+            IO.load_music_data('symbtr_labels')['structure']
         return all_labels, struct_lbl
 
     def from_musicxml_score(self, score):

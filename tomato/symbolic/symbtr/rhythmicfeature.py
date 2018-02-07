@@ -33,7 +33,7 @@ class RhythmicFeatureExtractor(object):
     def extract_rhythmic_structure(cls, score):
         usul_bounds = [ii for ii, code in enumerate(score['code'])
                        if code == 51]
-        usul_dict = IO.load_musical_attributes('usul')
+        usul_dict = IO.load_music_data('usul')
 
         rhythmic_structure = []
         for ii, ub in enumerate(usul_bounds):

@@ -108,11 +108,11 @@ class NoteModel(object):
     def _get_theoretical_intervals_to_search(self, makam):
         # Reading dictionary which contains note symbol, theoretical names and
         # their cent values
-        note_dict = IO.load_musical_attributes('note')
+        note_dict = IO.load_music_data('note')
 
         # Reading dictionary which contains theoretical information about each
         # makam
-        makam_dict = IO.load_musical_attributes('makam')
+        makam_dict = IO.load_music_data('makam')
 
         # get the key signature
         try:
