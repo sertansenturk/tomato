@@ -7,6 +7,7 @@ import subprocess
 import warnings
 from ..dataextractor import DataExtractor
 from ..reader.mu2 import Mu2Reader
+from ....io import IO
 
 
 class Score(object):
@@ -17,31 +18,11 @@ class Score(object):
                   "symbTr_mbid.json"
             response = urllib.urlopen(url)
             return json.loads(response.read())
-        except IOError:  # if it is called from the submodule location or it
-            # was installed with "pip install -e ." we can refer to the json
-            # in the local repo
-            try:
-                warnings.warn("Cannot access the symbtr_mbid.json in the "
-                              "github SymbTr repository. Falling back to the "
-                              "json file in the local SymbTr repository.")
-                return json.load(open(  # load symbTr mbids
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 '..', '..', 'symbTr_mbid.json'), 'r'))
-            except IOError:
-                warnings.warn("symbtr_mbid.json is not found in the local "
-                              "search path. Using the back-up "
-                              "symbtr_mbid.json included in this repository.")
-                return Score.load_local_json('symbTr_mbid.json')
-
-    @staticmethod
-    def get_usul_dict():
-        return Score.load_local_json('usul_extended.json')
-
-    @staticmethod
-    def load_local_json(json_name):
-        return json.load(open(  # load symbTr mbids
-            os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                         'data', json_name), 'r'))
+        except IOError:  # load local backup
+            warnings.warn("symbtr_mbid.json is not found in the local "
+                          "search path. Using the back-up "
+                          "symbtr_mbid.json included in this repository.")
+            return IO.load_musical_attributes('symbTr_mbid')
 
     _iconv_map = {'utf-16le': 'UTF-16',
                   'Little-endian UTF-16 Unicode': 'UTF-16',
@@ -68,7 +49,7 @@ class Score(object):
     def parse_usul_dict(cls):
         mu2_usul_dict = {}
         inv_mu2_usul_dict = {}
-        usul_dict = cls.get_usul_dict()
+        usul_dict = IO.load_musical_attributes('usul')
         for key, val in usul_dict.items():
             for vrt in val['variants']:
                 if vrt['mu2_name']:  # if it doesn't have a mu2 name, the usul

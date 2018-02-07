@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from ..musicxmlconverter.symbtr2musicxml import SymbTrScore
-from .score import Score
 import pandas as pd
 import os
 import warnings
-
+from .score import Score
+from ...musicxmlconverter.symbtr2musicxml import SymbTrScore
+from ....io import IO
 
 class Txt(object):
     symbtr_cols = ['Sira', 'Kod', 'Nota53', 'NotaAE', 'Koma53', 'KomaAE',
@@ -226,7 +226,7 @@ class Txt(object):
 
     @staticmethod
     def _get_usul_variant(data):
-        usul_dict = Score.get_usul_dict()
+        usul_dict = IO.load_musical_attributes('usul')
         vrts = usul_dict[data['usul']['symbtr_slug']]['variants']
         for v in vrts:
             if v['mu2_name'] == data['usul']['mu2_name']:
@@ -237,7 +237,7 @@ class Txt(object):
 
     @staticmethod
     def _get_zaman_mertebe(data):
-        usul_dict = Score.get_usul_dict()
+        usul_dict = IO.load_musical_attributes('usul')
         for usul in usul_dict.values():
             for uv in usul['variants']:
                 if uv['mu2_name'] == data['usul']['mu2_name']:
