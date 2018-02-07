@@ -74,7 +74,7 @@ class InputParser(object):
             input_copy = copy.deepcopy(test_input)
             input_copy.hz_to_cent(self._dummy_ref_freq)
             return input_copy
-        
+
         # pitch track or file
         pitch_cent = self._parse_pitch_input(test_input, self._dummy_ref_freq)
         return self._cent_pitch_to_feature(pitch_cent, self._dummy_ref_freq)
