@@ -31,7 +31,7 @@ import re
 import musicbrainzngs
 from .musicxmlconverter import symbtr2musicxml
 from .musicxml2lilypond import scoreconverter as musicxml2lilypond
-from .symbtr.symbtrextras.scoreextras import ScoreExtras
+from .symbtr.extras.score import Score
 from .symbtr.reader.symbtr import SymbTrReader
 from .symbtr.metadata.musicbrainz import MusicBrainzMetadata
 from ..io import IO
@@ -164,7 +164,7 @@ class ScoreConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
+                mbid_url = Score.get_mbids(symbtr_name)[0]
             except IndexError:
                 mbid_url = None
         else:

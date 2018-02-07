@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from ..musicxmlconverter.symbtr2musicxml import SymbTrScore
-from .scoreextras import ScoreExtras
+from .score import Score
 import pandas as pd
 import os
 import warnings
 
 
-class TxtExtras(object):
+class Txt(object):
     symbtr_cols = ['Sira', 'Kod', 'Nota53', 'NotaAE', 'Koma53', 'KomaAE',
                    'Pay', 'Payda', 'Ms', 'LNS', 'Bas', 'Soz1', 'Offset']
 
     @classmethod
     def check_usul_row(cls, txt_file):
-        mu2_usul_dict, inv_mu2_usul_dict = ScoreExtras.parse_usul_dict()
+        mu2_usul_dict, inv_mu2_usul_dict = Score.parse_usul_dict()
 
         df = pd.read_csv(txt_file, sep='\t', encoding='utf-8')
 
@@ -110,7 +110,7 @@ class TxtExtras(object):
     @classmethod
     def add_usul_to_first_row(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = ScoreExtras.get_symbtr_data(txt_file, mu2_file)
+        data = Score.get_symbtr_data(txt_file, mu2_file)
 
         # get usul variant
         variant = cls._get_usul_variant(data)  # read the txt score
@@ -155,7 +155,7 @@ class TxtExtras(object):
     @classmethod
     def correct_offset_gracenote(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = ScoreExtras.get_symbtr_data(txt_file, mu2_file)
+        data = Score.get_symbtr_data(txt_file, mu2_file)
 
         # get zaman and mertebe from usul variant
         mertebe, zaman = cls._get_zaman_mertebe(data)
@@ -226,7 +226,7 @@ class TxtExtras(object):
 
     @staticmethod
     def _get_usul_variant(data):
-        usul_dict = ScoreExtras.get_usul_dict()
+        usul_dict = Score.get_usul_dict()
         vrts = usul_dict[data['usul']['symbtr_slug']]['variants']
         for v in vrts:
             if v['mu2_name'] == data['usul']['mu2_name']:
@@ -237,7 +237,7 @@ class TxtExtras(object):
 
     @staticmethod
     def _get_zaman_mertebe(data):
-        usul_dict = ScoreExtras.get_usul_dict()
+        usul_dict = Score.get_usul_dict()
         for usul in usul_dict.values():
             for uv in usul['variants']:
                 if uv['mu2_name'] == data['usul']['mu2_name']:
@@ -248,7 +248,7 @@ class TxtExtras(object):
 
     @staticmethod
     def to_musicxml(symbtr_name, txt_file, mu2_file):
-        mbids = ScoreExtras.get_mbids(symbtr_name)
+        mbids = Score.get_mbids(symbtr_name)
 
         # MusicXML conversion
         piece = SymbTrScore(txt_file, mu2_file, symbtrname=symbtr_name,

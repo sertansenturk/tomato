@@ -9,7 +9,7 @@ from ..dataextractor import DataExtractor
 from ..reader.mu2 import Mu2Reader
 
 
-class ScoreExtras(object):
+class Score(object):
     @staticmethod
     def _read_symbtr_mbid():
         try:
@@ -31,11 +31,11 @@ class ScoreExtras(object):
                 warnings.warn("symbtr_mbid.json is not found in the local "
                               "search path. Using the back-up "
                               "symbtr_mbid.json included in this repository.")
-                return ScoreExtras.load_local_json('symbTr_mbid.json')
+                return Score.load_local_json('symbTr_mbid.json')
 
     @staticmethod
     def get_usul_dict():
-        return ScoreExtras.load_local_json('usul_extended.json')
+        return Score.load_local_json('usul_extended.json')
 
     @staticmethod
     def load_local_json(json_name):

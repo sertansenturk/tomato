@@ -31,7 +31,7 @@ import timeit
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2Reader
-from .symbtr.symbtrextras.scoreextras import ScoreExtras
+from .symbtr.extras.score import Score
 
 from ..bincaller import BinCaller
 from ..io import IO
@@ -109,7 +109,7 @@ class SymbTrAnalyzer(Analyzer):
 
     @staticmethod
     def get_mbids(symbtr_name):
-        mbids = ScoreExtras.get_mbids(symbtr_name)
+        mbids = Score.get_mbids(symbtr_name)
         if not mbids:
             warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning, )
