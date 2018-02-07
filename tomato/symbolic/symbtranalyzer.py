@@ -31,7 +31,7 @@ import timeit
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2Reader
-from symbtrextras.scoreextras import ScoreExtras
+from .symbtr.symbtrextras.scoreextras import ScoreExtras
 
 from ..bincaller import BinCaller
 from ..io import IO
