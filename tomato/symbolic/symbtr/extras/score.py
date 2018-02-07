@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 import json
 import urllib
-import os
 import subprocess
 import warnings
 from ..dataextractor import DataExtractor

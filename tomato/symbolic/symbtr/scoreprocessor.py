@@ -25,7 +25,6 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import string
-import os
 from copy import deepcopy
 from ...io import IO
 

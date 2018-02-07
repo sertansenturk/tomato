@@ -24,8 +24,6 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import os
-import json
 import warnings
 from .mu2 import Mu2Metadata
 from .musicbrainz import MusicBrainzMetadata

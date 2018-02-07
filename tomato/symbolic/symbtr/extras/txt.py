@@ -7,6 +7,7 @@ from .score import Score
 from ...musicxmlconverter.symbtr2musicxml import SymbTrScore
 from ....io import IO
 
+
 class Txt(object):
     symbtr_cols = ['Sira', 'Kod', 'Nota53', 'NotaAE', 'Koma53', 'KomaAE',
                    'Pay', 'Payda', 'Ms', 'LNS', 'Bas', 'Soz1', 'Offset']
