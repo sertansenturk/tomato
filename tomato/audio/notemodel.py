@@ -76,7 +76,7 @@ class NoteModel(object):
         for stable_pitch_cent, stable_pitch_hz in zip(stable_pitches_cent,
                                                       stable_pitches_hz):
             note_cent = TonicLastNote.find_nearest(
-                theoretical_intervals.values(), stable_pitch_cent)
+                list(theoretical_intervals.values()), stable_pitch_cent)
 
             if abs(stable_pitch_cent - note_cent) < self.pitch_threshold:
                 for key, val in theoretical_intervals.items():
@@ -124,7 +124,8 @@ class NoteModel(object):
 
         # Remove the notes neighboring the scale notes
         keep_notes = natural_notes + key_signature
-        for note_name in note_dict.keys():
+        for note_name in list(note_dict.keys()):  # get a copy to avoid
+            # mutating note_dict during iteration
             if note_name in keep_notes:
                 if note_name[2:4] in ['b5', 'b4']:
                     rm_note_symbol = self.note_letters[
@@ -175,13 +176,14 @@ class NoteModel(object):
     def _get_natural_notes(self, key_signature, note_dict):
         close_natural_notes = self._get_close_natural_notes(key_signature)
         # get the natural notes that are not close to the key signature
-        natural_notes = [n for n in note_dict.keys() if len(n) == 2 and n
+        natural_notes = [n for n in list(note_dict.keys()) if len(n) == 2 and n
                          not in close_natural_notes]
         return natural_notes
 
     def _get_extended_key_signature(self, key_sig_in, note_dict):
         key_signature = deepcopy(key_sig_in)
-        for note in note_dict.keys():  # extend the key signature to octaves
+        for note in list(note_dict.keys()):  # extend the key signature to
+            # octaves
             if any([self._is_same_pitch_class(note, ks)
                     for ks in key_signature]):
                 key_signature.append(note)
@@ -212,7 +214,7 @@ class NoteModel(object):
             matplotlib.ticker.FormatStrFormatter('%d'))
         ax.set_xlim([min(pd_copy.bins), max(pd_copy.bins)])
         ax.set_xticks([note['stable_pitch']['value']
-                       for note in stable_notes.values()])
+                       for note in list(stable_notes.values())])
 
         # recording distribution
         ax.plot(pd_copy.bins, pd_copy.vals,

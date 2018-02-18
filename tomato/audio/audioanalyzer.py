@@ -156,7 +156,7 @@ class AudioAnalyzer(Analyzer):
             audio_meta = self.crawl_musicbrainz_metadata(audio_meta)
         elif not isinstance(audio_meta, dict):
             warn_str = 'The "metadata" input can be "False" (skipped), ' \
-                       '"basestring" (MBID input), "None" (attempt to get ' \
+                       '"str" (MBID input), "None" (attempt to get ' \
                        'the MBID from audio file tags) or "dict" (already ' \
                        'computed)'
             warnings.warn(warn_str, stacklevel=2)
@@ -183,7 +183,12 @@ class AudioAnalyzer(Analyzer):
             'models', 'makam_tonic_estimation',
             'training_model--pcd--7_5--15_0--dlfm2016.pkl')
 
-        return pickle.load(open(makam_tonic_training_file))
+        try:  # python 3
+            # the pickle was made via python 2, we have to specify the encoding
+            return pickle.load(open(makam_tonic_training_file, 'rb'),
+                               encoding='latin1')
+        except TypeError:  # python 2
+            return pickle.load(open(makam_tonic_training_file, 'rb'))
 
     def crawl_musicbrainz_metadata(self, rec_in):
         try:

@@ -59,9 +59,7 @@ class Recording(object):
         audio_meta['url'] = u'http://musicbrainz.org/recording/{}'.format(
             audio_meta['mbid'])
 
-        meta = mb.get_recording_by_id(
-            audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases',
-                                          'tags', 'work-rels'])['recording']
+        meta = mb.get_recording_by_id(audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases', 'tags', 'work-rels'])['recording']
         audio_meta['title'] = meta['title']
 
         # releases
@@ -120,7 +118,7 @@ class Recording(object):
     def get_file_metadata(filepath):
         audiofile = eyed3.load(filepath)
         mbid = audiofile.tag.unique_file_ids.get(
-            'http://musicbrainz.org').data[-36:]
+            'http://musicbrainz.org').data[-36:].decode('utf-8')
         duration = audiofile.info.time_secs
         sampling_frequency = audiofile.info.sample_freq
         bit_rate = audiofile.info.mp3_header.bit_rate
