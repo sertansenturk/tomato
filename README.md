@@ -217,5 +217,5 @@ __Audio-Score Section Linking__
 __Note-Level Audio-Score Aligmnet__  
 [14] Şentürk, S., Gulati, S., and Serra, X. (2014). Towards alignment of score and audio recordings of Ottoman-Turkish makam music. In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), pages 57–60, Istanbul, Turkey.
 
-__Score-Informed Audio Predominant Melody Correction; Note Meodeling__  
+__Score-Informed Audio Predominant Melody Correction; Note Modeling__  
 [15] Şentürk, S., Koduri G. K., and Serra X. (2016). A score-informed computational description of svaras using a statistical model. In Proceedings of 13th Sound and Music Computing Conference (SMC 2016). pages 427-433, Hamburg, Germany
