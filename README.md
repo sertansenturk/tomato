@@ -138,7 +138,7 @@ FAQ
 
 3. **What are the supported Python versions?**
 
-    Even though the code in the **tomato** package is compliant with both Python 3+ and Python 2.7, most of the requirements run only in Python 2.7. We will start working on Python 3+ support, as soon as the [Essentia bindings for Python 3](https://github.com/MTG/essentia/issues/138) are available.
+    **tomato** supports both Python 2.7 and Python 3.
 
 4. **Where are the MATLAB binaries?**
 
