@@ -7,9 +7,9 @@ Introduction
 ------
 **tomato** is a comprehensive and easy-to-use toolbox in Python for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied to this music tradition. The analysis tasks include:
 
-- **Audio Analysis:** audio metadata crawling, predominant melody extraction, tonic and transposition identification, makam recognition, histogram analysis, tuning analysis, melodic progression analysis
+- **Audio Analysis:** audio metadata crawling, predominant melody extraction, tonic and transposition identification, makam recognition, pitch distribution computation, tuning analysis, melodic progression analysis
 - **Symbolic Analysis:** score metadata extraction, score section extraction, score phrase segmentation, semiotic section, and phrase analysis
-- **Joint Analysis:** score-informed tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models
+- **Joint Analysis:** score-informed tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note modeling
 
 The aim of the toolbox is to facilitate the analysis of large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the culture-specific characteristics of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation, and musicological analysis.
 
@@ -182,21 +182,41 @@ _The toolbox has been realzied as part of the thesis:_
 
 _The methods used in the toolbox are described in the papers:_
 
-__Predominant Melody Extraction:__   
+__Audio Predominant Melody Extraction__   
 [2] Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio feature extraction for exploring Turkish makam music. In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey. 
 
-__Pitch Filter:__  
+__Audio Pitch Filter__  
 [3] Bozkurt, B. An Automatic Pitch Analysis Method for Turkish Maqam Music. Journal of New Music Research. 37(1), 1-13.  
 [4] Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio feature extraction for exploring Turkish makam music. In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey. 
 
-__Pitch Distributions; Tuing Analysis; (Joint) Mode (Makam) Recognition & Tonic Identification; Transposition IDentification__  
+__Audio Tonic and Transposition Identification, Makam Recognition, Pitch Distibution Computation, Tuning Analysis__  
 [5] Gedik, A. C., and Bozkurt, B. (2010). Pitch-frequency histogram-based music information retrieval for Turkish music. Signal Processing, 90(4), 1049-1063.
 [6] Bozkurt, B. 2008, An automatic pitch analysis method for Turkish maqam music, Journal of New Music Research 37 1–13.  
 [7] Chordia, P. and Şentürk, S. (2013). Joint recognition of raag and tonic in North Indian music. Computer Music Journal, 37(3):82–98.  
 
-__Tonic Identification from the Last Note:__  
+__Audio Tonic Identification from the Last Note__  
 [8] Atlı, H. S., Bozkurt, B., and Şentürk, S. (2015). A method for tonic frequency identification of Turkish makam music recordings. In Proceedings of 5th International Workshop on Folk Music Analysis (FMA 2015), pages 119–122, Paris, France.
 
-__Melodic Progression (Seyir) Analysis:__  
+__Audio Melodic Progression (Seyir) Analysis__  
 [9] Bozkurt B., Computational analysis of overall melodic progression for Turkish Makam Music, in Penser l’improvisation edited by Mondher Ayari, pp. 289-298, ISBN: 9782752102485, 2015, Delatour France, Sampzon.
 
+__Score Phrase Segmentation__
+[10] Bozkurt, B., Karaosmanoğlu, M. K., Karaçalı, B., Ünal, E. Usul and Makam driven automatic melodic segmentation for Turkish music. Journal of New Music Research. Vol. 43, Iss. 4, 2014
+
+__Score Section Extraction; Semiotic Section and Phrase Analysis__
+[11] Şentürk S., and Serra X. (2016). A method for structural analysis of Ottoman-Turkish makam music scores. In Proceedings of 6th International Workshop on Folk Music Analysis (FMA 2016), pages 39-46, Dublin, Ireland
+
+__Score-Informed Tonic Identification__  
+[12] Şentürk, S., Gulati, S., and Serra, X. (2013). Score informed tonic identification for makam music of Turkey. In Proceedings of 14th International Society for Music Information Retrieval Conference (ISMIR 2013), pages 175–180, Curitiba, Brazil.
+
+__Score-Informed Tempo Estimation__  
+[13] Holzapfel, A., Şimşekli U., Şentürk S., and Cemgil A. T. (2015). Section-level modeling of musical audio for linking performances to scores in Turkish makam music. In Proceedings of 40th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2015), pages 141–145, Brisbane, Australia.
+
+__Audio-Score Section Linking__  
+[14] Şentürk, S., Holzapfel, A., and Serra, X. (2014). Linking scores and audio recordings in makam music of Turkey. Journal of New Music Research, 43:34–52.
+
+__Note-Level Audio-Score Aligmnet__  
+[15] Şentürk, S., Gulati, S., and Serra, X. (2014). Towards alignment of score and audio recordings of Ottoman-Turkish makam music. In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), pages 57–60, Istanbul, Turkey.
+
+__Score-Informed Audio Predominant Melody Correction; Note Meodeling__  
+[16] Şentürk, S., Koduri G. K., and Serra X. (2016). A score-informed computational description of svaras using a statistical model. In Proceedings of 13th Sound and Music Computing Conference (SMC 2016). pages 427-433, Hamburg, Germany
