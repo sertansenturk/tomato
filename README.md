@@ -186,10 +186,10 @@ _The toolbox has been realzied as part of the thesis:_
 
 _The methods used in the toolbox are described in the papers:_
 
-__Score Phrase Segmentation__
+__Score Phrase Segmentation__  
 [1] Bozkurt, B., Karaosmanoğlu, M. K., Karaçalı, B., Ünal, E. Usul and Makam driven automatic melodic segmentation for Turkish music. Journal of New Music Research. Vol. 43, Iss. 4, 2014
 
-__Score Section Extraction; Semiotic Section and Phrase Analysis__
+__Score Section Extraction; Semiotic Section and Phrase Analysis__  
 [2] Şentürk S., and Serra X. (2016). A method for structural analysis of Ottoman-Turkish makam music scores. In Proceedings of 6th International Workshop on Folk Music Analysis (FMA 2016), pages 39-46, Dublin, Ireland
 
 __Audio Predominant Melody Extraction__   
@@ -199,8 +199,8 @@ __Audio Pitch Filter__
 [4] Bozkurt, B. An Automatic Pitch Analysis Method for Turkish Maqam Music. Journal of New Music Research. 37(1), 1-13.  
 
 __Audio Tonic and Transposition Identification, Makam Recognition, Pitch Distibution Computation, Tuning Analysis__  
-[6] Gedik, A. C., and Bozkurt, B. (2010). Pitch-frequency histogram-based music information retrieval for Turkish music. Signal Processing, 90(4), 1049-1063.
-[7] Bozkurt, B. 2008, An automatic pitch analysis method for Turkish maqam music, Journal of New Music Research 37 1–13.  
+[6] Gedik, A. C., and Bozkurt, B. (2010). Pitch-frequency histogram-based music information retrieval for Turkish music. Signal Processing, 90(4), 1049-1063.  
+[7] Bozkurt, B. 2008, An automatic pitch analysis method for Turkish maqam music, Journal of New Music Research 37 1–13.   
 [8] Chordia, P. and Şentürk, S. (2013). Joint recognition of raag and tonic in North Indian music. Computer Music Journal, 37(3):82–98.  
 
 __Audio Tonic Identification from the Last Note__  
