@@ -101,7 +101,10 @@ class Note(object):
         self.ms = info[8]
         self.LNS = info[9]
         self.velOn = info[10]
-        self.soz1 = info[11].decode('utf-8')
+        try:  # python 2
+            self.soz1 = info[11].decode('utf-8')
+        except AttributeError:  # python 3
+            self.soz1 = info[11]
         self.offset = info[12]
 
         if self.kod not in ['35', '51', '53', '54', '55']:

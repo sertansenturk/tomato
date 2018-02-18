@@ -90,18 +90,19 @@ class Mu2Reader(SymbTrReader):
         with open(score_file) as f:
             reader = csv.reader(f, delimiter='\t')
 
+            header_row = next(reader, None)
             try:  # python 2
-                header_row = [unicode(cell).encode('utf-8') for cell in
-                              next(reader, None)]
+                header_row = [unicode(cell, 'utf-8') for cell in
+                              header_row]
             except NameError:  # python 3
-                header_row = next(reader, None)
+                pass
 
             header = dict()
             is_tempo_unit_valid = True
             is_key_sig_valid = True
             for row_temp in reader:
                 try:  # python 2
-                    row = [unicode(cell).encode('utf-8') for cell in row_temp]
+                    row = [unicode(cell, 'utf-8') for cell in row_temp]
                 except NameError:  # python 3
                     row = row_temp
 

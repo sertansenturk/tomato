@@ -1,8 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals, division
 import warnings
-import xml.etree.ElementTree as eT
-from xml.etree.ElementTree import ParseError
+from lxml import etree
 
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
 
@@ -25,15 +24,15 @@ class MusicXMLReader(object):
         """
 
         # setting the xml tree
-        parser = _XMLCommentHandler()
+        parser = etree.XMLParser(remove_comments=False)
         try:
             try:  # document
-                tree = eT.parse(xml_in, parser)
+                tree = etree.parse(xml_in, parser)
                 root = tree.getroot()
             except IOError:  # string input
-                root = eT.fromstring(xml_in, parser)
-        except ParseError:
-            raise ParseError("Line 36(ish): Error parsing MusicXML file.")
+                root = etree.fromstring(xml_in, parser)
+        except etree.ParseError:
+            raise etree.ParseError("Line 36(?): Error parsing MusicXML file.")
 
         # getting key signatures
         keysig = cls._get_key_signature(root)
@@ -55,6 +54,7 @@ class MusicXMLReader(object):
 
     @staticmethod
     def _get_key_signature(root):
+
         keysig = {}  # keys: notes, values: type of note accident
         for xx, key in enumerate(
                 root.findall('part/measure/attributes/key/key-step')):
@@ -185,10 +185,12 @@ class MusicXMLReader(object):
 
     @staticmethod
     def _get_symbtr_txt_id(note):
-        if note.find("symbtrid").text:
-            return int(note.find("symbtrid").text)
-        else:
-            return None
+        for el in note:
+            if isinstance(el, etree._Comment):
+                comment_txt = el.text
+                if 'symbtr_txt_note_index' in comment_txt:
+                    return int(comment_txt[len("symbtr_txt_note_index "):])
+        return None
 
     @staticmethod
     def _chk_rest(note):
@@ -225,17 +227,16 @@ class MusicXMLReader(object):
         else:
             return ''
 
-
-class _XMLCommentHandler(eT.XMLTreeBuilder):
-    def __init__(self):
-        super(_XMLCommentHandler, self).__init__()
-
-        # assumes ElementTree 1.2.X
-        self._parser.CommentHandler = self.handle_comment
-
-    def handle_comment(self, data):
-        self._target.start("symbtrid", {})
-        if data and 'symbtr_txt_note_index' in data:
-            data = data.replace('symbtr_txt_note_index ', '')
-        self._target.data(data)
-        self._target.end("symbtrid")
+# class _XMLCommentHandler(XMLTreeBuilder):
+#     def __init__(self):
+#         super(_XMLCommentHandler, self).__init__()
+#
+#         # assumes ElementTree 1.2.X
+#         self._parser.CommentHandler = self.handle_comment
+#
+#     def handle_comment(self, data):
+#         self._target.start("symbtrid", {})
+#         if data and 'symbtr_txt_note_index' in data:
+#             data = data.replace('symbtr_txt_note_index ', '')
+#         self._target.data(data)
+#         self._target.end("symbtrid")
