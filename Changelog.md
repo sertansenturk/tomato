@@ -1,5 +1,5 @@
 #### tomato v0.11.0
- - Ported all makam analysis libraries into tomato [Pull request #77](https://github.com/sertansenturk/tomato/pull/77)
+ - Ported all makam analysis libraries into tomato: [Pull request #77](https://github.com/sertansenturk/tomato/pull/77)
 
 #### tomato v0.10.1
  - Updated SymbTr-extras to the latest version (v0.4.0)
