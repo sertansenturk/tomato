@@ -1,4 +1,7 @@
 #### tomato v0.11.0
+ - Made the package Python 3 compatible: [Pull request #77](https://github.com/sertansenturk/tomato/pull/78)
+
+#### tomato v0.11.0
  - Ported all makam analysis libraries into tomato: [Pull request #77](https://github.com/sertansenturk/tomato/pull/77)
 
 #### tomato v0.10.1
