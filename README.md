@@ -17,7 +17,9 @@ If you are using **tomato** in your work, please cite the dissertation:
 
 > Şentürk, S. (2016). [Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music](http://sertansenturk.com/research/works/phd-thesis/). Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-For the methodologies and their implementations in the toolbox, please refer to the [References](#references).
+For the sake of __reproducibility__, please also cite the version you used as indexed at [Zenodo](https://zenodo.org/search?page=1&size=20&q=conceptrecid:%22597862%22&sort=-version&all_versions=True).
+
+For the descriptions of the methodologies in the toolbox, please refer to the papers listed in the [References](#references).
 
 Tomato in a Nutshell
 -------
