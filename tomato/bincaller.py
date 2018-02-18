@@ -28,7 +28,7 @@ from six.moves import configparser
 import os
 import subprocess
 
-from io import IO
+from .io import IO
 
 
 class BinCaller(object):

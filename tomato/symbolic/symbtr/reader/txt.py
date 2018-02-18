@@ -26,7 +26,7 @@
 
 import csv
 import warnings
-from symbtr import SymbTrReader
+from .symbtr import SymbTrReader
 
 
 class TxtReader(SymbTrReader):
@@ -59,7 +59,7 @@ class TxtReader(SymbTrReader):
         if symbtr_name is None:
             symbtr_name = TxtReader.get_symbtr_name_from_filepath(score_file)
 
-        with open(score_file, "rb") as f:
+        with open(score_file) as f:
             reader = csv.reader(f, delimiter='\t')
 
             header = next(reader, None)
@@ -94,7 +94,10 @@ class TxtReader(SymbTrReader):
                 score['duration'].append(int(row[duration_col]))
                 score['lns'].append(int(row[lns_col]))
                 score['bas'].append(int(row[bas_col]))
-                score['lyrics'].append(row[lyrics_col].decode('utf-8'))
+                try:  # python 2
+                    score['lyrics'].append(row[lyrics_col].decode('utf-8'))
+                except AttributeError:  # python 3
+                    score['lyrics'].append(row[lyrics_col])
                 score['offset'].append(float(row[offset_col]))
 
         # shift offset such that the first note of each measure has an

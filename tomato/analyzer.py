@@ -25,7 +25,7 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from abc import ABCMeta, abstractmethod, abstractproperty
-from io import IO
+from .io import IO
 from six import iteritems
 import logging
 import warnings

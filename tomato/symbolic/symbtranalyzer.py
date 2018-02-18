@@ -139,6 +139,7 @@ class SymbTrAnalyzer(Analyzer):
                               fld_model_file, temp_in_file, temp_out_file)]
 
         out, err = _mcr_caller.call(callstr)
+        out = out.decode("utf-8")  #convert from byte to urf-8 str
 
         # check the MATLAB output,
         # The prints are in segmentWrapper function in the MATLAB code

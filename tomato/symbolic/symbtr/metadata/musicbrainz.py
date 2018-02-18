@@ -26,7 +26,7 @@
 
 import warnings
 import musicbrainzngs
-from urlparse import urlparse
+from six.moves.urllib.parse import urlparse
 from ....metadata.recording import Recording as RecordingMetadata
 from ....metadata.work import Work as WorkMetadata
 

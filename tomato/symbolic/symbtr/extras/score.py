@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
-import urllib
 import subprocess
 import warnings
+from six.moves.urllib.request import urlopen
 from ..dataextractor import DataExtractor
 from ..reader.mu2 import Mu2Reader
 from ....io import IO
@@ -15,7 +15,7 @@ class Score(object):
         try:
             url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
                   "symbTr_mbid.json"
-            response = urllib.urlopen(url)
+            response = urlopen(url)
             return json.loads(response.read())
         except IOError:  # load local backup
             warnings.warn("symbtr_mbid.json is not found in the local "
