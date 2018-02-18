@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import os
 import copy
-import symbtrnote
 from lxml import etree
+from .symbtrnote import Note
 from ..symbtr.dataextractor import DataExtractor
 from ..symbtr.reader.mu2 import Mu2Reader
 
@@ -186,7 +186,7 @@ def get_key_signature(piecemakam, keysig):
         try:
             key_signature.append((makam_tree.xpath(
                 xpression + 'Donanim-' + str(i), makam=makam_))[0].text)
-            for key, value in solfege_letter_dict.iteritems():
+            for key, value in solfege_letter_dict.items():
                 key_signature[-1] = key_signature[-1].replace(key, value)
         except IndexError:  # end of the accidentals in the key signature
             continue
@@ -218,10 +218,13 @@ class SymbTrScore(object):
         self.mu2path = mu2path  # filepath for the mu2 score; used for
         # obtaining the metadata from its header
 
-        # musicbrainz unique identifier
-        self.mbid_url = [mbid_url] if isinstance(mbid_url, basestring) else \
-            mbid_url
-
+        # musicbrainz unique identifier (there can be more than one MBID)
+        try:  # python 2
+            self.mbid_url = [mbid_url] if isinstance(mbid_url, basestring) \
+                else mbid_url
+        except NameError:  # python
+            self.mbid_url = [mbid_url] if isinstance(mbid_url, str) \
+                else mbid_url
         self.siraintervals = []
 
         if verbose is None:
@@ -342,7 +345,7 @@ class SymbTrScore(object):
                 temp_line = temp_line.split('\t')
                 # NOTE CLASS
                 self.notes.append(
-                    symbtrnote.Note(temp_line, verbose=self.verbose))
+                    Note(temp_line, verbose=self.verbose))
 
                 if self.notes[-1].kod not in ['51']:
                     if self.notes[-1].pay in ['5', '10']:  # seperating notes
@@ -353,22 +356,22 @@ class SymbTrScore(object):
                         lastpart = temppay - firstpart
 
                         temp_line[6] = str(firstpart)
-                        self.notes.append(symbtrnote.Note(
+                        self.notes.append(Note(
                             temp_line, verbose=self.verbose))
                         temp_line[6] = str(lastpart)
                         temp_line[11] = '_'
-                        self.notes.append(symbtrnote.Note(
+                        self.notes.append(Note(
                             temp_line, verbose=self.verbose))
                     elif self.notes[-1].pay in ['9', '11']:
                         temppay = int(self.notes[-1].pay)
                         del self.notes[-1]
 
                         temp_line[6] = str(3)
-                        self.notes.append(symbtrnote.Note(
+                        self.notes.append(Note(
                             temp_line, verbose=self.verbose))
                         temp_line[6] = str(temppay - 3)
                         temp_line[11] = '_'
-                        self.notes.append(symbtrnote.Note(
+                        self.notes.append(Note(
                             temp_line, verbose=self.verbose))
 
                 # removing rests with 0 duration
@@ -428,7 +431,7 @@ class SymbTrScore(object):
 
     @staticmethod
     def addduration(num_divs, xmlduration, e):
-        temp_duration = int(num_divs * 4 * int(e.pay) / int(e.payda))
+        temp_duration = int(num_divs * 4 * float(e.pay) / float(e.payda))
         xmlduration.text = str(temp_duration)
 
         return temp_duration  # duration calculation	UNIVERSAL

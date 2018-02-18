@@ -1,6 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals, division
-from musicxmlreader import MusicXMLReader
+from .musicxmlreader import MusicXMLReader
 import os
 import sqlite3
 
@@ -256,6 +256,9 @@ class ScoreConverter(object):
         # save to file
         if ly_out is not None:
             with open(ly_out, 'w') as outfile:
-                outfile.write(ly_stream.encode('utf-8'))
+                try:  # python 2
+                    outfile.write(ly_stream.encode('utf-8'))
+                except TypeError:  # python 3
+                    outfile.write(ly_stream)
 
         return ly_stream, mapping

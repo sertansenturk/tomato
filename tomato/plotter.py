@@ -28,7 +28,6 @@ import numpy as np
 import copy
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from six import iteritems
 from matplotlib import gridspec
 from matplotlib.ticker import FixedLocator
 
@@ -312,7 +311,7 @@ class Plotter(object):
     @staticmethod
     def _plot_stable_pitches(ax, max_rel_occur, note_models, max_pd_height):
         ytick_vals = []
-        for note_symbol, note in iteritems(note_models):
+        for note_symbol, note in note_models.items():
             plot_bool = (note['stable_pitch']['value'] and
                          note['rel_occur'] > max_rel_occur * 0.15)
             if plot_bool:
@@ -346,7 +345,7 @@ class Plotter(object):
     @staticmethod
     def _get_relative_note_occurences(note_models, pitch_distribution):
         max_rel_occur = 0
-        for note_symbol, note in iteritems(note_models):
+        for note_symbol, note in note_models.items():
             try:
                 # get the relative occurrence of each note from the pitch
                 # distribution
@@ -370,7 +369,7 @@ class Plotter(object):
 
     @staticmethod
     def _plot_note_distributions(ax, note_models):
-        for note_symbol, note in iteritems(note_models):
+        for note_symbol, note in note_models.items():
             try:
                 ax.plot(note_models[note_symbol]['distribution'].vals,
                         note_models[note_symbol]['distribution'].bins,

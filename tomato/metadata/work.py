@@ -24,10 +24,10 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from . attribute import Attribute
 import json
 import warnings
-import urllib
+from six.moves.urllib.request import urlopen
+from . attribute import Attribute
 
 import musicbrainzngs as mb
 mb.set_useragent("Makam corpus metadata", "1.2.0", "compmusic.upf.edu")
@@ -71,7 +71,7 @@ class Work(object):
     def _add_scores(data, mbid):
         score_work_url = 'https://raw.githubusercontent.com/MTG/SymbTr/' \
                          'master/symbTr_mbid.json'
-        response = urllib.urlopen(score_work_url)
+        response = urlopen(score_work_url)
         score_work = json.loads(response.read())
         data['scores'] = []
         for sw in score_work:

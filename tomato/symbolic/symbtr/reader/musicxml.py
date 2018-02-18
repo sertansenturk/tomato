@@ -24,7 +24,7 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from symbtr import SymbTrReader
+from .symbtr import SymbTrReader
 
 
 class MusicXMLReader(SymbTrReader):

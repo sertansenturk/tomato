@@ -29,7 +29,6 @@ from . attribute import Attribute
 from . work import Work
 from . instrumentationvoicing import InstrumentationVoicing
 import musicbrainzngs as mb
-from six import iteritems
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -60,9 +59,7 @@ class Recording(object):
         audio_meta['url'] = u'http://musicbrainz.org/recording/{}'.format(
             audio_meta['mbid'])
 
-        meta = mb.get_recording_by_id(
-            audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases',
-                                          'tags', 'work-rels'])['recording']
+        meta = mb.get_recording_by_id(audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases', 'tags', 'work-rels'])['recording']
         audio_meta['title'] = meta['title']
 
         # releases
@@ -106,7 +103,7 @@ class Recording(object):
     @staticmethod
     def _get_recording_attribute_tags(audio_meta, meta):
         attributetags = Attribute.get_attrib_tags(meta)
-        for key, vals in iteritems(attributetags):
+        for key, vals in attributetags.items():
             for val in vals:  # add the source
                 val['source'] = 'http://musicbrainz.org/recording/' + \
                                 audio_meta['mbid']
@@ -121,7 +118,7 @@ class Recording(object):
     def get_file_metadata(filepath):
         audiofile = eyed3.load(filepath)
         mbid = audiofile.tag.unique_file_ids.get(
-            'http://musicbrainz.org').data[-36:]
+            'http://musicbrainz.org').data[-36:].decode('utf-8')
         duration = audiofile.info.time_secs
         sampling_frequency = audiofile.info.sample_freq
         bit_rate = audiofile.info.mp3_header.bit_rate

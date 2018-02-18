@@ -27,7 +27,7 @@
 import csv
 import warnings
 
-from symbtr import SymbTrReader
+from .symbtr import SymbTrReader
 from ..metadata.metadataextractor import MetadataExtractor
 
 
@@ -87,17 +87,25 @@ class Mu2Reader(SymbTrReader):
 
         makam_slug = symbtr_name.split('--')[0]
 
-        with open(score_file, "rb") as f:
+        with open(score_file) as f:
             reader = csv.reader(f, delimiter='\t')
 
-            header_row = [unicode(cell, 'utf-8') for cell in next(reader,
-                                                                  None)]
+            header_row = next(reader, None)
+            try:  # python 2
+                header_row = [unicode(cell, 'utf-8') for cell in
+                              header_row]
+            except NameError:  # python 3
+                pass
 
             header = dict()
             is_tempo_unit_valid = True
             is_key_sig_valid = True
             for row_temp in reader:
-                row = [unicode(cell, 'utf-8') for cell in row_temp]
+                try:  # python 2
+                    row = [unicode(cell, 'utf-8') for cell in row_temp]
+                except NameError:  # python 3
+                    row = row_temp
+
                 code = int(row[0])
                 if code == 50:
                     is_key_sig_valid = Mu2Reader.read_makam_key_signature_row(

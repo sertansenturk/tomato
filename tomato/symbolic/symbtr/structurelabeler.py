@@ -24,9 +24,10 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
+from copy import deepcopy
+import numpy as np
 from .scoreprocessor import ScoreProcessor
 from .graph import GraphOperations
-from copy import deepcopy
 
 
 class StructureLabeler(object):
@@ -179,7 +180,7 @@ class StructureLabeler(object):
         for lbl, strm in zip(labels, stream):
             chk_strm = ([stream[i] for i, x in enumerate(labels)
                          if x == lbl])
-            assert all(strm == cl for cl in chk_strm), \
+            assert np.array_equiv(strm, chk_strm), \
                 'Mismatch in {0!s} label: {1!s}'.format(name, lbl)
 
     @classmethod
@@ -233,8 +234,12 @@ class StructureLabeler(object):
     @staticmethod
     def _get_basenames(similar_cliques):
         # define the upper case unicode letters for semiotic labeling
-        unicode_letters = [unichr(i) for i in range(0, 1000)
-                           if unicode.isupper(unichr(i))]
+        try:  # python 2
+            unicode_letters = [unichr(i) for i in range(0, 1000)
+                               if unicode.isupper(unichr(i))]
+        except NameError:  # python 3
+            unicode_letters = [chr(i) for i in range(0, 1000)
+                               if chr(i).isupper()]
 
         # similar cliques give us the base structure
         basenames = [unicode_letters[i]

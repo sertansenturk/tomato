@@ -84,7 +84,7 @@ class DataMerger(object):
         result = {}
         for dictionary in data_dicts:
             dict_cp = dictionary.copy()
-            for key, val in dict_cp.iteritems():
+            for key, val in dict_cp.items():
                 if key not in result.keys():
                     result[key] = val
                 elif not isinstance(result[key], dict):
