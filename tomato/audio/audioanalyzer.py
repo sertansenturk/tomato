@@ -1,49 +1,53 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2016 Sertan Şentürk
+# Copyright 2016 - 2018 Sertan Şentürk
 #
-# This file is part of tomato
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
 #
-# tomato is free software: you can redistribute it and/or modify it under the
-# terms of the GNU Affero General Public License as published by the Free
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation (FSF), either version 3 of the License, or (at your
 # option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
 # You should have received a copy of the GNU Affero General Public License v3.0
 # along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following thesis:
+#
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+
+import copy
+import logging
+import pickle
+import timeit
+import warnings
 
 import numpy as np
-import copy
-import pickle
-import os
-import timeit
 import six
-
-from makammusicbrainz.audiometadata import AudioMetadata
-from predominantmelodymakam.predominantmelodymakam import \
-    PredominantMelodyMakam
-from pitchfilter.pitchfilter import PitchFilter
-from seyiranalyzer.audioseyiranalyzer import AudioSeyirAnalyzer
-from tonicidentifier.toniclastnote import TonicLastNote
-from ahenkidentifier.ahenkidentifier import AhenkIdentifier
-from notemodel.notemodel import NoteModel
-from morty.pitchdistribution import PitchDistribution
-from morty.classifiers.knnclassifier import KNNClassifier as MakamClassifier
+from ..metadata.recording import Recording
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
+from tomato.audio.makamtonic.toniclastnote import TonicLastNote
 
+from .ahenk import Ahenk
+from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
+from .notemodel import NoteModel
+from .pitchdistribution import PitchDistribution
+from .pitchfilter import PitchFilter
+from .predominantmelody import PredominantMelody
+from .seyir import Seyir
 from ..analyzer import Analyzer
-from ..plotter import Plotter
 from ..io import IO
+from ..plotter import Plotter
 
-import warnings
-import logging
 logging.basicConfig(level=logging.INFO)
 
 
@@ -70,12 +74,12 @@ class AudioAnalyzer(Analyzer):
                                     'distance_method': 'bhat'}
 
         # extractors
-        self._metadata_getter = AudioMetadata(get_work_attributes=True)
-        self._pitch_extractor = PredominantMelodyMakam(filter_pitch=False)  #
+        self._metadata_getter = Recording(get_work_attributes=True)
+        self._pitch_extractor = PredominantMelody(filter_pitch=False)  #
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
         self._pitch_filter = PitchFilter()
-        self._melodic_progression_analyzer = AudioSeyirAnalyzer()
+        self._melodic_progression_analyzer = Seyir()
         self._tonic_identifier = TonicLastNote()  # We prefer last note
         # detection over distribution matching as it's more generalizable.
 
@@ -175,11 +179,9 @@ class AudioAnalyzer(Analyzer):
 
     @staticmethod
     def _get_makam_tonic_training():
-        makam_tonic_training_path = IO.get_abspath_from_relpath_in_tomato(
-            'models', 'makam_tonic_estimation')
-        training_filename = 'training_model--pcd--7_5--15_0--dlfm2016.pkl'
-        makam_tonic_training_file = os.path.join(makam_tonic_training_path,
-                                                 training_filename)
+        makam_tonic_training_file = IO.get_abspath_from_relpath_in_tomato(
+            'models', 'makam_tonic_estimation',
+            'training_model--pcd--7_5--15_0--dlfm2016.pkl')
 
         return pickle.load(open(makam_tonic_training_file))
 
@@ -306,7 +308,7 @@ class AudioAnalyzer(Analyzer):
         tic = timeit.default_timer()
         self.vprint(u"- Identifying the transposition of {0:s}".format(
             tonic['source']))
-        transposition = AhenkIdentifier.identify(
+        transposition = Ahenk.identify(
             tonic['value'], makam_tonic_str)
         transposition['source'] = tonic['source']
 

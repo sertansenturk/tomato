@@ -13,7 +13,6 @@ try:
 except ImportError:
     from urllib.request import urlopen  # python 3
 import zipfile
-from six import BytesIO
 
 try:
     from setuptools import setup
@@ -27,15 +26,15 @@ except ImportError:
 
 class CustomInstall(_install):
     def run(self):
-        # download the binaries
-        self.execute(self._setup_binaries, (),
-                     msg="Downloaded the binaries from tomato_binaries.")
-
         # install tomato
         _install.run(self)
 
-        # install requirements
-        subprocess.call(["pip install -Ur requirements"], shell=True)
+        # install requirements.txt
+        subprocess.call(["pip install -Ur requirements.txt"], shell=True)
+
+        # download the binaries
+        self.execute(self._setup_binaries, (),
+                     msg="Downloaded the binaries from tomato_binaries.")
 
     @classmethod
     def _setup_binaries(cls):
@@ -78,9 +77,11 @@ class CustomInstall(_install):
 
     @staticmethod
     def _download_binary(fpath, bin_url, sys_os):
-        print(u"- Downloading binary: {0:s}".format(bin_url))
+        print(u"  Downloading binary: {0:s}".format(bin_url))
         response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
+            from six import BytesIO
+
             with zipfile.ZipFile(BytesIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))
             if sys_os == 'macosx':  # mac executables are actually in an app
@@ -135,7 +136,6 @@ discovery/recommendation and musicological analysis.
       license='agpl 3.0',
       packages=find_packages(),
       include_package_data=True,
-      install_requires=[],  # dependencies are specified and installed from
-      # requirements
+      install_requires=[],  # dependencies are installed from requirements.txt
       cmdclass={'install': CustomInstall},
       )

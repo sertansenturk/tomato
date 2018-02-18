@@ -1,33 +1,41 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2016 Sertan Şentürk
+# Copyright 2016 - 2018 Sertan Şentürk
 #
-# This file is part of tomato
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
 #
-# tomato is free software: you can redistribute it and/or modify it under the
-# terms of the GNU Affero General Public License as published by the Free
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
 # Software Foundation (FSF), either version 3 of the License, or (at your
 # option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
 # You should have received a copy of the GNU Affero General Public License v3.0
 # along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following thesis:
+#
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from six.moves import configparser
 import os
 import subprocess
 
+from io import IO
+
 
 class BinCaller(object):
     def __init__(self):
-        self.mcr_filepath = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
+        self.mcr_filepath = IO.get_abspath_from_relpath_in_tomato(
             'config', 'mcr_path.cfg')
+
         self.env, self.sys_os = self.set_environment()
 
     def set_environment(self):
@@ -79,11 +87,10 @@ class BinCaller(object):
 
     def get_mcr_binary_path(self, bin_name):
         if self.sys_os == 'linux':
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'bin', bin_name)
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
+                'bin', bin_name)
         elif self.sys_os == 'macosx':
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
                 'bin', bin_name + '.app', 'Contents', 'MacOS', bin_name)
         else:
             raise ValueError('Unsupported OS.')
@@ -94,9 +101,8 @@ class BinCaller(object):
 
     def get_musikitomusicxml_binary_path(self):
         if self.sys_os in ['linux', 'macosx']:
-            bin_path = os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'bin',
-                'MusikiToMusicXml')
+            bin_path = IO.get_abspath_from_relpath_in_tomato(
+                'bin', 'MusikiToMusicXml')
         else:
             raise ValueError('Unsupported OS.')
 
@@ -106,8 +112,8 @@ class BinCaller(object):
 
     def get_lilypond_bin_path(self):
         config = configparser.SafeConfigParser()
-        lily_cfgfile = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                    'config', 'lilypond.cfg')
+        lily_cfgfile = IO.get_abspath_from_relpath_in_tomato(
+            'config', 'lilypond.cfg')
         config.read(lily_cfgfile)
 
         # check custom

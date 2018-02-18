@@ -1,30 +1,37 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2016 Sertan Şentürk
+# Copyright 2016 - 2018 Sertan Şentürk
 #
-# This file is part of tomato
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
 #
-# tomato is free software: you can redistribute it and/or modify it under the
-# terms of the GNU Affero General Public License as published by the Free
-# Software Foundation (FSF), either version 3 of the License, or (at your
-# option) any later version.
+# tomato is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation (FSF), either version 3 of the License,
+# or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
-# You should have received a copy of the GNU General Public License along with
-# this program.  If not, see http://www.gnu.org/licenses/
+# You should have received a copy of the GNU Affero General Public License v3.0
+# along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following thesis:
+#
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+
 import json
 import os
 import warnings
 import timeit
 
-from symbtrdataextractor.dataextractor import DataExtractor
-from symbtrdataextractor.reader.mu2 import Mu2Reader
-from symbtrextras.scoreextras import ScoreExtras
+from .symbtr.dataextractor import DataExtractor
+from .symbtr.reader.mu2 import Mu2Reader
+from .symbtr.extras.score import Score
 
 from ..bincaller import BinCaller
 from ..io import IO
@@ -82,7 +89,7 @@ class SymbTrAnalyzer(Analyzer):
     def _partial_call_extract_data(self, features, txt_filepath, mu2_filepath,
                                    symbtr_name):
         # If MusicBrainz is not available, crawling will be skipped by the
-        # makammusicbrainz package
+        # metadata package
         score_data = self._partial_caller(
             features['score_features'], self.extract_data, txt_filepath,
             mu2_filepath, symbtr_name=symbtr_name, mbid=features['mbid'],
@@ -102,7 +109,7 @@ class SymbTrAnalyzer(Analyzer):
 
     @staticmethod
     def get_mbids(symbtr_name):
-        mbids = ScoreExtras.get_mbids(symbtr_name)
+        mbids = Score.get_mbids(symbtr_name)
         if not mbids:
             warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning, )

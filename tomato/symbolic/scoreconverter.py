@@ -1,35 +1,41 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright 2016 Sertan Şentürk
+# Copyright 2016 - 2018 Sertan Şentürk
 #
-# This file is part of tomato
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
 #
-# tomato is free software: you can redistribute it and/or modify it under the
-# terms of the GNU Affero General Public License as published by the Free
-# Software Foundation (FSF), either version 3 of the License, or (at your
-# option) any later version.
+# tomato is free software: you can redistribute it and/or modify it
+# under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation (FSF), either version 3 of the License,
+# or (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
 # You should have received a copy of the GNU Affero General Public License v3.0
 # along with this program. If not, see http://www.gnu.org/licenses/
+#
+# If you are using this extractor please cite the following thesis:
+#
+# Şentürk, S. (2016). Computational analysis of audio recordings and music
+# scores for the description and discovery of Ottoman-Turkish makam music.
+# PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from musicxmlconverter import symbtr2musicxml
-from musicxml2lilypond import scoreconverter as musicxml2lilypond
-from symbtrdataextractor.reader.symbtr import SymbTrReader
-from symbtrextras.scoreextras import ScoreExtras
-from symbtrdataextractor.metadata.musicbrainz import MusicBrainzMetadata
-from ..io import IO
-from ..bincaller import BinCaller
 import os
 import subprocess
 import tempfile
 import re
 import musicbrainzngs
+from .musicxmlconverter import symbtr2musicxml
+from .musicxml2lilypond import scoreconverter as musicxml2lilypond
+from .symbtr.extras.score import Score
+from .symbtr.reader.symbtr import SymbTrReader
+from .symbtr.metadata.musicbrainz import MusicBrainzMetadata
+from ..io import IO
+from ..bincaller import BinCaller
 
 _bin_caller = BinCaller()
 
@@ -93,8 +99,8 @@ class ScoreConverter(object):
         tmp_dir = tempfile.mkdtemp()
 
         # 2. copy the mu2 file to the temporary folder
-        temp_in_file = IO.create_temp_file('.mu2', open(mu2_file).read(),
-                                           dir=tmp_dir)
+        temp_in_file = IO.create_temp_file(
+            '.mu2', open(mu2_file).read(), folder=tmp_dir)
 
         # parse
         temp_out_file, midi_str, flag_str = cls._parse_musikitomusicxml_inputs(
@@ -158,7 +164,7 @@ class ScoreConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = ScoreExtras.get_mbids(symbtr_name)[0]
+                mbid_url = Score.get_mbids(symbtr_name)[0]
             except IndexError:
                 mbid_url = None
         else:

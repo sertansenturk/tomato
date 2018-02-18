@@ -2,3 +2,8 @@ recursive-include tomato *.json
 recursive-include tomato/bin *
 recursive-include tomato/config *.cfg
 recursive-include tomato/models *
+recursive-include tomato/music_data *
+
+# temporary to be removed later
+recursive-include tomato/symbolic/musicxmlconverter/makams_usuls *
+recursive-include tomato/symbolic/musicxml2lilypond/data *

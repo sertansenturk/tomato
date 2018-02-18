@@ -3,9 +3,16 @@
 
 # Copyright 2014 - 2018 Music Technology Group - Universitat Pompeu Fabra
 #
+# This file is part of tomato: https://github.com/sertansenturk/tomato/
+#
+# tomato is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Affero General Public License as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version.
+#
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 # details.
 #
 # You should have received a copy of the GNU Affero General Public License v3.0
@@ -13,20 +20,20 @@
 #
 # If you are using this extractor please cite the following paper:
 #
-# Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio
-# feature extraction for exploring Turkish makam music. In Proceedings of 3rd
-# International Conference on Audio Technologies for Music and Media, Ankara,
-# Turkey.
+# Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014).
+# Audio feature extraction for exploring Turkish makam music. In Proceedings
+# of 3rd International Conference on Audio Technologies for Music and Media
+# (ATMM 2014), pages 142–153, Ankara, Turkey.
 
-from essentia import Pool
-from essentia import array as e_array
-import essentia.standard as estd
-from math import ceil
 import numpy as np
 import warnings
+import essentia.standard as estd
+from essentia import Pool
+from essentia import array as e_array
+from math import ceil
 
 
-class PredominantMelodyMakam(object):
+class PredominantMelody(object):
     def __init__(self, hop_size=128, frame_size=2048, bin_resolution=1.0,
                  min_frequency=55, max_frequency=1760, magnitude_threshold=0,
                  peak_distribution_threshold=1.4, filter_pitch=True,
