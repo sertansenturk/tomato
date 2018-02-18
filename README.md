@@ -9,7 +9,7 @@ Introduction
 
 - **Audio Analysis:** audio metadata crawling, predominant melody extraction, tonic and transposition identification, makam recognition, histogram analysis, tuning analysis, melodic progression analysis
 - **Symbolic Analysis:** score metadata extraction, score section extraction, score phrase segmentation, semiotic section, and phrase analysis
-- **Joint Analysis:** score-informed tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models, (usul tracking is coming soon)
+- **Joint Analysis:** score-informed tonic identification and tempo estimation, section linking, note-level audio-score alignment, predominant melody octave correction, note models
 
 The aim of the toolbox is to facilitate the analysis of large-scale audio recording and music score collections of Turkish-Ottoman makam music, using the state of the art methodologies specifically designed for the culture-specific characteristics of this tradition. The analysis results can then be further used for several tasks such as automatic content description, music discovery/recommendation, and musicological analysis.
 
@@ -176,4 +176,27 @@ We would like to thank [Harold Hagopian](https://en.wikipedia.org/wiki/Harold_Ha
 
 <a name="references"></a>References
 -------
-[1] Şentürk, S. (2016). Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music. Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.
+_The toolbox has been realzied as part of the thesis:_
+
+[1] Şentürk, S. (2016). Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music. Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.  
+
+_The methods used in the toolbox are described in the papers:_
+
+__Predominant Melody Extraction:__   
+[2] Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio feature extraction for exploring Turkish makam music. In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey. 
+
+__Pitch Filter:__  
+[3] Bozkurt, B. An Automatic Pitch Analysis Method for Turkish Maqam Music. Journal of New Music Research. 37(1), 1-13.  
+[4] Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). Audio feature extraction for exploring Turkish makam music. In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey. 
+
+__Pitch Distributions; Tuing Analysis; (Joint) Mode (Makam) Recognition & Tonic Identification; Transposition IDentification__  
+[5] Gedik, A. C., and Bozkurt, B. (2010). Pitch-frequency histogram-based music information retrieval for Turkish music. Signal Processing, 90(4), 1049-1063.
+[6] Bozkurt, B. 2008, An automatic pitch analysis method for Turkish maqam music, Journal of New Music Research 37 1–13.  
+[7] Chordia, P. and Şentürk, S. (2013). Joint recognition of raag and tonic in North Indian music. Computer Music Journal, 37(3):82–98.  
+
+__Tonic Identification from the Last Note:__  
+[8] Atlı, H. S., Bozkurt, B., and Şentürk, S. (2015). A method for tonic frequency identification of Turkish makam music recordings. In Proceedings of 5th International Workshop on Folk Music Analysis (FMA 2015), pages 119–122, Paris, France.
+
+__Melodic Progression (Seyir) Analysis:__  
+[9] Bozkurt B., Computational analysis of overall melodic progression for Turkish Makam Music, in Penser l’improvisation edited by Mondher Ayari, pp. 289-298, ISBN: 9782752102485, 2015, Delatour France, Sampzon.
+
