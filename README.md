@@ -68,7 +68,7 @@ There are four steps in the installation:
 4. [Installing LilyPond](#lily_install) (optional)
 
 #### <a name="tomato_install"></a>Installing tomato
-**tomato** require several packages to be installed. In Linux, you have to install the _python 2.7, libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
+**tomato** require several packages to be installed. In Linux, you have to install the _python3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
 
     sudo apt-get install python-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
 
@@ -93,7 +93,9 @@ If you want to edit files in the package and want the changes reflected, you sho
 
 #### <a name="essentia_install"></a>Installing Essentia
 
-__tomato__ uses several modules in Essentia. Follow the [instructions](http://essentia.upf.edu/documentation/installing.html) to install the library. Then you should link the python bindings of Essentia in the virtual environment:
+__tomato__ uses several modules in Essentia. Follow the [instructions](http://essentia.upf.edu/documentation/installing.html) to install the library. 
+
+If you are using Python 2.7, then you should link the python bindings of Essentia in the virtual environment:
 
     ln -s path_to_essentia_bindings path_to_env/lib/python2.7/site-packages
     
