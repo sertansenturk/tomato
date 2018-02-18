@@ -29,7 +29,6 @@ from . attribute import Attribute
 from . work import Work
 from . instrumentationvoicing import InstrumentationVoicing
 import musicbrainzngs as mb
-from six import iteritems
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -106,7 +105,7 @@ class Recording(object):
     @staticmethod
     def _get_recording_attribute_tags(audio_meta, meta):
         attributetags = Attribute.get_attrib_tags(meta)
-        for key, vals in iteritems(attributetags):
+        for key, vals in attributetags.items():
             for val in vals:  # add the source
                 val['source'] = 'http://musicbrainz.org/recording/' + \
                                 audio_meta['mbid']

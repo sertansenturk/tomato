@@ -26,7 +26,6 @@
 
 from abc import ABCMeta, abstractmethod, abstractproperty
 from .io import IO
-from six import iteritems
 import logging
 import warnings
 
@@ -73,7 +72,7 @@ class Analyzer(object):
         # initialize precomputed_features with the available analysis
         precomputed_features = dict((f, None)
                                     for f in self._inputs)
-        for feature, val in iteritems(kwargs):
+        for feature, val in kwargs.items():
             if feature not in self._inputs:
                 warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
                            u'but it will not be used in the audio analysis.' \

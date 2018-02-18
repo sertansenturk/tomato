@@ -25,7 +25,6 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import numpy as np
-from future.utils import iteritems
 from ..io import IO
 
 
@@ -70,7 +69,7 @@ class Ahenk(object):
                                         'unit': 'cent'}}
 
         # get the ahenk
-        for ahenk_slug, val in iteritems(ahenks):
+        for ahenk_slug, val in ahenks.items():
             if val['cent_transposition'] == mod_cent_approx:
                 ahenk_dict['name'] = val['name']
                 ahenk_dict['slug'] = ahenk_slug
@@ -95,7 +94,7 @@ class Ahenk(object):
     @staticmethod
     def _get_tonic_symbol_from_makam(symbol_in, tonic_dict):
         tonic_bolahenk_freq = tonic_symbol = None
-        for sym, val in iteritems(tonic_dict):
+        for sym, val in tonic_dict.items():
             if symbol_in in val['makams']:
                 tonic_symbol = sym
                 tonic_bolahenk_freq = val['bolahenk_freq']
