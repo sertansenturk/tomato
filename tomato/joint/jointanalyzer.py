@@ -26,7 +26,7 @@
 
 import json
 from scipy.io import savemat
-from six.moves import cStringIO
+from six import BytesIO
 import tempfile
 from copy import deepcopy
 import timeit
@@ -192,7 +192,7 @@ class JointAnalyzer(Analyzer):
             '.json', json.dumps(score_data))
 
         # matlab
-        matout = cStringIO()
+        matout = BytesIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(
@@ -207,7 +207,7 @@ class JointAnalyzer(Analyzer):
         out, err = _mcr_caller.call(callstr)
 
         # check the MATLAB output
-        if "Tonic-Tempo-Tuning Extraction took" not in out:
+        if "Tonic-Tempo-Tuning Extraction took" not in out.decode('utf-8'):
             IO.remove_temp_files(
                 temp_score_data_file, temp_pitch_file, temp_out_folder)
             raise RuntimeError("Score-informed tonic, tonic and tuning "
@@ -278,7 +278,7 @@ class JointAnalyzer(Analyzer):
             '.json', json.dumps({'scoreInformed': audio_tempo_}))
 
         # matlab
-        matout = cStringIO()
+        matout = BytesIO()
         savemat(matout, audio_pitch)
 
         temp_pitch_file = IO.create_temp_file(
@@ -297,7 +297,7 @@ class JointAnalyzer(Analyzer):
         out, err = _mcr_caller.call(callstr)
 
         # check the MATLAB output
-        if "Audio-score alignment took" not in out:
+        if "Audio-score alignment took" not in out.decode('utf-8'):
             IO.remove_temp_files(
                 temp_score_data_file, temp_tonic_file, temp_tempo_file,
                 temp_pitch_file, temp_out_folder)
