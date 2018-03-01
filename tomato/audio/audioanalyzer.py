@@ -52,7 +52,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
-    _inputs = ['makam', 'melodic_progression', 'symbtr', 'note_models',
+    _inputs = ['makam', 'melodic_progression', 'metadata', 'note_models',
                'pitch', 'pitch_class_distribution', 'pitch_distribution',
                'pitch_filtered', 'tempo', 'tonic', 'transposition']
 
@@ -91,8 +91,8 @@ class AudioAnalyzer(Analyzer):
         audio_f = self._parse_inputs(**kwargs)
         filepath = IO.make_unicode(filepath)
 
-        # symbtr
-        audio_f['symbtr'] = self._call_audio_metadata(audio_f['symbtr'],
+        # metadata
+        audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],
                                                       filepath)
 
         # predominant melody extraction
@@ -117,7 +117,7 @@ class AudioAnalyzer(Analyzer):
 
         # makam recognition
         audio_f['makam'] = self._partial_caller(
-            audio_f['makam'], self.get_makams, audio_f['symbtr'],
+            audio_f['makam'], self.get_makams, audio_f['metadata'],
             audio_f['pitch_filtered'], audio_f['tonic'])
         audio_f['makam'] = self._partial_caller(
             None, self._get_first, audio_f['makam'])
@@ -146,7 +146,8 @@ class AudioAnalyzer(Analyzer):
         return audio_f
 
     def _call_audio_metadata(self, audio_meta, filepath):
-        if audio_meta is False:  # symbtr crawling is disabled
+
+        if audio_meta is False:  # metadata crawling is disabled
             audio_meta = None
         elif audio_meta is None:  # no MBID is given, attempt to get
             # it from id3 tag
@@ -155,7 +156,7 @@ class AudioAnalyzer(Analyzer):
             # MBID is given
             audio_meta = self.crawl_musicbrainz_metadata(audio_meta)
         elif not isinstance(audio_meta, dict):
-            warn_str = 'The "symbtr" input can be "False" (skipped), ' \
+            warn_str = 'The "metadata" input can be "False" (skipped), ' \
                        '"str" (MBID input), "None" (attempt to get ' \
                        'the MBID from audio file tags) or "dict" (already ' \
                        'computed)'
@@ -163,12 +164,12 @@ class AudioAnalyzer(Analyzer):
         return audio_meta
 
     def get_makams(self, metadata, pitch, tonic):
-        try:  # try to get the makam from the symbtr
+        try:  # try to get the makam from the metadata
             makams = list(set(m['attribute_key'] for m in metadata['makam']))
 
             assert makams  # if empty list, attempt automatic makam recognition
         except (TypeError, KeyError, AssertionError):
-            # symbtr is not available or the makam is not known
+            # metadata is not available or the makam is not known
             makam_res = self.recognize_makam(pitch, tonic)
 
             # the output is in the format [(makam_name, distance)]
@@ -194,14 +195,14 @@ class AudioAnalyzer(Analyzer):
         try:
             rec_in = IO.make_unicode(rec_in)
             tic = timeit.default_timer()
-            self.vprint(u"- Getting relevant symbtr of {0:s}".format(rec_in))
+            self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
             audio_meta = self._metadata_getter.from_musicbrainz(rec_in)
 
             self.vprint_time(tic, timeit.default_timer())
             return audio_meta
         except (NetworkError, ResponseError):
             warnings.warn('Unable to reach http://musicbrainz.org/. '
-                          'The symbtr stored there is not crawled.',
+                          'The metadata stored there is not crawled.',
                           RuntimeWarning, stacklevel=2)
             return None
 
