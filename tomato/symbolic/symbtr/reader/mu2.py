@@ -30,6 +30,7 @@ import warnings
 from .symbtr import SymbTrReader
 from ....metadata.symbtr.metadataextractor import MetadataExtractor
 
+
 class Mu2Reader(SymbTrReader):
     def __init__(self):
         """
