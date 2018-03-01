@@ -33,18 +33,18 @@ from tomato.metadata.work import Work as WorkMetadata
 
 class MusicBrainzMetadata(object):
     def __init__(self, get_recording_rels=False):
-        self._recordingMetadata = RecordingMetadata(
+        self._recording_metadata = RecordingMetadata(
             get_work_attributes=False, print_warnings=False)
-        self._workMetadata = WorkMetadata(
+        self._work_metadata = WorkMetadata(
             get_recording_rels=get_recording_rels, print_warnings=False)
 
     @property
     def get_recording_rels(self):
-        return self._workMetadata.get_recording_rels
+        return self._work_metadata.get_recording_rels
 
     @get_recording_rels.setter
     def get_recording_rels(self, value):
-        self._workMetadata.get_recording_rels = value
+        self._work_metadata.get_recording_rels = value
 
     def crawl_musicbrainz(self, mbid):
         if mbid is None:  # empty mbid
@@ -54,11 +54,11 @@ class MusicBrainzMetadata(object):
         try:  # attempt crawling
             mbid = self._parse_mbid(mbid)
             try:  # assume mbid is a work
-                data = self._workMetadata.from_musicbrainz(mbid)
+                data = self._work_metadata.from_musicbrainz(mbid)
                 data['work'] = {'title': data.pop("title", None),
                                 'mbid': data.pop('mbid', None)}
             except musicbrainzngs.ResponseError:  # assume mbid is a recording
-                data = self._recordingMetadata.from_musicbrainz(mbid)
+                data = self._recording_metadata.from_musicbrainz(mbid)
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
                 if self.get_recording_rels:
