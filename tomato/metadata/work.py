@@ -78,6 +78,30 @@ class Work(object):
             if mbid in sw['uuid']:
                 data['scores'].append(sw['name'])
 
+    @classmethod
+    def get_mbids(cls, symbtr_name):
+        mbids = []  # extremely rare but there can be more than one mbid
+        for e in cls._read_symbtr_mbid():
+            if e['name'] == symbtr_name:
+                mbids.append(e['uuid'])
+        if not mbids:
+            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
+                          RuntimeWarning, )
+        return mbids
+
+    @staticmethod
+    def _read_symbtr_mbid():
+        try:
+            url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
+                  "symbTr_mbid.json"
+            response = urlopen(url)
+            return json.loads(response.read())
+        except IOError:  # load local backup
+            warnings.warn("symbtr_mbid.json is not found in the local "
+                          "search path. Using the back-up "
+                          "symbtr_mbid.json included in this repository.")
+            return IO.load_music_data('symbTr_mbid')
+
     def _chk_warnings(self, data):
         if self.print_warnings:
             self._chk_data_key_exists(data, dkey='makam')

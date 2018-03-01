@@ -31,8 +31,8 @@ import timeit
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2Reader
-from .symbtr.extras.score import Score
 
+from ..metadata.work import Work
 from ..bincaller import BinCaller
 from ..io import IO
 from ..analyzer import Analyzer
@@ -73,7 +73,7 @@ class SymbTrAnalyzer(Analyzer):
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first mbid to fetch the metadata
         # TODO: use all mbids
-        input_f['mbid'] = self._partial_caller(input_f['mbid'], self.get_mbids,
+        input_f['mbid'] = self._partial_caller(input_f['mbid'], Work.get_mbids,
                                                symbtr_name)
         input_f['mbid'] = self._partial_caller(None, self._get_first,
                                                input_f['mbid'])
@@ -106,14 +106,6 @@ class SymbTrAnalyzer(Analyzer):
             score_features, is_valid = [None, None]
 
         features['score_features'] = score_features
-
-    @staticmethod
-    def get_mbids(symbtr_name):
-        mbids = Score.get_mbids(symbtr_name)
-        if not mbids:
-            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
-                          RuntimeWarning, )
-        return mbids
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
