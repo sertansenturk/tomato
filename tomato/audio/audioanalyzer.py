@@ -92,8 +92,8 @@ class AudioAnalyzer(Analyzer):
         filepath = IO.make_unicode(filepath)
 
         # metadata
-        audio_f['metadata'] = self._call_audio_metadata(audio_f['metadata'],
-                                                      filepath)
+        audio_f['metadata'] = self._call_audio_metadata(
+            audio_f['metadata'], filepath)
 
         # predominant melody extraction
         audio_f['pitch'] = self._partial_caller(
