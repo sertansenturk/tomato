@@ -31,10 +31,11 @@ import tempfile
 
 import musicbrainzngs
 
-from tomato.metadata.symbtr.musicbrainz import MusicBrainzMetadata
-from tomato.symbolic.converter.symbtr2musicxml import symbtr2musicxml
-from .musicxml2lilypond import scoreconverter as musicxml2lilypond
+from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
+from .symbtr.converter.musicxml2lilypond import scoreconverter as \
+    musicxml2lilypond
 from .symbtr.reader.symbtr import SymbTrReader
+from ..metadata.symbtr.musicbrainz import MusicBrainzMetadata
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.work import Work
@@ -42,7 +43,7 @@ from ..metadata.work import Work
 _bin_caller = BinCaller()
 
 
-class ScoreConverter(object):
+class SymbTrConverter(object):
     _mb_meta_getter = MusicBrainzMetadata()
     _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
