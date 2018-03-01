@@ -39,7 +39,6 @@ import scipy.stats
 import scipy.integrate
 import matplotlib.pyplot as plt
 import numbers
-import pickle
 
 import logging
 logging.basicConfig(level=logging.INFO)
