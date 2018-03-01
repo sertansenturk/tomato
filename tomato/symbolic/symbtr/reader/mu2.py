@@ -27,9 +27,8 @@
 import csv
 import warnings
 
-from tomato.metadata.symbtr.metadataextractor import MetadataExtractor
 from .symbtr import SymbTrReader
-
+from ....metadata.symbtr.metadataextractor import MetadataExtractor
 
 class Mu2Reader(SymbTrReader):
     def __init__(self):

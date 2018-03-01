@@ -26,7 +26,7 @@
 
 import os
 
-from tomato.metadata.symbtr.metadataextractor import MetadataExtractor
+from ...metadata.symbtr.metadataextractor import MetadataExtractor
 from .datamerger import DataMerger
 from .reader.mu2 import Mu2Reader
 from .reader.musicxml import MusicXMLReader

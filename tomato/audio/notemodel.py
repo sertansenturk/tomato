@@ -29,7 +29,7 @@ from copy import deepcopy
 import matplotlib.pyplot as plt
 import matplotlib.ticker
 import numpy as np
-from tomato.audio.makamtonic.toniclastnote import TonicLastNote
+from .makamtonic.toniclastnote import TonicLastNote
 from ..io import IO
 
 from ..converter import Converter

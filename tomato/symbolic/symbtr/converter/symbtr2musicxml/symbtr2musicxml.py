@@ -3,8 +3,8 @@ import os
 import copy
 from lxml import etree
 from .symbtrnote import Note
-from tomato.symbolic.symbtr.dataextractor import DataExtractor
-from tomato.symbolic.symbtr.reader.mu2 import Mu2Reader
+from ...dataextractor import DataExtractor
+from ...reader.mu2 import Mu2Reader
 
 # koma definitions
 n_natural = 'natural'
