@@ -32,8 +32,8 @@ import tempfile
 import musicbrainzngs
 
 from tomato.metadata.symbtr.musicbrainz import MusicBrainzMetadata
+from tomato.symbolic.symbtr.converter.musicxmlconverter import symbtr2musicxml
 from .musicxml2lilypond import scoreconverter as musicxml2lilypond
-from .musicxmlconverter import symbtr2musicxml
 from .symbtr.reader.symbtr import SymbTrReader
 from ..bincaller import BinCaller
 from ..io import IO
