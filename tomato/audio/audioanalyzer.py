@@ -93,7 +93,7 @@ class AudioAnalyzer(Analyzer):
 
         # symbtr
         audio_f['symbtr'] = self._call_audio_metadata(audio_f['symbtr'],
-                                                        filepath)
+                                                      filepath)
 
         # predominant melody extraction
         audio_f['pitch'] = self._partial_caller(
