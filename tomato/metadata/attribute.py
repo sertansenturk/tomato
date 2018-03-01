@@ -31,15 +31,15 @@ logging.basicConfig(level=logging.INFO)
 
 
 class Attribute(object):
-    @classmethod
-    def get_attr_key_from_mb_attr(cls, attr_str, attr_type):
+    @staticmethod
+    def get_attr_key_from_mb_attr(attr_str, attr_type):
         attr_dict = IO.load_music_data(attr_type)
         for attr_key, attr_val in attr_dict.items():
             if attr_val['dunya_name'] == attr_str:
                 return attr_key
 
-    @classmethod
-    def _get_attr_key_from_mb_tag(cls, attr_str, attr_type):
+    @staticmethod
+    def _get_attr_key_from_mb_tag(attr_str, attr_type):
         attr_dict = IO.load_music_data(attr_type)
         for attr_key, attr_val in attr_dict.items():
             if attr_str in attr_val['mb_tag']:
