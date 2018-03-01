@@ -144,7 +144,7 @@ class Txt(object):
     @classmethod
     def add_usul_to_first_row(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = Score.get_symbtr_data(txt_file, mu2_file)
+        data = cls.get_symbtr_data(txt_file, mu2_file)
 
         # get usul variant
         variant = cls._get_usul_variant(data)  # read the txt score
@@ -189,7 +189,7 @@ class Txt(object):
     @classmethod
     def correct_offset_gracenote(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = Score.get_symbtr_data(txt_file, mu2_file)
+        data = cls.get_symbtr_data(txt_file, mu2_file)
 
         # get zaman and mertebe from usul variant
         mertebe, zaman = cls._get_zaman_mertebe(data)

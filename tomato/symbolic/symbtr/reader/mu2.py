@@ -27,8 +27,8 @@
 import csv
 import warnings
 
+from tomato.metadata.symbtr.metadataextractor import MetadataExtractor
 from .symbtr import SymbTrReader
-from ..metadata.metadataextractor import MetadataExtractor
 
 
 class Mu2Reader(SymbTrReader):
@@ -63,7 +63,7 @@ class Mu2Reader(SymbTrReader):
     @classmethod
     def read_header(cls, score_file, symbtr_name=None):
         """
-        Reads the metadata in the header of the SymbTr-mu2 scores.
+        Reads the symbtr in the header of the SymbTr-mu2 scores.
 
         Parameters
         ----------
@@ -75,11 +75,11 @@ class Mu2Reader(SymbTrReader):
         Returns
         ----------
         dict
-            A dictionary storing the metadata extracted from the header
+            A dictionary storing the symbtr extracted from the header
         list of str
             The names of the columns in the mu2 file
         bool
-            True if the metadata in the mu2 header is valid/consistent,
+            True if the symbtr in the mu2 header is valid/consistent,
             False otherwise
         """
         if symbtr_name is None:
@@ -139,7 +139,7 @@ class Mu2Reader(SymbTrReader):
                 else:  # end of header
                     break
 
-        # get the metadata
+        # get the symbtr
         slugs = MetadataExtractor.get_slugs(symbtr_name)
         for attr in ['makam', 'form', 'usul']:
             MetadataExtractor.add_attribute_slug(header, slugs, attr)

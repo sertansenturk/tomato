@@ -216,7 +216,7 @@ class SymbTrScore(object):
                  verbose=None):
         self.txtpath = txtpath  # filepath for the txt score
         self.mu2path = mu2path  # filepath for the mu2 score; used for
-        # obtaining the metadata from its header
+        # obtaining the symbtr from its header
 
         # musicbrainz unique identifier (there can be more than one MBID)
         try:  # python 2

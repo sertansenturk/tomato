@@ -25,16 +25,18 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import os
+import re
 import subprocess
 import tempfile
-import re
+
 import musicbrainzngs
-from .musicxmlconverter import symbtr2musicxml
+
+from tomato.metadata.symbtr.musicbrainz import MusicBrainzMetadata
 from .musicxml2lilypond import scoreconverter as musicxml2lilypond
+from .musicxmlconverter import symbtr2musicxml
 from .symbtr.reader.symbtr import SymbTrReader
-from .symbtr.metadata.musicbrainz import MusicBrainzMetadata
-from ..io import IO
 from ..bincaller import BinCaller
+from ..io import IO
 from ..metadata.work import Work
 
 _bin_caller = BinCaller()

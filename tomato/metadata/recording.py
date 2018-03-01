@@ -33,7 +33,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 # set the agent to communicate with MusicBrainz
-mb.set_useragent("Makam corpus metadata", "1.2.1", "compmusic.upf.edu")
+mb.set_useragent("Makam corpus symbtr", "1.2.1", "compmusic.upf.edu")
 
 # set logging to report on the error level
 try:  # handle different eyeD3 versions

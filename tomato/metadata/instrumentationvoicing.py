@@ -31,7 +31,7 @@ logging.basicConfig(level=logging.INFO)
 class InstrumentationVoicing(object):
     """
     This class decide the voicing/instrumentation within an audio recording
-    metadata from the artists fields
+    symbtr from the artists fields
     """
     # Solo Vocal Without Accompaniment
     # There is only vocal and no instruments

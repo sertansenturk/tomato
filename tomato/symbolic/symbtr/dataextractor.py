@@ -26,14 +26,14 @@
 
 import os
 
-from .metadata.metadataextractor import MetadataExtractor
-from .reader.txt import TxtReader
-from .reader.musicxml import MusicXMLReader
+from tomato.metadata.symbtr.metadataextractor import MetadataExtractor
+from .datamerger import DataMerger
 from .reader.mu2 import Mu2Reader
+from .reader.musicxml import MusicXMLReader
+from .reader.txt import TxtReader
 from .rhythmicfeature import RhythmicFeatureExtractor
 from .section import SectionExtractor
 from .segment import SegmentExtractor
-from .datamerger import DataMerger
 
 
 class DataExtractor(DataMerger):
@@ -49,7 +49,7 @@ class DataExtractor(DataMerger):
         * Add user provided segment boundaries in the SymbTr scores
         * Analyse the melody and the lyrics of the sections, phrase
         annotations and user provided segmentations, and apply semiotic labels
-        * Query relevant metadata from MusicBrainz (if the MBID is supplied)
+        * Query relevant symbtr from MusicBrainz (if the MBID is supplied)
 
     Currently only the SymbTr-txt scores are supported. MusicXML and mu2
     support can be added, if demanded.
@@ -86,7 +86,7 @@ class DataExtractor(DataMerger):
             MusicBrainz False otherwise. When calling the extract method the
             relevant (work) MBID should be supplied. If the supplied MBID
             belongs to a recording, this flag will not provide to extra
-            information, since the recording metadata will be crawled anyways.
+            information, since the recording symbtr will be crawled anyways.
             (the default is False)
         print_warnings : bool, optional
             True to display warnings, False otherwise. Note that the errors
@@ -162,7 +162,7 @@ class DataExtractor(DataMerger):
         if symbtr_name is None:
             symbtr_name = os.path.splitext(os.path.basename(score_file))[0]
 
-        # get the metadata
+        # get the symbtr
         data, is_metadata_valid = self._metadata_extractor.get_metadata(
             symbtr_name, mbid=mbid)
 

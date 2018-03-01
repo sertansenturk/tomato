@@ -31,7 +31,7 @@ from . attribute import Attribute
 from ..io import IO
 
 import musicbrainzngs as mb
-mb.set_useragent("Makam corpus metadata", "1.2.0", "compmusic.upf.edu")
+mb.set_useragent("Makam corpus symbtr", "1.2.0", "compmusic.upf.edu")
 
 
 class Work(object):

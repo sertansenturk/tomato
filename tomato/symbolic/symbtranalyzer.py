@@ -71,7 +71,7 @@ class SymbTrAnalyzer(Analyzer):
 
         # get relevant recording or work mbid
         # Note: very rare but there can be more that one mbid returned.
-        #       We are going to use the first mbid to fetch the metadata
+        #       We are going to use the first mbid to fetch the symbtr
         # TODO: use all mbids
         input_f['mbid'] = self._partial_caller(input_f['mbid'], Work.get_mbids,
                                                symbtr_name)
@@ -89,7 +89,7 @@ class SymbTrAnalyzer(Analyzer):
     def _partial_call_extract_data(self, features, txt_filepath, mu2_filepath,
                                    symbtr_name):
         # If MusicBrainz is not available, crawling will be skipped by the
-        # metadata package
+        # symbtr package
         score_data = self._partial_caller(
             features['score_features'], self.extract_data, txt_filepath,
             mu2_filepath, symbtr_name=symbtr_name, mbid=features['mbid'],
@@ -181,7 +181,7 @@ class SymbTrAnalyzer(Analyzer):
 
         # SymbTr-txt file
         tic2 = timeit.default_timer()
-        self.vprint(u"- Extracting metadata from the SymbTr-mu2 file: {0:s}"
+        self.vprint(u"- Extracting symbtr from the SymbTr-mu2 file: {0:s}"
                     .format(mu2_filename))
 
         mu2_header, header_row, is_mu2_header_valid = \

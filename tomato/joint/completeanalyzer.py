@@ -63,10 +63,10 @@ class CompleteAnalyzer(Analyzer):
         symbtr_txt_filename : str
             The SymbTr-score of the performed composition in txt format. It
             is used to parse mainly the notated musical events and with some
-            editoral metadata
+            editoral symbtr
         symbtr_mu2_filename : str
             The SymbTr-score of the performed composition in mu2 format. It
-            is used to parse editorial metadata and music theory
+            is used to parse editorial symbtr and music theory
         symbtr_name : str, optional
             The score name in the SymbTr convention, i.e.
             "makam--form--usul--name--composer." If not given the method
@@ -76,7 +76,7 @@ class CompleteAnalyzer(Analyzer):
         audio_metadata : str ot bool, optional
             The relevant recording MusicBrainz ID (MBID). IF not given, the
             method will try to fetch the MBID from tags in the recording. If
-            the value is False, audio metadata will not be crawled
+            the value is False, audio symbtr will not be crawled
         Returns
         ----------
         dict

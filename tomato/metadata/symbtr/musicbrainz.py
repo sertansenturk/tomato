@@ -27,8 +27,8 @@
 import warnings
 import musicbrainzngs
 from six.moves.urllib.parse import urlparse
-from ....metadata.recording import Recording as RecordingMetadata
-from ....metadata.work import Work as WorkMetadata
+from tomato.metadata.recording import Recording as RecordingMetadata
+from tomato.metadata.work import Work as WorkMetadata
 
 
 class MusicBrainzMetadata(object):
@@ -68,7 +68,7 @@ class MusicBrainzMetadata(object):
             self._add_mb_attributes(data)
             return data
         except musicbrainzngs.NetworkError:
-            warnings.warn("Musicbrainz is not available, skipping metadata "
+            warnings.warn("Musicbrainz is not available, skipping symbtr "
                           "crawling...", stacklevel=2)
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}, 'url': ''}
