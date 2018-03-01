@@ -225,23 +225,23 @@ class IO(object):
         return fullnames, folders, names
 
     @staticmethod
-    def change_file_linebreak_to_unix(score_file):
+    def change_file_linebreak_to_unix(filepath):
         # change the line break from \r\n to \n
         try:  # linux
-            subprocess.check_call("fromdos " + score_file, shell=True)
+            subprocess.check_call("fromdos " + filepath, shell=True)
         except subprocess.CalledProcessError:  # mac
-            subprocess.check_call("sed -e 's/\r$//' " + score_file +
+            subprocess.check_call("sed -e 's/\r$//' " + filepath +
                                   " > tmp.txt " + "&& mv -f tmp.txt " +
-                                  score_file, shell=True)
+                                  filepath, shell=True)
 
     @classmethod
-    def change_file_encoding_to_utf8(cls, score_file):
+    def change_file_encoding_to_utf8(cls, filepath):
         iconv_map = {'utf-16le': 'UTF-16',
                      'Little-endian UTF-16 Unicode': 'UTF-16',
                      'iso-8859-1': 'ISO_8859-9', 'ISO-8859': 'ISO_8859-9'}
 
         try:  # unix
-            out = subprocess.check_output("file -i " + score_file, shell=True)
+            out = subprocess.check_output("file -i " + filepath, shell=True)
             curr_charset = out.split('charset=')[1]
 
             if curr_charset.endswith('\n'):
@@ -249,10 +249,10 @@ class IO(object):
 
             if not any(curr_charset in charset for charset in ['utf-8',
                                                                'us-ascii']):
-                print(curr_charset + '\t' + score_file)
+                print(curr_charset + '\t' + filepath)
                 commandstr = ("iconv -f " + iconv_map[curr_charset] +
-                              " -t UTF-8 " + score_file + " > tmp.txt "
-                              "&& mv -f tmp.txt " + score_file)
+                              " -t UTF-8 " + filepath + " > tmp.txt "
+                              "&& mv -f tmp.txt " + filepath)
                 subprocess.check_output(commandstr, shell=True)
         except IndexError:  # mac
             raise OSError('Call this method in Linux for reliable results.')
