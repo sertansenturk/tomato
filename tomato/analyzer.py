@@ -91,7 +91,7 @@ class Analyzer(object):
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,
                     TypeError, AttributeError):
-                logging.info('{0:s} failed.'.format(func.__name__))
+                logging.warning('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
             return flag
