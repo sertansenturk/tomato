@@ -28,6 +28,7 @@ import json
 import warnings
 from six.moves.urllib.request import urlopen
 from . attribute import Attribute
+from ..io import IO
 
 import musicbrainzngs as mb
 mb.set_useragent("Makam corpus metadata", "1.2.0", "compmusic.upf.edu")

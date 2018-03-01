@@ -49,6 +49,7 @@ class MetadataExtractor(object):
     @staticmethod
     def get_slugs(scorename):
         splitted = scorename.split('--')
+
         return {'makam': splitted[0], 'form': splitted[1], 'usul': splitted[2],
                 'name': splitted[3], 'composer': splitted[4]}
 
