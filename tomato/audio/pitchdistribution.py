@@ -28,6 +28,7 @@
 from __future__ import division
 
 from ..converter import Converter
+from ..io import IO
 
 import essentia
 import essentia.standard as std
@@ -441,20 +442,14 @@ class PitchDistribution(object):
         else:
             plt.xlabel('Normalized Frequency (cents), ref = {0}{1}'.format(
                 str(self.ref_freq), ref_freq_str))
-        plt.ylabel('Occurence')
+        plt.ylabel('Occurrence')
 
     @staticmethod
     def from_pickle(input_str):
-        try:  # file given
-            return pickle.load(open(input_str, 'rb'))
-        except IOError:  # string given
-            return pickle.loads(input_str, 'rb')
+        return IO.from_pickle(input_str)
 
     def to_pickle(self, file_name=None):
-        if file_name is None:
-            return pickle.dumps(self)
-        else:
-            pickle.dump(self, open(file_name, 'wb'))
+        IO.to_pickle(self, filepath=file_name)
 
     @staticmethod
     def from_json(file_name):
