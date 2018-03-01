@@ -18,7 +18,12 @@
 # You should have received a copy of the GNU Affero General Public License v3.0
 # along with this program. If not, see http://www.gnu.org/licenses/
 #
-# If you are using this extractor please cite the following paper:
+# The algorithm is based on the pitch filter method originally explained in:
+#
+# Bozkurt, B. An Automatic Pitch Analysis Method for Turkish Maqam Music.
+# Journal of New Music Research. 37(1), 1-13.
+#
+# If you are using this implementation, please cite the following paper:
 #
 # Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014).
 # Audio feature extraction for exploring Turkish makam music. In Proceedings
