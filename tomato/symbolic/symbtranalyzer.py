@@ -181,7 +181,7 @@ class SymbTrAnalyzer(Analyzer):
 
         # SymbTr-txt file
         tic2 = timeit.default_timer()
-        self.vprint(u"- Extracting symbtr from the SymbTr-mu2 file: {0:s}"
+        self.vprint(u"- Extracting metadata from the SymbTr-mu2 file: {0:s}"
                     .format(mu2_filename))
 
         mu2_header, header_row, is_mu2_header_valid = \

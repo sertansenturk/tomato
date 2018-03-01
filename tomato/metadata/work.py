@@ -68,12 +68,9 @@ class Work(object):
 
         return data
 
-    @staticmethod
-    def _add_scores(data, mbid):
-        score_work_url = 'https://raw.githubusercontent.com/MTG/SymbTr/' \
-                         'master/symbTr_mbid.json'
-        response = urlopen(score_work_url)
-        score_work = json.loads(response.read())
+    @classmethod
+    def _add_scores(cls, data, mbid):
+        score_work = cls._read_symbtr_mbid_dict()
         data['scores'] = []
         for sw in score_work:
             if mbid in sw['uuid']:
@@ -82,7 +79,7 @@ class Work(object):
     @classmethod
     def get_mbids(cls, symbtr_name):
         mbids = []  # extremely rare but there can be more than one mbid
-        for e in cls._read_symbtr_mbid():
+        for e in cls._read_symbtr_mbid_dict():
             if e['name'] == symbtr_name:
                 mbids.append(e['uuid'])
         if not mbids:
@@ -91,16 +88,16 @@ class Work(object):
         return mbids
 
     @staticmethod
-    def _read_symbtr_mbid():
+    def _read_symbtr_mbid_dict():
         try:
             url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
                   "symbTr_mbid.json"
             response = urlopen(url)
             return json.loads(response.read())
         except IOError:  # load local backup
-            warnings.warn("symbtr_mbid.json is not found in the local "
+            warnings.warn("symbTr_mbid.json is not found in the local "
                           "search path. Using the back-up "
-                          "symbtr_mbid.json included in this repository.")
+                          "symbTr_mbid.json included in this repository.")
             return IO.load_music_data('symbTr_mbid')
 
     def _chk_warnings(self, data):
