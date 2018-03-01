@@ -248,16 +248,6 @@ class Txt(object):
                       u'available'.format(data['usul']['mu2_name'])
 
     @staticmethod
-    def to_musicxml(symbtr_name, txt_file, mu2_file):
-        mbids = Score.get_mbids(symbtr_name)
-
-        # MusicXML conversion
-        piece = SymbTrScore(txt_file, mu2_file, symbtrname=symbtr_name,
-                            mbid_url=mbids, verbose=True)
-
-        return piece.convertsymbtr2xml(verbose=False)
-
-    @staticmethod
     def _change_null_to_empty_str(row):
         # change null to empty string
         for key, val in row.items():
