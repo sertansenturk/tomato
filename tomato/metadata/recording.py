@@ -45,11 +45,10 @@ except AttributeError:
 
 
 class Recording(object):
-    def __init__(self, get_work_attributes=True, print_warnings=None):
+    def __init__(self, print_warnings=None):
         self.print_warnings = print_warnings
-        self.get_work_attributes = get_work_attributes
 
-    def from_musicbrainz(self, audio_in):
+    def from_musicbrainz(self, audio_in, get_work_attributes=True):
         try:  # audio file input
             mbid, duration, sampling_frequency, bit_rate = \
                 Recording.get_file_metadata(audio_in)
@@ -81,7 +80,7 @@ class Recording(object):
             audio_meta['works'] = self._get_works(meta)
 
         # get makam/usul/for from work attributes
-        if self.get_work_attributes and 'works' in audio_meta.keys():
+        if get_work_attributes and 'works' in audio_meta.keys():
             self._get_attributes_from_works(audio_meta)
 
         # get makam/usul/for tags
@@ -93,8 +92,9 @@ class Recording(object):
 
         return audio_meta
 
-    def _get_attributes_from_works(self, audio_meta):
-        work_metadata = Work(print_warnings=self.print_warnings)
+    @staticmethod
+    def _get_attributes_from_works(audio_meta):
+        work_metadata = Work()
         attribute_keys = ['makam', 'form', 'usul']
         for w in audio_meta['works']:
             work_meta = work_metadata.from_musicbrainz(w['mbid'])

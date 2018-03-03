@@ -74,7 +74,7 @@ class AudioAnalyzer(Analyzer):
                                     'distance_method': 'bhat'}
 
         # extractors
-        self._metadata_getter = Recording(get_work_attributes=True)
+        self._metadata_getter = Recording()
         self._pitch_extractor = PredominantMelody(filter_pitch=False)  #
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
