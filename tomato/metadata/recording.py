@@ -45,9 +45,6 @@ except AttributeError:
 
 
 class Recording(object):
-    def __init__(self, print_warnings=None):
-        self.print_warnings = print_warnings
-
     def from_musicbrainz(self, audio_in, get_work_attributes=True):
         try:  # audio file input
             mbid, duration, sampling_frequency, bit_rate = \
