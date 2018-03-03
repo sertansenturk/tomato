@@ -26,7 +26,7 @@
 
 import warnings
 from .mu2 import Mu2Metadata
-from .musicbrainz import MusicBrainzMetadata
+from .musicbrainz import MusicBrainz
 from tomato.io import IO
 
 
@@ -35,7 +35,7 @@ class MetadataExtractor(object):
 
     """
     def __init__(self, get_recording_rels=False):
-        self._mb_metadata = MusicBrainzMetadata(
+        self._mb_metadata = MusicBrainz(
             get_recording_rels=get_recording_rels)
 
     @property
@@ -117,10 +117,10 @@ class MetadataExtractor(object):
         mu2_valid = Mu2Metadata.validate_mu2_attribute(
             score_attrib, attrib_dict, scorename)
 
-        mb_attr_valid = MusicBrainzMetadata.validate_mb_attribute(
+        mb_attr_valid = MusicBrainz.validate_musicbrainz_attribute(
             attrib_dict, score_attrib, scorename)
 
-        mb_tag_valid = MusicBrainzMetadata.validate_mb_attribute_tag(
+        mb_tag_valid = MusicBrainz.validate_musicbrainz_attribute_tag(
             attrib_dict, score_attrib, scorename)
 
         return all([slug_valid, mu2_valid, mb_attr_valid, mb_tag_valid])

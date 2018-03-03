@@ -31,7 +31,7 @@ from tomato.metadata.recording import Recording as RecordingMetadata
 from tomato.metadata.work import Work as WorkMetadata
 
 
-class MusicBrainzMetadata(object):
+class MusicBrainz(object):
     def __init__(self, get_recording_rels=False):
         self._recording_metadata = RecordingMetadata(
             get_work_attributes=False, print_warnings=False)
@@ -65,7 +65,7 @@ class MusicBrainzMetadata(object):
                     warnings.warn(u"Recording mbid is given. Ignored "
                                   u"get_recording_rels boolean.", stacklevel=2)
 
-            self._add_mb_attributes(data)
+            self._add_musicbrainz_attributes(data)
             return data
         except musicbrainzngs.NetworkError:
             warnings.warn("Musicbrainz is not available, skipping symbtr "
@@ -74,7 +74,7 @@ class MusicBrainzMetadata(object):
                     'composer': {}, 'lyricist': {}, 'url': ''}
 
     @staticmethod
-    def _add_mb_attributes(data):
+    def _add_musicbrainz_attributes(data):
         # scores should have one attribute per type
         for attr in ['makam', 'form', 'usul']:
             try:
@@ -96,7 +96,7 @@ class MusicBrainzMetadata(object):
         return mbid
 
     @staticmethod
-    def validate_mb_attribute(attrib_dict, score_attrib, scorename):
+    def validate_musicbrainz_attribute(attrib_dict, score_attrib, scorename):
         is_attribute_valid = True
         if 'mb_attribute' in score_attrib.keys():  # work
             skip_makam_slug = ['12212212', '22222221', '223', '232223', '262',
@@ -124,7 +124,8 @@ class MusicBrainzMetadata(object):
         return is_attribute_valid
 
     @staticmethod
-    def validate_mb_attribute_tag(attrib_dict, score_attrib, scorename):
+    def validate_musicbrainz_attribute_tag(
+            attrib_dict, score_attrib, scorename):
         is_attribute_valid = True
         has_mb_tag = 'mb_tag' in score_attrib.keys()
         if has_mb_tag and score_attrib['mb_tag'] not in attrib_dict['mb_tag']:

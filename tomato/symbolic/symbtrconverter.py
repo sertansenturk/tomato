@@ -35,7 +35,7 @@ from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
 from .symbtr.converter.musicxml2lilypond import scoreconverter as \
     musicxml2lilypond
 from .symbtr.reader.symbtr import SymbTrReader
-from ..metadata.symbtr.musicbrainz import MusicBrainzMetadata
+from ..metadata.symbtr.musicbrainz import MusicBrainz
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.work import Work
@@ -44,7 +44,7 @@ _bin_caller = BinCaller()
 
 
 class SymbTrConverter(object):
-    _mb_meta_getter = MusicBrainzMetadata()
+    _mb_meta_getter = MusicBrainz()
     _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
     @classmethod
