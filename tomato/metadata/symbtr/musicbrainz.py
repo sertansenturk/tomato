@@ -27,8 +27,8 @@
 import warnings
 import musicbrainzngs
 from six.moves.urllib.parse import urlparse
-from tomato.metadata.recording import Recording as RecordingMetadata
-from tomato.metadata.work import Work as WorkMetadata
+from ..recording import Recording as RecordingMetadata
+from ..work import Work as WorkMetadata
 
 
 class MusicBrainz(object):

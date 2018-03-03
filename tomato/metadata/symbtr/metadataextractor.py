@@ -27,7 +27,7 @@
 import warnings
 from .mu2 import Mu2Metadata
 from .musicbrainz import MusicBrainz
-from tomato.io import IO
+from ...io import IO
 
 
 class MetadataExtractor(object):

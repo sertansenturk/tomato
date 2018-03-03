@@ -35,10 +35,10 @@ import six
 from ..metadata.recording import Recording
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
-from tomato.audio.makamtonic.toniclastnote import TonicLastNote
 
 from .ahenk import Ahenk
 from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
+from .makamtonic.toniclastnote import TonicLastNote
 from .notemodel import NoteModel
 from .pitchdistribution import PitchDistribution
 from .pitchfilter import PitchFilter
