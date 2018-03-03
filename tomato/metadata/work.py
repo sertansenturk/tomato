@@ -29,9 +29,10 @@ import warnings
 from six.moves.urllib.request import urlopen
 from . attribute import Attribute
 from ..io import IO
+from .. import __version__
 
 import musicbrainzngs as mb
-mb.set_useragent("Makam corpus symbtr", "1.2.0", "compmusic.upf.edu")
+mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
 
 
 class Work(object):
@@ -61,15 +62,15 @@ class Work(object):
         self._assign_recordings(data, work)
 
         # add scores
-        self._add_scores(data, mbid)
+        self._add_symbtr_names(data, mbid)
 
         # warnings
-        self._chk_warnings(data)
+        self._check_warnings(data)
 
         return data
 
     @classmethod
-    def _add_scores(cls, data, mbid):
+    def _add_symbtr_names(cls, data, mbid):
         score_work = cls._read_symbtr_mbid_dict()
         data['scores'] = []
         for sw in score_work:
@@ -77,7 +78,7 @@ class Work(object):
                 data['scores'].append(sw['name'])
 
     @classmethod
-    def get_mbids(cls, symbtr_name):
+    def get_mbids_from_symbtr_name(cls, symbtr_name):
         mbids = []  # extremely rare but there can be more than one mbid
         for e in cls._read_symbtr_mbid_dict():
             if e['name'] == symbtr_name:
@@ -100,20 +101,20 @@ class Work(object):
                           "symbTr_mbid.json included in this repository.")
             return IO.load_music_data('symbTr_mbid')
 
-    def _chk_warnings(self, data):
+    def _check_warnings(self, data):
         if self.print_warnings:
-            self._chk_data_key_exists(data, dkey='makam')
-            self._chk_data_key_exists(data, dkey='form')
-            self._chk_data_key_exists(data, dkey='usul')
-            self._chk_data_key_exists(data, dkey='composer')
+            self._data_key_exists(data, dkey='makam')
+            self._data_key_exists(data, dkey='form')
+            self._data_key_exists(data, dkey='usul')
+            self._data_key_exists(data, dkey='composer')
 
             if 'language' in data.keys():  # language entered to MusicBrainz
-                self._chk_lyricist(data)
+                self._check_lyricist(data)
             else:  # no lyrics information in MusicBrainz
-                self._chk_language(data)
+                self._check_language(data)
 
     @staticmethod
-    def _chk_language(data):
+    def _check_language(data):
         if data['lyricist']:  # lyricist available
             warnings.warn(u'http://musicbrainz.org/work/{0:s} Language of the '
                           u'vocal work is not entered!'.format(data['mbid']),
@@ -123,7 +124,7 @@ class Work(object):
                           u'entered!'.format(data['mbid']), stacklevel=2)
 
     @staticmethod
-    def _chk_lyricist(data):
+    def _check_lyricist(data):
         if data['language'] == "zxx":  # no lyrics
             if data['lyricist']:
                 warnings.warn(u'http://musicbrainz.org/work/{0:s} Lyricist is '
@@ -136,7 +137,7 @@ class Work(object):
                               stacklevel=2)
 
     @staticmethod
-    def _chk_data_key_exists(data, dkey):
+    def _data_key_exists(data, dkey):
         if not data[dkey]:
             warnings.warn(u'http://musicbrainz.org/work/{0:s} {1:s} is not '
                           u'entered!'.format(data['mbid'], dkey.title()),
@@ -168,10 +169,10 @@ class Work(object):
         if 'attribute-list' in work.keys():
             w_attrb = work['attribute-list']
             for attr_name in ['makam', 'form', 'usul']:
-                cls._assign_attr(data, mbid, w_attrb, attr_name)
+                cls._assign_attribute(data, mbid, w_attrb, attr_name)
 
     @staticmethod
-    def _assign_attr(data, mbid, w_attrb, attrname):
+    def _assign_attribute(data, mbid, w_attrb, attrname):
         attr = [a['value'] for a in w_attrb
                 if attrname.title() in a['attribute']]
         data[attrname] = [

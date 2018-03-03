@@ -28,12 +28,14 @@ import eyed3
 from . attribute import Attribute
 from . work import Work
 from . instrumentationvoicing import InstrumentationVoicing
+from .. import __version__
+
 import musicbrainzngs as mb
 import logging
 logging.basicConfig(level=logging.INFO)
 
 # set the agent to communicate with MusicBrainz
-mb.set_useragent("Makam corpus symbtr", "1.2.1", "compmusic.upf.edu")
+mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
 
 # set logging to report on the error level
 try:  # handle different eyeD3 versions
