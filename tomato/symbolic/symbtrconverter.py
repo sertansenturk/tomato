@@ -167,7 +167,7 @@ class SymbTrConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = Work.get_mbids(symbtr_name)[0]
+                mbid_url = Work.get_mbids_from_symbtr_name(symbtr_name)[0]
             except IndexError:
                 mbid_url = None
         else:

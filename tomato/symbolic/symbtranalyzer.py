@@ -73,7 +73,7 @@ class SymbTrAnalyzer(Analyzer):
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first mbid to fetch the symbtr
         # TODO: use all mbids
-        input_f['mbid'] = self._partial_caller(input_f['mbid'], Work.get_mbids,
+        input_f['mbid'] = self._partial_caller(input_f['mbid'], Work.get_mbids_from_symbtr_name,
                                                symbtr_name)
         input_f['mbid'] = self._partial_caller(None, self._get_first,
                                                input_f['mbid'])

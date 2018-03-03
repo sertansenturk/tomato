@@ -74,7 +74,7 @@ class MetadataExtractor(object):
         is_attr_meta_valid = self.validate_makam_form_usul(data, scorename)
 
         # get the tonic
-        makam = self._get_attr(data['makam']['symbtr_slug'], 'makam')
+        makam = self._get_attribute(data['makam']['symbtr_slug'], 'makam')
         data['tonic'] = makam['karar_symbol']
 
         return data, is_attr_meta_valid
@@ -108,8 +108,8 @@ class MetadataExtractor(object):
     def _validate_attributes(cls, data, scorename, attrib_name):
         score_attrib = data[attrib_name]
 
-        attrib_dict = cls._get_attr(score_attrib['symbtr_slug'],
-                                    attrib_name)
+        attrib_dict = cls._get_attribute(score_attrib['symbtr_slug'],
+                                         attrib_name)
 
         slug_valid = cls._validate_slug(
             attrib_dict, score_attrib, scorename)
@@ -174,7 +174,7 @@ class MetadataExtractor(object):
         return same_acc
 
     @staticmethod
-    def _get_attr(slug, attr_name):
+    def _get_attribute(slug, attr_name):
         attr_dict = IO.load_music_data(attr_name)
 
         for attr in attr_dict.values():
