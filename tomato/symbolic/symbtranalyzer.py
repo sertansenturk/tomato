@@ -32,7 +32,7 @@ import timeit
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2Reader
 
-from ..metadata.work import Work
+from ..metadata.work import Work as WorkMetadata
 from ..bincaller import BinCaller
 from ..io import IO
 from ..analyzer import Analyzer
@@ -74,7 +74,8 @@ class SymbTrAnalyzer(Analyzer):
         #       We are going to use the first mbid to fetch the symbtr
         # TODO: use all mbids
         input_f['mbid'] = self._partial_caller(
-            input_f['mbid'], Work.get_mbids_from_symbtr_name, symbtr_name)
+            input_f['mbid'], WorkMetadata.get_mbids_from_symbtr_name,
+            symbtr_name)
         input_f['mbid'] = self._partial_caller(None, self._get_first,
                                                input_f['mbid'])
 

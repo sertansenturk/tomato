@@ -36,7 +36,8 @@ mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
 
 
 class Work(object):
-    def from_musicbrainz(self, mbid, get_recording_rels=True,
+    @classmethod
+    def from_musicbrainz(cls, mbid, get_recording_rels=True,
                          print_warnings=None):
         included_rels = (['artist-rels', 'recording-rels']
                          if get_recording_rels else ['artist-rels'])
@@ -47,22 +48,22 @@ class Work(object):
                 'url': 'http://musicbrainz.org/work/' + mbid, 'language': ''}
 
         # assign makam, form, usul attributes to data
-        self._assign_makam_form_usul(data, mbid, work)
+        cls._assign_makam_form_usul(data, mbid, work)
 
         # language
-        self._assign_language(data, work)
+        cls._assign_language(data, work)
 
         # composer and lyricist
-        self._assign_composer_lyricist(data, work)
+        cls._assign_composer_lyricist(data, work)
 
         # add recordings
-        self._assign_recordings(data, work)
+        cls._assign_recordings(data, work)
 
         # add scores
-        self._add_symbtr_names(data, mbid)
+        cls._add_symbtr_names(data, mbid)
 
         # warnings
-        self._check_warnings(data, print_warnings)
+        cls._check_warnings(data, print_warnings)
 
         return data
 
@@ -98,17 +99,18 @@ class Work(object):
                           "symbTr_mbid.json included in this repository.")
             return IO.load_music_data('symbTr_mbid')
 
-    def _check_warnings(self, data, print_warnings=None):
+    @classmethod
+    def _check_warnings(cls, data, print_warnings=None):
         if print_warnings:
-            self._data_key_exists(data, dkey='makam')
-            self._data_key_exists(data, dkey='form')
-            self._data_key_exists(data, dkey='usul')
-            self._data_key_exists(data, dkey='composer')
+            cls._data_key_exists(data, dkey='makam')
+            cls._data_key_exists(data, dkey='form')
+            cls._data_key_exists(data, dkey='usul')
+            cls._data_key_exists(data, dkey='composer')
 
             if 'language' in data.keys():  # language entered to MusicBrainz
-                self._check_lyricist(data)
+                cls._check_lyricist(data)
             else:  # no lyrics information in MusicBrainz
-                self._check_language(data)
+                cls._check_language(data)
 
     @staticmethod
     def _check_language(data):

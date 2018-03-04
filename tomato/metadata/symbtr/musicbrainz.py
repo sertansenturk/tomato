@@ -32,9 +32,6 @@ from ..work import Work as WorkMetadata
 
 
 class MusicBrainz(object):
-    def __init__(self):
-        self._work_metadata = WorkMetadata()
-
     def crawl_musicbrainz(self, mbid):
         if mbid is None:  # empty mbid
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
@@ -43,7 +40,7 @@ class MusicBrainz(object):
         try:  # attempt crawling
             mbid = self._parse_mbid(mbid)
             try:  # assume mbid is a work
-                data = self._work_metadata.from_musicbrainz(mbid)
+                data = WorkMetadata.from_musicbrainz(mbid)
                 data['work'] = {'title': data.pop("title", None),
                                 'mbid': data.pop('mbid', None)}
             except musicbrainzngs.ResponseError:  # assume mbid is a recording

@@ -30,7 +30,7 @@ import musicbrainzngs as mb
 import eyed3
 
 from . attribute import Attribute
-from . work import Work
+from . work import Work as WorkMetadata
 from . instrumentationvoicing import InstrumentationVoicing
 from .. import __version__
 
@@ -94,10 +94,9 @@ class Recording(object):
 
     @staticmethod
     def _get_attributes_from_works(audio_meta):
-        work_metadata = Work()
         attribute_keys = ['makam', 'form', 'usul']
         for w in audio_meta['works']:
-            work_meta = work_metadata.from_musicbrainz(w['mbid'])
+            work_meta = WorkMetadata.from_musicbrainz(w['mbid'])
             for ak in attribute_keys:
                 if ak not in audio_meta.keys():
                     audio_meta[ak] = work_meta[ak]
@@ -110,8 +109,8 @@ class Recording(object):
         attributetags = Attribute.get_attrib_tags(meta)
         for key, vals in attributetags.items():
             for val in vals:  # add the source
-                val['source'] = 'http://musicbrainz.org/recording/' + \
-                                audio_meta['mbid']
+                val['source'] = 'http://musicbrainz.org/recording/{}'.format(
+                    audio_meta['mbid'])
 
             if key not in audio_meta.keys():
                 audio_meta[key] = vals

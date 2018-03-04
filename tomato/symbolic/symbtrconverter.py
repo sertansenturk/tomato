@@ -38,7 +38,7 @@ from .symbtr.reader.symbtr import SymbTrReader
 from ..metadata.symbtr.musicbrainz import MusicBrainz
 from ..bincaller import BinCaller
 from ..io import IO
-from ..metadata.work import Work
+from ..metadata.work import Work as WorkMetadata
 
 _bin_caller = BinCaller()
 
@@ -105,12 +105,12 @@ class SymbTrConverter(object):
         temp_in_file = IO.create_temp_file(
             '.mu2', open(mu2_file).read(), folder=tmp_dir)
 
-        # parse
+        # 3. parse
         temp_out_file, midi_str, flag_str = cls._parse_musikitomusicxml_inputs(
             temp_in_file, midi_instrument, flags)
 
         try:
-            # 3. call MusikiToMusicXml ...
+            # 4. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
 
             callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
@@ -167,7 +167,8 @@ class SymbTrConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = Work.get_mbids_from_symbtr_name(symbtr_name)[0]
+                mbid_url = WorkMetadata.get_mbids_from_symbtr_name(
+                    symbtr_name)[0]
             except IndexError:
                 mbid_url = None
         else:
@@ -276,7 +277,7 @@ class SymbTrConverter(object):
         # above
         svg_pages = []
         for svg_file in svg_files:
-            with open(svg_file, 'r') as f:  # get the organized svg string
+            with open(svg_file) as f:  # get the organized svg string
                 svg_pages.append(ptr.sub(replace_svg_index, f.read()))
             os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
