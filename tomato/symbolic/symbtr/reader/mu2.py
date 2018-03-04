@@ -28,7 +28,7 @@ import csv
 import warnings
 
 from .symbtr import SymbTrReader
-from ....metadata.symbtr.metadataextractor import MetadataExtractor
+from ....metadata.symbtr.symbtr import MetadataExtractor
 
 
 class Mu2Reader(SymbTrReader):
@@ -63,7 +63,7 @@ class Mu2Reader(SymbTrReader):
     @classmethod
     def read_header(cls, score_file, symbtr_name=None):
         """
-        Reads the symbtr in the header of the SymbTr-mu2 scores.
+        Reads the header of the SymbTr-mu2 scores.
 
         Parameters
         ----------

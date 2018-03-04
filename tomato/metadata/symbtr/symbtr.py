@@ -26,8 +26,8 @@
 
 import warnings
 
+from tomato.metadata.mu2 import Mu2 as Mu2Metadata
 from ..musicbrainz import MusicBrainz
-from .mu2 import Mu2 as Mu2Metadata
 from ...io import IO
 
 
@@ -60,8 +60,8 @@ class MetadataExtractor(object):
         return data, is_attr_meta_valid
 
     @staticmethod
-    def get_slugs(scorename):
-        split = scorename.split('--')
+    def get_slugs(symbtr_name):
+        split = symbtr_name.split('--')
 
         return {'makam': split[0], 'form': split[1], 'usul': split[2],
                 'name': split[3], 'composer': split[4]}
