@@ -33,7 +33,7 @@ from ..work import Work as WorkMetadata
 
 class MusicBrainz(object):
     def __init__(self):
-        self._work_metadata = WorkMetadata(print_warnings=False)
+        self._work_metadata = WorkMetadata()
 
     def crawl_musicbrainz(self, mbid):
         if mbid is None:  # empty mbid

@@ -36,10 +36,8 @@ mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
 
 
 class Work(object):
-    def __init__(self, print_warnings=None):
-        self.print_warnings = print_warnings
-
-    def from_musicbrainz(self, mbid, get_recording_rels=True):
+    def from_musicbrainz(self, mbid, get_recording_rels=True,
+                         print_warnings=None):
         included_rels = (['artist-rels', 'recording-rels']
                          if get_recording_rels else ['artist-rels'])
         work = mb.get_work_by_id(mbid, includes=included_rels)['work']
@@ -64,7 +62,7 @@ class Work(object):
         self._add_symbtr_names(data, mbid)
 
         # warnings
-        self._check_warnings(data)
+        self._check_warnings(data, print_warnings)
 
         return data
 
@@ -100,8 +98,8 @@ class Work(object):
                           "symbTr_mbid.json included in this repository.")
             return IO.load_music_data('symbTr_mbid')
 
-    def _check_warnings(self, data):
-        if self.print_warnings:
+    def _check_warnings(self, data, print_warnings=None):
+        if print_warnings:
             self._data_key_exists(data, dkey='makam')
             self._data_key_exists(data, dkey='form')
             self._data_key_exists(data, dkey='usul')
