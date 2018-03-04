@@ -25,11 +25,13 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import json
-from scipy.io import savemat
-from six import BytesIO
 import tempfile
 from copy import deepcopy
 import timeit
+import warnings
+import logging
+from scipy.io import savemat
+from six import BytesIO
 
 from .alignedpitchfilter import AlignedPitchFilter
 from .alignednotemodel import AlignedNoteModel
@@ -39,8 +41,6 @@ from ..io import IO
 from ..analyzer import Analyzer
 from ..plotter import Plotter
 
-import warnings
-import logging
 logger = logging.Logger(__name__, level=logging.INFO)
 
 # instantiate a mcr_caller

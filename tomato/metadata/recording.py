@@ -24,14 +24,16 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
+import logging
+
+import musicbrainzngs as mb
 import eyed3
+
 from . attribute import Attribute
 from . work import Work
 from . instrumentationvoicing import InstrumentationVoicing
 from .. import __version__
 
-import musicbrainzngs as mb
-import logging
 logger = logging.Logger(__name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
