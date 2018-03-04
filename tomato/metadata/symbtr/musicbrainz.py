@@ -33,8 +33,6 @@ from ..work import Work as WorkMetadata
 
 class MusicBrainz(object):
     def __init__(self, get_recording_rels=False):
-        self._recording_metadata = RecordingMetadata(
-            get_work_attributes=False, print_warnings=False)
         self._work_metadata = WorkMetadata(
             get_recording_rels=get_recording_rels, print_warnings=False)
 
@@ -58,7 +56,7 @@ class MusicBrainz(object):
                 data['work'] = {'title': data.pop("title", None),
                                 'mbid': data.pop('mbid', None)}
             except musicbrainzngs.ResponseError:  # assume mbid is a recording
-                data = self._recording_metadata.from_musicbrainz(mbid)
+                data = RecordingMetadata.from_musicbrainz(mbid)
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
                 if self.get_recording_rels:
@@ -68,8 +66,8 @@ class MusicBrainz(object):
             self._add_musicbrainz_attributes(data)
             return data
         except musicbrainzngs.NetworkError:
-            warnings.warn("Musicbrainz is not available, skipping symbtr "
-                          "crawling...", stacklevel=2)
+            warnings.warn("Musicbrainz is not available, cannot crawl "
+                          "metadata...", stacklevel=2)
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}, 'url': ''}
 

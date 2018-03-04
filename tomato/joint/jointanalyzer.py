@@ -130,7 +130,7 @@ class JointAnalyzer(Analyzer):
     def summarize(cls, audio_features=None, score_features=None,
                   joint_features=None, score_informed_audio_features=None):
         # initialize the summary dict
-        sdict = {'score': score_features, 'audio': {}, 'joint': {}}
+        sdict = dict(score=score_features, audio={}, joint={})
 
         sdict['audio'] = cls._summarize_common_audio_features(
             audio_features, score_informed_audio_features)
@@ -195,8 +195,7 @@ class JointAnalyzer(Analyzer):
         matout = BytesIO()
         savemat(matout, audio_pitch)
 
-        temp_pitch_file = IO.create_temp_file(
-            '.mat', matout.getvalue())
+        temp_pitch_file = IO.create_temp_file('.mat', matout.getvalue())
 
         temp_out_folder = tempfile.mkdtemp()
 
