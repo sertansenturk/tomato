@@ -353,8 +353,8 @@ class Plotter(object):
                 dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
                                   for dist_bin in pitch_distribution.bins])
             except TypeError:
-                logger.info(u'The stable pitch for {0:s} is not computed'
-                             .format(note_symbol))
+                logger.info(u'The stable pitch for {0:s} is not '
+                            u'computed'.format(note_symbol))
                 # use the max peak even if it's weak, far from theoretical etc.
                 peak_idx, heights = note['distribution'].detect_peaks()
                 max_peak_ind = peak_idx[np.argmax(heights)]
