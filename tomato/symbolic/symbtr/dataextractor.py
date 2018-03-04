@@ -93,8 +93,7 @@ class DataExtractor(DataMerger):
             and the inconsistencies in the scores will be always displayed
             (the default is True)
         """
-        self._metadata_extractor = MetadataExtractor(
-            get_recording_rels=get_recording_rels)
+        self._metadata_extractor = MetadataExtractor()
 
         self._section_extractor = SectionExtractor(
             lyrics_sim_thres=lyrics_sim_thres,

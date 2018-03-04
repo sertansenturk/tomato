@@ -32,17 +32,8 @@ from ..work import Work as WorkMetadata
 
 
 class MusicBrainz(object):
-    def __init__(self, get_recording_rels=False):
-        self._work_metadata = WorkMetadata(
-            get_recording_rels=get_recording_rels, print_warnings=False)
-
-    @property
-    def get_recording_rels(self):
-        return self._work_metadata.get_recording_rels
-
-    @get_recording_rels.setter
-    def get_recording_rels(self, value):
-        self._work_metadata.get_recording_rels = value
+    def __init__(self):
+        self._work_metadata = WorkMetadata(print_warnings=False)
 
     def crawl_musicbrainz(self, mbid):
         if mbid is None:  # empty mbid
@@ -59,9 +50,6 @@ class MusicBrainz(object):
                 data = RecordingMetadata.from_musicbrainz(mbid)
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
-                if self.get_recording_rels:
-                    warnings.warn(u"Recording mbid is given. Ignored "
-                                  u"get_recording_rels boolean.", stacklevel=2)
 
             self._add_musicbrainz_attributes(data)
             return data

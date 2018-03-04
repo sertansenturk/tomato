@@ -34,17 +34,8 @@ class MetadataExtractor(object):
     """
 
     """
-    def __init__(self, get_recording_rels=False):
-        self._mb_metadata = MusicBrainz(
-            get_recording_rels=get_recording_rels)
-
-    @property
-    def get_recording_rels(self):
-        return self._mb_metadata.get_recording_rels
-
-    @get_recording_rels.setter
-    def get_recording_rels(self, value):
-        self._mb_metadata.get_recording_rels = value
+    def __init__(self):
+        self._mb_metadata = MusicBrainz()
 
     @staticmethod
     def get_slugs(scorename):

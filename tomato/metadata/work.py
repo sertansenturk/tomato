@@ -36,13 +36,12 @@ mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
 
 
 class Work(object):
-    def __init__(self, get_recording_rels=True, print_warnings=None):
-        self.get_recording_rels = get_recording_rels
+    def __init__(self, print_warnings=None):
         self.print_warnings = print_warnings
 
-    def from_musicbrainz(self, mbid):
+    def from_musicbrainz(self, mbid, get_recording_rels=True):
         included_rels = (['artist-rels', 'recording-rels']
-                         if self.get_recording_rels else ['artist-rels'])
+                         if get_recording_rels else ['artist-rels'])
         work = mb.get_work_by_id(mbid, includes=included_rels)['work']
 
         data = {'makam': [], 'form': [], 'usul': [], 'title': work['title'],
