@@ -33,7 +33,7 @@ from tomato.metadata.work import Work as WorkMetadata
 
 class MusicBrainz(object):
     @classmethod
-    def crawl_musicbrainz(cls, mbid):
+    def crawl(cls, mbid):
         if mbid is None:  # empty mbid
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}}

@@ -169,7 +169,7 @@ class SymbTrConverter(object):
                 mbid_url = None
         else:
             try:  # find if it is a work or recording mbid
-                meta = MusicBrainz.crawl_musicbrainz(mbid)
+                meta = MusicBrainz.crawl(mbid)
                 mbid_url = meta['url']
             except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
                 mbid_url = mbid

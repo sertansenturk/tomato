@@ -34,7 +34,7 @@ from ...io import IO
 class MetadataExtractor(object):
     @classmethod
     def get_metadata(cls, scorename, mbid=None):
-        data = MusicBrainz.crawl_musicbrainz(mbid)
+        data = MusicBrainz.crawl(mbid)
 
         data['symbtr'] = scorename
 
