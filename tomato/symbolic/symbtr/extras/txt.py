@@ -6,8 +6,6 @@ import warnings
 
 import pandas as pd
 
-from ..dataextractor import DataExtractor
-from ..reader.mu2 import Mu2 as Mu2Reader
 from ....io import IO
 
 
@@ -36,15 +34,6 @@ class Txt(object):
                 df.iloc[index] = row
 
         return df.to_csv(None, sep=b'\t', index=False, encoding='utf-8')
-
-    @staticmethod
-    def get_symbtr_data(txt_file, mu2_file):
-        extractor = DataExtractor()
-        txt_data = extractor.extract(txt_file)[0]
-
-        mu2_header = Mu2Reader.read_header(mu2_file)[0]
-
-        return extractor.merge(txt_data, mu2_header, verbose=False)
 
     @staticmethod
     def _parse_usul_dict():
