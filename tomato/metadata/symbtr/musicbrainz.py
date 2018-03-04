@@ -39,7 +39,7 @@ class MusicBrainz(object):
                     'composer': {}, 'lyricist': {}}
 
         try:  # attempt crawling
-            mbid = cls._parse_mbid(mbid)
+            mbid = cls._parse_mbid_from_url(mbid)
             try:  # assume mbid is a work
                 data = WorkMetadata.from_musicbrainz(mbid)
                 data['work'] = {'title': data.pop("title", None),
@@ -49,7 +49,7 @@ class MusicBrainz(object):
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
 
-            cls._add_musicbrainz_attributes(data)
+            cls._add_makam_form_usul(data)
             return data
         except musicbrainzngs.NetworkError:
             warnings.warn("Musicbrainz is not available, cannot crawl "
@@ -58,7 +58,7 @@ class MusicBrainz(object):
                     'composer': {}, 'lyricist': {}, 'url': ''}
 
     @staticmethod
-    def _add_musicbrainz_attributes(data):
+    def _add_makam_form_usul(data):
         # scores should have one attribute per type
         for attr in ['makam', 'form', 'usul']:
             try:
@@ -70,7 +70,7 @@ class MusicBrainz(object):
                 data.pop(attr, None)
 
     @staticmethod
-    def _parse_mbid(mbid):
+    def _parse_mbid_from_url(mbid):
         o = urlparse(mbid)
 
         # if the url is given get the mbid, which is the last field
@@ -78,45 +78,3 @@ class MusicBrainz(object):
         mbid = o_splitted[-1]
 
         return mbid
-
-    @staticmethod
-    def validate_musicbrainz_attribute(attrib_dict, score_attrib, scorename):
-        is_attribute_valid = True
-        if 'mb_attribute' in score_attrib.keys():  # work
-            skip_makam_slug = ['12212212', '22222221', '223', '232223', '262',
-                               '3223323', '3334', '14_4']
-            if score_attrib['symbtr_slug'] in skip_makam_slug:
-                warnings.warn(u'{0:s}: The usul attribute is not stored in '
-                              u'MusicBrainz.'.format(scorename), stacklevel=2)
-            else:
-                if not score_attrib['mb_attribute'] == \
-                        attrib_dict['dunya_name']:
-                    # dunya_names are (or should be) a superset of the
-                    # musicbrainz attributes
-                    is_attribute_valid = False
-                    if score_attrib['mb_attribute']:
-                        warn_str = u'{0:s}, {1:s}: The MusicBrainz ' \
-                                   u'attribute does not match.' \
-                                   u''.format(scorename,
-                                              score_attrib['mb_attribute'])
-
-                        warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
-                    else:
-                        warnings.warn(u'{0:s}: The MusicBrainz attribute does'
-                                      u' not exist.'.format(scorename),
-                                      stacklevel=2)
-        return is_attribute_valid
-
-    @staticmethod
-    def validate_musicbrainz_attribute_tag(
-            attrib_dict, score_attrib, scorename):
-        is_attribute_valid = True
-        has_mb_tag = 'mb_tag' in score_attrib.keys()
-        if has_mb_tag and score_attrib['mb_tag'] not in attrib_dict['mb_tag']:
-            is_attribute_valid = False
-
-            warn_str = u'{0!s}, {1!s}: The MusicBrainz tag does not match.'.\
-                format(scorename, score_attrib['mb_tag'])
-
-            warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
-        return is_attribute_valid
