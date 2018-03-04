@@ -87,13 +87,10 @@ class SymbTrConverter(object):
             return xml_out  # return filename
 
     @classmethod
-    def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
-                        flags=None, midi_instrument=None):
+    def mu2_to_musicxml(cls, mu2_file, xml_out=None, flags=None,
+                        midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
-
-        if symbtr_name is None:
-            symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(mu2_file)
 
         # MusikiToMusicXml saves the output to the same folder of the
         # mu2_file, by only changing the extension to xml. To avoid this
