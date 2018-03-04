@@ -31,21 +31,9 @@ from ...io import IO
 
 
 class MetadataExtractor(object):
-    """
-
-    """
-    def __init__(self):
-        self._mb_metadata = MusicBrainz()
-
-    @staticmethod
-    def get_slugs(scorename):
-        splitted = scorename.split('--')
-
-        return {'makam': splitted[0], 'form': splitted[1], 'usul': splitted[2],
-                'name': splitted[3], 'composer': splitted[4]}
 
     def get_metadata(self, scorename, mbid=None):
-        data = self._mb_metadata.crawl_musicbrainz(mbid)
+        data = MusicBrainz.crawl_musicbrainz(mbid)
 
         data['symbtr'] = scorename
 
@@ -69,6 +57,13 @@ class MetadataExtractor(object):
         data['tonic'] = makam['karar_symbol']
 
         return data, is_attr_meta_valid
+
+    @staticmethod
+    def get_slugs(scorename):
+        splitted = scorename.split('--')
+
+        return {'makam': splitted[0], 'form': splitted[1], 'usul': splitted[2],
+                'name': splitted[3], 'composer': splitted[4]}
 
     @classmethod
     def add_attribute_slug(cls, data, slugs, attr):

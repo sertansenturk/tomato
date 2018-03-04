@@ -32,13 +32,14 @@ from ..work import Work as WorkMetadata
 
 
 class MusicBrainz(object):
-    def crawl_musicbrainz(self, mbid):
+    @classmethod
+    def crawl_musicbrainz(cls, mbid):
         if mbid is None:  # empty mbid
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}}
 
         try:  # attempt crawling
-            mbid = self._parse_mbid(mbid)
+            mbid = cls._parse_mbid(mbid)
             try:  # assume mbid is a work
                 data = WorkMetadata.from_musicbrainz(mbid)
                 data['work'] = {'title': data.pop("title", None),
@@ -48,7 +49,7 @@ class MusicBrainz(object):
                 data['recording'] = {'title': data.pop("title", None),
                                      'mbid': data.pop('mbid', None)}
 
-            self._add_musicbrainz_attributes(data)
+            cls._add_musicbrainz_attributes(data)
             return data
         except musicbrainzngs.NetworkError:
             warnings.warn("Musicbrainz is not available, cannot crawl "
