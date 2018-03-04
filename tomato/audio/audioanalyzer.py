@@ -32,10 +32,13 @@ import warnings
 
 import numpy as np
 import six
-from ..metadata.recording import Recording
 from musicbrainzngs import NetworkError
 from musicbrainzngs import ResponseError
 
+from ..metadata.recording import Recording as RecordingMetadata
+from ..analyzer import Analyzer
+from ..io import IO
+from ..plotter import Plotter
 from .ahenk import Ahenk
 from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
 from .makamtonic.toniclastnote import TonicLastNote
@@ -44,9 +47,6 @@ from .pitchdistribution import PitchDistribution
 from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
 from .seyir import Seyir
-from ..analyzer import Analyzer
-from ..io import IO
-from ..plotter import Plotter
 
 logging.basicConfig(level=logging.INFO)
 
@@ -74,7 +74,6 @@ class AudioAnalyzer(Analyzer):
                                     'distance_method': 'bhat'}
 
         # extractors
-        self._metadata_getter = Recording()
         self._pitch_extractor = PredominantMelody(filter_pitch=False)  #
         # filter_pitch uses Essentia PitchFilter, which is not as good as our
         # Python implementation
@@ -196,7 +195,7 @@ class AudioAnalyzer(Analyzer):
             rec_in = IO.make_unicode(rec_in)
             tic = timeit.default_timer()
             self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
-            audio_meta = self._metadata_getter.from_musicbrainz(rec_in)
+            audio_meta = RecordingMetadata.from_musicbrainz(rec_in)
 
             self.vprint_time(tic, timeit.default_timer())
             return audio_meta
@@ -334,9 +333,6 @@ class AudioAnalyzer(Analyzer):
     # setters
     def set_pitch_extractor_params(self, **kwargs):
         self._set_params('_pitch_extractor', **kwargs)
-
-    def set_metadata_getter_params(self, **kwargs):
-        self._set_params('_metadata_getter', **kwargs)
 
     def set_pitch_filter_params(self, **kwargs):
         self._set_params('_pitch_filter', **kwargs)

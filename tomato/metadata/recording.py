@@ -45,10 +45,11 @@ except AttributeError:
 
 
 class Recording(object):
-    def from_musicbrainz(self, audio_in, get_work_attributes=True):
+    @classmethod
+    def from_musicbrainz(cls, audio_in, get_work_attributes=True):
         try:  # audio file input
             mbid, duration, sampling_frequency, bit_rate = \
-                Recording.get_file_metadata(audio_in)
+                cls.get_file_metadata(audio_in)
             audio_meta = {'mbid': mbid, 'path': audio_in, 'duration': duration,
                           'sampling_frequency': sampling_frequency,
                           'bit_rate': bit_rate}
@@ -64,24 +65,24 @@ class Recording(object):
         audio_meta['title'] = meta['title']
 
         # releases
-        audio_meta['releases'] = self._get_releases(meta)
+        audio_meta['releases'] = cls._get_releases(meta)
 
         # artist credits
-        audio_meta['artist_credits'] = self._get_artist_credits(meta)
+        audio_meta['artist_credits'] = cls._get_artist_credits(meta)
 
         # performers
-        audio_meta['artists'] = self._get_artist_relations(meta)
+        audio_meta['artists'] = cls._get_artist_relations(meta)
 
         # works
         if 'work-relation-list' in meta.keys():  # has work
-            audio_meta['works'] = self._get_works(meta)
+            audio_meta['works'] = cls._get_works(meta)
 
         # get makam/usul/for from work attributes
         if get_work_attributes and 'works' in audio_meta.keys():
-            self._get_attributes_from_works(audio_meta)
+            cls._get_attributes_from_works(audio_meta)
 
         # get makam/usul/for tags
-        self._get_recording_attribute_tags(audio_meta, meta)
+        cls._get_recording_attribute_tags(audio_meta, meta)
 
         # infer voicing/instrumentation
         audio_meta['instrumentation_voicing'] = InstrumentationVoicing.\
