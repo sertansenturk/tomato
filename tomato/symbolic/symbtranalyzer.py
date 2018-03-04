@@ -30,7 +30,7 @@ import warnings
 import timeit
 
 from .symbtr.dataextractor import DataExtractor
-from .symbtr.reader.mu2 import Mu2Reader
+from .symbtr.reader.mu2 import Mu2
 
 from ..metadata.work import Work as WorkMetadata
 from ..bincaller import BinCaller
@@ -49,7 +49,6 @@ class SymbTrAnalyzer(Analyzer):
 
         # extractors
         self._data_extractor = DataExtractor(print_warnings=verbose)
-        self._mu2_reader = Mu2Reader()
         self._phrase_segmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
 
     def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
@@ -186,8 +185,7 @@ class SymbTrAnalyzer(Analyzer):
                     .format(mu2_filename))
 
         mu2_header, header_row, is_mu2_header_valid = \
-            self._mu2_reader.read_header(
-                mu2_filename, symbtr_name=symbtr_name)
+            Mu2.read_header(mu2_filename, symbtr_name=symbtr_name)
 
         score_features = DataExtractor.merge(txt_data, mu2_header)
         is_data_valid = {'is_all_valid': (is_mu2_header_valid and

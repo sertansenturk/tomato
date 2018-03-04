@@ -33,12 +33,12 @@ from ...io import IO
 
 class MetadataExtractor(object):
     @classmethod
-    def get_metadata(cls, scorename, mbid=None):
+    def get_metadata(cls, score_name, mbid=None):
         data = MusicBrainz.crawl(mbid)
 
-        data['symbtr'] = scorename
+        data['symbtr'] = score_name
 
-        slugs = MetadataExtractor.get_slugs(scorename)
+        slugs = MetadataExtractor.get_slugs(score_name)
         for attr in ['makam', 'form', 'usul']:
             cls.add_attribute_slug(data, slugs, attr)
 
@@ -51,7 +51,7 @@ class MetadataExtractor(object):
             data['composer']['symbtr_slug'] = slugs['composer']
 
         # get and validate the attributes
-        is_attr_meta_valid = cls.validate_makam_form_usul(data, scorename)
+        is_attr_meta_valid = cls.validate_makam_form_usul(data, score_name)
 
         # get the tonic
         makam = cls._get_attribute(data['makam']['symbtr_slug'], 'makam')
@@ -76,11 +76,11 @@ class MetadataExtractor(object):
                 data[attr]['symbtr_slug'], attr)
 
     @classmethod
-    def validate_makam_form_usul(cls, data, scorename):
+    def validate_makam_form_usul(cls, data, score_name):
         is_valid_list = []
         for attr in ['makam', 'form', 'usul']:
             is_valid_list.append(cls._validate_attributes(
-                data, scorename, attr))
+                data, score_name, attr))
 
         return all(is_valid_list)
 
@@ -92,33 +92,33 @@ class MetadataExtractor(object):
                 return attr_key
 
     @classmethod
-    def _validate_attributes(cls, data, scorename, attrib_name):
+    def _validate_attributes(cls, data, score_name, attrib_name):
         score_attrib = data[attrib_name]
 
         attrib_dict = cls._get_attribute(score_attrib['symbtr_slug'],
                                          attrib_name)
 
         slug_valid = cls._validate_slug(
-            attrib_dict, score_attrib, scorename)
+            attrib_dict, score_attrib, score_name)
 
         mu2_valid = Mu2Metadata.validate_mu2_attribute(
-            score_attrib, attrib_dict, scorename)
+            score_attrib, attrib_dict, score_name)
 
         mb_attr_valid = cls.validate_musicbrainz_attribute(
-            attrib_dict, score_attrib, scorename)
+            attrib_dict, score_attrib, score_name)
 
         mb_tag_valid = cls.validate_musicbrainz_attribute_tag(
-            attrib_dict, score_attrib, scorename)
+            attrib_dict, score_attrib, score_name)
 
         return all([slug_valid, mu2_valid, mb_attr_valid, mb_tag_valid])
 
     @staticmethod
-    def _validate_slug(attrib_dict, score_attr, scorename):
+    def _validate_slug(attrib_dict, score_attr, score_name):
         has_slug = 'symbtr_slug' in score_attr.keys()
         if has_slug and not score_attr['symbtr_slug'] ==\
                 attrib_dict['symbtr_slug']:
             warnings.warn(u'{0!s}, {1!s}: The slug does not match.'.
-                          format(scorename, score_attr['symbtr_slug']),
+                          format(score_name, score_attr['symbtr_slug']),
                           stacklevel=2)
             return False
 
@@ -146,14 +146,14 @@ class MetadataExtractor(object):
         return is_key_sig_valid
 
     @staticmethod
-    def validate_musicbrainz_attribute(attrib_dict, score_attrib, scorename):
+    def validate_musicbrainz_attribute(attrib_dict, score_attrib, score_name):
         is_attribute_valid = True
         if 'mb_attribute' in score_attrib.keys():  # work
             skip_makam_slug = ['12212212', '22222221', '223', '232223', '262',
                                '3223323', '3334', '14_4']
             if score_attrib['symbtr_slug'] in skip_makam_slug:
                 warnings.warn(u'{0:s}: The usul attribute is not stored in '
-                              u'MusicBrainz.'.format(scorename), stacklevel=2)
+                              u'MusicBrainz.'.format(score_name), stacklevel=2)
             else:
                 if not score_attrib['mb_attribute'] == \
                         attrib_dict['dunya_name']:
@@ -163,26 +163,26 @@ class MetadataExtractor(object):
                     if score_attrib['mb_attribute']:
                         warn_str = u'{0:s}, {1:s}: The MusicBrainz ' \
                                    u'attribute does not match.' \
-                                   u''.format(scorename,
+                                   u''.format(score_name,
                                               score_attrib['mb_attribute'])
 
                         warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
                     else:
                         warnings.warn(u'{0:s}: The MusicBrainz attribute does'
-                                      u' not exist.'.format(scorename),
+                                      u' not exist.'.format(score_name),
                                       stacklevel=2)
         return is_attribute_valid
 
     @staticmethod
     def validate_musicbrainz_attribute_tag(
-            attrib_dict, score_attrib, scorename):
+            attrib_dict, score_attrib, score_name):
         is_attribute_valid = True
         has_mb_tag = 'mb_tag' in score_attrib.keys()
         if has_mb_tag and score_attrib['mb_tag'] not in attrib_dict['mb_tag']:
             is_attribute_valid = False
 
             warn_str = u'{0!s}, {1!s}: The MusicBrainz tag does not match.'.\
-                format(scorename, score_attrib['mb_tag'])
+                format(score_name, score_attrib['mb_tag'])
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
         return is_attribute_valid

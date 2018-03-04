@@ -25,37 +25,42 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+from ..symbolic.symbtr.reader.mu2 import Mu2
 
 
 class Mu2(object):
+    @staticmethod
+    def from_mu2_header(score_file, symbtr_name=None):
+        return Mu2.read_header(score_file, symbtr_name=symbtr_name)
+
     @classmethod
-    def validate_mu2_attribute(cls, score_attrib, attrib_dict, scorename):
+    def validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
 
         is_attr_valid = True
         if 'mu2_name' in score_attrib.keys():  # work
             try:  # usul
                 mu2_name, is_attr_valid = cls._validate_mu2_usul(
-                    score_attrib, attrib_dict, scorename)
+                    score_attrib, attrib_dict, score_name)
 
                 if not mu2_name:  # no matching variant
                     is_attr_valid = False
                     warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not ' \
-                               u'match.'.format(scorename,
+                               u'match.'.format(score_name,
                                                 score_attrib['mu2_name'])
                     warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 
             except KeyError:  # makam, form
                 is_attr_valid = cls._validate_mu2_makam_form(
-                    score_attrib, attrib_dict, scorename)
+                    score_attrib, attrib_dict, score_name)
 
         return is_attr_valid
 
     @staticmethod
-    def _validate_mu2_makam_form(score_attrib, attrib_dict, scorename):
+    def _validate_mu2_makam_form(score_attrib, attrib_dict, score_name):
         mu2_name = attrib_dict['mu2_name']
         if not score_attrib['mu2_name'] == mu2_name:
             warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not match.'.\
-                format(scorename, score_attrib['mu2_name'])
+                format(score_name, score_attrib['mu2_name'])
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
             return False
@@ -63,7 +68,7 @@ class Mu2(object):
         return True
 
     @staticmethod
-    def _validate_mu2_usul(score_attrib, attrib_dict, scorename):
+    def _validate_mu2_usul(score_attrib, attrib_dict, score_name):
         mu2_name = ''
         is_usul_valid = True
         for uv in attrib_dict['variants']:
@@ -75,7 +80,7 @@ class Mu2(object):
                         is_usul_valid = False
                         warn_str = u'{0:s}, {1:s}: The {2:s} of the usul in ' \
                                    u'the score does not ' \
-                                   u'match.'.format(scorename,
+                                   u'match.'.format(score_name,
                                                     uv['mu2_name'], v_key)
                         warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 

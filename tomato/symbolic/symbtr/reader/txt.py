@@ -157,7 +157,7 @@ class TxtReader(SymbTrReader):
         #
         # for key, val in dur_dict.items():
         #    if not len(val)==1:
-        #        print("    " + scorename + ": " + key +
+        #        print("    " + score_name + ": " + key +
         #              " note has multiple duration values; " +
         #              ', '.join([str(v) for v in val]))
         #        # USUL/TEMPO CHANGES ARE NOT HANDLED, DON'T ASSIGN FALSE YET

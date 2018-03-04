@@ -28,7 +28,7 @@ import os
 
 from ...metadata.symbtr.symbtr import MetadataExtractor
 from .datamerger import DataMerger
-from .reader.mu2 import Mu2Reader
+from .reader.mu2 import Mu2
 from .reader.musicxml import MusicXMLReader
 from .reader.txt import TxtReader
 from .rhythmicfeature import RhythmicFeatureExtractor
@@ -194,7 +194,7 @@ class DataExtractor(DataMerger):
             score, is_score_content_valid = MusicXMLReader.read(
                 score_file, symbtr_name=symbtr_name)
         elif extension == ".mu2":
-            score, is_score_content_valid = Mu2Reader.read(
+            score, is_score_content_valid = Mu2.read(
                 score_file, symbtr_name=symbtr_name)
         else:
             raise IOError("Unknown format")
