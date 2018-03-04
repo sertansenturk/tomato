@@ -149,8 +149,8 @@ class AlignedNoteModel(object):
                 try:
                     note_models[an['Symbol']]['notes'].append(notetemp)
                 except KeyError:
-                    logger.g.info(u"The note {0:s} is not in the note_dict."
-                                 u"".format(an['Symbol']))
+                    logger.info(u"The note {0:s} is not in the "
+                                u"note_dict.".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,
                                       theoretical_interval, ref_freq=None):
