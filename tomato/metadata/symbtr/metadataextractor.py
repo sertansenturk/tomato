@@ -25,8 +25,9 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+
+from ..musicbrainz import MusicBrainz
 from .mu2 import Mu2Metadata
-from .musicbrainz import MusicBrainz
 from ...io import IO
 
 
@@ -143,7 +144,6 @@ class MetadataExtractor(object):
                                  ' '.join(key_sig_makam)), stacklevel=2)
 
         return is_key_sig_valid
-
 
     @staticmethod
     def validate_musicbrainz_attribute(attrib_dict, score_attrib, scorename):
