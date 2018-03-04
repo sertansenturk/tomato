@@ -25,14 +25,9 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
-from ..symbolic.symbtr.reader.mu2 import Mu2
 
 
 class Mu2(object):
-    @staticmethod
-    def from_mu2_header(score_file, symbtr_name=None):
-        return Mu2.read_header(score_file, symbtr_name=symbtr_name)
-
     @classmethod
     def validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
 

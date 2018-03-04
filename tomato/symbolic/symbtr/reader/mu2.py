@@ -28,7 +28,7 @@ import csv
 import warnings
 
 from .symbtr import SymbTrReader
-from ....metadata.symbtr.symbtr import MetadataExtractor
+from ....metadata.symbtr.symbtr import SymbTr
 
 
 class Mu2(SymbTrReader):
@@ -140,15 +140,15 @@ class Mu2(SymbTrReader):
                     break
 
         # get the symbtr
-        slugs = MetadataExtractor.get_slugs(symbtr_name)
+        slugs = SymbTr.get_slugs(symbtr_name)
         for attr in ['makam', 'form', 'usul']:
-            MetadataExtractor.add_attribute_slug(header, slugs, attr)
+            SymbTr.add_attribute_slug(header, slugs, attr)
 
         header['title']['symbtr_slug'] = slugs['name']
         header['composer']['symbtr_slug'] = slugs['composer']
 
         # validate the header content
-        is_attr_meta_valid = MetadataExtractor.validate_makam_form_usul(
+        is_attr_meta_valid = SymbTr.validate_makam_form_usul(
             header, symbtr_name)
 
         is_header_valid = (is_tempo_unit_valid and is_attr_meta_valid and
@@ -165,7 +165,7 @@ class Mu2(SymbTrReader):
             header['key_signature'] = []
 
         # validate key signature
-        is_key_sig_valid = is_key_sig_valid and MetadataExtractor. \
+        is_key_sig_valid = is_key_sig_valid and SymbTr. \
             validate_key_signature(header['key_signature'],
                                    makam_slug, symbtr_name)
         return is_key_sig_valid

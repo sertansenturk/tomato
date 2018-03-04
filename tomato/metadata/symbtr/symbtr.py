@@ -26,19 +26,19 @@
 
 import warnings
 
-from tomato.metadata.mu2 import Mu2 as Mu2Metadata
+from ..mu2 import Mu2 as Mu2Metadata
 from ..musicbrainz import MusicBrainz
 from ...io import IO
 
 
-class MetadataExtractor(object):
+class SymbTr(object):
     @classmethod
     def get_metadata(cls, score_name, mbid=None):
         data = MusicBrainz.crawl(mbid)
 
         data['symbtr'] = score_name
 
-        slugs = MetadataExtractor.get_slugs(score_name)
+        slugs = SymbTr.get_slugs(score_name)
         for attr in ['makam', 'form', 'usul']:
             cls.add_attribute_slug(data, slugs, attr)
 

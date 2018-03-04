@@ -26,7 +26,7 @@
 
 import os
 
-from ...metadata.symbtr.symbtr import MetadataExtractor
+from ...metadata.symbtr.symbtr import SymbTr as MetadataExtractor
 from .datamerger import DataMerger
 from .reader.mu2 import Mu2
 from .reader.musicxml import MusicXMLReader
