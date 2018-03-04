@@ -46,7 +46,7 @@ class Instrumentation(object):
                 pass
             else:
                 instrument_vocal_list.append(a['type'])
-                
+
         # remove attributes, which are not about performance
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
@@ -77,7 +77,6 @@ class Instrumentation(object):
             return "choir"
         else:
             assert False, "Unidentified instrumentation"
-
 
     # Solo Vocal Without Accompaniment
     # There is only vocal and no instruments
