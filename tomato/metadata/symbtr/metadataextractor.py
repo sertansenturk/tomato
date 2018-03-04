@@ -27,7 +27,7 @@
 import warnings
 
 from ..musicbrainz import MusicBrainz
-from .mu2 import Mu2Metadata
+from .mu2 import Mu2 as Mu2Metadata
 from ...io import IO
 
 

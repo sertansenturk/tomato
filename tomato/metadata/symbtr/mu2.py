@@ -27,7 +27,7 @@
 import warnings
 
 
-class Mu2Metadata(object):
+class Mu2(object):
     @classmethod
     def validate_mu2_attribute(cls, score_attrib, attrib_dict, scorename):
 
