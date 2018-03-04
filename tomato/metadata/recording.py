@@ -31,7 +31,7 @@ import eyed3
 
 from . attribute import Attribute
 from . work import Work as WorkMetadata
-from . instrumentationvoicing import InstrumentationVoicing
+from . instrumentation import Instrumentation
 from .. import __version__
 
 logger = logging.Logger(__name__, level=logging.WARNING)
@@ -86,9 +86,9 @@ class Recording(object):
         # get makam/usul/for tags
         cls._get_recording_attribute_tags(audio_meta, meta)
 
-        # infer voicing/instrumentation
-        audio_meta['instrumentation_voicing'] = InstrumentationVoicing.\
-            get_voicing_instrumentation(audio_meta)
+        # infer instrumentation (incl. vocal instrumentation)
+        audio_meta['instrumentation'] = Instrumentation.get_instrumentation(
+            audio_meta)
 
         return audio_meta
 

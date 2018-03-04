@@ -28,111 +28,113 @@ import logging
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class InstrumentationVoicing(object):
+class Instrumentation(object):
     """
-    This class decide the voicing/instrumentation within an audio recording
-    symbtr from the artists fields
+    This class decides the instrumentation (incl. vocal instrumentation) of an
+    audio recording from the related artists
     """
+    @classmethod
+    def get_instrumentation(cls, audio_meta):
+        instrument_vocal_list = []
+        for a in audio_meta['artists']:
+            choir_bool = (a['type'] == 'vocal' and
+                          'attribute-list' in a.keys() and
+                          'choir_vocals' in a['attribute-list'])
+            if choir_bool:
+                instrument_vocal_list.append(a['attribute-list'])
+            elif a['type'] in ['conductor']:
+                pass
+            else:
+                instrument_vocal_list.append(a['type'])
+                
+        # remove attributes, which are not about performance
+        for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
+            if iv not in ['vocal', 'instrument', 'performing orchestra',
+                          'performer', 'choir_vocals']:
+                logger.info(u"{} is not related to instrumentation.".format(
+                    iv))
+                instrument_vocal_list.pop(ii)
+
+        return cls._identify_instrumentation(instrument_vocal_list)
+
+    @classmethod
+    def _identify_instrumentation(cls, instrument_vocal_list):
+        if cls._solo_instrumental(instrument_vocal_list):
+            return "solo instrumental"
+        elif cls._duo_instrumental(instrument_vocal_list):
+            return "duo instrumental"
+        elif cls._trio_instrumental(instrument_vocal_list):
+            return "trio instrumental"
+        elif cls._ensemble(instrument_vocal_list):
+            return "ensemble instrumental"
+        elif cls._solo_vocal_wo_acc(instrument_vocal_list):
+            return "solo vocal without accompaniment"
+        elif cls._solo_vocal_w_acc(instrument_vocal_list):
+            return "solo vocal with accompaniment"
+        elif cls._duet(instrument_vocal_list):
+            return "duet"
+        elif cls._choir(instrument_vocal_list):
+            return "choir"
+        else:
+            assert False, "Unidentified instrumentation"
+
+
     # Solo Vocal Without Accompaniment
     # There is only vocal and no instruments
     @staticmethod
-    def solo_vocal_wo_acc(instrument_vocal_list):
+    def _solo_vocal_wo_acc(instrument_vocal_list):
         return (len(instrument_vocal_list) == 1 and
                 instrument_vocal_list[0] == 'vocal')
 
     # Solo Vocal With Accompaniment
     # There is only one vocal and at least one instrument
     @staticmethod
-    def solo_vocal_w_acc(instrument_vocal_list):
+    def _solo_vocal_w_acc(instrument_vocal_list):
         return (len(instrument_vocal_list) > 1 and
                 instrument_vocal_list.count('vocal') == 1)
 
     # Duet With Accompaniment
     # There are two vocals and at least one instrument
     @staticmethod
-    def duet(instrument_vocal_list):
+    def _duet(instrument_vocal_list):
         return (instrument_vocal_list.count('vocal') == 2 and
                 'choir_vocals' not in instrument_vocal_list)
 
     # Choir With Accompaniment
     # There are more than 2 vocals and at least one instrument
     @staticmethod
-    def choir(instrument_vocal_list):
+    def _choir(instrument_vocal_list):
         return (instrument_vocal_list.count('vocal') > 2 or
                 'choir_vocals' in instrument_vocal_list)
 
     # Solo Instrumental
     # There is no vocal and only one instrument
     @staticmethod
-    def solo_instrumental(instrument_vocal_list):
+    def _solo_instrumental(instrument_vocal_list):
         return (len(instrument_vocal_list) == 1 and
                 instrument_vocal_list[0] in ['instrument', 'performer'])
 
     # Duo Instrumental
-    # There is no vocal and only two instrument
+    # There is no vocal and only two instruments
     @staticmethod
-    def duo_instrumental(instrument_vocal_list):
+    def _duo_instrumental(instrument_vocal_list):
         return (len(instrument_vocal_list) == 2 and
                 all(iv in ['instrument', 'performer']
                     for iv in instrument_vocal_list))
 
     # Trio Instrumental
-    # There is no vocal and only three instrument
+    # There is no vocal and only three instruments
     @staticmethod
-    def trio_instrumental(instrument_vocal_list):
+    def _trio_instrumental(instrument_vocal_list):
         return (len(instrument_vocal_list) == 3 and
                 all(iv in ['instrument', 'performer']
                     for iv in instrument_vocal_list))
 
     # Ensemble
-    # There is no vocal and many instruments OR Orchestra relation
+    # There is no vocal and (many instruments OR an orchestra relation)
     @staticmethod
-    def ensemble(instrument_vocal_list):
+    def _ensemble(instrument_vocal_list):
         return ('vocal' not in instrument_vocal_list and
                 'choir_vocals' not in instrument_vocal_list and
                 ('performing orchestra' in instrument_vocal_list or
                  len(instrument_vocal_list) > 3))
-
-    @classmethod
-    def check_instrumentation_voice(cls, instrument_vocal_list):
-        # remove attributes, which are not about performance
-        for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
-            if iv not in ['vocal', 'instrument', 'performing orchestra',
-                          'performer', 'choir_vocals']:
-                logger.info(u"{} is not related to performance.".format(iv))
-                instrument_vocal_list.pop(ii)
-
-        if cls.solo_instrumental(instrument_vocal_list):
-            return "solo instrumental"
-        elif cls.duo_instrumental(instrument_vocal_list):
-            return "duo instrumental"
-        elif cls.trio_instrumental(instrument_vocal_list):
-            return "trio instrumental"
-        elif cls.ensemble(instrument_vocal_list):
-            return "ensemble instrumental"
-        elif cls.solo_vocal_wo_acc(instrument_vocal_list):
-            return "solo vocal without accompaniment"
-        elif cls.solo_vocal_w_acc(instrument_vocal_list):
-            return "solo vocal with accompaniment"
-        elif cls.duet(instrument_vocal_list):
-            return "duet"
-        elif cls.choir(instrument_vocal_list):
-            return "choir"
-        else:
-            assert False, "Unidentified voicing/instrumentation"
-
-    @classmethod
-    def get_voicing_instrumentation(cls, audio_meta):
-        vocal_instrument = []
-        for a in audio_meta['artists']:
-            choir_bool = (a['type'] == 'vocal' and
-                          'attribute-list' in a.keys() and
-                          'choir_vocals' in a['attribute-list'])
-            if choir_bool:
-                vocal_instrument.append(a['attribute-list'])
-            elif a['type'] in ['conductor']:
-                pass
-            else:
-                vocal_instrument.append(a['type'])
-
-        return cls.check_instrumentation_voice(vocal_instrument)
