@@ -74,7 +74,7 @@ class MusicBrainz(object):
         o = urlparse(mbid)
 
         # if the url is given get the mbid, which is the last field
-        o_splitted = o.path.split('/')
-        mbid = o_splitted[-1]
+        o_split = o.path.split('/')
+        mbid = o_split[-1]
 
         return mbid

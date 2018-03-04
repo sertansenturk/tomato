@@ -61,10 +61,10 @@ class MetadataExtractor(object):
 
     @staticmethod
     def get_slugs(scorename):
-        splitted = scorename.split('--')
+        split = scorename.split('--')
 
-        return {'makam': splitted[0], 'form': splitted[1], 'usul': splitted[2],
-                'name': splitted[3], 'composer': splitted[4]}
+        return {'makam': split[0], 'form': split[1], 'usul': split[2],
+                'name': split[3], 'composer': split[4]}
 
     @classmethod
     def add_attribute_slug(cls, data, slugs, attr):
