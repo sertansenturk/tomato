@@ -4,7 +4,7 @@ import pandas as pd
 import os
 import warnings
 from ..dataextractor import DataExtractor
-from ..reader.mu2 import Mu2Reader
+from ..reader.mu2 import Mu2 as Mu2Reader
 from ....io import IO
 
 

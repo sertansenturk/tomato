@@ -26,7 +26,6 @@
 
 import warnings
 
-from tomato.metadata.mu2 import Mu2 as Mu2Metadata
 from tomato.metadata.musicbrainz import MusicBrainz
 from tomato.io import IO
 
@@ -101,7 +100,7 @@ class SymbTr(object):
         slug_valid = cls._validate_slug(
             attrib_dict, score_attrib, score_name)
 
-        mu2_valid = Mu2Metadata.validate_mu2_attribute(
+        mu2_valid = cls.validate_mu2_attribute(
             score_attrib, attrib_dict, score_name)
 
         mb_attr_valid = cls.validate_musicbrainz_attribute(
@@ -125,25 +124,59 @@ class SymbTr(object):
         return True
 
     @classmethod
-    def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
-        attr_dict = IO.load_music_data('makam')
-        key_sig_makam = attr_dict[makam_slug]['key_signature']
+    def validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
 
-        # the number of accidentals should be the same
-        is_key_sig_valid = len(key_signature) == len(key_sig_makam)
+        is_attr_valid = True
+        if 'mu2_name' in score_attrib.keys():  # work
+            try:  # usul
+                mu2_name, is_attr_valid = cls._validate_mu2_usul(
+                    score_attrib, attrib_dict, score_name)
 
-        # the sequence should be the same, allow a single comma deviation
-        # due to AEU theory and practice mismatch
-        for k1, k2 in zip(key_signature, key_sig_makam):
-            is_key_sig_valid = (is_key_sig_valid and
-                                cls._compare_accidentals(k1, k2))
+                if not mu2_name:  # no matching variant
+                    is_attr_valid = False
+                    warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not ' \
+                               u'match.'.format(score_name,
+                                                score_attrib['mu2_name'])
+                    warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 
-        if not is_key_sig_valid:
-            warnings.warn(u'{0!s}: Key signature is different! {1!s} -> {2!s}'.
-                          format(symbtr_name, ' '.join(key_signature),
-                                 ' '.join(key_sig_makam)), stacklevel=2)
+            except KeyError:  # makam, form
+                is_attr_valid = cls._validate_mu2_makam_form(
+                    score_attrib, attrib_dict, score_name)
 
-        return is_key_sig_valid
+        return is_attr_valid
+
+    @staticmethod
+    def _validate_mu2_makam_form(score_attrib, attrib_dict, score_name):
+        mu2_name = attrib_dict['mu2_name']
+        if not score_attrib['mu2_name'] == mu2_name:
+            warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not match.'.\
+                format(score_name, score_attrib['mu2_name'])
+
+            warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
+            return False
+
+        return True
+
+    @staticmethod
+    def _validate_mu2_usul(score_attrib, attrib_dict, score_name):
+        mu2_name = ''
+        is_usul_valid = True
+        for uv in attrib_dict['variants']:
+            if uv['mu2_name'] == score_attrib['mu2_name']:
+                mu2_name = uv['mu2_name']
+                for v_key in ['mertebe', 'num_pulses']:
+                    # found variant
+                    if not uv[v_key] == score_attrib[v_key]:
+                        is_usul_valid = False
+                        warn_str = u'{0:s}, {1:s}: The {2:s} of the usul in ' \
+                                   u'the score does not ' \
+                                   u'match.'.format(score_name,
+                                                    uv['mu2_name'], v_key)
+                        warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
+
+                    return is_usul_valid, mu2_name
+
+        return mu2_name, is_usul_valid
 
     @staticmethod
     def validate_musicbrainz_attribute(attrib_dict, score_attrib, score_name):
@@ -186,6 +219,27 @@ class SymbTr(object):
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
         return is_attribute_valid
+
+    @classmethod
+    def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
+        attr_dict = IO.load_music_data('makam')
+        key_sig_makam = attr_dict[makam_slug]['key_signature']
+
+        # the number of accidentals should be the same
+        is_key_sig_valid = len(key_signature) == len(key_sig_makam)
+
+        # the sequence should be the same, allow a single comma deviation
+        # due to AEU theory and practice mismatch
+        for k1, k2 in zip(key_signature, key_sig_makam):
+            is_key_sig_valid = (is_key_sig_valid and
+                                cls._compare_accidentals(k1, k2))
+
+        if not is_key_sig_valid:
+            warnings.warn(u'{0!s}: Key signature is different! {1!s} -> {2!s}'.
+                          format(symbtr_name, ' '.join(key_signature),
+                                 ' '.join(key_sig_makam)), stacklevel=2)
+
+        return is_key_sig_valid
 
     @staticmethod
     def _compare_accidentals(acc1, acc2):
