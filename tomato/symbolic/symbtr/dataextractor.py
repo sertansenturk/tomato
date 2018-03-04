@@ -26,7 +26,6 @@
 
 import os
 
-from ...metadata.symbtr.symbtr import SymbTr as MetadataExtractor
 from .datamerger import DataMerger
 from .reader.mu2 import Mu2
 from .reader.musicxml import MusicXMLReader
@@ -34,6 +33,7 @@ from .reader.txt import TxtReader
 from .rhythmicfeature import RhythmicFeatureExtractor
 from .section import SectionExtractor
 from .segment import SegmentExtractor
+from ...metadata.symbtr import SymbTr as MetadataExtractor
 
 
 class DataExtractor(DataMerger):

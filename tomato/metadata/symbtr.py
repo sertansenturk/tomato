@@ -26,9 +26,9 @@
 
 import warnings
 
-from ..mu2 import Mu2 as Mu2Metadata
-from ..musicbrainz import MusicBrainz
-from ...io import IO
+from tomato.metadata.mu2 import Mu2 as Mu2Metadata
+from tomato.metadata.musicbrainz import MusicBrainz
+from tomato.io import IO
 
 
 class SymbTr(object):
