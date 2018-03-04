@@ -27,7 +27,7 @@
 import logging
 from ..io import IO
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class Attribute(object):
@@ -55,8 +55,8 @@ class Attribute(object):
                     try:  # attempt to assign the tag to the attribute key
                         cls._assign_attrib(attributes, k, t)
                     except ValueError:
-                        logging.debug(u'{0:s} is not a makam/form/usul tag; '
-                                      u'skipped'.format(t))
+                        logger.debug(u'{0:s} is not a makam/form/usul tag; '
+                                     u'skipped'.format(t))
         return attributes
 
     @classmethod

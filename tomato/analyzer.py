@@ -25,9 +25,12 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from abc import ABCMeta, abstractmethod, abstractproperty
-from .io import IO
 import logging
 import warnings
+from .io import IO
+
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class Analyzer(object):
@@ -91,7 +94,7 @@ class Analyzer(object):
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,
                     TypeError, AttributeError):
-                logging.warning('{0:s} failed.'.format(func.__name__))
+                logger.warning('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
             return flag

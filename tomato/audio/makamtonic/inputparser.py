@@ -32,8 +32,7 @@ import numpy as np
 from ..pitchdistribution import PitchDistribution
 from ...converter import Converter
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class InputParser(object):

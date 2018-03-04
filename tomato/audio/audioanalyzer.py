@@ -48,7 +48,7 @@ from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
 from .seyir import Seyir
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):

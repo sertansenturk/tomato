@@ -32,7 +32,7 @@ from .. import __version__
 
 import musicbrainzngs as mb
 import logging
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
 mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
@@ -141,7 +141,7 @@ class Recording(object):
                 artist_credits.append({'name': credit['artist']['name'],
                                        'mbid': credit['artist']['id']})
             except TypeError:
-                logging.debug('skip join phrase')
+                logger.debug('skip join phrase')
 
         return artist_credits
 

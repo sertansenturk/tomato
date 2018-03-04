@@ -41,7 +41,7 @@ from ..plotter import Plotter
 
 import warnings
 import logging
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()
@@ -145,7 +145,7 @@ class JointAnalyzer(Analyzer):
         try:
             sdict['audio']['tempo'] = score_informed_audio_features['tempo']
         except KeyError:
-            logging.debug("Tempo feature is not available.")
+            logger.debug("Tempo feature is not available.")
 
         # accumulate joint dict
         try:
@@ -153,7 +153,7 @@ class JointAnalyzer(Analyzer):
             sdict['joint']['notes'] = joint_features['notes']
         except (KeyError, TypeError):
             sdict['joint'] = {}
-            logging.debug("Section links and aligned notes are not available.")
+            logger.debug("Section links and aligned notes are not available.")
 
         return sdict
 

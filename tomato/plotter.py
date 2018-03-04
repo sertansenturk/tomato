@@ -24,17 +24,18 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import numpy as np
+import logging
 import copy
+
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib import gridspec
 from matplotlib.ticker import FixedLocator
+import numpy as np
 
 from .audio.seyir import Seyir as AudioSeyirAnalyzer
 
-import logging
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class Plotter(object):
@@ -119,9 +120,9 @@ class Plotter(object):
         try:  # convert the bins to hz, if they are given in cents
             pitch_distribution.cent_to_hz()
         except ValueError:
-            logging.debug('The pitch distribution should already be in Hz.')
+            logger.debug('The pitch distribution should already be in Hz.')
         except AttributeError:
-            logging.debug('The pitch distribution is not computed.')
+            logger.debug('The pitch distribution is not computed.')
 
         return pitch_distribution_in
 
@@ -189,7 +190,7 @@ class Plotter(object):
             ax2.plot(pitch_distribution.vals, pitch_distribution.bins,
                      color='gray')
         except AttributeError:
-            logging.debug('The pitch distribution is not computed.')
+            logger.debug('The pitch distribution is not computed.')
             return
 
         # plot note models
@@ -240,7 +241,7 @@ class Plotter(object):
             ax3.spines['right'].set_visible(False)
             ax3.get_yaxis().set_ticks([])
         except TypeError:
-            logging.debug('The melodic progression is not computed.')
+            logger.debug('The melodic progression is not computed.')
 
     @staticmethod
     def _plot_sections(ax1, ax3, ax4, sections):
@@ -352,7 +353,7 @@ class Plotter(object):
                 dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
                                   for dist_bin in pitch_distribution.bins])
             except TypeError:
-                logging.info(u'The stable pitch for {0:s} is not computed'
+                logger.info(u'The stable pitch for {0:s} is not computed'
                              .format(note_symbol))
                 # use the max peak even if it's weak, far from theoretical etc.
                 peak_idx, heights = note['distribution'].detect_peaks()
@@ -375,7 +376,7 @@ class Plotter(object):
                         note_models[note_symbol]['distribution'].bins,
                         label=note_symbol)
             except KeyError:
-                logging.debug(u'note model is not available for {0:s}'.format(
+                logger.debug(u'note model is not available for {0:s}'.format(
                     note_symbol))
 
     @staticmethod

@@ -24,17 +24,18 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from ..audio.pitchdistribution import PitchDistribution
-from ..io import IO
-from ..converter import Converter
-
+import json
+import logging
 from copy import deepcopy
 
 import numpy as np
 import matplotlib.pyplot as plt
-import json
-import logging
-logging.basicConfig(level=logging.INFO)
+
+from ..audio.pitchdistribution import PitchDistribution
+from ..io import IO
+from ..converter import Converter
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class AlignedNoteModel(object):
@@ -61,7 +62,7 @@ class AlignedNoteModel(object):
                                   note_dict[tonic_symbol]['Value']),
                         'Unit': 'cent'}, 'theoretical_pitch': []}
             except KeyError:
-                logging.warning(
+                logger.g.warning(
                     u"The note {0:s} is not in the note_dict.".format(nn))
 
         # compute note trajectories and add to each model
@@ -148,7 +149,7 @@ class AlignedNoteModel(object):
                 try:
                     note_models[an['Symbol']]['notes'].append(notetemp)
                 except KeyError:
-                    logging.info(u"The note {0:s} is not in the note_dict."
+                    logger.g.info(u"The note {0:s} is not in the note_dict."
                                  u"".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,

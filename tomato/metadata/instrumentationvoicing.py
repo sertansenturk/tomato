@@ -25,7 +25,7 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import logging
-logging.basicConfig(level=logging.INFO)
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class InstrumentationVoicing(object):
@@ -99,7 +99,7 @@ class InstrumentationVoicing(object):
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logging.info(u"{} is not related to performance.".format(iv))
+                logger.info(u"{} is not related to performance.".format(iv))
                 instrument_vocal_list.pop(ii)
 
         if cls.solo_instrumental(instrument_vocal_list):

@@ -27,22 +27,23 @@
 
 from __future__ import division
 
-from ..converter import Converter
-from ..io import IO
-
-import essentia
-import essentia.standard as std
-import numpy as np
 import json
 import copy
+import numbers
+import logging
+
+import numpy as np
 import scipy.stats
 import scipy.integrate
 import matplotlib.pyplot as plt
-import numbers
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+import essentia
+import essentia.standard as std
+
+from ..converter import Converter
+from ..io import IO
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class PitchDistribution(object):
