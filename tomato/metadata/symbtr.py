@@ -37,7 +37,7 @@ class SymbTr(object):
 
         data['symbtr'] = score_name
 
-        slugs = SymbTr.get_slugs(score_name)
+        slugs = cls.get_slugs(score_name)
         for attr in ['makam', 'form', 'usul']:
             cls.add_attribute_slug(data, slugs, attr)
 
@@ -74,6 +74,49 @@ class SymbTr(object):
             data[attr]['attribute_key'] = cls._get_attribute_key(
                 data[attr]['symbtr_slug'], attr)
 
+    @staticmethod
+    def _get_attribute_key(attr_str, attr_type):
+        attr_dict = IO.load_music_data(attr_type)
+        for attr_key, attr_val in attr_dict.items():
+            if attr_val['symbtr_slug'] == attr_str:
+                return attr_key
+
+    @classmethod
+    def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
+        attr_dict = IO.load_music_data('makam')
+        key_sig_makam = attr_dict[makam_slug]['key_signature']
+
+        # the number of accidentals should be the same
+        is_key_sig_valid = len(key_signature) == len(key_sig_makam)
+
+        # the sequence should be the same, allow a single comma deviation
+        # due to AEU theory and practice mismatch
+        for k1, k2 in zip(key_signature, key_sig_makam):
+            is_key_sig_valid = (is_key_sig_valid and
+                                cls._compare_accidentals(k1, k2))
+
+        if not is_key_sig_valid:
+            warnings.warn(u'{0!s}: Key signature is different! {1!s} -> {2!s}'.
+                          format(symbtr_name, ' '.join(key_signature),
+                                 ' '.join(key_sig_makam)), stacklevel=2)
+
+        return is_key_sig_valid
+
+    @staticmethod
+    def _compare_accidentals(acc1, acc2):
+        same_acc = True
+        if acc1 == acc2:  # same note
+            pass
+        elif acc1[:3] == acc2[:3]:  # same note symbol
+            if abs(int(acc1[3:]) - int(acc2[3:])) <= 1:  # 1 comma deviation
+                pass
+            else:  # more than one comma deviation
+                same_acc = False
+        else:  # different notes
+            same_acc = False
+
+        return same_acc
+
     @classmethod
     def validate_makam_form_usul(cls, data, score_name):
         is_valid_list = []
@@ -82,13 +125,6 @@ class SymbTr(object):
                 data, score_name, attr))
 
         return all(is_valid_list)
-
-    @staticmethod
-    def _get_attribute_key(attr_str, attr_type):
-        attr_dict = IO.load_music_data(attr_type)
-        for attr_key, attr_val in attr_dict.items():
-            if attr_val['symbtr_slug'] == attr_str:
-                return attr_key
 
     @classmethod
     def _validate_attributes(cls, data, score_name, attrib_name):
@@ -100,13 +136,13 @@ class SymbTr(object):
         slug_valid = cls._validate_slug(
             attrib_dict, score_attrib, score_name)
 
-        mu2_valid = cls.validate_mu2_attribute(
+        mu2_valid = cls._validate_mu2_attribute(
             score_attrib, attrib_dict, score_name)
 
-        mb_attr_valid = cls.validate_musicbrainz_attribute(
+        mb_attr_valid = cls._validate_musicbrainz_attribute(
             attrib_dict, score_attrib, score_name)
 
-        mb_tag_valid = cls.validate_musicbrainz_attribute_tag(
+        mb_tag_valid = cls._validate_musicbrainz_attribute_tag(
             attrib_dict, score_attrib, score_name)
 
         return all([slug_valid, mu2_valid, mb_attr_valid, mb_tag_valid])
@@ -124,7 +160,7 @@ class SymbTr(object):
         return True
 
     @classmethod
-    def validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
+    def _validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
 
         is_attr_valid = True
         if 'mu2_name' in score_attrib.keys():  # work
@@ -179,7 +215,7 @@ class SymbTr(object):
         return mu2_name, is_usul_valid
 
     @staticmethod
-    def validate_musicbrainz_attribute(attrib_dict, score_attrib, score_name):
+    def _validate_musicbrainz_attribute(attrib_dict, score_attrib, score_name):
         is_attribute_valid = True
         if 'mb_attribute' in score_attrib.keys():  # work
             skip_makam_slug = ['12212212', '22222221', '223', '232223', '262',
@@ -207,7 +243,7 @@ class SymbTr(object):
         return is_attribute_valid
 
     @staticmethod
-    def validate_musicbrainz_attribute_tag(
+    def _validate_musicbrainz_attribute_tag(
             attrib_dict, score_attrib, score_name):
         is_attribute_valid = True
         has_mb_tag = 'mb_tag' in score_attrib.keys()
@@ -219,42 +255,6 @@ class SymbTr(object):
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
         return is_attribute_valid
-
-    @classmethod
-    def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):
-        attr_dict = IO.load_music_data('makam')
-        key_sig_makam = attr_dict[makam_slug]['key_signature']
-
-        # the number of accidentals should be the same
-        is_key_sig_valid = len(key_signature) == len(key_sig_makam)
-
-        # the sequence should be the same, allow a single comma deviation
-        # due to AEU theory and practice mismatch
-        for k1, k2 in zip(key_signature, key_sig_makam):
-            is_key_sig_valid = (is_key_sig_valid and
-                                cls._compare_accidentals(k1, k2))
-
-        if not is_key_sig_valid:
-            warnings.warn(u'{0!s}: Key signature is different! {1!s} -> {2!s}'.
-                          format(symbtr_name, ' '.join(key_signature),
-                                 ' '.join(key_sig_makam)), stacklevel=2)
-
-        return is_key_sig_valid
-
-    @staticmethod
-    def _compare_accidentals(acc1, acc2):
-        same_acc = True
-        if acc1 == acc2:  # same note
-            pass
-        elif acc1[:3] == acc2[:3]:  # same note symbol
-            if abs(int(acc1[3:]) - int(acc2[3:])) <= 1:  # 1 comma deviation
-                pass
-            else:  # more than one comma deviation
-                same_acc = False
-        else:  # different notes
-            same_acc = False
-
-        return same_acc
 
     @staticmethod
     def _get_attribute(slug, attr_name):
