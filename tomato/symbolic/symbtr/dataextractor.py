@@ -152,7 +152,7 @@ class DataExtractor(DataMerger):
             symbtr_name = os.path.splitext(os.path.basename(score_file))[0]
 
         # get the symbtr
-        data, is_metadata_valid = MetadataExtractor.get_metadata(
+        data, is_metadata_valid = MetadataExtractor.from_musicbrainz(
             symbtr_name, mbid=mbid)
 
         # get the extension to determine the SymbTr-score format

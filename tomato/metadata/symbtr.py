@@ -32,7 +32,7 @@ from tomato.metadata.musicbrainz import MusicBrainz
 
 class SymbTr(object):
     @classmethod
-    def get_metadata(cls, score_name, mbid=None):
+    def from_musicbrainz(cls, score_name, mbid=None):
         data = MusicBrainz.crawl(mbid)
 
         data['symbtr'] = score_name
