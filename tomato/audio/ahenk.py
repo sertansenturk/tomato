@@ -25,6 +25,7 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import numpy as np
+
 from ..io import IO
 
 

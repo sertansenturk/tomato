@@ -28,12 +28,12 @@ import json
 import logging
 from copy import deepcopy
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 from ..audio.pitchdistribution import PitchDistribution
-from ..io import IO
 from ..converter import Converter
+from ..io import IO
 
 logger = logging.Logger(__name__, level=logging.INFO)
 

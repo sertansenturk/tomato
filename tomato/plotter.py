@@ -24,14 +24,14 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import logging
 import copy
+import logging
 
-import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib import gridspec
 from matplotlib.ticker import FixedLocator
-import numpy as np
 
 from .audio.seyir import Seyir as AudioSeyirAnalyzer
 

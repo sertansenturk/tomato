@@ -24,9 +24,10 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import numpy as np
-import matplotlib.pyplot as plt
 import copy
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class AlignedPitchFilter(object):

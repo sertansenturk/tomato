@@ -24,14 +24,15 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import tempfile
+import fnmatch
 import os
-import sys
 import pickle
 import re
 import subprocess
+import sys
+import tempfile
 import unicodedata
-import fnmatch
+
 from future.utils import raise_
 from json_tricks import np as json
 

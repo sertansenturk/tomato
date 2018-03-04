@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
-import os
 import copy
+import os
+
 from lxml import etree
+
 from .symbtrnote import Note
 from ...dataextractor import DataExtractor
 from ...reader.mu2 import Mu2

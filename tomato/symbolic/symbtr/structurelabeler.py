@@ -25,9 +25,11 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from copy import deepcopy
+
 import numpy as np
-from .scoreprocessor import ScoreProcessor
+
 from .graph import GraphOperations
+from .scoreprocessor import ScoreProcessor
 
 
 class StructureLabeler(object):

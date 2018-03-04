@@ -26,12 +26,13 @@
 # pages 119–122, Paris, France.
 
 from copy import deepcopy
-import numpy as np
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker
+import numpy as np
 
-from ..pitchfilter import PitchFilter
 from ..pitchdistribution import PitchDistribution
+from ..pitchfilter import PitchFilter
 from ...converter import Converter
 
 

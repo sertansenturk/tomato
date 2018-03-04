@@ -26,18 +26,18 @@
 
 import logging
 
-import musicbrainzngs as mb
 import eyed3
+import musicbrainzngs as mb
 
-from . attribute import Attribute
-from . work import Work as WorkMetadata
-from . instrumentation import Instrumentation
+from .attribute import Attribute
+from .instrumentation import Instrumentation
+from .work import Work as WorkMetadata
 from .. import __version__
 
 logger = logging.Logger(__name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
-mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
+mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
 # set logging to report on the error level
 try:  # handle different eyeD3 versions
@@ -61,9 +61,8 @@ class Recording(object):
             audio_meta['mbid'])
 
         meta = mb.get_recording_by_id(
-            audio_meta['mbid'], includes=['artists', 'artist-rels',
-                                          'releases', 'tags',
-                                          'work-rels'])['recording']
+            audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases',
+                                          'tags', 'work-rels'])['recording']
         audio_meta['title'] = meta['title']
 
         # releases

@@ -25,8 +25,10 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+
 import musicbrainzngs
 from six.moves.urllib.parse import urlparse
+
 from tomato.metadata.recording import Recording as RecordingMetadata
 from tomato.metadata.work import Work as WorkMetadata
 

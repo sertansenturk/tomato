@@ -43,9 +43,9 @@ from .pitchdistribution import PitchDistribution
 from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
 from .seyir import Seyir
-from ..metadata.recording import Recording as RecordingMetadata
 from ..analyzer import Analyzer
 from ..io import IO
+from ..metadata.recording import Recording as RecordingMetadata
 from ..plotter import Plotter
 
 logger = logging.Logger(__name__, level=logging.INFO)

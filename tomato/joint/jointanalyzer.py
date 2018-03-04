@@ -25,20 +25,20 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import json
+import logging
 import tempfile
-from copy import deepcopy
 import timeit
 import warnings
-import logging
+from copy import deepcopy
+
 from scipy.io import savemat
 from six import BytesIO
 
-from .alignedpitchfilter import AlignedPitchFilter
 from .alignednotemodel import AlignedNoteModel
-
+from .alignedpitchfilter import AlignedPitchFilter
+from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
-from ..analyzer import Analyzer
 from ..plotter import Plotter
 
 logger = logging.Logger(__name__, level=logging.INFO)

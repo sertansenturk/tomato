@@ -1,8 +1,10 @@
 # coding=utf-8
 from __future__ import unicode_literals, division
-from .musicxmlreader import MusicXMLReader
+
 import os
 import sqlite3
+
+from .musicxmlreader import MusicXMLReader
 
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
 

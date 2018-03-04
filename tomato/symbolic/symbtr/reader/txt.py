@@ -26,6 +26,7 @@
 
 import csv
 import warnings
+
 from .symbtr import SymbTrReader
 
 

@@ -26,16 +26,15 @@
 
 import json
 import os
-import warnings
 import timeit
+import warnings
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2
-
-from ..metadata.work import Work as WorkMetadata
+from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
-from ..analyzer import Analyzer
+from ..metadata.work import Work as WorkMetadata
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()

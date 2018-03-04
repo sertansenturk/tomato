@@ -27,18 +27,17 @@
 
 from __future__ import division
 
-import json
 import copy
-import numbers
+import json
 import logging
-
-import numpy as np
-import scipy.stats
-import scipy.integrate
-import matplotlib.pyplot as plt
+import numbers
 
 import essentia
 import essentia.standard as std
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.integrate
+import scipy.stats
 
 from ..converter import Converter
 from ..io import IO

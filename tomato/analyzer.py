@@ -24,11 +24,11 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from abc import ABCMeta, abstractmethod, abstractproperty
 import logging
 import warnings
-from .io import IO
+from abc import ABCMeta, abstractmethod, abstractproperty
 
+from .io import IO
 
 logger = logging.Logger(__name__, level=logging.INFO)
 

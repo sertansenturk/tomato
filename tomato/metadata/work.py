@@ -26,13 +26,15 @@
 
 import json
 import warnings
-from six.moves.urllib.request import urlopen
-from . attribute import Attribute
-from ..io import IO
-from .. import __version__
 
 import musicbrainzngs as mb
-mb.set_useragent("tomato_toolbox", __version__, "compmusic.upf.edu")
+from six.moves.urllib.request import urlopen
+
+from .attribute import Attribute
+from .. import __version__
+from ..io import IO
+
+mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
 
 class Work(object):

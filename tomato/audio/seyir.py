@@ -25,10 +25,11 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 
-import numpy as np
-import matplotlib.pyplot as plt
-import json
 import copy
+import json
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 from .pitchdistribution import PitchDistribution
 from ..converter import Converter

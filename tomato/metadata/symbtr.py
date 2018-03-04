@@ -26,8 +26,8 @@
 
 import warnings
 
-from tomato.metadata.musicbrainz import MusicBrainz
 from tomato.io import IO
+from tomato.metadata.musicbrainz import MusicBrainz
 
 
 class SymbTr(object):
