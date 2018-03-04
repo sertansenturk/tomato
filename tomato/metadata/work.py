@@ -176,6 +176,7 @@ class Work(object):
                 if attrname.title() in a['attribute']]
         data[attrname] = [
             {'mb_attribute': m,
-             'attribute_key': Attribute.get_attr_key_from_mb_attr(m, attrname),
+             'attribute_key': Attribute.get_key_from_musicbrainz_attribute(
+                 m, attrname),
              'source': 'http://musicbrainz.org/work/' + mbid}
             for m in attr]

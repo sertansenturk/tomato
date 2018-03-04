@@ -106,7 +106,7 @@ class Recording(object):
 
     @staticmethod
     def _get_recording_attribute_tags(audio_meta, meta):
-        attributetags = Attribute.get_attrib_tags(meta)
+        attributetags = Attribute.get_attribute_tags(meta)
         for key, vals in attributetags.items():
             for val in vals:  # add the source
                 val['source'] = 'http://musicbrainz.org/recording/{}'.format(
