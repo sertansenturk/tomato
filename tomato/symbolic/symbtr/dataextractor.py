@@ -57,8 +57,7 @@ class DataExtractor(DataMerger):
 
     def __init__(self, lyrics_sim_thres=0.7, melody_sim_thres=0.7,
                  save_structure_sim=True, extract_all_labels=False,
-                 crop_consec_bounds=True, get_recording_rels=False,
-                 print_warnings=True):
+                 crop_consec_bounds=True, print_warnings=True):
         """
         Class constructor
 
@@ -81,20 +80,11 @@ class DataExtractor(DataMerger):
             True to remove the first of the two consecutive boundaries inside
             user given segmentation boundaries, False otherwise. (the
             default is True)
-        get_recording_rels : bool, optional
-            True to query the recording relations related to the score from
-            MusicBrainz False otherwise. When calling the extract method the
-            relevant (work) MBID should be supplied. If the supplied MBID
-            belongs to a recording, this flag will not provide to extra
-            information, since the recording symbtr will be crawled anyways.
-            (the default is False)
         print_warnings : bool, optional
             True to display warnings, False otherwise. Note that the errors
             and the inconsistencies in the scores will be always displayed
             (the default is True)
         """
-        self._metadata_extractor = MetadataExtractor()
-
         self._section_extractor = SectionExtractor(
             lyrics_sim_thres=lyrics_sim_thres,
             melody_sim_thres=melody_sim_thres,
@@ -162,7 +152,7 @@ class DataExtractor(DataMerger):
             symbtr_name = os.path.splitext(os.path.basename(score_file))[0]
 
         # get the symbtr
-        data, is_metadata_valid = self._metadata_extractor.get_metadata(
+        data, is_metadata_valid = MetadataExtractor.get_metadata(
             symbtr_name, mbid=mbid)
 
         # get the extension to determine the SymbTr-score format
@@ -266,15 +256,6 @@ class DataExtractor(DataMerger):
     def print_warnings(self, value):
         self._chk_bool(value)
         self._section_extractor.print_warnings = value
-
-    @property
-    def get_recording_rels(self):
-        return self._metadata_extractor.get_recording_rels
-
-    @get_recording_rels.setter
-    def get_recording_rels(self, value):
-        self._chk_bool(value)
-        self._metadata_extractor.get_recording_rels = value
 
     @property
     def crop_consecutive_bounds(self):

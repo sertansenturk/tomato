@@ -31,15 +31,15 @@ from ...io import IO
 
 
 class MetadataExtractor(object):
-
-    def get_metadata(self, scorename, mbid=None):
+    @classmethod
+    def get_metadata(cls, scorename, mbid=None):
         data = MusicBrainz.crawl_musicbrainz(mbid)
 
         data['symbtr'] = scorename
 
         slugs = MetadataExtractor.get_slugs(scorename)
         for attr in ['makam', 'form', 'usul']:
-            self.add_attribute_slug(data, slugs, attr)
+            cls.add_attribute_slug(data, slugs, attr)
 
         if 'work' in data.keys():
             data['work']['symbtr_slug'] = slugs['name']
@@ -50,10 +50,10 @@ class MetadataExtractor(object):
             data['composer']['symbtr_slug'] = slugs['composer']
 
         # get and validate the attributes
-        is_attr_meta_valid = self.validate_makam_form_usul(data, scorename)
+        is_attr_meta_valid = cls.validate_makam_form_usul(data, scorename)
 
         # get the tonic
-        makam = self._get_attribute(data['makam']['symbtr_slug'], 'makam')
+        makam = cls._get_attribute(data['makam']['symbtr_slug'], 'makam')
         data['tonic'] = makam['karar_symbol']
 
         return data, is_attr_meta_valid
