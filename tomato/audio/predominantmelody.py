@@ -61,6 +61,7 @@ class PredominantMelody(object):
         self.sample_rate = 44100
 
     def get_settings(self):
+        from essentia import __version__ as essentia_version
         citation = u"Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
                    u"and Serra, X. (2014). Audio feature extraction for " \
                    u"exploring Turkish makam music. In Proceedings of 3rd " \
