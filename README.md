@@ -180,7 +180,7 @@ We would like to thank [Harold Hagopian](https://en.wikipedia.org/wiki/Harold_Ha
 
 <a name="references"></a>References
 -------
-_The toolbox has been realzied as part of the thesis:_
+_The toolbox has been realized as part of the thesis:_
 
 [1] Şentürk, S. (2016). Computational Analysis of Audio Recordings and Music Scores for the Description and Discovery of Ottoman-Turkish Makam Music. Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.  
 
