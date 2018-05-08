@@ -218,7 +218,7 @@ __Score-Informed Audio Tempo Estimation__
 __Audio-Score Section Linking__  
 [13] Şentürk, S., Holzapfel, A., and Serra, X. (2014). Linking scores and audio recordings in makam music of Turkey. Journal of New Music Research, 43:34–52.
 
-__Note-Level Audio-Score Aligmnet__  
+__Note-Level Audio-Score Aligment__  
 [14] Şentürk, S., Gulati, S., and Serra, X. (2014). Towards alignment of score and audio recordings of Ottoman-Turkish makam music. In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), pages 57–60, Istanbul, Turkey.
 
 __Score-Informed Audio Predominant Melody Correction; Note Modeling__  
