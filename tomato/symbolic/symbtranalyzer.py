@@ -31,17 +31,25 @@ import warnings
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2
+from .symbtr.reader.txt import TxtReader
+from .symbtr.section import SectionExtractor
+from .symbtr.segment import SegmentExtractor
+from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.work import Work as WorkMetadata
+from ..metadata.symbtr import SymbTr as SymbTrMetadata
+from ..metadata.musicbrainz import MusicBrainz
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()
 
 
 class SymbTrAnalyzer(Analyzer):
-    _inputs = ['boundaries', 'mbid', 'score_features']
+    _inputs = ['mbid', 'metadata', 'sections', 'phrase_annotations',
+               'segment_boundaries', 'segments', 'rhythmic_structure',
+               'score', 'is_data_valid']
 
     def __init__(self, verbose=False):
         super(SymbTrAnalyzer, self).__init__(verbose=verbose)
@@ -49,9 +57,12 @@ class SymbTrAnalyzer(Analyzer):
         # extractors
         self._data_extractor = DataExtractor(print_warnings=verbose)
         self._phrase_segmenter = _mcr_caller.get_mcr_binary_path('phraseSeg')
+        self._section_extractor = SectionExtractor()
+        self._segment_extractor = SegmentExtractor()
 
-    def analyze(self, txt_filepath, mu2_filepath, symbtr_name=None, **kwargs):
-        input_f = self._parse_inputs(**kwargs)
+    def analyze(self, txt_filepath, mu2_filepath=None, symbtr_name=None,
+                **kwargs):
+        score_data = self._parse_inputs(**kwargs)
         txt_filepath = IO.make_unicode(txt_filepath)
         mu2_filepath = IO.make_unicode(mu2_filepath)
 
@@ -59,52 +70,73 @@ class SymbTrAnalyzer(Analyzer):
         if symbtr_name is None:
             symbtr_name = os.path.splitext(os.path.basename(txt_filepath))[0]
 
-        # Automatic phrase segmentation on the SymbTr-txt score
-        input_f['boundaries'] = self._partial_caller(
-            input_f['boundaries'], self.segment_phrase, txt_filepath,
-            symbtr_name=symbtr_name)
-        if input_f['boundaries'] is None:
-            input_f['boundaries'] = {'boundary_beat': None,
-                                     'boundary_note_idx': None}
-
         # get relevant recording or work mbid
         # Note: very rare but there can be more that one mbid returned.
         #       We are going to use the first mbid to fetch the symbtr
         # TODO: use all mbids
-        input_f['mbid'] = self._partial_caller(
-            input_f['mbid'], WorkMetadata.get_mbids_from_symbtr_name,
+        score_data['mbid'] = self._partial_caller(
+            score_data['mbid'], WorkMetadata.get_mbids_from_symbtr_name,
             symbtr_name)
-        input_f['mbid'] = self._partial_caller(None, self._get_first,
-                                               input_f['mbid'])
+        score_data['mbid'] = self._partial_caller(None, self._get_first,
+                                               score_data['mbid'])
 
-        # Extract the (meta)data from the SymbTr scores. Here the results from
-        # the previous steps are also summarized.
-        self._partial_call_extract_data(input_f, txt_filepath, mu2_filepath,
-                                        symbtr_name)
+        # read the txt score
+        score_data['score'], is_score_content_valid = TxtReader.read(
+            txt_filepath, symbtr_name=symbtr_name)
 
-        return (input_f['score_features'], input_f['boundaries'],
-                input_f['mbid'])
+        # get the symbtr metadata
+        score_data['metadata'] = self._partial_caller(
+            score_data['metadata'], MusicBrainz.crawl, score_data['mbid'])
 
-    def _partial_call_extract_data(self, features, txt_filepath, mu2_filepath,
-                                   symbtr_name):
-        # If MusicBrainz is not available, crawling will be skipped by the
-        # symbtr package
-        score_data = self._partial_caller(
-            features['score_features'], self.extract_data, txt_filepath,
-            mu2_filepath, symbtr_name=symbtr_name, mbid=features['mbid'],
-            segment_note_bound_idx=features['boundaries'][
-                'boundary_note_idx'])
+        score_data['metadata'], is_metadata_valid = \
+            SymbTrMetadata.parse_symbtr_metadata(
+                score_data['metadata'], symbtr_name)
 
-        # validate
-        if score_data is not None:
-            score_features, is_valid = score_data
-            if not is_valid:
-                warnings.warn(u'{0:s} has validation problems.'.format(
-                    symbtr_name), stacklevel=2)
-        else:
-            score_features, is_valid = [None, None]
+        score_data['metadata']['duration'] = {
+            'value': sum(score_data['score']['duration']) * 0.001,
+            'unit': 'second'}
+        score_data['metadata']['number_of_notes'] = len(
+            score_data['score']['duration'])
 
-        features['score_features'] = score_features
+        if mu2_filepath is not None:
+            mu2_header, header_row, is_mu2_header_valid = \
+                Mu2.read_header(mu2_filepath, symbtr_name=symbtr_name)
+
+            score_data['metadata'] = DataExtractor.merge(
+                score_data['metadata'], mu2_header)
+
+        # sections
+        score_data['sections'], is_section_data_valid = \
+            self._section_extractor.from_txt_score(score_data['score'],
+                                                   symbtr_name)
+
+        # annotated phrases
+        anno_phrases = self._segment_extractor.extract_phrases(
+            score_data['score'], sections=score_data['sections'])
+        score_data['phrase_annotations'] = anno_phrases
+
+        # Automatic phrase segmentation on the SymbTr-txt score
+        score_data['segment_boundaries'] = self._partial_caller(
+            score_data['segment_boundaries'], self.segment_phrase, txt_filepath,
+            symbtr_name=symbtr_name)
+        if score_data['segment_boundaries'] is None:
+            score_data['segment_boundaries'] = {'boundary_beat': None,
+                                             'boundary_note_idx': None}
+
+        score_data['segments'] = self._segment_extractor.extract_segments(
+            score_data['score'],
+            score_data['segment_boundaries']['boundary_note_idx'],
+            sections=score_data['sections'])
+
+        # rhythmic structure
+        score_data['rhythmic_structure'] = \
+            RhythmicFeatureExtractor.extract_rhythmic_structure(
+                score_data['score'])
+
+        score_data['is_data_valid'] = all(
+            [is_metadata_valid, is_section_data_valid, is_score_content_valid])
+
+        return score_data
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
@@ -161,42 +193,6 @@ class SymbTrAnalyzer(Analyzer):
 
         return bound_stat_file, fld_model_file
 
-    def extract_data(self, txt_filename, mu2_filename, symbtr_name=None,
-                     mbid=None, segment_note_bound_idx=None):
-
-        # SymbTr-txt file
-        tic = timeit.default_timer()
-        txt_filename = IO.make_unicode(txt_filename)
-        mu2_filename = IO.make_unicode(mu2_filename)
-        self.vprint(u"- Extracting (meta)data from the SymbTr-txt file: {0:s}"
-                    .format(txt_filename))
-
-        txt_data, is_txt_valid = self._data_extractor.extract(
-            txt_filename, symbtr_name=symbtr_name, mbid=mbid,
-            segment_note_bound_idx=segment_note_bound_idx)
-
-        # print elapsed time, if verbose
-        self.vprint_time(tic, timeit.default_timer())
-
-        # SymbTr-txt file
-        tic2 = timeit.default_timer()
-        self.vprint(u"- Extracting metadata from the SymbTr-mu2 file: {0:s}"
-                    .format(mu2_filename))
-
-        mu2_header, header_row, is_mu2_header_valid = \
-            Mu2.read_header(mu2_filename, symbtr_name=symbtr_name)
-
-        score_features = DataExtractor.merge(txt_data, mu2_header)
-        is_data_valid = {'is_all_valid': (is_mu2_header_valid and
-                                          is_txt_valid),
-                         'is_txt_valid': is_txt_valid,
-                         'is_mu2_header_valid': is_mu2_header_valid}
-
-        # print elapsed time, if verbose
-        self.vprint_time(tic2, timeit.default_timer())
-
-        return score_features, is_data_valid
-
     # plot
     @staticmethod
     def plot(score_features):
@@ -205,3 +201,10 @@ class SymbTrAnalyzer(Analyzer):
     # setters
     def set_data_extractor_params(self, **kwargs):
         self._set_params('_data_extractor', **kwargs)
+
+    # setters
+    def set_section_extractor_params(self, **kwargs):
+        self._set_params('_section_extractor', **kwargs)
+
+    def set_segment_extractor_params(self, **kwargs):
+        self._set_params('_segment_extractor', **kwargs)

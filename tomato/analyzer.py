@@ -78,7 +78,7 @@ class Analyzer(object):
         for feature, val in kwargs.items():
             if feature not in self._inputs:
                 warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
-                           u'but it will not be used in the audio analysis.' \
+                           u'but will not be used in the analysis.' \
                            u''.format(feature)
                 warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
@@ -94,7 +94,7 @@ class Analyzer(object):
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,
                     TypeError, AttributeError):
-                logger.warning('{0:s} failed.'.format(func.__name__))
+                logger.exception('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
             return flag

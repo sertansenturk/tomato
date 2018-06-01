@@ -58,6 +58,31 @@ class SymbTr(object):
 
         return data, is_attr_meta_valid
 
+    @classmethod
+    def parse_symbtr_metadata(cls, metadata, score_name):
+        metadata['symbtr'] = score_name
+
+        slugs = cls.get_slugs(score_name)
+        for attr in ['makam', 'form', 'usul']:
+            cls.add_attribute_slug(metadata, slugs, attr)
+
+        if 'work' in metadata.keys():
+            metadata['work']['symbtr_slug'] = slugs['name']
+        elif 'recording' in metadata.keys():
+            metadata['recording']['symbtr_slug'] = slugs['name']
+
+        if 'composer' in metadata.keys():
+            metadata['composer']['symbtr_slug'] = slugs['composer']
+
+        # get and validate the attributes
+        is_attr_meta_valid = cls.validate_makam_form_usul(metadata, score_name)
+
+        # get the tonic
+        makam = cls._get_attribute(metadata['makam']['symbtr_slug'], 'makam')
+        metadata['tonic'] = makam['karar_symbol']
+
+        return metadata, is_attr_meta_valid
+
     @staticmethod
     def get_slugs(symbtr_name):
         split = symbtr_name.split('--')
