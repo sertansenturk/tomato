@@ -27,7 +27,6 @@
 import json
 import os
 import timeit
-import warnings
 
 from .symbtr.dataextractor import DataExtractor
 from .symbtr.reader.mu2 import Mu2
