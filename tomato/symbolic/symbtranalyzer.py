@@ -76,8 +76,8 @@ class SymbTrAnalyzer(Analyzer):
         score_data['mbid'] = self._partial_caller(
             score_data['mbid'], WorkMetadata.get_mbids_from_symbtr_name,
             symbtr_name)
-        score_data['mbid'] = self._partial_caller(None, self._get_first,
-                                               score_data['mbid'])
+        score_data['mbid'] = self._partial_caller(
+            None, self._get_first, score_data['mbid'])
 
         # read the txt score
         score_data['score'], is_score_content_valid = TxtReader.read(
@@ -116,11 +116,11 @@ class SymbTrAnalyzer(Analyzer):
 
         # Automatic phrase segmentation on the SymbTr-txt score
         score_data['segment_boundaries'] = self._partial_caller(
-            score_data['segment_boundaries'], self.segment_phrase, txt_filepath,
-            symbtr_name=symbtr_name)
+            score_data['segment_boundaries'], self.segment_phrase,
+            txt_filepath, symbtr_name=symbtr_name)
         if score_data['segment_boundaries'] is None:
             score_data['segment_boundaries'] = {'boundary_beat': None,
-                                             'boundary_note_idx': None}
+                                                'boundary_note_idx': None}
 
         score_data['segments'] = self._segment_extractor.extract_segments(
             score_data['score'],
