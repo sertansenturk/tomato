@@ -38,7 +38,7 @@ from .symbtr.reader.symbtr import SymbTrReader
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.musicbrainz import MusicBrainz
-from ..metadata.work import Work as WorkMetadata
+from ..metadata.symbtr import SymbTr as SymbTrMetadata
 
 _bin_caller = BinCaller()
 
@@ -163,7 +163,7 @@ class SymbTrConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = WorkMetadata.get_mbids_from_symbtr_name(
+                mbid_url = SymbTrMetadata.get_mbids_from_symbtr_name(
                     symbtr_name)[0]
             except IndexError:
                 mbid_url = None

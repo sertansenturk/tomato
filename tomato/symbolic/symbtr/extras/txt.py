@@ -168,12 +168,12 @@ class Txt(object):
         else:
             if not df.iloc[0]["LNS"] == usul_row.iloc[0]["LNS"]:
                 print(u"{0:s} starts with a different usul row. Correcting...".
-                      format(data['symbtr']).encode('utf-8'))
+                      format(data['symbtr_name']).encode('utf-8'))
                 df_usul = pd.concat(
                     [usul_row, df.ix[1:]], ignore_index=True)[cls.symbtr_cols]
             else:
                 print(u"{0:s} starts with the usul row. Skipping...".format(
-                    data['symbtr']).encode('utf-8'))
+                    data['symbtr_name']).encode('utf-8'))
                 df_usul = df
 
         return df_usul.to_csv(None, sep=b'\t', index=False, encoding='utf-8')

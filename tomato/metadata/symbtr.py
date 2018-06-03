@@ -25,38 +25,42 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+import json
 
-from tomato.io import IO
-from tomato.metadata.musicbrainz import MusicBrainz
+from six.moves.urllib.request import urlopen
+
+from ..io import IO
+from .musicbrainz import MusicBrainz
 
 
 class SymbTr(object):
     @classmethod
     def from_musicbrainz(cls, score_name, mbid=None):
-        data = MusicBrainz.crawl(mbid)
+        metadata = MusicBrainz.crawl(mbid)
 
-        data['symbtr'] = score_name
+        # assign score name
+        metadata['symbtr_name'] = score_name
 
         slugs = cls.get_slugs(score_name)
         for attr in ['makam', 'form', 'usul']:
-            cls.add_attribute_slug(data, slugs, attr)
+            cls.add_attribute_slug(metadata, slugs, attr)
 
-        if 'work' in data.keys():
-            data['work']['symbtr_slug'] = slugs['name']
-        elif 'recording' in data.keys():
-            data['recording']['symbtr_slug'] = slugs['name']
+        if 'work' in metadata.keys():
+            metadata['work']['symbtr_slug'] = slugs['name']
+        elif 'recording' in metadata.keys():
+            metadata['recording']['symbtr_slug'] = slugs['name']
 
-        if 'composer' in data.keys():
-            data['composer']['symbtr_slug'] = slugs['composer']
+        if 'composer' in metadata.keys():
+            metadata['composer']['symbtr_slug'] = slugs['composer']
 
         # get and validate the attributes
-        is_attr_meta_valid = cls.validate_makam_form_usul(data, score_name)
+        is_attr_meta_valid = cls.validate_makam_form_usul(metadata, score_name)
 
         # get the tonic
-        makam = cls._get_attribute(data['makam']['symbtr_slug'], 'makam')
-        data['tonic'] = makam['karar_symbol']
+        makam = cls._get_attribute(metadata['makam']['symbtr_slug'], 'makam')
+        metadata['tonic'] = makam['karar_symbol']
 
-        return data, is_attr_meta_valid
+        return metadata, is_attr_meta_valid
 
     @staticmethod
     def get_slugs(symbtr_name):
@@ -266,3 +270,37 @@ class SymbTr(object):
 
         # no match
         return {}
+
+    @classmethod
+    def get_mbids_from_symbtr_name(cls, symbtr_name):
+        mbids = []  # extremely rare but there can be more than one mbid
+        for e in cls._read_symbtr_mbid_dict():
+            if e['name'] == symbtr_name:
+                mbids.append(e['uuid'])
+        if not mbids:
+            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
+                          RuntimeWarning, )
+        return mbids
+
+    @classmethod
+    def get_symbtr_names_from_mbid(cls, mbid):
+        score_work = cls._read_symbtr_mbid_dict()
+        symbtr_names = []
+        for sw in score_work:
+            if mbid in sw['uuid']:
+                symbtr_names.append(sw['name'])
+
+        return symbtr_names
+
+    @staticmethod
+    def _read_symbtr_mbid_dict():
+        try:
+            url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
+                  "symbTr_mbid.json"
+            response = urlopen(url)
+            return json.loads(response.read())
+        except IOError:  # load local backup
+            warnings.warn("Cannot reach github to read the latest "
+                          "symbtr_mbid.json. Using the back-up "
+                          "symbTr_mbid.json included in this repository.")
+            return IO.load_music_data('symbTr_mbid')

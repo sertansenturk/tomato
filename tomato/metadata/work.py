@@ -24,15 +24,12 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import json
 import warnings
 
 import musicbrainzngs as mb
-from six.moves.urllib.request import urlopen
 
-from .attribute import Attribute
-from .. import __version__
 from ..io import IO
+from .. import __version__
 
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
@@ -45,140 +42,114 @@ class Work(object):
                          if get_recording_rels else ['artist-rels'])
         work = mb.get_work_by_id(mbid, includes=included_rels)['work']
 
-        data = {'makam': [], 'form': [], 'usul': [], 'title': work['title'],
-                'mbid': mbid, 'composer': dict(), 'lyricist': dict(),
-                'url': 'http://musicbrainz.org/work/' + mbid, 'language': ''}
+        metadata = {
+            'makam': [], 'form': [], 'usul': [], 'title': work['title'],
+            'mbid': mbid, 'composer': dict(), 'lyricist': dict(),
+            'url': 'http://musicbrainz.org/work/' + mbid, 'language': ''}
 
         # assign makam, form, usul attributes to data
-        cls._assign_makam_form_usul(data, mbid, work)
+        cls._assign_makam_form_usul(metadata, mbid, work)
 
         # language
-        cls._assign_language(data, work)
+        cls._assign_language(metadata, work)
 
         # composer and lyricist
-        cls._assign_composer_lyricist(data, work)
+        cls._assign_composer_lyricist(metadata, work)
 
         # add recordings
-        cls._assign_recordings(data, work)
-
-        # add scores
-        cls._add_symbtr_names(data, mbid)
+        cls._assign_recordings(metadata, work)
 
         # warnings
-        cls._check_warnings(data, print_warnings)
+        cls._check_warnings(metadata, print_warnings)
 
-        return data
-
-    @classmethod
-    def _add_symbtr_names(cls, data, mbid):
-        score_work = cls._read_symbtr_mbid_dict()
-        data['scores'] = []
-        for sw in score_work:
-            if mbid in sw['uuid']:
-                data['scores'].append(sw['name'])
+        return metadata
 
     @classmethod
-    def get_mbids_from_symbtr_name(cls, symbtr_name):
-        mbids = []  # extremely rare but there can be more than one mbid
-        for e in cls._read_symbtr_mbid_dict():
-            if e['name'] == symbtr_name:
-                mbids.append(e['uuid'])
-        if not mbids:
-            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
-                          RuntimeWarning, )
-        return mbids
-
-    @staticmethod
-    def _read_symbtr_mbid_dict():
-        try:
-            url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
-                  "symbTr_mbid.json"
-            response = urlopen(url)
-            return json.loads(response.read())
-        except IOError:  # load local backup
-            warnings.warn("symbTr_mbid.json is not found in the local "
-                          "search path. Using the back-up "
-                          "symbTr_mbid.json included in this repository.")
-            return IO.load_music_data('symbTr_mbid')
-
-    @classmethod
-    def _check_warnings(cls, data, print_warnings=None):
+    def _check_warnings(cls, metadata, print_warnings=None):
         if print_warnings:
-            cls._data_key_exists(data, dkey='makam')
-            cls._data_key_exists(data, dkey='form')
-            cls._data_key_exists(data, dkey='usul')
-            cls._data_key_exists(data, dkey='composer')
+            cls._data_key_exists(metadata, dkey='makam')
+            cls._data_key_exists(metadata, dkey='form')
+            cls._data_key_exists(metadata, dkey='usul')
+            cls._data_key_exists(metadata, dkey='composer')
 
-            if 'language' in data.keys():  # language entered to MusicBrainz
-                cls._check_lyricist(data)
+            if 'language' in metadata.keys():  # language in MusicBrainz
+                cls._check_lyricist(metadata)
             else:  # no lyrics information in MusicBrainz
-                cls._check_language(data)
+                cls._check_language(metadata)
 
     @staticmethod
-    def _check_language(data):
-        if data['lyricist']:  # lyricist available
-            warnings.warn(u'http://musicbrainz.org/work/{0:s} Language of the '
-                          u'vocal work is not entered!'.format(data['mbid']),
-                          stacklevel=2)
+    def _check_language(metadata):
+        if metadata['lyricist']:  # lyricist available
+            warnings.warn(
+                u'http://musicbrainz.org/work/{0:s} Language of the vocal '
+                u'work is not entered!'.format(metadata['mbid']), stacklevel=2)
         else:
             warnings.warn(u'http://musicbrainz.org/work/{0:s} Language is not '
-                          u'entered!'.format(data['mbid']), stacklevel=2)
+                          u'entered!'.format(metadata['mbid']), stacklevel=2)
 
     @staticmethod
-    def _check_lyricist(data):
-        if data['language'] == "zxx":  # no lyrics
-            if data['lyricist']:
+    def _check_lyricist(metadata):
+        if metadata['language'] == "zxx":  # no lyrics
+            if metadata['lyricist']:
                 warnings.warn(u'http://musicbrainz.org/work/{0:s} Lyricist is '
                               u'entered to the instrumental work!'.
-                              format(data['mbid']), stacklevel=2)
+                              format(metadata['mbid']), stacklevel=2)
         else:  # has lyrics
-            if not data['lyricist']:
+            if not metadata['lyricist']:
                 warnings.warn(u'http://musicbrainz.org/work/{0:s} Lyricist is '
-                              u'not entered!'.format(data['mbid']),
+                              u'not entered!'.format(metadata['mbid']),
                               stacklevel=2)
 
     @staticmethod
-    def _data_key_exists(data, dkey):
-        if not data[dkey]:
+    def _data_key_exists(metadata, dkey):
+        if not metadata[dkey]:
             warnings.warn(u'http://musicbrainz.org/work/{0:s} {1:s} is not '
-                          u'entered!'.format(data['mbid'], dkey.title()),
+                          u'entered!'.format(metadata['mbid'], dkey.title()),
                           stacklevel=2)
 
     @staticmethod
-    def _assign_recordings(data, work):
-        data['recordings'] = []
+    def _assign_recordings(metadata, work):
+        metadata['recordings'] = []
         if 'recording-relation-list' in work.keys():
             for r in work['recording-relation-list']:
-                data['recordings'].append({'mbid': r['recording']['id'],
-                                           'title': r['recording']['title']})
+                metadata['recordings'].append(
+                    {'mbid': r['recording']['id'],
+                     'title': r['recording']['title']})
 
     @staticmethod
-    def _assign_composer_lyricist(data, work):
+    def _assign_composer_lyricist(metadata, work):
         if 'artist-relation-list' in work.keys():
             for a in work['artist-relation-list']:
                 if a['type'] in ['composer', 'lyricist']:
-                    data[a['type']] = {'name': a['artist']['name'],
-                                       'mbid': a['artist']['id']}
+                    metadata[a['type']] = {'name': a['artist']['name'],
+                                           'mbid': a['artist']['id']}
 
     @staticmethod
-    def _assign_language(data, work):
+    def _assign_language(metadata, work):
         if 'language' in work.keys():
-            data['language'] = work['language']
+            metadata['language'] = work['language']
 
     @classmethod
-    def _assign_makam_form_usul(cls, data, mbid, work):
+    def _assign_makam_form_usul(cls, metadata, mbid, work):
         if 'attribute-list' in work.keys():
             w_attrb = work['attribute-list']
             for attr_name in ['makam', 'form', 'usul']:
-                cls._assign_attribute(data, mbid, w_attrb, attr_name)
+                cls._assign_attribute(metadata, mbid, w_attrb, attr_name)
 
-    @staticmethod
-    def _assign_attribute(data, mbid, w_attrb, attrname):
+    @classmethod
+    def _assign_attribute(cls, metadata, mbid, w_attrb, attrname):
         attr = [a['value'] for a in w_attrb
                 if attrname.title() in a['attribute']]
-        data[attrname] = [
+        metadata[attrname] = [
             {'mb_attribute': m,
-             'attribute_key': Attribute.get_key_from_musicbrainz_attribute(
+             'attribute_key': cls._get_key_from_musicbrainz_attribute(
                  m, attrname),
              'source': 'http://musicbrainz.org/work/' + mbid}
             for m in attr]
+
+    @staticmethod
+    def _get_key_from_musicbrainz_attribute(attr_str, attr_type):
+        attr_dict = IO.load_music_data(attr_type)
+        for attr_key, attr_val in attr_dict.items():
+            if attr_val['dunya_name'] == attr_str:
+                return attr_key
