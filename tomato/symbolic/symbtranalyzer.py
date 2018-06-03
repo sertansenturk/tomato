@@ -39,7 +39,6 @@ from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.work import Work as WorkMetadata
 from ..metadata.symbtr import SymbTr as SymbTrMetadata
-from ..metadata.musicbrainz import MusicBrainz
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()
