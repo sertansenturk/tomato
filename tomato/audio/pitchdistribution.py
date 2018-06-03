@@ -34,7 +34,6 @@ import numbers
 
 import essentia
 import essentia.standard as std
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate
 import scipy.stats
@@ -419,17 +418,23 @@ class PitchDistribution(object):
             self.normalize()
 
     def plot(self):
+        import matplotlib.pyplot as plt
+
         plt.plot(self.bins, self.vals)
-        self.label_figure()
+        self._label_figure()
 
     def bar(self):
+        import matplotlib.pyplot as plt
+
         bars = plt.bar(self.bins, self.vals, width=self.step_size,
                        align='center')
-        self.label_figure()
+        self._label_figure()
 
         return bars
 
-    def label_figure(self):
+    def _label_figure(self):
+        import matplotlib.pyplot as plt
+
         if self.is_pcd():
             plt.title('Pitch class distribution')
             ref_freq_str = 'Hz x 2^n'

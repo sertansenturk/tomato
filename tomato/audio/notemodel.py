@@ -26,8 +26,6 @@
 
 from copy import deepcopy
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker
 import numpy as np
 
 from .makamtonic.toniclastnote import TonicLastNote
@@ -192,6 +190,9 @@ class NoteModel(object):
 
     @staticmethod
     def plot(pitch_distribution, stable_notes):
+        import matplotlib.pyplot as plt
+        import matplotlib.ticker
+
         fig, ax = plt.subplots()
         plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
                             wspace=0, hspace=0.4)

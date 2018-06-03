@@ -28,7 +28,6 @@
 import copy
 import json
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 from .pitchdistribution import PitchDistribution
@@ -169,6 +168,7 @@ class Seyir(object):
     @staticmethod
     def plot(seyir_features, ax=None, plot_average_pitch=True,
              plot_stable_pitches=True, plot_distribution=False):
+        import matplotlib.pyplot as plt
 
         if ax is None:
             fig, ax = plt.subplots()

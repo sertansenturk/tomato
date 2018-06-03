@@ -26,7 +26,6 @@
 
 import copy
 
-import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -202,6 +201,8 @@ class AlignedPitchFilter(object):
 
     @staticmethod
     def plot(pitch, pitch_corrected, notes_corrected):
+        import matplotlib.pyplot as plt
+
         # remove zeros for plotting
         pitch_plot = np.copy(pitch)
         pitch_plot[pitch_plot[:, 1] == 0, 1] = np.NAN
