@@ -84,12 +84,9 @@ class SymbTrAnalyzer(Analyzer):
             txt_filepath, symbtr_name=symbtr_name)
 
         # get the symbtr metadata
-        score_data['metadata'] = self._partial_caller(
-            score_data['metadata'], MusicBrainz.crawl, score_data['mbid'])
-
-        score_data['metadata'], is_metadata_valid = \
-            SymbTrMetadata.parse_symbtr_metadata(
-                score_data['metadata'], symbtr_name)
+        score_data['metadata'], is_metadata_valid = self._partial_caller(
+            score_data['metadata'], SymbTrMetadata.from_musicbrainz,
+            symbtr_name, mbid=score_data['mbid'])
 
         score_data['metadata']['duration'] = {
             'value': sum(score_data['score']['duration']) * 0.001,
@@ -106,8 +103,8 @@ class SymbTrAnalyzer(Analyzer):
 
         # sections
         score_data['sections'], is_section_data_valid = \
-            self._section_extractor.from_txt_score(score_data['score'],
-                                                   symbtr_name)
+            self._section_extractor.from_txt_score(
+                score_data['score'], symbtr_name)
 
         # annotated phrases
         anno_phrases = self._segment_extractor.extract_phrases(

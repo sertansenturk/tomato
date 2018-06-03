@@ -33,33 +33,8 @@ from tomato.metadata.musicbrainz import MusicBrainz
 class SymbTr(object):
     @classmethod
     def from_musicbrainz(cls, score_name, mbid=None):
-        data = MusicBrainz.crawl(mbid)
+        metadata = MusicBrainz.crawl(mbid)
 
-        data['symbtr'] = score_name
-
-        slugs = cls.get_slugs(score_name)
-        for attr in ['makam', 'form', 'usul']:
-            cls.add_attribute_slug(data, slugs, attr)
-
-        if 'work' in data.keys():
-            data['work']['symbtr_slug'] = slugs['name']
-        elif 'recording' in data.keys():
-            data['recording']['symbtr_slug'] = slugs['name']
-
-        if 'composer' in data.keys():
-            data['composer']['symbtr_slug'] = slugs['composer']
-
-        # get and validate the attributes
-        is_attr_meta_valid = cls.validate_makam_form_usul(data, score_name)
-
-        # get the tonic
-        makam = cls._get_attribute(data['makam']['symbtr_slug'], 'makam')
-        data['tonic'] = makam['karar_symbol']
-
-        return data, is_attr_meta_valid
-
-    @classmethod
-    def parse_symbtr_metadata(cls, metadata, score_name):
         metadata['symbtr'] = score_name
 
         slugs = cls.get_slugs(score_name)
