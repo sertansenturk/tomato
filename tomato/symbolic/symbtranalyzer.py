@@ -37,7 +37,6 @@ from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
-from ..metadata.work import Work as WorkMetadata
 from ..metadata.symbtr import SymbTr as SymbTrMetadata
 
 # instantiate a mcr_caller
