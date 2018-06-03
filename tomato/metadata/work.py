@@ -28,7 +28,7 @@ import warnings
 
 import musicbrainzngs as mb
 
-from .attribute import Attribute
+from ..io import IO
 from .. import __version__
 
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
@@ -136,13 +136,20 @@ class Work(object):
             for attr_name in ['makam', 'form', 'usul']:
                 cls._assign_attribute(metadata, mbid, w_attrb, attr_name)
 
-    @staticmethod
-    def _assign_attribute(metadata, mbid, w_attrb, attrname):
+    @classmethod
+    def _assign_attribute(cls, metadata, mbid, w_attrb, attrname):
         attr = [a['value'] for a in w_attrb
                 if attrname.title() in a['attribute']]
         metadata[attrname] = [
             {'mb_attribute': m,
-             'attribute_key': Attribute.get_key_from_musicbrainz_attribute(
+             'attribute_key': cls._get_key_from_musicbrainz_attribute(
                  m, attrname),
              'source': 'http://musicbrainz.org/work/' + mbid}
             for m in attr]
+
+    @staticmethod
+    def _get_key_from_musicbrainz_attribute(attr_str, attr_type):
+        attr_dict = IO.load_music_data(attr_type)
+        for attr_key, attr_val in attr_dict.items():
+            if attr_val['dunya_name'] == attr_str:
+                return attr_key

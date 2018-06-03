@@ -29,9 +29,10 @@ import logging
 import eyed3
 import musicbrainzngs as mb
 
-from .attribute import Attribute
 from .instrumentation import Instrumentation
 from .work import Work as WorkMetadata
+
+from ..io import IO
 from .. import __version__
 
 logger = logging.Logger(__name__, level=logging.WARNING)
@@ -103,10 +104,10 @@ class Recording(object):
                     for wm in work_meta[ak]:
                         audio_meta[ak].append(wm)
 
-    @staticmethod
-    def _get_recording_attribute_tags(audio_meta, meta):
-        attributetags = Attribute.get_attribute_tags(meta)
-        for key, vals in attributetags.items():
+    @classmethod
+    def _get_recording_attribute_tags(cls, audio_meta, meta):
+        attribute_tags = cls._get_attribute_tags(meta)
+        for key, vals in attribute_tags.items():
             for val in vals:  # add the source
                 val['source'] = 'http://musicbrainz.org/recording/{}'.format(
                     audio_meta['mbid'])
@@ -116,6 +117,38 @@ class Recording(object):
             else:
                 for val in vals:
                     audio_meta[key].append(val)
+
+    @classmethod
+    def _get_attribute_tags(cls, meta):
+        theory_attribute_keys = ['makam', 'form', 'usul']
+        attributes = dict()
+        if 'tag-list' in meta.keys():
+            for k in theory_attribute_keys:  # for makam/form/usul keys
+                for t in meta['tag-list']:  # for each tag
+                    try:  # attempt to assign the tag to the attribute key
+                        cls._assign_attribute(attributes, k, t)
+                    except ValueError:
+                        logger.debug(u'{0:s} is not a makam/form/usul tag; '
+                                     u'skipped'.format(t))
+        return attributes
+
+    @classmethod
+    def _assign_attribute(cls, attributes, k, t):
+        key, val = t['name'].split(': ')
+        if k in key:
+            if k not in attributes.keys():  # create the key
+                attributes[k] = []
+
+            attributes[k].append(
+                {'mb_tag': val, 'attribute_key':
+                    cls._get_key_from_musicbrainz_tag(val, k)})
+
+    @staticmethod
+    def _get_key_from_musicbrainz_tag(attr_str, attr_type):
+        attr_dict = IO.load_music_data(attr_type)
+        for attr_key, attr_val in attr_dict.items():
+            if attr_str in attr_val['mb_tag']:
+                return attr_key
 
     @staticmethod
     def get_file_metadata(filepath):
