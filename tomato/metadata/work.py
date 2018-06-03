@@ -24,15 +24,12 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import json
 import warnings
 
 import musicbrainzngs as mb
-from six.moves.urllib.request import urlopen
 
 from .attribute import Attribute
 from .. import __version__
-from ..io import IO
 
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
@@ -62,45 +59,10 @@ class Work(object):
         # add recordings
         cls._assign_recordings(metadata, work)
 
-        # add scores
-        cls._add_symbtr_names(metadata, mbid)
-
         # warnings
         cls._check_warnings(metadata, print_warnings)
 
         return metadata
-
-    @classmethod
-    def _add_symbtr_names(cls, metadata, mbid):
-        score_work = cls._read_symbtr_mbid_dict()
-        metadata['scores'] = []
-        for sw in score_work:
-            if mbid in sw['uuid']:
-                metadata['scores'].append(sw['name'])
-
-    @classmethod
-    def get_mbids_from_symbtr_name(cls, symbtr_name):
-        mbids = []  # extremely rare but there can be more than one mbid
-        for e in cls._read_symbtr_mbid_dict():
-            if e['name'] == symbtr_name:
-                mbids.append(e['uuid'])
-        if not mbids:
-            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
-                          RuntimeWarning, )
-        return mbids
-
-    @staticmethod
-    def _read_symbtr_mbid_dict():
-        try:
-            url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
-                  "symbTr_mbid.json"
-            response = urlopen(url)
-            return json.loads(response.read())
-        except IOError:  # load local backup
-            warnings.warn("symbTr_mbid.json is not found in the local "
-                          "search path. Using the back-up "
-                          "symbTr_mbid.json included in this repository.")
-            return IO.load_music_data('symbTr_mbid')
 
     @classmethod
     def _check_warnings(cls, metadata, print_warnings=None):

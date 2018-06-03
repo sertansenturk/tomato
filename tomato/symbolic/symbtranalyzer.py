@@ -73,7 +73,7 @@ class SymbTrAnalyzer(Analyzer):
         #       We are going to use the first mbid to fetch the symbtr
         # TODO: use all mbids
         score_data['mbid'] = self._partial_caller(
-            score_data['mbid'], WorkMetadata.get_mbids_from_symbtr_name,
+            score_data['mbid'], SymbTrMetadata.get_mbids_from_symbtr_name,
             symbtr_name)
         score_data['mbid'] = self._partial_caller(
             None, self._get_first, score_data['mbid'])

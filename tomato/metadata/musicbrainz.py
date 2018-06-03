@@ -29,8 +29,8 @@ import warnings
 import musicbrainzngs
 from six.moves.urllib.parse import urlparse
 
-from tomato.metadata.recording import Recording as RecordingMetadata
-from tomato.metadata.work import Work as WorkMetadata
+from .recording import Recording as RecordingMetadata
+from .work import Work as WorkMetadata
 
 
 class MusicBrainz(object):
@@ -44,6 +44,7 @@ class MusicBrainz(object):
             mbid = cls._parse_mbid_from_url(mbid)
             try:  # assume mbid is a work
                 data = WorkMetadata.from_musicbrainz(mbid)
+
                 data['work'] = {'title': data.pop("title", None),
                                 'mbid': data.pop('mbid', None)}
             except musicbrainzngs.ResponseError:  # assume mbid is a recording
