@@ -151,9 +151,9 @@ class IO(object):
     @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
-            return json.dumps(features, indent=4, allow_nan=True)
+            return json.dumps(features, indent=2, allow_nan=True)
         else:
-            json.dump(features, open(filepath, 'w'), indent=4, allow_nan=True)
+            json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
@@ -164,10 +164,10 @@ class IO(object):
 
     @staticmethod
     def from_json(input_str):
-        try:  # file given
+        if os.path.exists(input_str):  # file given
             return json.load(open(input_str), preserve_order=False)
-        except IOError:  # string given
-            return json.loads(input_str, 'r', preserve_order=False)
+        else:  # string given
+            return json.loads(input_str, preserve_order=False)
 
     @staticmethod
     def get_filenames_in_dir(dir_name, keyword='*', skip_foldername='',
