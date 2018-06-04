@@ -2,7 +2,7 @@ numpy>=1.9.0  # numerical operations
 scipy>=0.17.0  # temporary mat file saving for MCR binary inputs
 pandas>=0.18.0  # tabular data processing
 matplotlib>=1.5.1  # plotting
-json_tricks==2.1  # saving json files with classes and numpy arrays
+json_tricks==3.12.1  # saving json files with classes and numpy arrays
 eyeD3>=0.7.5  # reading metadata embedded in the audio recordings
 six>=1.10.0  # Python 2*3 support
 future>=0.15.2  # Python 2*3 support

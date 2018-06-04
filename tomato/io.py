@@ -34,7 +34,7 @@ import tempfile
 import unicodedata
 
 from future.utils import raise_
-from json_tricks import np as json
+import json_tricks as json
 
 
 class IO(object):
@@ -150,10 +150,12 @@ class IO(object):
 
     @staticmethod
     def to_json(features, filepath=None):
+        import pdb
+        pdb.set_trace()
         if filepath is None:
-            return json.dumps(features, indent=4)
+            return json.dumps(features, indent=4, allow_nan=True)
         else:
-            json.dump(features, open(filepath, 'w'), indent=4)
+            json.dump(features, open(filepath, 'w'), indent=4, allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
