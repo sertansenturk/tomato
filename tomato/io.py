@@ -150,8 +150,6 @@ class IO(object):
 
     @staticmethod
     def to_json(features, filepath=None):
-        import pdb
-        pdb.set_trace()
         if filepath is None:
             return json.dumps(features, indent=4, allow_nan=True)
         else:
