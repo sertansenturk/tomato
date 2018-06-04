@@ -60,14 +60,14 @@ class Ahenk(object):
 
         # create the stats dictionary
         distance_to_bolahenk = {
-            'performed': {'value': mod_cent_dist.tolist()[0], 'unit': 'cent'},
+            'performed': {'value': mod_cent_dist, 'unit': 'cent'},
             'theoretical': {'value': mod_cent_approx, 'unit': 'cent'}}
         ahenk_dict = {'name': '', 'slug': '', 'makam': makam,
                       'tonic_symbol': tonic_symbol,
                       'distance_to_bolahenk': distance_to_bolahenk,
-                      'deviation': {'value': mod_cent_dev.tolist()[0],
+                      'deviation': {'value': mod_cent_dev,
                                     'unit': 'cent'},
-                      'abs_deviation': {'value': abs_mod_cent_dev.tolist()[0],
+                      'abs_deviation': {'value': abs_mod_cent_dev,
                                         'unit': 'cent'}}
 
         # get the ahenk
