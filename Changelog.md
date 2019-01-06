@@ -1,3 +1,6 @@
+#### tomato v0.12.1
+- Added missing makam & tonic estimation model [Pull request #86](https://github.com/sertansenturk/tomato/pull/#86)
+
 #### tomato v0.12.0
  - Made the package Python 3 compatible: [Pull request #78](https://github.com/sertansenturk/tomato/pull/78)
 
