@@ -215,9 +215,13 @@ class IO(object):
                         folders.append(unicode(path, 'utf-8'))
                     except TypeError:  # already unicode
                         folders.append(path)
+                    except NameError:  # Python 3
+                        folders.append(path)
                     try:
                         names.append(unicode(f, 'utf-8'))
                     except TypeError:  # already unicode
+                        names.append(path)
+                    except NameError:  # Python 3
                         names.append(path)
                     fullnames.append(os.path.join(path, f))
 
