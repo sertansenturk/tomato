@@ -1,5 +1,5 @@
 #### tomato v0.12.2
-- Solved the pool error occurring in Essentia version 2.1: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#88) (by [Miguel García Casado](https://github.com/miguelgcasado))
+- Solved the pool error occurring in Essentia version 2.1-beta5-dev: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#88) (by [Miguel García Casado](https://github.com/miguelgcasado))
 
 #### tomato v0.12.1
 - Added missing makam & tonic estimation model: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#86)
