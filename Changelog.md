@@ -1,6 +1,12 @@
 #### tomato v0.13.0
  - Refactored metadata package: [Pull request #84](https://github.com/sertansenturk/tomato/pull/84)
 
+#### tomato v0.12.2
+- Solved the pool error occurring in Essentia version 2.1-beta5-dev: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#88) (by [Miguel García Casado](https://github.com/miguelgcasado))
+
+#### tomato v0.12.1
+- Added missing makam & tonic estimation model: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#86)
+
 #### tomato v0.12.0
  - Made the package Python 3 compatible: [Pull request #78](https://github.com/sertansenturk/tomato/pull/78)
 

@@ -171,8 +171,8 @@ class PredominantMelody(object):
         # post-processing: contour tracking
         contours_bins, contour_saliences, contours_start_times, duration = \
             run_pitch_contours(
-                pool['allframes_salience_peaks_bins'],
-                pool['allframes_salience_peaks_contourSaliences'])
+                [f.tolist() for f in pool['allframes_salience_peaks_bins']],
+                [f.tolist() for f in pool['allframes_salience_peaks_contourSaliences']])
         return contours_bins, contours_start_times, contour_saliences, duration
 
     def _post_filter_pitch(self, pitch, pitch_salience):
