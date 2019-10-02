@@ -206,7 +206,7 @@ class IO(object):
         dir_name = dir_name[:-1] if dir_name[-1] == os.sep else dir_name
 
         # walk all the subdirectories
-        for (path, dirs, files) in os.walk(dir_name):
+        for (path, _, files) in os.walk(dir_name):
             for f in files:
                 has_key = (fnmatch.fnmatch(f, keyword) if match_case else
                            fnmatch.fnmatch(f.lower(), keyword.lower()))
