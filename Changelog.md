@@ -80,7 +80,7 @@ input features. These features are not computed and used in the subsequent
 analysis steps.
 - Added ```ScoreConverter``` class
 - Added input parsing to ```Plotter.plot_audio_features```
-- Makam ,tonic, transposition and tempo information is annotated in```Plotter.plot_audio_features``` 
+- Makam ,tonic, transposition and tempo information is annotated in```Plotter.plot_audio_features```
 - Improved code quality
 - All note indices in the outputs are fixed to **1-indexing** according to
 the Symbtr-txt convention (not the pythonic 0-indexing).
@@ -91,7 +91,7 @@ the Symbtr-txt convention (not the pythonic 0-indexing).
 ## tomato v0.6.0
 
 - Added audio metadata fetching from MusicBrainz using [makammusicbrainz](https:/github.com/sertansenturk/makammusicbrainz/releases/tag/v1.2.0).
-- Makam can be now obtained from the fetched audio metadata 
+- Makam can be now obtained from the fetched audio metadata
 - Updated the versions of [ahenkidentifier](https://github.com/sertansenturk/ahenkidentifier/releases/tag/v1.4.0) and [symbtrdataextractor](https://github.com/sertansenturk/symbtrdataextractor/releases/tag/v2.0.0-alpha.3)
 
 ## tomato v0.5.0
