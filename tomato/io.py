@@ -55,9 +55,10 @@ class IO(object):
         value_slug = str_val.replace(u'\u0131', 'i')
         value_slug = unicodedata.normalize('NFKD', value_slug)
         value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
-        value_slug = re.sub('[^\w\s-]', '', value_slug).strip()
+        value_slug = re.sub(r'[^\w\s-]', '', value_slug).strip()
 
-        return re.sub('[-\s]+', '-', value_slug)
+        import pdb; pdb.set_trace()
+        return re.sub(r'[-\s]+', '-', value_slug)
 
     @staticmethod
     def public_noncallables(inst):
