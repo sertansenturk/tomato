@@ -230,9 +230,9 @@ class IO(object):
         try:  # linux
             subprocess.check_call("fromdos " + filepath, shell=True)
         except subprocess.CalledProcessError:  # mac
-            subprocess.check_call("sed -e 's/\r$//' " + filepath +
-                                  " > tmp.txt " + "&& mv -f tmp.txt " +
-                                  filepath, shell=True)
+            subprocess.check_call("sed -e 's/\r$//' " + filepath
+                                  + " > tmp.txt " + "&& mv -f tmp.txt "
+                                  + filepath, shell=True)
 
     @classmethod
     def change_file_encoding_to_utf8(cls, filepath):
@@ -250,8 +250,8 @@ class IO(object):
             if not any(curr_charset in charset for charset in ['utf-8',
                                                                'us-ascii']):
                 print(curr_charset + '\t' + filepath)
-                commandstr = ("iconv -f " + iconv_map[curr_charset] +
-                              " -t UTF-8 " + filepath + " > tmp.txt "
+                commandstr = ("iconv -f " + iconv_map[curr_charset]
+                              + " -t UTF-8 " + filepath + " > tmp.txt "
                               "&& mv -f tmp.txt " + filepath)
                 subprocess.check_output(commandstr, shell=True)
         except IndexError:  # mac
