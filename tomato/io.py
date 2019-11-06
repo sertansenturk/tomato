@@ -57,7 +57,6 @@ class IO(object):
         value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
         value_slug = re.sub(r'[^\w\s-]', '', value_slug).strip()
 
-        import pdb; pdb.set_trace()
         return re.sub(r'[-\s]+', '-', value_slug)
 
     @staticmethod
