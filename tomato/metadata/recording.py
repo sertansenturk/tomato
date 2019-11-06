@@ -59,7 +59,9 @@ class Recording(object):
         audio_meta['url'] = u'http://musicbrainz.org/recording/{}'.format(
             audio_meta['mbid'])
 
-        meta = mb.get_recording_by_id(audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases', 'tags', 'work-rels'])['recording']
+        meta = mb.get_recording_by_id(audio_meta['mbid'], includes=[
+            'artists', 'artist-rels', 'releases', 'tags', 'work-rels']
+            )['recording']
         audio_meta['title'] = meta['title']
 
         # releases
