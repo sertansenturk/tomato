@@ -2,7 +2,7 @@
 
 ## tomato v0.12.3
 
-- Solved the problem with loading the makam/tonic estimation model from pickle (removed `morty` dependency): [Pull request #86](https://github.com/sertansenturk/tomato/pull/#88)
+- Solved the problem with loading the makam/tonic estimation model from pickle (removed `morty` dependency): [Pull request #91](https://github.com/sertansenturk/tomato/pull/#91)
 
 ## tomato v0.12.2
 
