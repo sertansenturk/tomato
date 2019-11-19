@@ -28,13 +28,17 @@
 from __future__ import division
 
 import numpy as np
+from typing import Union
 
 _NUM_CENTS_IN_OCTAVE = 1200.0
 
 
 class Converter(object):
     @staticmethod
-    def hz_to_cent(hz_track, ref_freq, min_freq=20.0):
+    def hz_to_cent(hz_track: Union[list, np.array],
+                   ref_freq: Union[float, np.float],
+                   min_freq: Union[float, np.float] = 20.0
+                   ) -> np.array:
         """--------------------------------------------------------------------
         Converts an array of Hertz values into cents.
         -----------------------------------------------------------------------
@@ -42,9 +46,15 @@ class Converter(object):
         ref_freq : Reference frequency for cent conversion
         min_freq : The minimum frequency allowed (exclusive)
         --------------------------------------------------------------------"""
-        # The 0 Hz values are removed, not only because they are meaningless,
-        # but also logarithm of 0 is problematic.
-        assert min_freq >= 0.0, 'min_freq cannot be less than 0'
+
+        if (hz_track < 0).any():
+            raise ValueError("hz_track cannot be negative values.")
+        if ref_freq < 0:
+            raise ValueError("ref_freq cannot be negative.")
+        if min_freq < 0:
+            raise ValueError("min_freq cannot be negative.")
+        if ref_freq < min_freq:
+            raise ValueError("ref_freq cannot be less than min_freq.")
 
         hz_track = np.array(hz_track).astype(float)
 
@@ -54,7 +64,9 @@ class Converter(object):
         return np.log2(hz_track / ref_freq) * _NUM_CENTS_IN_OCTAVE
 
     @staticmethod
-    def cent_to_hz(cent_track, ref_freq):
+    def cent_to_hz(cent_track: np.array,
+                   ref_freq: np.float
+                   ) -> np.array:
         """--------------------------------------------------------------------
         Converts an array of cent values into Hertz.
         -----------------------------------------------------------------------

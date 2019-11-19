@@ -117,7 +117,7 @@ class Seyir(object):
     def _slice_pitch(self, pp, ti, tt):
         p_sliced = [p for t, p in zip(tt, pp) if ti[1] > t >= ti[0]]
         p_cent = Converter.hz_to_cent(
-            p_sliced, self._dummy_ref_freq, min_freq=20.0)
+            p_sliced, self._dummy_ref_freq)
 
         # pop nan and inf
         p_cent = p_cent[~np.isnan(p_cent)]
