@@ -6,7 +6,7 @@ from lxml import etree
 
 from .symbtrnote import Note
 from ...dataextractor import DataExtractor
-from ...reader.mu2 import Mu2
+from ...reader.mu2 import Mu2Reader
 
 # koma definitions
 n_natural = 'natural'
@@ -294,7 +294,7 @@ class SymbTrScore(object):
             self.txtpath, symbtr_name=self.symbtrname)
 
         mu2_header, header_row, is_header_valid = \
-            Mu2.read_header(self.mu2path, symbtr_name=self.symbtrname)
+            Mu2Reader.read_header(self.mu2path, symbtr_name=self.symbtrname)
 
         # data = extractor.merge(txtdata, Mu2header)
         for item in data['sections']:

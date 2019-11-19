@@ -47,8 +47,6 @@ class Converter(object):
         min_freq : The minimum frequency allowed (exclusive)
         --------------------------------------------------------------------"""
 
-        if (hz_track < 0).any():
-            raise ValueError("hz_track cannot be negative values.")
         if ref_freq < 0:
             raise ValueError("ref_freq cannot be negative.")
         if min_freq < 0:
@@ -57,6 +55,8 @@ class Converter(object):
             raise ValueError("ref_freq cannot be less than min_freq.")
 
         hz_track = np.array(hz_track).astype(float)
+        if (hz_track < 0).any():
+            raise ValueError("hz_track cannot be negative values.")
 
         # change values less than the min_freq to nan
         hz_track[hz_track <= min_freq] = np.nan

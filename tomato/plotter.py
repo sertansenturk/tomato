@@ -313,8 +313,8 @@ class Plotter(object):
     def _plot_stable_pitches(ax, max_rel_occur, note_models, max_pd_height):
         ytick_vals = []
         for note_symbol, note in note_models.items():
-            plot_bool = (note['stable_pitch']['value'] and
-                         note['rel_occur'] > max_rel_occur * 0.15)
+            plot_bool = (note['stable_pitch']['value']
+                         and note['rel_occur'] > max_rel_occur * 0.15)
             if plot_bool:
                 ytick_vals.append(note['stable_pitch']['value'])
 
@@ -335,8 +335,8 @@ class Plotter(object):
                 txt_x_val = (note['rel_occur'] + 0.03 * max_pd_height)
                 txt_str = ', '.join(
                     [note_symbol,
-                     str(int(round(note['performed_interval']['value']))) +
-                     ' cents'])
+                     str(int(round(note['performed_interval']['value'])))
+                     + ' cents'])
                 ax.text(txt_x_val, note['stable_pitch']['value'], txt_str,
                         style='italic', horizontalalignment='left',
                         verticalalignment='center')

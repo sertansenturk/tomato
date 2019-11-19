@@ -143,8 +143,8 @@ class Txt(object):
         df = pd.read_csv(txt_file, sep=b'\t')
 
         # create the usul row
-        # 1    51            0    0    zaman    mertebe    0    usul_symbtr_internal_id    0    usul_mu2_name    0
-        # 1    51            0    0    6    4    0    90    0    Yürüksemâî (6/4)    0
+        # 1    51            0    0    zaman    mertebe    0    usul_symbtr_internal_id    0    usul_mu2_name    0  # noqa
+        # 1    51            0    0    6    4    0    90    0    Yürüksemâî (6/4)    0  # noqa
         usul_row = pd.DataFrame(
             {'Sira': 1, 'Kod': 51, 'Nota53': '', 'NotaAE': '', 'Koma53': 0,
              'KomaAE': 0, 'Pay': int(variant['num_pulses']),

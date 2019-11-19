@@ -351,7 +351,7 @@ class PitchFilter(object):
             temp_energy = [element[2] for element in pitch_chunks[i]]
             ave_energy = sum(temp_energy) / len(temp_energy)
 
-            if ave_energy is not 0 and (
+            if ave_energy != 0 and (
                     len(pitch_chunks[i]) <= self.min_chunk_size or
                     ave_energy <= min_energy):
                 for element in pitch_chunks[i]:

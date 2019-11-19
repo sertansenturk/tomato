@@ -27,6 +27,8 @@
 import warnings
 import json
 
+import codecs
+
 from six.moves.urllib.request import urlopen
 
 from ..io import IO
@@ -297,8 +299,11 @@ class SymbTr(object):
         try:
             url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
                   "symbTr_mbid.json"
+
             response = urlopen(url)
-            return json.loads(response.read())
+            reader = codecs.getreader("utf-8")
+
+            return json.load(reader(response))
         except IOError:  # load local backup
             warnings.warn("Cannot reach github to read the latest "
                           "symbtr_mbid.json. Using the back-up "

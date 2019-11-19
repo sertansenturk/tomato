@@ -56,9 +56,9 @@ class IO(object):
         value_slug = str_val.replace(u'\u0131', 'i')
         value_slug = unicodedata.normalize('NFKD', value_slug)
         value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
-        value_slug = re.sub('[^\w\s-]', '', value_slug).strip()
+        value_slug = re.sub(r'[^\w\s-]', '', value_slug).strip()
 
-        return re.sub('[-\s]+', '-', value_slug)
+        return re.sub(r'[-\s]+', '-', value_slug)
 
     @staticmethod
     def public_noncallables(inst):
@@ -186,7 +186,7 @@ class IO(object):
                 - names (list): List of the filenames without the foldername
         Examples:
             >>> get_filenames_in_dir('/path/to/dir/', '*.mp3')  #doctest: +SKIP
-            (['/path/to/dir/file1.mp3', '/path/to/dir/folder1/file2.mp3'], ['/path/to/dir/', '/path/to/dir/folder1'], ['file1.mp3', 'file2.mp3'])
+            (['/path/to/dir/file1.mp3', '/path/to/dir/folder1/file2.mp3'], ['/path/to/dir/', '/path/to/dir/folder1'], ['file1.mp3', 'file2.mp3'])  # noqa
         """
         names = []
         folders = []
@@ -235,9 +235,9 @@ class IO(object):
         try:  # linux
             subprocess.check_call("fromdos " + filepath, shell=True)
         except subprocess.CalledProcessError:  # mac
-            subprocess.check_call("sed -e 's/\r$//' " + filepath +
-                                  " > tmp.txt " + "&& mv -f tmp.txt " +
-                                  filepath, shell=True)
+            subprocess.check_call("sed -e 's/\r$//' " + filepath
+                                  + " > tmp.txt " + "&& mv -f tmp.txt "
+                                  + filepath, shell=True)
 
     @classmethod
     def change_file_encoding_to_utf8(cls, filepath):
@@ -255,8 +255,8 @@ class IO(object):
             if not any(curr_charset in charset for charset in ['utf-8',
                                                                'us-ascii']):
                 print(curr_charset + '\t' + filepath)
-                commandstr = ("iconv -f " + iconv_map[curr_charset] +
-                              " -t UTF-8 " + filepath + " > tmp.txt "
+                commandstr = ("iconv -f " + iconv_map[curr_charset]
+                              + " -t UTF-8 " + filepath + " > tmp.txt "
                               "&& mv -f tmp.txt " + filepath)
                 subprocess.check_output(commandstr, shell=True)
         except IndexError:  # mac

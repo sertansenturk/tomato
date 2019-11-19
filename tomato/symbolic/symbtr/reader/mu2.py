@@ -31,7 +31,7 @@ from .symbtr import SymbTrReader
 from ....metadata.symbtr import SymbTr as SymbTrMetadata
 
 
-class Mu2(SymbTrReader):
+class Mu2Reader(SymbTrReader):
     def __init__(self):
         """
         Class constructor
@@ -56,7 +56,7 @@ class Mu2(SymbTrReader):
         NotImplemented
         """
         if symbtr_name is None:
-            symbtr_name = Mu2.get_symbtr_name_from_filepath(score_file)
+            symbtr_name = Mu2Reader.get_symbtr_name_from_filepath(score_file)
 
         return NotImplemented
 
@@ -83,7 +83,7 @@ class Mu2(SymbTrReader):
             False otherwise
         """
         if symbtr_name is None:
-            symbtr_name = Mu2.get_symbtr_name_from_filepath(score_file)
+            symbtr_name = Mu2Reader.get_symbtr_name_from_filepath(score_file)
 
         makam_slug = symbtr_name.split('--')[0]
 
@@ -108,7 +108,7 @@ class Mu2(SymbTrReader):
 
                 code = int(row[0])
                 if code == 50:
-                    is_key_sig_valid = Mu2.read_makam_key_signature_row(
+                    is_key_sig_valid = Mu2Reader.read_makam_key_signature_row(
                         header, is_key_sig_valid, makam_slug, row, symbtr_name)
                 elif code == 51:
                     header['usul'] = {'mu2_name': row[7],
