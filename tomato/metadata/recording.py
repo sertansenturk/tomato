@@ -29,11 +29,10 @@ import logging
 import eyed3
 import musicbrainzngs as mb
 
+from .. import __version__
+from ..io import IO
 from .instrumentation import Instrumentation
 from .work import Work as WorkMetadata
-
-from ..io import IO
-from .. import __version__
 
 logger = logging.Logger(__name__, level=logging.WARNING)
 

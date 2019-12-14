@@ -4,9 +4,9 @@ import os
 
 from lxml import etree
 
-from .symbtrnote import Note
 from ...dataextractor import DataExtractor
 from ...reader.mu2 import Mu2Reader
+from .symbtrnote import Note
 
 # koma definitions
 n_natural = 'natural'

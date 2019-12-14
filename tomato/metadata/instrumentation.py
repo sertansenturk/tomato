@@ -25,6 +25,7 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import logging
+
 logger = logging.Logger(__name__, level=logging.INFO)
 
 

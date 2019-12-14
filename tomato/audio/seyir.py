@@ -30,8 +30,8 @@ import json
 
 import numpy as np
 
-from .pitchdistribution import PitchDistribution
 from ..converter import Converter
+from .pitchdistribution import PitchDistribution
 
 
 class Seyir(object):

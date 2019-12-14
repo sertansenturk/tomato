@@ -24,11 +24,11 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from .jointanalyzer import JointAnalyzer
 from ..analyzer import Analyzer
 from ..audio.audioanalyzer import AudioAnalyzer
 from ..io import IO
 from ..symbolic.symbtranalyzer import SymbTrAnalyzer
+from .jointanalyzer import JointAnalyzer
 
 
 class CompleteAnalyzer(Analyzer):

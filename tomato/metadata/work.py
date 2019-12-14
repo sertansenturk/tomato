@@ -28,8 +28,8 @@ import warnings
 
 import musicbrainzngs as mb
 
-from ..io import IO
 from .. import __version__
+from ..io import IO
 
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 

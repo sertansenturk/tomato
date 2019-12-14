@@ -27,8 +27,8 @@
 import csv
 import warnings
 
-from .symbtr import SymbTrReader
 from ....metadata.symbtr import SymbTr as SymbTrMetadata
+from .symbtr import SymbTrReader
 
 
 class Mu2Reader(SymbTrReader):

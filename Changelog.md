@@ -1,7 +1,8 @@
 # Changelog
 
 ## tomato v0.13.0
- - Refactored metadata package: [Pull request #84](https://github.com/sertansenturk/tomato/pull/84)
+
+- Refactored metadata package: [Pull request #84](https://github.com/sertansenturk/tomato/pull/84)
 
 ## tomato v0.12.3
 

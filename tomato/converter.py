@@ -27,8 +27,9 @@
 
 from __future__ import division
 
-import numpy as np
 from typing import Union
+
+import numpy as np
 
 _NUM_CENTS_IN_OCTAVE = 1200.0
 

@@ -33,8 +33,8 @@ import sys
 import tempfile
 import unicodedata
 
-from future.utils import raise_
 import json_tricks as json
+from future.utils import raise_
 
 
 class IO(object):

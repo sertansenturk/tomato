@@ -28,16 +28,16 @@ import json
 import os
 import timeit
 
-from .symbtr.dataextractor import DataExtractor
-from .symbtr.reader.mu2 import Mu2Reader
-from .symbtr.reader.txt import TxtReader
-from .symbtr.section import SectionExtractor
-from .symbtr.segment import SegmentExtractor
-from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.symbtr import SymbTr as SymbTrMetadata
+from .symbtr.dataextractor import DataExtractor
+from .symbtr.reader.mu2 import Mu2Reader
+from .symbtr.reader.txt import TxtReader
+from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
+from .symbtr.section import SectionExtractor
+from .symbtr.segment import SegmentExtractor
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()

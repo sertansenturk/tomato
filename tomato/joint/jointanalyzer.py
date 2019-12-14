@@ -34,12 +34,12 @@ from copy import deepcopy
 from scipy.io import savemat
 from six import BytesIO
 
-from .alignednotemodel import AlignedNoteModel
-from .alignedpitchfilter import AlignedPitchFilter
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
 from ..plotter import Plotter
+from .alignednotemodel import AlignedNoteModel
+from .alignedpitchfilter import AlignedPitchFilter
 
 logger = logging.Logger(__name__, level=logging.INFO)
 

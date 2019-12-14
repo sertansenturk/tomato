@@ -28,9 +28,9 @@ from copy import deepcopy
 
 import numpy as np
 
-from .makamtonic.toniclastnote import TonicLastNote
 from ..converter import Converter
 from ..io import IO
+from .makamtonic.toniclastnote import TonicLastNote
 
 
 class NoteModel(object):
