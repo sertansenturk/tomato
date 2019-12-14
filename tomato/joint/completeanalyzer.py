@@ -99,12 +99,12 @@ class CompleteAnalyzer(Analyzer):
         audio_filename = IO.make_unicode(audio_filename)
 
         # score analysis
-        score_features, boundaries, work_mbid = self._symbtr_analyzer.analyze(
+        score_features = self._symbtr_analyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)
 
         # audio analysis
         audio_features = self._audio_analyzer.analyze(
-            audio_filename, makam=score_features['makam']['symbtr_slug'],
+            audio_filename, makam=score_features['metadata']['makam']['symbtr_slug'],
             metadata=audio_metadata)
 
         # joint analysis

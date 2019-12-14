@@ -77,7 +77,7 @@ class JointAnalyzer(Analyzer):
             warnings.warn(e.message, RuntimeWarning, stacklevel=2)
             joint_features = None
             score_informed_audio_features = {
-                'makam': score_features['makam']['symbtr_slug']}
+                'makam': score_features['metadata']['makam']['symbtr_slug']}
             # Everything else will fail
             return joint_features, score_informed_audio_features
 
@@ -93,7 +93,7 @@ class JointAnalyzer(Analyzer):
             joint_features = None
             score_informed_audio_features = {
                 'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
-                'makam': score_features['makam']['symbtr_slug']}
+                'makam': score_features['metadata']['makam']['symbtr_slug']}
             return joint_features, score_informed_audio_features
 
         # aligned pitch filter
@@ -119,7 +119,7 @@ class JointAnalyzer(Analyzer):
                           'notes': input_f['notes']}
 
         score_informed_audio_features = {
-            'makam': score_features['makam']['symbtr_slug'],
+            'makam': score_features['metadata']['makam']['symbtr_slug'],
             'pitch_filtered': input_f['pitch_filtered'],
             'tonic': input_f['tonic'], 'tempo': input_f['tempo'],
             'note_models': input_f['note_models']}
@@ -188,8 +188,11 @@ class JointAnalyzer(Analyzer):
                     .format(audio_filename))
 
         # create the temporary input and output files wanted by the binary
+        # metadata has to be flattened for the MATLAB binary to pick the keys
+        score_data_flattened = {**deepcopy(score_data),
+                                **deepcopy(score_data['metadata'])}
         temp_score_data_file = IO.create_temp_file(
-            '.json', json.dumps(score_data))
+            '.json', json.dumps(score_data_flattened))
 
         # matlab
         matout = BytesIO()
@@ -257,8 +260,11 @@ class JointAnalyzer(Analyzer):
                     .format(audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
+        # metadata has to be flattened for the MATLAB binary to pick the keys
+        score_data_flattened = {**deepcopy(score_data),
+                                **deepcopy(score_data['metadata'])}
         temp_score_data_file = IO.create_temp_file(
-            '.json', json.dumps(score_data))
+            '.json', json.dumps(score_data_flattened))
 
         # tonic has to be enclosed in the key 'score_informed' and all the
         # keys have to start with a capital letter
@@ -386,7 +392,7 @@ class JointAnalyzer(Analyzer):
         melodic_progression = summarized_features['audio'][
             'melodic_progression']
         note_models = summarized_features['audio']['note_models']
-        makam = summarized_features['score']['makam']
+        makam = summarized_features['score']['metadata']['makam']
         tonic = summarized_features['audio']['tonic']
         transposition = summarized_features['audio']['transposition']
         tempo = summarized_features['audio']['tempo']
