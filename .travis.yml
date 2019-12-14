@@ -1,21 +1,40 @@
-# we only need to point to python for the tests to run
 language: python
-python:
-#  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "3.7"
-
-# command to install dependencies
+matrix:
+  include:
+    # - name: "Docker build"
+    #   services: docker
+    #   python: 3.7
+    #   env: TOX_ENV=docker
+    #   before_install:
+    #     - docker --version
+    #     - pip install -U pip
+    #     - pip install tox-travis
+    #   install: # installed by tox
+    #   script: tox -e $TOX_ENV
+    #   after_success: # do nothing
+    - name: "Python 3.5"
+      python: 3.5
+      env: TOX_PYTHON_ENV=py35
+    - name: "Python 3.6"
+      python: 3.6
+      env: TOX_PYTHON_ENV=py36
+    - name: "Python 3.7"
+      python: 3.7
+      env: TOX_PYTHON_ENV=py37
+    - name: "Python 3.8"
+      python: 3.8
+      env: TOX_PYTHON_ENV=py38
+before_install:
+  - ls -la
+  - pip install -U pip
+  - pip install tox-travis
+  - pip install codecov
 install:
-#  - pip install -r requirements.txt
-  - pip install flake8
-
-# command to run before the tests
-before_script:
-  - "flake8 tomato"
-
-# command to run tests
+  - python setup.py install
+  # - pip install . # install package
+  # - pip install -r requirements.txt
+  - pip show tomato
 script:
-#  - nosetests unittests
-  - nosetests --with-coverage
+  - tox -e flake8,pylint,$TOX_PYTHON_ENV
+after_success:
+  - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/
