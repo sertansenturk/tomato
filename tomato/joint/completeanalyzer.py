@@ -104,7 +104,8 @@ class CompleteAnalyzer(Analyzer):
 
         # audio analysis
         audio_features = self._audio_analyzer.analyze(
-            audio_filename, makam=score_features['metadata']['makam']['symbtr_slug'],
+            audio_filename,
+            makam=score_features['metadata']['makam']['symbtr_slug'],
             metadata=audio_metadata)
 
         # joint analysis
