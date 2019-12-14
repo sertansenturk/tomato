@@ -68,7 +68,7 @@ There are four steps in the installation:
 
 ### <a name="tomato_install"></a>Installing tomato
 
-**tomato** require several packages to be installed. In Linux, you have to install the _python3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
+**tomato** requires several packages to be installed. In Linux, you have to install the _python3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
 
 ```bash
 sudo apt-get install python-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
@@ -149,8 +149,8 @@ Any data (the music scores, extracted features, training models, figures, output
 
 2. **Which operating systems are supported?**
 
-    The algorithms, which are written purely in Python, are platform independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
-    If you have compiled Essentia for Windows somehow or if you have any OS specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
+    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
+    If you have compiled Essentia for Windows somehow or if you have any OS -1specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
 
 3. **What are the supported Python versions?**
 
@@ -210,7 +210,7 @@ __Audio Predominant Melody Extraction__
 __Audio Pitch Filter__  
 [4] Bozkurt, B. An Automatic Pitch Analysis Method for Turkish Maqam Music. Journal of New Music Research. 37(1), 1-13.  
 
-__Audio Tonic and Transposition Identification, Makam Recognition, Pitch Distibution Computation, Tuning Analysis__  
+__Audio Tonic and Transposition Identification, Makam Recognition, Pitch Distribution Computation, Tuning Analysis__  
 [6] Gedik, A. C., and Bozkurt, B. (2010). Pitch-frequency histogram-based music information retrieval for Turkish music. Signal Processing, 90(4), 1049-1063.  
 [7] Bozkurt, B. 2008, An automatic pitch analysis method for Turkish maqam music, Journal of New Music Research 37 1–13.   
 [8] Chordia, P. and Şentürk, S. (2013). Joint recognition of raag and tonic in North Indian music. Computer Music Journal, 37(3):82–98.  
