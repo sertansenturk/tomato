@@ -24,17 +24,17 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from ..audio.pitchdistribution import PitchDistribution
-from ..io import IO
-from ..converter import Converter
-
+import json
+import logging
 from copy import deepcopy
 
 import numpy as np
-import matplotlib.pyplot as plt
-import json
-import logging
-logging.basicConfig(level=logging.INFO)
+
+from ..audio.pitchdistribution import PitchDistribution
+from ..converter import Converter
+from ..io import IO
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class AlignedNoteModel(object):
@@ -61,7 +61,7 @@ class AlignedNoteModel(object):
                                   note_dict[tonic_symbol]['Value']),
                         'Unit': 'cent'}, 'theoretical_pitch': []}
             except KeyError:
-                logging.warning(
+                logger.warning(
                     u"The note {0:s} is not in the note_dict.".format(nn))
 
         # compute note trajectories and add to each model
@@ -148,8 +148,8 @@ class AlignedNoteModel(object):
                 try:
                     note_models[an['Symbol']]['notes'].append(notetemp)
                 except KeyError:
-                    logging.info(u"The note {0:s} is not in the note_dict."
-                                 u"".format(an['Symbol']))
+                    logger.info(u"The note {0:s} is not in the "
+                                u"note_dict.".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,
                                       theoretical_interval, ref_freq=None):
@@ -238,6 +238,8 @@ class AlignedNoteModel(object):
 
     @staticmethod
     def plot(note_models, pitch_distribution, alignednotes, pitch):
+        import matplotlib.pyplot as plt
+
         pitch = np.array(pitch)
 
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
@@ -247,10 +249,10 @@ class AlignedNoteModel(object):
         ax1.yaxis.grid(True)
 
         for note in alignednotes:
-            ax1.plot(
-                note['Interval'], [note['PerformedPitch']['Value'],
-                                   note['PerformedPitch']['Value']],
-                'r', alpha=0.4, linewidth=4)
+            ax1.plot(note['Interval'],
+                     [note['PerformedPitch']['Value'],
+                      note['PerformedPitch']['Value']],
+                     'r', alpha=0.4, linewidth=4)
 
         ax2.plot(pitch_distribution.vals, pitch_distribution.bins, '-.',
                  color='#000000', alpha=0.9)

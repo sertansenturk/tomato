@@ -26,7 +26,9 @@
 
 import string
 from copy import deepcopy
+
 import numpy as np
+
 from ...io import IO
 
 

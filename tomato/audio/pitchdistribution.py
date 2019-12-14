@@ -27,22 +27,21 @@
 
 from __future__ import division
 
-from ..converter import Converter
+import copy
+import json
+import logging
+import numbers
 
 import essentia
 import essentia.standard as std
 import numpy as np
-import json
-import copy
-import scipy.stats
 import scipy.integrate
-import matplotlib.pyplot as plt
-import numbers
-import pickle
+import scipy.stats
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+from ..converter import Converter
+from ..io import IO
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class PitchDistribution(object):
@@ -207,7 +206,7 @@ class PitchDistribution(object):
         hz_track = hz_track[~np.isnan(hz_track)]
         hz_track = hz_track[~np.isinf(hz_track)]
         hz_track = hz_track[hz_track >= 20.0]
-        cent_track = Converter.hz_to_cent(hz_track, ref_freq, min_freq=20.0)
+        cent_track = Converter.hz_to_cent(hz_track, ref_freq)
 
         return PitchDistribution.from_cent_pitch(
             cent_track, ref_freq=ref_freq, kernel_width=kernel_width,
@@ -419,17 +418,23 @@ class PitchDistribution(object):
             self.normalize()
 
     def plot(self):
+        import matplotlib.pyplot as plt
+
         plt.plot(self.bins, self.vals)
-        self.label_figure()
+        self._label_figure()
 
     def bar(self):
+        import matplotlib.pyplot as plt
+
         bars = plt.bar(self.bins, self.vals, width=self.step_size,
                        align='center')
-        self.label_figure()
+        self._label_figure()
 
         return bars
 
-    def label_figure(self):
+    def _label_figure(self):
+        import matplotlib.pyplot as plt
+
         if self.is_pcd():
             plt.title('Pitch class distribution')
             ref_freq_str = 'Hz x 2^n'
@@ -441,20 +446,14 @@ class PitchDistribution(object):
         else:
             plt.xlabel('Normalized Frequency (cents), ref = {0}{1}'.format(
                 str(self.ref_freq), ref_freq_str))
-        plt.ylabel('Occurence')
+        plt.ylabel('Occurrence')
 
     @staticmethod
     def from_pickle(input_str):
-        try:  # file given
-            return pickle.load(open(input_str, 'rb'))
-        except IOError:  # string given
-            return pickle.loads(input_str, 'rb')
+        return IO.from_pickle(input_str)
 
     def to_pickle(self, file_name=None):
-        if file_name is None:
-            return pickle.dumps(self)
-        else:
-            pickle.dump(self, open(file_name, 'wb'))
+        IO.to_pickle(self, filepath=file_name)
 
     @staticmethod
     def from_json(file_name):

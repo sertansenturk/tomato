@@ -24,9 +24,10 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from six.moves import configparser
 import os
 import subprocess
+
+from six.moves import configparser
 
 from .io import IO
 

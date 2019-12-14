@@ -25,9 +25,9 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from ..analyzer import Analyzer
-from ..symbolic.symbtranalyzer import SymbTrAnalyzer
 from ..audio.audioanalyzer import AudioAnalyzer
 from ..io import IO
+from ..symbolic.symbtranalyzer import SymbTrAnalyzer
 from .jointanalyzer import JointAnalyzer
 
 
@@ -62,11 +62,12 @@ class CompleteAnalyzer(Analyzer):
         ----------
         symbtr_txt_filename : str
             The SymbTr-score of the performed composition in txt format. It
-            is used to parse mainly the notated musical events and with some
-            editoral metadata
+            is used to parse the notated musical events and some editoral
+            metadata
         symbtr_mu2_filename : str
             The SymbTr-score of the performed composition in mu2 format. It
-            is used to parse editorial metadata and music theory
+            is used to parse additional editorial metadata and music theory
+            information
         symbtr_name : str, optional
             The score name in the SymbTr convention, i.e.
             "makam--form--usul--name--composer." If not given the method
@@ -98,12 +99,13 @@ class CompleteAnalyzer(Analyzer):
         audio_filename = IO.make_unicode(audio_filename)
 
         # score analysis
-        score_features, boundaries, work_mbid = self._symbtr_analyzer.analyze(
+        score_features = self._symbtr_analyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)
 
         # audio analysis
         audio_features = self._audio_analyzer.analyze(
-            audio_filename, makam=score_features['makam']['symbtr_slug'],
+            audio_filename,
+            makam=score_features['metadata']['makam']['symbtr_slug'],
             metadata=audio_metadata)
 
         # joint analysis

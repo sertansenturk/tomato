@@ -27,8 +27,8 @@
 import csv
 import warnings
 
+from ....metadata.symbtr import SymbTr as SymbTrMetadata
 from .symbtr import SymbTrReader
-from ..metadata.metadataextractor import MetadataExtractor
 
 
 class Mu2Reader(SymbTrReader):
@@ -63,7 +63,7 @@ class Mu2Reader(SymbTrReader):
     @classmethod
     def read_header(cls, score_file, symbtr_name=None):
         """
-        Reads the metadata in the header of the SymbTr-mu2 scores.
+        Reads the header of the SymbTr-mu2 scores.
 
         Parameters
         ----------
@@ -75,11 +75,11 @@ class Mu2Reader(SymbTrReader):
         Returns
         ----------
         dict
-            A dictionary storing the metadata extracted from the header
+            A dictionary storing the symbtr extracted from the header
         list of str
             The names of the columns in the mu2 file
         bool
-            True if the metadata in the mu2 header is valid/consistent,
+            True if the symbtr in the mu2 header is valid/consistent,
             False otherwise
         """
         if symbtr_name is None:
@@ -139,16 +139,16 @@ class Mu2Reader(SymbTrReader):
                 else:  # end of header
                     break
 
-        # get the metadata
-        slugs = MetadataExtractor.get_slugs(symbtr_name)
+        # get the symbtr
+        slugs = SymbTrMetadata.get_slugs(symbtr_name)
         for attr in ['makam', 'form', 'usul']:
-            MetadataExtractor.add_attribute_slug(header, slugs, attr)
+            SymbTrMetadata.add_attribute_slug(header, slugs, attr)
 
         header['title']['symbtr_slug'] = slugs['name']
         header['composer']['symbtr_slug'] = slugs['composer']
 
         # validate the header content
-        is_attr_meta_valid = MetadataExtractor.validate_makam_form_usul(
+        is_attr_meta_valid = SymbTrMetadata.validate_makam_form_usul(
             header, symbtr_name)
 
         is_header_valid = (is_tempo_unit_valid and is_attr_meta_valid and
@@ -165,7 +165,7 @@ class Mu2Reader(SymbTrReader):
             header['key_signature'] = []
 
         # validate key signature
-        is_key_sig_valid = is_key_sig_valid and MetadataExtractor. \
+        is_key_sig_valid = is_key_sig_valid and SymbTrMetadata. \
             validate_key_signature(header['key_signature'],
                                    makam_slug, symbtr_name)
         return is_key_sig_valid

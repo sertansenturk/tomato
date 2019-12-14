@@ -25,9 +25,11 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 from copy import deepcopy
+
 import numpy as np
-from .scoreprocessor import ScoreProcessor
+
 from .graph import GraphOperations
+from .scoreprocessor import ScoreProcessor
 
 
 class StructureLabeler(object):
@@ -78,7 +80,7 @@ class StructureLabeler(object):
         # Here we only check whether the lyrics are similar to others
         # We don't check whether they are sung on the same note / with
         # the same duration, or not. As a results, two structures having
-        # exactly the same melody but different sylallable onset/offsets
+        # exactly the same melody but different syllable onset/offsets
         # would be considered the same. Nevertheless this situation
         # would occur in very rare occasions.
         # From the point of view of an audio-score alignment algorithm
@@ -92,8 +94,8 @@ class StructureLabeler(object):
 
         # graph analysis
         lyrics_strings = [a['lyrics'] for a in score_fragments]
-        dists = GraphOperations.get_dist_matrix(lyrics_strings,
-                                                metric='norm_levenshtein')
+        dists = GraphOperations.get_dist_matrix(
+            lyrics_strings, metric='norm_levenshtein')
         cliques = GraphOperations.get_cliques(dists, self.lyrics_sim_thres)
 
         # semiotic labeling

@@ -24,10 +24,13 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from abc import ABCMeta, abstractmethod, abstractproperty
-from .io import IO
 import logging
 import warnings
+from abc import ABCMeta, abstractmethod, abstractproperty
+
+from .io import IO
+
+logger = logging.Logger(__name__, level=logging.INFO)
 
 
 class Analyzer(object):
@@ -75,7 +78,7 @@ class Analyzer(object):
         for feature, val in kwargs.items():
             if feature not in self._inputs:
                 warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
-                           u'but it will not be used in the audio analysis.' \
+                           u'but will not be used in the analysis.' \
                            u''.format(feature)
                 warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
@@ -91,7 +94,7 @@ class Analyzer(object):
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,
                     TypeError, AttributeError):
-                logging.warning('{0:s} failed.'.format(func.__name__))
+                logger.exception('{0:s} failed.'.format(func.__name__))
                 return None
         else:  # flag is the precomputed feature itself
             return flag
