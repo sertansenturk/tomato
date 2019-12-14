@@ -35,6 +35,6 @@ install:
   # - pip install -r requirements.txt
   - pip show tomato
 script:
-  - tox -e flake8,pylint,$TOX_PYTHON_ENV
+  - tox -e $TOX_PYTHON_ENV,flake8 #,pylint
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/
