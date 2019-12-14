@@ -1,5 +1,9 @@
 # Changelog
 
+## tomato v0.13.0
+
+- Refactored the code (in particular metadata and score processing), which was previously ported from different makam analysis libraries in v0.11.0: Pull requests [#84](https://github.com/sertansenturk/tomato/pull/84) and [#94](https://github.com/sertansenturk/tomato/pull/94)
+
 ## tomato v0.12.3
 
 - Solved the problem with loading the makam/tonic estimation model from pickle (removed `morty` dependency): [Pull request #91](https://github.com/sertansenturk/tomato/pull/#91)

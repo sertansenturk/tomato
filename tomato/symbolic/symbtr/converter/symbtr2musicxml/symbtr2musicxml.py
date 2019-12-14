@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-import os
 import copy
+import os
+
 from lxml import etree
+
+from ...dataextractor import DataExtractor
+from ...reader.mu2 import Mu2Reader
 from .symbtrnote import Note
-from ..symbtr.dataextractor import DataExtractor
-from ..symbtr.reader.mu2 import Mu2Reader
 
 # koma definitions
 n_natural = 'natural'
@@ -216,7 +218,7 @@ class SymbTrScore(object):
                  verbose=None):
         self.txtpath = txtpath  # filepath for the txt score
         self.mu2path = mu2path  # filepath for the mu2 score; used for
-        # obtaining the metadata from its header
+        # obtaining the symbtr from its header
 
         # musicbrainz unique identifier (there can be more than one MBID)
         try:  # python 2

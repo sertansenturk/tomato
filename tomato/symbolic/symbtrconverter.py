@@ -25,23 +25,25 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import os
+import re
 import subprocess
 import tempfile
-import re
+
 import musicbrainzngs
-from .musicxmlconverter import symbtr2musicxml
-from .musicxml2lilypond import scoreconverter as musicxml2lilypond
-from .symbtr.extras.score import Score
-from .symbtr.reader.symbtr import SymbTrReader
-from .symbtr.metadata.musicbrainz import MusicBrainzMetadata
-from ..io import IO
+
 from ..bincaller import BinCaller
+from ..io import IO
+from ..metadata.musicbrainz import MusicBrainz
+from ..metadata.symbtr import SymbTr as SymbTrMetadata
+from .symbtr.converter.musicxml2lilypond import \
+    scoreconverter as musicxml2lilypond
+from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
+from .symbtr.reader.symbtr import SymbTrReader
 
 _bin_caller = BinCaller()
 
 
-class ScoreConverter(object):
-    _mb_meta_getter = MusicBrainzMetadata()
+class SymbTrConverter(object):
     _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
     @classmethod
@@ -84,13 +86,10 @@ class ScoreConverter(object):
             return xml_out  # return filename
 
     @classmethod
-    def mu2_to_musicxml(cls, mu2_file, xml_out=None, symbtr_name=None,
-                        flags=None, midi_instrument=None):
+    def mu2_to_musicxml(cls, mu2_file, xml_out=None, flags=None,
+                        midi_instrument=None):
         mu2_file = IO.make_unicode(mu2_file)
         xml_out = IO.make_unicode(xml_out)
-
-        if symbtr_name is None:
-            symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(mu2_file)
 
         # MusikiToMusicXml saves the output to the same folder of the
         # mu2_file, by only changing the extension to xml. To avoid this
@@ -102,12 +101,12 @@ class ScoreConverter(object):
         temp_in_file = IO.create_temp_file(
             '.mu2', open(mu2_file).read(), folder=tmp_dir)
 
-        # parse
+        # 3. parse
         temp_out_file, midi_str, flag_str = cls._parse_musikitomusicxml_inputs(
             temp_in_file, midi_instrument, flags)
 
         try:
-            # 3. call MusikiToMusicXml ...
+            # 4. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
 
             callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
@@ -164,12 +163,13 @@ class ScoreConverter(object):
     def _get_mbid_url(cls, mbid, symbtr_name):
         if mbid is None:
             try:
-                mbid_url = Score.get_mbids(symbtr_name)[0]
+                mbid_url = SymbTrMetadata.get_mbids_from_symbtr_name(
+                    symbtr_name)[0]
             except IndexError:
                 mbid_url = None
         else:
             try:  # find if it is a work or recording mbid
-                meta = cls._mb_meta_getter.crawl_musicbrainz(mbid)
+                meta = MusicBrainz.crawl(mbid)
                 mbid_url = meta['url']
             except (musicbrainzngs.NetworkError, musicbrainzngs.ResponseError):
                 mbid_url = mbid
@@ -273,7 +273,7 @@ class ScoreConverter(object):
         # above
         svg_pages = []
         for svg_file in svg_files:
-            with open(svg_file, 'r') as f:  # get the organized svg string
+            with open(svg_file) as f:  # get the organized svg string
                 svg_pages.append(ptr.sub(replace_svg_index, f.read()))
             os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)

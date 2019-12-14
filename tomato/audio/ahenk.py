@@ -25,6 +25,8 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import numpy as np
+
+from ..converter import Converter
 from ..io import IO
 
 
@@ -44,7 +46,7 @@ class Ahenk(object):
             symbol_in, tonic_dict)
 
         # get the transposition in cents, rounded to the closest semitone
-        cent_dist = cls._hz_to_cent(tonic_freq, tonic_bolahenk_freq)
+        cent_dist = Converter.hz_to_cent(tonic_freq, tonic_bolahenk_freq)
         mod_cent_dist = np.mod(cent_dist, cls.CENTS_IN_OCTAVE)
 
         # if the distance is more than 1150 cents wrap it to minus
@@ -58,14 +60,14 @@ class Ahenk(object):
 
         # create the stats dictionary
         distance_to_bolahenk = {
-            'performed': {'value': mod_cent_dist.tolist()[0], 'unit': 'cent'},
+            'performed': {'value': mod_cent_dist, 'unit': 'cent'},
             'theoretical': {'value': mod_cent_approx, 'unit': 'cent'}}
         ahenk_dict = {'name': '', 'slug': '', 'makam': makam,
                       'tonic_symbol': tonic_symbol,
                       'distance_to_bolahenk': distance_to_bolahenk,
-                      'deviation': {'value': mod_cent_dev.tolist()[0],
+                      'deviation': {'value': mod_cent_dev,
                                     'unit': 'cent'},
-                      'abs_deviation': {'value': abs_mod_cent_dev.tolist()[0],
+                      'abs_deviation': {'value': abs_mod_cent_dev,
                                         'unit': 'cent'}}
 
         # get the ahenk
@@ -102,17 +104,3 @@ class Ahenk(object):
                     raise KeyError("The tonic of this makam is not known.")
                 break
         return tonic_symbol, tonic_bolahenk_freq
-
-    @staticmethod
-    def _hz_to_cent(hz_track, ref_freq):
-        """--------------------------------------------------------------------
-        Converts an array of Hertz values into cents.
-        -----------------------------------------------------------------------
-        hz_track : The 1-D array of Hertz values
-        ref_freq    : Reference frequency for cent conversion
-        --------------------------------------------------------------------"""
-        hz_track = np.array(hz_track)
-
-        # The 0 Hz values are removed, not only because they are meaningless,
-        # but also logarithm of 0 is problematic.
-        return np.log2(hz_track[hz_track > 0] / ref_freq) * 1200.0

@@ -26,13 +26,12 @@
 # pages 119–122, Paris, France.
 
 from copy import deepcopy
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.ticker
 
-from tomato.audio.pitchfilter import PitchFilter
-from tomato.audio.pitchdistribution import PitchDistribution
-from tomato.converter import Converter
+import numpy as np
+
+from ..pitchdistribution import PitchDistribution
+from ..pitchfilter import PitchFilter
+from ...converter import Converter
 
 
 class TonicLastNote(object):
@@ -160,6 +159,9 @@ class TonicLastNote(object):
 
     @staticmethod
     def plot(pitch, tonic, pitch_chunks, distribution):
+        import matplotlib.pyplot as plt
+        import matplotlib.ticker
+
         _, (ax1, ax2, ax3) = plt.subplots(3, num=None, figsize=(18, 8), dpi=80)
         plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
                             wspace=0, hspace=0.4)

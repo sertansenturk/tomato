@@ -25,6 +25,7 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+
 from ...io import IO
 
 

@@ -25,13 +25,13 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 
-import numpy as np
-import matplotlib.pyplot as plt
-import json
 import copy
+import json
 
-from .pitchdistribution import PitchDistribution
+import numpy as np
+
 from ..converter import Converter
+from .pitchdistribution import PitchDistribution
 
 
 class Seyir(object):
@@ -117,7 +117,7 @@ class Seyir(object):
     def _slice_pitch(self, pp, ti, tt):
         p_sliced = [p for t, p in zip(tt, pp) if ti[1] > t >= ti[0]]
         p_cent = Converter.hz_to_cent(
-            p_sliced, self._dummy_ref_freq, min_freq=20.0)
+            p_sliced, self._dummy_ref_freq)
 
         # pop nan and inf
         p_cent = p_cent[~np.isnan(p_cent)]
@@ -168,6 +168,7 @@ class Seyir(object):
     @staticmethod
     def plot(seyir_features, ax=None, plot_average_pitch=True,
              plot_stable_pitches=True, plot_distribution=False):
+        import matplotlib.pyplot as plt
 
         if ax is None:
             fig, ax = plt.subplots()

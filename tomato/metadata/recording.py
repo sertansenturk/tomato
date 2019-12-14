@@ -24,16 +24,20 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import eyed3
-from . attribute import Attribute
-from . work import Work
-from . instrumentationvoicing import InstrumentationVoicing
-import musicbrainzngs as mb
 import logging
-logging.basicConfig(level=logging.INFO)
+
+import eyed3
+import musicbrainzngs as mb
+
+from .. import __version__
+from ..io import IO
+from .instrumentation import Instrumentation
+from .work import Work as WorkMetadata
+
+logger = logging.Logger(__name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
-mb.set_useragent("Makam corpus metadata", "1.2.1", "compmusic.upf.edu")
+mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
 # set logging to report on the error level
 try:  # handle different eyeD3 versions
@@ -43,14 +47,11 @@ except AttributeError:
 
 
 class Recording(object):
-    def __init__(self, get_work_attributes=True, print_warnings=None):
-        self.print_warnings = print_warnings
-        self.get_work_attributes = get_work_attributes
-
-    def from_musicbrainz(self, audio_in):
+    @classmethod
+    def from_musicbrainz(cls, audio_in, get_work_attributes=True):
         try:  # audio file input
             mbid, duration, sampling_frequency, bit_rate = \
-                Recording.get_file_metadata(audio_in)
+                cls.get_file_metadata(audio_in)
             audio_meta = {'mbid': mbid, 'path': audio_in, 'duration': duration,
                           'sampling_frequency': sampling_frequency,
                           'bit_rate': bit_rate}
@@ -65,36 +66,36 @@ class Recording(object):
         audio_meta['title'] = meta['title']
 
         # releases
-        audio_meta['releases'] = self._get_releases(meta)
+        audio_meta['releases'] = cls._get_releases(meta)
 
         # artist credits
-        audio_meta['artist_credits'] = self._get_artist_credits(meta)
+        audio_meta['artist_credits'] = cls._get_artist_credits(meta)
 
         # performers
-        audio_meta['artists'] = self._get_artist_relations(meta)
+        audio_meta['artists'] = cls._get_artist_relations(meta)
 
         # works
         if 'work-relation-list' in meta.keys():  # has work
-            audio_meta['works'] = self._get_works(meta)
+            audio_meta['works'] = cls._get_works(meta)
 
         # get makam/usul/for from work attributes
-        if self.get_work_attributes and 'works' in audio_meta.keys():
-            self._get_attributes_from_works(audio_meta)
+        if get_work_attributes and 'works' in audio_meta.keys():
+            cls._get_attributes_from_works(audio_meta)
 
         # get makam/usul/for tags
-        self._get_recording_attribute_tags(audio_meta, meta)
+        cls._get_recording_attribute_tags(audio_meta, meta)
 
-        # infer voicing/instrumentation
-        audio_meta['instrumentation_voicing'] = InstrumentationVoicing.\
-            get_voicing_instrumentation(audio_meta)
+        # infer instrumentation (incl. vocal instrumentation)
+        audio_meta['instrumentation'] = Instrumentation.get_instrumentation(
+            audio_meta)
 
         return audio_meta
 
-    def _get_attributes_from_works(self, audio_meta):
-        work_metadata = Work(print_warnings=self.print_warnings)
+    @staticmethod
+    def _get_attributes_from_works(audio_meta):
         attribute_keys = ['makam', 'form', 'usul']
         for w in audio_meta['works']:
-            work_meta = work_metadata.from_musicbrainz(w['mbid'])
+            work_meta = WorkMetadata.from_musicbrainz(w['mbid'])
             for ak in attribute_keys:
                 if ak not in audio_meta.keys():
                     audio_meta[ak] = work_meta[ak]
@@ -102,19 +103,51 @@ class Recording(object):
                     for wm in work_meta[ak]:
                         audio_meta[ak].append(wm)
 
-    @staticmethod
-    def _get_recording_attribute_tags(audio_meta, meta):
-        attributetags = Attribute.get_attrib_tags(meta)
-        for key, vals in attributetags.items():
+    @classmethod
+    def _get_recording_attribute_tags(cls, audio_meta, meta):
+        attribute_tags = cls._get_attribute_tags(meta)
+        for key, vals in attribute_tags.items():
             for val in vals:  # add the source
-                val['source'] = 'http://musicbrainz.org/recording/' + \
-                                audio_meta['mbid']
+                val['source'] = 'http://musicbrainz.org/recording/{}'.format(
+                    audio_meta['mbid'])
 
             if key not in audio_meta.keys():
                 audio_meta[key] = vals
             else:
                 for val in vals:
                     audio_meta[key].append(val)
+
+    @classmethod
+    def _get_attribute_tags(cls, meta):
+        theory_attribute_keys = ['makam', 'form', 'usul']
+        attributes = dict()
+        if 'tag-list' in meta.keys():
+            for k in theory_attribute_keys:  # for makam/form/usul keys
+                for t in meta['tag-list']:  # for each tag
+                    try:  # attempt to assign the tag to the attribute key
+                        cls._assign_attribute(attributes, k, t)
+                    except ValueError:
+                        logger.debug(u'{0:s} is not a makam/form/usul tag; '
+                                     u'skipped'.format(t))
+        return attributes
+
+    @classmethod
+    def _assign_attribute(cls, attributes, k, t):
+        key, val = t['name'].split(': ')
+        if k in key:
+            if k not in attributes.keys():  # create the key
+                attributes[k] = []
+
+            attributes[k].append(
+                {'mb_tag': val, 'attribute_key':
+                    cls._get_key_from_musicbrainz_tag(val, k)})
+
+    @staticmethod
+    def _get_key_from_musicbrainz_tag(attr_str, attr_type):
+        attr_dict = IO.load_music_data(attr_type)
+        for attr_key, attr_val in attr_dict.items():
+            if attr_str in attr_val['mb_tag']:
+                return attr_key
 
     @staticmethod
     def get_file_metadata(filepath):
@@ -140,7 +173,7 @@ class Recording(object):
                 artist_credits.append({'name': credit['artist']['name'],
                                        'mbid': credit['artist']['id']})
             except TypeError:
-                logging.debug('skip join phrase')
+                logger.debug('skip join phrase')
 
         return artist_credits
 

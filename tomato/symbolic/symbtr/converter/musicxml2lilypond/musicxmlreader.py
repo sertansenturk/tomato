@@ -1,6 +1,8 @@
 # coding=utf-8
-from __future__ import unicode_literals, division
+from __future__ import division, unicode_literals
+
 import warnings
+
 from lxml import etree
 
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
