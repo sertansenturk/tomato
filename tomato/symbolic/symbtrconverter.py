@@ -31,14 +31,14 @@ import tempfile
 
 import musicbrainzngs
 
-from .symbtr.converter.musicxml2lilypond import scoreconverter as \
-    musicxml2lilypond
-from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
-from .symbtr.reader.symbtr import SymbTrReader
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.musicbrainz import MusicBrainz
 from ..metadata.symbtr import SymbTr as SymbTrMetadata
+from .symbtr.converter.musicxml2lilypond import \
+    scoreconverter as musicxml2lilypond
+from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
+from .symbtr.reader.symbtr import SymbTrReader
 
 _bin_caller = BinCaller()
 

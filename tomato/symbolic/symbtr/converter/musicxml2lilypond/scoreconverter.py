@@ -1,5 +1,5 @@
 # coding=utf-8
-from __future__ import unicode_literals, division
+from __future__ import division, unicode_literals
 
 import os
 import sqlite3
@@ -122,7 +122,7 @@ class ScoreConverter(object):
         accidentals_check = []
         rule = []
         for queue in keysig.keys():
-            if cls._makam_accidentals[keysig[queue]][0] is "+":
+            if cls._makam_accidentals[keysig[queue]][0] == "+":
                 rule.append([cls.sort_rule_sharps[queue], 's'])
             else:
                 rule.append([cls.sort_rule_flats[queue], 'f'])
@@ -130,7 +130,7 @@ class ScoreConverter(object):
         # sorting of key signatures
         temp_keysig = ""
         for queue in sorted(rule):
-            if queue[1] is "s":
+            if queue[1] == "s":
                 key = cls.sort_rule_notes_sharps[queue[0]]
             else:
                 key = cls.sort_rule_notes_flats[queue[0]]
@@ -211,7 +211,7 @@ class ScoreConverter(object):
                     mapping.append((note[7], pos, line))
 
                 # lyrics
-                if note[-1] is not "":
+                if note[-1] != "":
                     if len(note[-1]) > 1:
                         if note[-1][1].isupper() or note[-1][0].isdigit():
                             temp_note += (

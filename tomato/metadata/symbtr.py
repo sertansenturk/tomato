@@ -24,8 +24,9 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import warnings
+import codecs
 import json
+import warnings
 
 from six.moves.urllib.request import urlopen
 
@@ -54,13 +55,14 @@ class SymbTr(object):
             metadata['composer']['symbtr_slug'] = slugs['composer']
 
         # get and validate the attributes
-        is_attr_meta_valid = cls.validate_makam_form_usul(metadata, score_name)
+        is_attrib_meta_valid = cls.validate_makam_form_usul(
+            metadata, score_name)
 
         # get the tonic
         makam = cls._get_attribute(metadata['makam']['symbtr_slug'], 'makam')
         metadata['tonic'] = makam['karar_symbol']
 
-        return metadata, is_attr_meta_valid
+        return metadata, is_attrib_meta_valid
 
     @staticmethod
     def get_slugs(symbtr_name):
@@ -152,12 +154,15 @@ class SymbTr(object):
         return all([slug_valid, mu2_valid, mb_attr_valid, mb_tag_valid])
 
     @staticmethod
-    def _validate_slug(attrib_dict, score_attr, score_name):
-        has_slug = 'symbtr_slug' in score_attr.keys()
-        if has_slug and not score_attr['symbtr_slug'] ==\
-                attrib_dict['symbtr_slug']:
+    def _validate_slug(attrib_dict, score_attrib, score_name):
+        has_slug = 'symbtr_slug' in score_attrib.keys()
+
+        not_valid = (
+            has_slug
+            and score_attrib['symbtr_slug'] != attrib_dict['symbtr_slug'])
+        if not_valid:
             warnings.warn(u'{0!s}, {1!s}: The slug does not match.'.
-                          format(score_name, score_attr['symbtr_slug']),
+                          format(score_name, score_attrib['symbtr_slug']),
                           stacklevel=2)
             return False
 
@@ -166,24 +171,24 @@ class SymbTr(object):
     @classmethod
     def _validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
 
-        is_attr_valid = True
+        is_attrib_valid = True
         if 'mu2_name' in score_attrib.keys():  # work
             try:  # usul
-                mu2_name, is_attr_valid = cls._validate_mu2_usul(
+                mu2_name, is_attrib_valid = cls._validate_mu2_usul(
                     score_attrib, attrib_dict, score_name)
 
                 if not mu2_name:  # no matching variant
-                    is_attr_valid = False
+                    is_attrib_valid = False
                     warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not ' \
                                u'match.'.format(score_name,
                                                 score_attrib['mu2_name'])
                     warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 
             except KeyError:  # makam, form
-                is_attr_valid = cls._validate_mu2_makam_form(
+                is_attrib_valid = cls._validate_mu2_makam_form(
                     score_attrib, attrib_dict, score_name)
 
-        return is_attr_valid
+        return is_attrib_valid
 
     @staticmethod
     def _validate_mu2_makam_form(score_attrib, attrib_dict, score_name):
@@ -261,12 +266,12 @@ class SymbTr(object):
         return is_attribute_valid
 
     @staticmethod
-    def _get_attribute(slug, attr_name):
-        attr_dict = IO.load_music_data(attr_name)
+    def _get_attribute(slug, attribute_name):
+        attribute_dict = IO.load_music_data(attribute_name)
 
-        for attr in attr_dict.values():
-            if attr['symbtr_slug'] == slug:
-                return attr
+        for attrib in attribute_dict.values():
+            if attrib['symbtr_slug'] == slug:
+                return attrib
 
         # no match
         return {}
@@ -297,8 +302,11 @@ class SymbTr(object):
         try:
             url = "https://raw.githubusercontent.com/MTG/SymbTr/master/" \
                   "symbTr_mbid.json"
+
             response = urlopen(url)
-            return json.loads(response.read())
+            reader = codecs.getreader("utf-8")
+
+            return json.load(reader(response))
         except IOError:  # load local backup
             warnings.warn("Cannot reach github to read the latest "
                           "symbtr_mbid.json. Using the back-up "

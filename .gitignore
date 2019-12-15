@@ -5,6 +5,10 @@
 !.travis.yml
 !.codeclimate.yml
 
+build/
+dist/
+env/
+
 # binaries
 *alignAudioScore*
 *extractTonicTempoTuning*

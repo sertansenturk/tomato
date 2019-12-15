@@ -26,8 +26,8 @@
 
 import numpy as np
 
-from ..io import IO
 from ..converter import Converter
+from ..io import IO
 
 
 class Ahenk(object):

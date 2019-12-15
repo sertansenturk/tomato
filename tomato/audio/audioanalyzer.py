@@ -32,9 +32,12 @@ import warnings
 
 import numpy as np
 import six
-from musicbrainzngs import NetworkError
-from musicbrainzngs import ResponseError
+from musicbrainzngs import NetworkError, ResponseError
 
+from ..analyzer import Analyzer
+from ..io import IO
+from ..metadata.recording import Recording as RecordingMetadata
+from ..plotter import Plotter
 from .ahenk import Ahenk
 from .makamtonic.knnclassifier import KNNClassifier as MakamClassifier
 from .makamtonic.toniclastnote import TonicLastNote
@@ -43,10 +46,6 @@ from .pitchdistribution import PitchDistribution
 from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
 from .seyir import Seyir
-from ..analyzer import Analyzer
-from ..io import IO
-from ..metadata.recording import Recording as RecordingMetadata
-from ..plotter import Plotter
 
 logger = logging.Logger(__name__, level=logging.INFO)
 

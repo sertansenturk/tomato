@@ -28,16 +28,16 @@ import json
 import os
 import timeit
 
-from .symbtr.dataextractor import DataExtractor
-from .symbtr.reader.mu2 import Mu2
-from .symbtr.reader.txt import TxtReader
-from .symbtr.section import SectionExtractor
-from .symbtr.segment import SegmentExtractor
-from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
 from ..io import IO
 from ..metadata.symbtr import SymbTr as SymbTrMetadata
+from .symbtr.dataextractor import DataExtractor
+from .symbtr.reader.mu2 import Mu2Reader
+from .symbtr.reader.txt import TxtReader
+from .symbtr.rhythmicfeature import RhythmicFeatureExtractor
+from .symbtr.section import SectionExtractor
+from .symbtr.segment import SegmentExtractor
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()
@@ -94,7 +94,7 @@ class SymbTrAnalyzer(Analyzer):
 
         if mu2_filepath is not None:
             mu2_header, header_row, is_mu2_header_valid = \
-                Mu2.read_header(mu2_filepath, symbtr_name=symbtr_name)
+                Mu2Reader.read_header(mu2_filepath, symbtr_name=symbtr_name)
 
             score_data['metadata'] = DataExtractor.merge(
                 score_data['metadata'], mu2_header)

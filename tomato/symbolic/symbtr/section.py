@@ -27,11 +27,11 @@
 import warnings
 from math import floor
 
+from ...io import IO
 from .graph import GraphOperations
 from .offset import OffsetProcessor
 from .scoreprocessor import ScoreProcessor
 from .structurelabeler import StructureLabeler
-from ...io import IO
 
 
 class SectionExtractor(object):

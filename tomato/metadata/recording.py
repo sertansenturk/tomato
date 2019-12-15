@@ -29,11 +29,10 @@ import logging
 import eyed3
 import musicbrainzngs as mb
 
+from .. import __version__
+from ..io import IO
 from .instrumentation import Instrumentation
 from .work import Work as WorkMetadata
-
-from ..io import IO
-from .. import __version__
 
 logger = logging.Logger(__name__, level=logging.WARNING)
 
@@ -61,9 +60,9 @@ class Recording(object):
         audio_meta['url'] = u'http://musicbrainz.org/recording/{}'.format(
             audio_meta['mbid'])
 
-        meta = mb.get_recording_by_id(
-            audio_meta['mbid'], includes=['artists', 'artist-rels', 'releases',
-                                          'tags', 'work-rels'])['recording']
+        meta = mb.get_recording_by_id(audio_meta['mbid'], includes=[
+            'artists', 'artist-rels', 'releases', 'tags', 'work-rels'
+            ])['recording']
         audio_meta['title'] = meta['title']
 
         # releases

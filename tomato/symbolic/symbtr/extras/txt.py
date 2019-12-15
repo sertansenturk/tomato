@@ -82,10 +82,10 @@ class Txt(object):
         # check if the usul pair matches with the mu2dict
         if usul_name in mu2_usul_dict and mu2_usul_dict[usul_name]['id'] == \
                 usul_id:
-            cls._chk_usul_attr(row, mu2_usul_dict[usul_name], 'zaman',
-                               symbtr_name, index, usul_name)
-            cls._chk_usul_attr(row, mu2_usul_dict[usul_name], 'mertebe',
-                               symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, mu2_usul_dict[usul_name], 'zaman',
+                                 symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, mu2_usul_dict[usul_name], 'mertebe',
+                                 symbtr_name, index, usul_name)
         else:
             warnstr = u'{0:s}, line {1:s}: {2:s} and {3:s} does not match.'.\
                 format(symbtr_name, str(index), usul_name, str(usul_id))
@@ -103,10 +103,10 @@ class Txt(object):
             warnings.warn(warnstr.encode('utf-8'))
             row['Soz1'] = inv_mu2_usul_dict[usul_id]['mu2_name']
 
-            cls._chk_usul_attr(row, inv_mu2_usul_dict[usul_id], 'zaman',
-                               symbtr_name, index, usul_name)
-            cls._chk_usul_attr(row, inv_mu2_usul_dict[usul_id], 'mertebe',
-                               symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, inv_mu2_usul_dict[usul_id], 'zaman',
+                                 symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, inv_mu2_usul_dict[usul_id], 'mertebe',
+                                 symbtr_name, index, usul_name)
             row_changed = True
         return row_changed
 
@@ -120,7 +120,7 @@ class Txt(object):
         return row_changed
 
     @staticmethod
-    def _chk_usul_attr(row, usul, attr_str, symbtr_name, index, usul_name):
+    def _chk_usul_attrib(row, usul, attr_str, symbtr_name, index, usul_name):
         if attr_str == 'mertebe':
             row_str = 'Payda'
         elif attr_str == 'zaman':
@@ -143,8 +143,8 @@ class Txt(object):
         df = pd.read_csv(txt_file, sep=b'\t')
 
         # create the usul row
-        # 1    51            0    0    zaman    mertebe    0    usul_symbtr_internal_id    0    usul_mu2_name    0
-        # 1    51            0    0    6    4    0    90    0    Yürüksemâî (6/4)    0
+        # 1    51            0    0    zaman    mertebe    0    usul_symbtr_internal_id    0    usul_mu2_name    0  # noqa
+        # 1    51            0    0    6    4    0    90    0    Yürüksemâî (6/4)    0  # noqa
         usul_row = pd.DataFrame(
             {'Sira': 1, 'Kod': 51, 'Nota53': '', 'NotaAE': '', 'Koma53': 0,
              'KomaAE': 0, 'Pay': int(variant['num_pulses']),
