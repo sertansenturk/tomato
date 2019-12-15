@@ -1,5 +1,9 @@
 # Changelog
 
+## tomato v0.14.0
+
+- Added Github issue templates
+
 ## tomato v0.13.0
 
 - Refactored the code (in particular metadata and score processing), which was previously ported from different makam analysis libraries in v0.11.0: Pull requests [#84](https://github.com/sertansenturk/tomato/pull/84) and [#94](https://github.com/sertansenturk/tomato/pull/94)
