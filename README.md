@@ -68,10 +68,10 @@ There are four steps in the installation:
 
 ### <a name="tomato_install"></a>Installing tomato
 
-**tomato** requires several packages to be installed. In Linux, you have to install the _python3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_ and _png_ development packages. The package names might vary in different Linux distributions. In Ubuntu 16.04, you can install these packages by:
+**tomato** requires several packages to be installed. In Linux, you have to install the _python 3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_, and _png_ development packages. The package names might vary in different Linux distributions. In *Ubuntu 16.04* using *Python 3.5*, you can install these packages by:
 
 ```bash
-sudo apt-get install python-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
+sudo apt-get install python3.5-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
 ```
 
 It is recommended to install **tomato** and its dependencies into a virtualenv. In the terminal, do the following:
