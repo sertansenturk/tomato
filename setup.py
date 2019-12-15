@@ -3,7 +3,10 @@
 
 import os
 import subprocess
+import zipfile
+
 from tomato import __version__
+
 try:
     import ConfigParser  # python 2
 except ImportError:
@@ -12,7 +15,6 @@ try:
     from urllib2 import urlopen  # python 2
 except ImportError:
     from urllib.request import urlopen  # python 3
-import zipfile
 
 try:
     from setuptools import setup

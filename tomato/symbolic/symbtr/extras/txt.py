@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import pandas as pd
+
 import os
 import warnings
-from .score import Score
-from ...musicxmlconverter.symbtr2musicxml import SymbTrScore
+
+import pandas as pd
+
 from ....io import IO
 
 
@@ -14,7 +15,7 @@ class Txt(object):
 
     @classmethod
     def check_usul_row(cls, txt_file):
-        mu2_usul_dict, inv_mu2_usul_dict = Score.parse_usul_dict()
+        mu2_usul_dict, inv_mu2_usul_dict = cls._parse_usul_dict()
 
         df = pd.read_csv(txt_file, sep='\t', encoding='utf-8')
 
@@ -33,6 +34,30 @@ class Txt(object):
                 df.iloc[index] = row
 
         return df.to_csv(None, sep=b'\t', index=False, encoding='utf-8')
+
+    @staticmethod
+    def _parse_usul_dict():
+        mu2_usul_dict = {}
+        inv_mu2_usul_dict = {}
+        usul_dict = IO.load_music_data('usul')
+        for key, val in usul_dict.items():
+            for vrt in val['variants']:
+                if vrt['mu2_name']:  # if it doesn't have a mu2 name, the usul
+                    # is not in symbtr collection
+                    zaman = int(vrt['num_pulses']) if vrt['num_pulses'] else []
+                    mertebe = int(vrt['mertebe']) if vrt['mertebe'] else []
+                    if vrt['mu2_name'] in ['(Serbest)', '[Serbest]',
+                                           'Serbest']:
+                        zaman = 0
+                        mertebe = 0
+                    mu2_usul_dict[vrt['mu2_name']] = {
+                        'id': int(vrt['symbtr_internal_id']), 'zaman': zaman,
+                        'mertebe': mertebe}
+
+                    inv_mu2_usul_dict[int(vrt['symbtr_internal_id'])] = {
+                        'mu2_name': vrt['mu2_name'], 'zaman': zaman,
+                        'mertebe': mertebe}
+        return mu2_usul_dict, inv_mu2_usul_dict
 
     @classmethod
     def _parse_usul_row(cls, row, index, mu2_usul_dict, inv_mu2_usul_dict,
@@ -57,10 +82,10 @@ class Txt(object):
         # check if the usul pair matches with the mu2dict
         if usul_name in mu2_usul_dict and mu2_usul_dict[usul_name]['id'] == \
                 usul_id:
-            cls._chk_usul_attr(row, mu2_usul_dict[usul_name], 'zaman',
-                               symbtr_name, index, usul_name)
-            cls._chk_usul_attr(row, mu2_usul_dict[usul_name], 'mertebe',
-                               symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, mu2_usul_dict[usul_name], 'zaman',
+                                 symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, mu2_usul_dict[usul_name], 'mertebe',
+                                 symbtr_name, index, usul_name)
         else:
             warnstr = u'{0:s}, line {1:s}: {2:s} and {3:s} does not match.'.\
                 format(symbtr_name, str(index), usul_name, str(usul_id))
@@ -78,10 +103,10 @@ class Txt(object):
             warnings.warn(warnstr.encode('utf-8'))
             row['Soz1'] = inv_mu2_usul_dict[usul_id]['mu2_name']
 
-            cls._chk_usul_attr(row, inv_mu2_usul_dict[usul_id], 'zaman',
-                               symbtr_name, index, usul_name)
-            cls._chk_usul_attr(row, inv_mu2_usul_dict[usul_id], 'mertebe',
-                               symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, inv_mu2_usul_dict[usul_id], 'zaman',
+                                 symbtr_name, index, usul_name)
+            cls._chk_usul_attrib(row, inv_mu2_usul_dict[usul_id], 'mertebe',
+                                 symbtr_name, index, usul_name)
             row_changed = True
         return row_changed
 
@@ -95,7 +120,7 @@ class Txt(object):
         return row_changed
 
     @staticmethod
-    def _chk_usul_attr(row, usul, attr_str, symbtr_name, index, usul_name):
+    def _chk_usul_attrib(row, usul, attr_str, symbtr_name, index, usul_name):
         if attr_str == 'mertebe':
             row_str = 'Payda'
         elif attr_str == 'zaman':
@@ -111,7 +136,7 @@ class Txt(object):
     @classmethod
     def add_usul_to_first_row(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = Score.get_symbtr_data(txt_file, mu2_file)
+        data = cls.get_symbtr_data(txt_file, mu2_file)
 
         # get usul variant
         variant = cls._get_usul_variant(data)  # read the txt score
@@ -143,12 +168,12 @@ class Txt(object):
         else:
             if not df.iloc[0]["LNS"] == usul_row.iloc[0]["LNS"]:
                 print(u"{0:s} starts with a different usul row. Correcting...".
-                      format(data['symbtr']).encode('utf-8'))
+                      format(data['symbtr_name']).encode('utf-8'))
                 df_usul = pd.concat(
                     [usul_row, df.ix[1:]], ignore_index=True)[cls.symbtr_cols]
             else:
                 print(u"{0:s} starts with the usul row. Skipping...".format(
-                    data['symbtr']).encode('utf-8'))
+                    data['symbtr_name']).encode('utf-8'))
                 df_usul = df
 
         return df_usul.to_csv(None, sep=b'\t', index=False, encoding='utf-8')
@@ -156,7 +181,7 @@ class Txt(object):
     @classmethod
     def correct_offset_gracenote(cls, txt_file, mu2_file):
         # extract symbtr data
-        data = Score.get_symbtr_data(txt_file, mu2_file)
+        data = cls.get_symbtr_data(txt_file, mu2_file)
 
         # get zaman and mertebe from usul variant
         mertebe, zaman = cls._get_zaman_mertebe(data)
@@ -246,16 +271,6 @@ class Txt(object):
 
         assert False, u'Zaman and mertebe for the usul variant {0:s} is not ' \
                       u'available'.format(data['usul']['mu2_name'])
-
-    @staticmethod
-    def to_musicxml(symbtr_name, txt_file, mu2_file):
-        mbids = Score.get_mbids(symbtr_name)
-
-        # MusicXML conversion
-        piece = SymbTrScore(txt_file, mu2_file, symbtrname=symbtr_name,
-                            mbid_url=mbids, verbose=True)
-
-        return piece.convertsymbtr2xml(verbose=False)
 
     @staticmethod
     def _change_null_to_empty_str(row):

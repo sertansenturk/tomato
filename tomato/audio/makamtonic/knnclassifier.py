@@ -25,9 +25,9 @@
 # Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
 # New York, NY, USA
 
-import pickle
-import json
 import copy
+import json
+import pickle
 
 import numpy as np
 

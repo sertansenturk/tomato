@@ -26,8 +26,10 @@
 # New York, NY, USA
 
 from __future__ import division
+
 import collections
 import copy
+
 import numpy as np
 from scipy.spatial import distance as spdistance
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataroot xmlns:od="urn:schemas-microsoft-com:officedata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="Makamlar.xsd" generated="2013-11-07T17:07:09">
+<dataroot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="Makamlar.xsd"
+          generated="2013-11-07T17:07:09">
 <Makamlar>
 <No>1</No>
 <Makam_x0020_No>1</Makam_x0020_No>

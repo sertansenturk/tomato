@@ -24,8 +24,8 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-from . scoreprocessor import ScoreProcessor
-from . structurelabeler import StructureLabeler
+from .scoreprocessor import ScoreProcessor
+from .structurelabeler import StructureLabeler
 
 
 class SegmentExtractor(object):

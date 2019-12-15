@@ -26,14 +26,14 @@
 
 import os
 
-from .metadata.metadataextractor import MetadataExtractor
-from .reader.txt import TxtReader
-from .reader.musicxml import MusicXMLReader
+from ...metadata.symbtr import SymbTr as MetadataExtractor
+from .datamerger import DataMerger
 from .reader.mu2 import Mu2Reader
+from .reader.musicxml import MusicXMLReader
+from .reader.txt import TxtReader
 from .rhythmicfeature import RhythmicFeatureExtractor
 from .section import SectionExtractor
 from .segment import SegmentExtractor
-from .datamerger import DataMerger
 
 
 class DataExtractor(DataMerger):
@@ -49,7 +49,7 @@ class DataExtractor(DataMerger):
         * Add user provided segment boundaries in the SymbTr scores
         * Analyse the melody and the lyrics of the sections, phrase
         annotations and user provided segmentations, and apply semiotic labels
-        * Query relevant metadata from MusicBrainz (if the MBID is supplied)
+        * Query relevant symbtr from MusicBrainz (if the MBID is supplied)
 
     Currently only the SymbTr-txt scores are supported. MusicXML and mu2
     support can be added, if demanded.
@@ -57,8 +57,7 @@ class DataExtractor(DataMerger):
 
     def __init__(self, lyrics_sim_thres=0.7, melody_sim_thres=0.7,
                  save_structure_sim=True, extract_all_labels=False,
-                 crop_consec_bounds=True, get_recording_rels=False,
-                 print_warnings=True):
+                 crop_consec_bounds=True, print_warnings=True):
         """
         Class constructor
 
@@ -81,21 +80,11 @@ class DataExtractor(DataMerger):
             True to remove the first of the two consecutive boundaries inside
             user given segmentation boundaries, False otherwise. (the
             default is True)
-        get_recording_rels : bool, optional
-            True to query the recording relations related to the score from
-            MusicBrainz False otherwise. When calling the extract method the
-            relevant (work) MBID should be supplied. If the supplied MBID
-            belongs to a recording, this flag will not provide to extra
-            information, since the recording metadata will be crawled anyways.
-            (the default is False)
         print_warnings : bool, optional
             True to display warnings, False otherwise. Note that the errors
             and the inconsistencies in the scores will be always displayed
             (the default is True)
         """
-        self._metadata_extractor = MetadataExtractor(
-            get_recording_rels=get_recording_rels)
-
         self._section_extractor = SectionExtractor(
             lyrics_sim_thres=lyrics_sim_thres,
             melody_sim_thres=melody_sim_thres,
@@ -162,8 +151,8 @@ class DataExtractor(DataMerger):
         if symbtr_name is None:
             symbtr_name = os.path.splitext(os.path.basename(score_file))[0]
 
-        # get the metadata
-        data, is_metadata_valid = self._metadata_extractor.get_metadata(
+        # get the symbtr
+        data, is_metadata_valid = MetadataExtractor.from_musicbrainz(
             symbtr_name, mbid=mbid)
 
         # get the extension to determine the SymbTr-score format
@@ -267,15 +256,6 @@ class DataExtractor(DataMerger):
     def print_warnings(self, value):
         self._chk_bool(value)
         self._section_extractor.print_warnings = value
-
-    @property
-    def get_recording_rels(self):
-        return self._metadata_extractor.get_recording_rels
-
-    @get_recording_rels.setter
-    def get_recording_rels(self, value):
-        self._chk_bool(value)
-        self._metadata_extractor.get_recording_rels = value
 
     @property
     def crop_consecutive_bounds(self):

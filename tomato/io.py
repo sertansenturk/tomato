@@ -24,16 +24,17 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
-import tempfile
+import fnmatch
 import os
-import sys
 import pickle
 import re
 import subprocess
+import sys
+import tempfile
 import unicodedata
-import fnmatch
+
+import json_tricks as json
 from future.utils import raise_
-from json_tricks import np as json
 
 
 class IO(object):
@@ -150,9 +151,9 @@ class IO(object):
     @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
-            return json.dumps(features, indent=4)
+            return json.dumps(features, indent=2, allow_nan=True)
         else:
-            json.dump(features, open(filepath, 'w'), indent=4)
+            json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
@@ -163,10 +164,10 @@ class IO(object):
 
     @staticmethod
     def from_json(input_str):
-        try:  # file given
+        if os.path.exists(input_str):  # file given
             return json.load(open(input_str), preserve_order=False)
-        except IOError:  # string given
-            return json.loads(input_str, 'r', preserve_order=False)
+        else:  # string given
+            return json.loads(input_str, preserve_order=False)
 
     @staticmethod
     def get_filenames_in_dir(dir_name, keyword='*', skip_foldername='',
@@ -214,9 +215,13 @@ class IO(object):
                         folders.append(unicode(path, 'utf-8'))
                     except TypeError:  # already unicode
                         folders.append(path)
+                    except NameError:  # Python 3
+                        folders.append(path)
                     try:
                         names.append(unicode(f, 'utf-8'))
                     except TypeError:  # already unicode
+                        names.append(path)
+                    except NameError:  # Python 3
                         names.append(path)
                     fullnames.append(os.path.join(path, f))
 
