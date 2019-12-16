@@ -2,6 +2,7 @@
 
 ## tomato v0.14.0
 
+- Added tomato docker image
 - Added Github issue templates
 
 ## tomato v0.13.0
