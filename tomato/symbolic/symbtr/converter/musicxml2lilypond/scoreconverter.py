@@ -257,7 +257,7 @@ class ScoreConverter(object):
         ly_stream = u''.join(ly_stream)
         # save to file
         if ly_out is not None:
-            with open(ly_out, 'w') as outfile:
+            with open(ly_out, 'w', encoding='utf-8') as outfile:
                 try:  # python 2
                     outfile.write(ly_stream.encode('utf-8'))
                 except TypeError:  # python 3

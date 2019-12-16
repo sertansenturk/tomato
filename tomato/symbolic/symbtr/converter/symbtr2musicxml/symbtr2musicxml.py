@@ -119,7 +119,7 @@ def get_usul(usul):
     beat_type = []
     accents = []
 
-    f = open(fpath)
+    f = open(fpath, encoding='utf-8')
 
     while 1:
         temp_line = f.readline()
@@ -337,7 +337,7 @@ class SymbTrScore(object):
         global kodlist, koddict
 
         # read operation
-        f = open(self.txtpath)
+        f = open(self.txtpath, encoding='utf-8')
         f.readline()
         while 1:
             temp_line = f.readline()  # column headers line

@@ -119,7 +119,7 @@ class SymbTrConverter(object):
             subprocess.call(callstr, shell=True)
 
             # 4. read the resultant MusicXML file
-            xmlstr = open(temp_out_file).read()
+            xmlstr = open(temp_out_file, encoding='utf-8').read()
 
         finally:  # 5. remove the temporary files and folder
             IO.remove_temp_files(temp_in_file)
@@ -130,7 +130,7 @@ class SymbTrConverter(object):
         if xml_out is None:   # return string
             return xmlstr
         else:
-            with open(xml_out, 'w') as f:
+            with open(xml_out, 'w', encoding='utf-8') as f:
                 f.write(xmlstr)
 
             return xml_out  # return filename
@@ -273,7 +273,7 @@ class SymbTrConverter(object):
         # above
         svg_pages = []
         for svg_file in svg_files:
-            with open(svg_file) as f:  # get the organized svg string
+            with open(svg_file, encoding='utf-8') as f:  # get the organized svg string
                 svg_pages.append(ptr.sub(replace_svg_index, f.read()))
             os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
@@ -311,7 +311,7 @@ class SymbTrConverter(object):
                 fnames.append(u'{0:s}.svg'.format(template))
             else:  # append page numbers
                 fnames.append(u'{0:s}-page-{1:d}.svg'.format(template, pp + 1))
-            with open(fnames[-1], 'w') as f:
+            with open(fnames[-1], 'w', encoding='utf-8') as f:
                 f.write(page)
         return fnames  # return filepaths
 
