@@ -10,4 +10,3 @@ python-Levenshtein==0.12.0  # semiotic structure labeling similarity
 networkx==1.11  # semiotic structure labeling clique computation
 lxml>=3.6.0  # musicxml conversion
 musicbrainzngs==0.6  # metadata crawling from musicbrainz
-jupyter>=1.0.0  # demos
