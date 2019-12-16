@@ -32,7 +32,7 @@ class CustomInstall(_install):
         _install.run(self)
 
         # install requirements.txt
-        subprocess.call(["pip install -Ur requirements.txt"], shell=True)
+        subprocess.call(["pip install -r requirements.txt"], shell=True)
 
         # download the binaries
         self.execute(self._setup_binaries, (),
