@@ -273,7 +273,8 @@ class SymbTrConverter(object):
         # above
         svg_pages = []
         for svg_file in svg_files:
-            with open(svg_file, encoding='utf-8') as f:  # get the organized svg string
+            # get the organized svg string
+            with open(svg_file, encoding='utf-8') as f:
                 svg_pages.append(ptr.sub(replace_svg_index, f.read()))
             os.remove(svg_file)  # remove temporary file
         os.rmdir(tmp_dir)
