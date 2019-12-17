@@ -138,6 +138,20 @@ discovery/recommendation and musicological analysis.
       license='agpl 3.0',
       packages=find_packages(),
       include_package_data=True,
-      install_requires=[],  # dependencies are installed from requirements.txt
+      install_requires=[
+          "numpy>=1.9.0"  # numerical operations
+          "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
+          "pandas>=0.18.0",  # tabular data processing
+          "matplotlib>=1.5.1",  # plotting
+          "json_tricks>=3.12.1",  # saving json files with classes and numpy
+          "eyeD3>=0.7.5",  # reading metadata embedded in the audio recordings
+          "six>=1.10.0",  # Python 2*3 support
+          "future>=0.15.2",  # Python 2*3 support
+          "python-Levenshtein>=0.12.0",  # semiotic structure labeling
+          "networkx>=1.11"  # semiotic structure labeling clique computation
+          "lxml>=3.6.0",  # musicxml conversion
+          "musicbrainzngs>=0.6"  # metadata crawling from musicbrainz
+          "essentia>=2.1b5"  # music signal processing
+          ],  # dependencies are installed from requirements.txt
       cmdclass={'install': CustomInstall},
       )
