@@ -1,105 +1,32 @@
-# Repo specific
-AUTHORT
-Changelog.md
-CONTRIBUTORS
-LICENSE
-README.md
+# Ignore everything
+**
 
-# Git
-.git
-.gitignore
+# Allow files and directories
+!demos
+!tomato
+!setup.py
+!requirements.txt
+!MANIFEST.in
 
-# CI
-.codeclimate.yml
-.travis.yml
-.taskcluster.yml
+# ignore unnecessary files inside the folders
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.Distribution
+**/.idea
+**/*.pyc
 
-# Docker
-Dockerfile
-docker-compose.yml
-.docker
-.dockerignore
+# binaries
+**/*alignAudioScore*
+**/*extractTonicTempoTuning*
+**/*phraseSeg*
+**/*MusikiToMusicXml*
 
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*/__pycache__/
-*/*/__pycache__/
-*/*/*/__pycache__/
-*.py[cod]
-*/*.py[cod]
-*/*/*.py[cod]
-*/*/*/*.py[cod]
+# score outputs
+**/*.svg
+**/*.xml
+!**/makams_usuls/Makamlar.xml
+**/*.ly
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.cache
-nosetests.xml
-coverage.xml
-.pytest_cache
-tests/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-
-# Sphinx documentation
-docs/_build/
-docs/
-
-# PyBuilder
-target/
-
-# Virtual environment
-.env/
-.venv/
-venv/
-
-# PyCharm
-.idea
-
-# Python mode for VIM
-.ropeproject
-*/.ropeproject
-*/*/.ropeproject
-*/*/*/.ropeproject
-
-# Vim swap files
-*.swp
-*/*.swp
-*/*/*.swp
-*/*/*/*.swp
+# Jupyter Notebook
+**/.ipynb_checkpoints
