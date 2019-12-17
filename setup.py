@@ -151,7 +151,8 @@ discovery/recommendation and musicological analysis.
           "networkx>=1.11"  # semiotic structure labeling clique computation
           "lxml>=3.6.0",  # musicxml conversion
           "musicbrainzngs>=0.6"  # metadata crawling from musicbrainz
-          "essentia>=2.1b5"  # music signal processing
-          ],  # dependencies are installed from requirements.txt
+          "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
+          ],
+      extras_require={},
       cmdclass={'install': CustomInstall},
       )
