@@ -96,6 +96,7 @@ class CustomInstall(_install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
+        print(fpath)
 
 
 setup(name='tomato',
@@ -121,7 +122,7 @@ discovery/recommendation and musicological analysis.
       download_url='https://github.com/sertansenturk/tomato/releases/tag/'
                    'v{0:s}'.format(__version__),
       classifiers=[
-          'Development Status :: 3 - Alpha',
+          'Development Status :: 4 - Beta',
           'Environment :: Console',
           'Intended Audience :: Science/Research',
           'Intended Audience :: Information Technology',
@@ -130,14 +131,22 @@ discovery/recommendation and musicological analysis.
           'Natural Language :: English'
           'Operating System :: MacOS :: MacOS X',
           'Operating System :: POSIX :: Linux',
-          'Programming Language :: Python',
+          'Programming Language :: Python :: 3',
+          'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
           'Topic :: Multimedia :: Sound/Audio :: Analysis',
           'Topic :: Scientific/Engineering :: Information Analysis',
           ],
       platforms='Linux, MacOS X',
       license='agpl 3.0',
-      packages=find_packages(),
+      keywords=(
+          "music-scores analysis tomato audio-recordings lilypond tonic "
+          "makam-music score music-information-retrieval "
+          "computational-analysis"),
+      packages=find_packages(exclude=['contrib', 'docs', 'tests']),
       include_package_data=True,
+      python_requires='>=3.5, <3.8',
       install_requires=[
           "numpy>=1.9.0"  # numerical operations
           "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
@@ -153,6 +162,5 @@ discovery/recommendation and musicological analysis.
           "musicbrainzngs>=0.6"  # metadata crawling from musicbrainz
           "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
           ],
-      extras_require={},
       cmdclass={'install': CustomInstall},
       )
