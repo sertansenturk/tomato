@@ -23,7 +23,7 @@ RUN apt-get -qq update && \
 
 # Install dependencies
 COPY requirements.txt /code/
-RUN  apt-get -qq install -y \
+RUN apt-get -qq install -y \
         lilypond \
         python3-pip && \
     python3 -m pip install --upgrade pip && \
@@ -32,8 +32,9 @@ RUN  apt-get -qq install -y \
 # Install tomato
 COPY . /code/
 RUN cd /code && \
-    python3 setup.py install && \
-    pip3 install ipython
+    python3 setup.py install && \ 
+    cd / && \
+    rm -rf code
     
 # Set user, workdir etc.
 RUN useradd --create-home -s /bin/bash tomato_user

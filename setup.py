@@ -28,15 +28,12 @@ except ImportError:
 
 class CustomInstall(_install):
     def run(self):
-        # install tomato
-        _install.run(self)
-
-        # install requirements.txt
-        subprocess.call(["pip install -r requirements.txt"], shell=True)
-
         # download the binaries
         self.execute(self._setup_binaries, (),
                      msg="Downloaded the binaries from tomato_binaries.")
+
+        # install tomato
+        _install.run(self)
 
     @classmethod
     def _setup_binaries(cls):
