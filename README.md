@@ -162,7 +162,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
 3. **What are the supported Python versions?**
 
-    `tomato` supports all Python versions above 3.5. If you want to run `tomato` on Python 2.7, please install [v0.13.0](https://github.com/sertansenturk/tomato/releases/tag/v0.13.0) or below.
+    `tomato` supports Python versions 3.5, 3.6, and 3.7. If you want to run `tomato` on Python 2.7, please install [v0.13.0](https://github.com/sertansenturk/tomato/releases/tag/v0.13.0) or below.
 
 4. **Where are the MATLAB binaries?**
 
