@@ -131,9 +131,21 @@ In most Linux distributions, you can install LilyPond from the software reposito
 
 XX
 
+To build the docker image simply go to the base folder of the repository and run:
+
 ```bash
-docker build . -t sertansenturk/tomato && docker run -v "$PWD/demos/":/home/tomato_user/demos/ -it sertansenturk/tomato bash
+docker build . -t sertansenturk/tomato
 ```
+
+You may interact with the docker image in many different scenarios. Below, we run a container by mounting the `demos` folder in tomato and start an interactive `bash` session:
+
+```bash
+docker run -v "$PWD/demos/":/home/tomato_user/demos/ -it sertansenturk/tomato bash
+```
+
+Then, you can work on the command line, like you are on your local machine. The changes you make to the `demos` folder will be reflected back to your local folder.
+
+To get familiar with `docker` and discover the possibilities with the tool, please refer to the [official documentation](https://docs.docker.com/get-started/).
 
 ## Documentation
 
