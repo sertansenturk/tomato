@@ -127,7 +127,7 @@ We recommend you to install MATLAB Runtime in the default installation path, as 
 
 In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g. `sudo apt install lilypond` in Debian-based distributions). However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
 
-## Running tomato via Docker
+## Running tomato using Docker
 
 XX
 
@@ -157,8 +157,9 @@ Any data (the music scores, extracted features, training models, figures, output
 
 2. **Which operating systems are supported?**
 
-    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
-    If you have compiled Essentia for Windows somehow or if you have any OS -1specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
+    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**. Alternatively, you may want to [run tomato using docker](running-tomato-using-docker).
+
+    If you compiled Essentia for Windows somehow or if you have any OS-specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
 
 3. **What are the supported Python versions?**
 
@@ -166,7 +167,8 @@ Any data (the music scores, extracted features, training models, figures, output
 
 4. **Where are the MATLAB binaries?**
 
-    The binaries are not stored in `tomato` because they are relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation process of `tomato`.
+    The binaries are not stored in `tomato` because they are relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation.
+
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
 5. ```ScoreConverter``` says that "The lilypond path is not found." How can I fix the error?
