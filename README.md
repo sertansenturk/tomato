@@ -134,7 +134,7 @@ For the reproducility and maintability's sake, `tomato` also comes with `docker`
 To build the docker image simply go to the base folder of the repository and run:
 
 ```bash
-docker build . -t sertansenturk/tomato
+docker build . -t sertansenturk/tomato:latest
 ```
 
 You may interact with the docker image in many different ways. Below, we run a container by mounting the `demos` folder in tomato and start an interactive `bash` session:
