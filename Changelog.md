@@ -2,8 +2,8 @@
 
 ## tomato v0.14.0
 
-- Added `tomato` docker image
-- Added Github issue templates
+- Added `tomato` docker image: Pull request [#107](https://github.com/sertansenturk/tomato/pull/107)
+- Added Github issue templates: Pull request [#101](https://github.com/sertansenturk/tomato/pull/101)
 
 ## tomato v0.13.0
 
