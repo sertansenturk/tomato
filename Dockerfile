@@ -9,7 +9,7 @@ RUN apt-get -qq update && \
         wget && \
     mkdir /mcr-install && \
     cd /mcr-install && \
-    wget http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip && \
+    wget -c --progress=bar:force http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip && \
     unzip -q MCR_R2015a_glnxa64_installer.zip && \
     apt-get -qq remove -y \
         unzip \
