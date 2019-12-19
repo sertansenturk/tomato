@@ -9,15 +9,9 @@ matrix:
         - docker --version
         - pip install -U pip
         - pip install tox-travis
-        # - docker load -i docker_images/images.tar || true
       install: # installed by tox
       script: tox -e $TOX_ENV
       after_success: # do nothing
-      # before_cache:
-      #   - docker save -o docker_images/images.tar $(docker images -a -q)
-      # cache:
-      #   directories:
-      #     - docker_images  
     - name: "Python 3.5"
       python: 3.5
       env: TOX_PYTHON_ENV=py35
