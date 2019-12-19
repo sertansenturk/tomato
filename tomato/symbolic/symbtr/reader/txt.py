@@ -60,7 +60,7 @@ class TxtReader(SymbTrReader):
         if symbtr_name is None:
             symbtr_name = TxtReader.get_symbtr_name_from_filepath(score_file)
 
-        with open(score_file) as f:
+        with open(score_file, encoding='utf-8') as f:
             reader = csv.reader(f, delimiter='\t')
 
             header = next(reader, None)

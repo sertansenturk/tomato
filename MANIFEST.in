@@ -5,5 +5,5 @@ recursive-include tomato/models *
 recursive-include tomato/music_data *
 
 # temporary to be removed later
-recursive-include tomato/symbolic/musicxmlconverter/makams_usuls *
-recursive-include tomato/symbolic/musicxml2lilypond/data *
+recursive-include tomato/symbolic/symbtr/converter/symbtr2musicxml/makams_usuls *
+recursive-include tomato/symbolic/symbtr/converter/musicxml2lilypond/data *

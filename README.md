@@ -68,16 +68,16 @@ There are four steps in the installation:
 
 ### Installing tomato
 
-`tomato` requires several packages to be installed. In Linux, you have to install the _python 3_ (or _python 2.7_, depending on your Python choice), _libxml2, libxslt1, freetype_, and _png_ development packages. The package names might vary in different Linux distributions. In *Ubuntu 16.04* using *Python 3.5*, you can install these packages by:
+`tomato` may require several packages to be installed depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
 
 ```bash
-sudo apt-get install python3.5-dev libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
+sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
 ```
 
 It is recommended to install `tomato` and its dependencies into a virtualenv. In the terminal, do the following:
 
 ```bash
-virtualenv env
+virtualenv --no-site-packages -p python3 env
 source env/bin/activate
 ```
 
@@ -103,15 +103,17 @@ pip install -e .
 
 ### Installing Essentia
 
-__tomato__ uses several modules in Essentia. Follow the [instructions](http://essentia.upf.edu/documentation/installing.html) to install the library.
+__tomato__ uses several audio signal processing modules in *Essentia*. **Linux** users can skip this section, since the library is automatically installed during setup.
 
-If you are using Python 2.7, then you should link the python bindings of Essentia in the virtual environment:
+For **Mac OSX**, please follow the [instructions](https://essentia.upf.edu/installing.html#mac-osx) to install the library.
+
+If you are running `tomato` on a `virtualenv`, you might need to link the python bindings of Essentia:
 
 ```bash
-ln -s path_to_essentia_bindings path_to_env/lib/python2.7/site-packages
+ln -s path_to_essentia_bindings path_to_env/lib/python3.x/site-packages
 ```
 
-Don't forget to change the `path_to_essentia_bindings` and `path_to_env` with the actual path of the installed Essentia Python bindings and the path of your virtualenv, respectively. Depending on the Essentia version, the default installation path of the Essentia bindings is either `/usr/local/lib/python2.7/dist-packages/essentia` or `/usr/local/lib/python2.7/site-packages/essentia`.
+Don't forget to change the `path_to_essentia_bindings`, `path_to_env`, and `python3.x` with the actual path of the installed Essentia Python bindings, the path of your virtualenv, and your Python version in the virtual environment, respectively. Depending on the Essentia version, the default installation path of the Essentia bindings is either `/usr/local/lib/python3.x/dist-packages/essentia` or `/usr/local/lib/python3.x/site-packages/essentia`.
 
 ### Installing MATLAB Runtime
 
@@ -123,7 +125,27 @@ We recommend you to install MATLAB Runtime in the default installation path, as 
 
 `tomato` uses LilyPond under the hood to convert the music scores to SVG format. To install LilyPond in Mac OSX, go to the [Download](http://lilypond.org/download.html) page on the LilyPond website and follow the instructions for your operating system.
 
-In most Linux distributions, you can install LilyPond from the software repository of your distribution. However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
+In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g. `sudo apt install lilypond` in Debian-based distributions). However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
+
+## Running tomato using Docker
+
+For the reproducility and maintability's sake, `tomato` also comes with `docker` support.
+
+To build the docker image simply go to the base folder of the repository and run:
+
+```bash
+docker build . -t sertansenturk/tomato:latest
+```
+
+You may interact with the docker image in many different ways. Below, we run a container by mounting the `demos` folder in tomato and start an interactive `bash` session:
+
+```bash
+docker run -v "$PWD/demos/":/home/tomato_user/demos/ -it sertansenturk/tomato bash
+```
+
+Then, you can work on the command line, like you are on your local machine. Any changes you make to the `demos` folder will be reflected back to your local folder.
+
+For more information on working with `docker`, please refer to the [official documentation](https://docs.docker.com/get-started/).
 
 ## Documentation
 
@@ -147,16 +169,18 @@ Any data (the music scores, extracted features, training models, figures, output
 
 2. **Which operating systems are supported?**
 
-    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**.
-    If you have compiled Essentia for Windows somehow or if you have any OS -1specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
+    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**. Alternatively, you may want to [run tomato using docker](running-tomato-using-docker).
+
+    If you compiled Essentia for Windows somehow or if you have any OS-specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
 
 3. **What are the supported Python versions?**
 
-    `tomato` supports both Python 2.7 and Python 3.
+    `tomato` supports Python versions 3.5, 3.6, and 3.7. If you want to run `tomato` on Python 2.7, please install [v0.13.0](https://github.com/sertansenturk/tomato/releases/tag/v0.13.0) or below.
 
 4. **Where are the MATLAB binaries?**
 
-    The binaries are not stored in `tomato` because they are relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation process of `tomato`.
+    The binaries are not stored in `tomato` because they are relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation.
+
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
 5. ```ScoreConverter``` says that "The lilypond path is not found." How can I fix the error?
@@ -169,7 +193,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
     - LilyPond is not installed.
 
-        [Install](#lily_install) the latest stable version for your OS.
+        [Install](#installing-lilypond) the latest stable version for your OS.
 
     - The binary path exists, but it is not used.
 

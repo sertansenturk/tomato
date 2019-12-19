@@ -87,7 +87,7 @@ class Mu2Reader(SymbTrReader):
 
         makam_slug = symbtr_name.split('--')[0]
 
-        with open(score_file) as f:
+        with open(score_file, encoding='utf-8') as f:
             reader = csv.reader(f, delimiter='\t')
 
             header_row = next(reader, None)
