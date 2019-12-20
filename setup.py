@@ -79,7 +79,6 @@ class CustomInstall(_install):
 
     @staticmethod
     def _download_binary(fpath, bin_url, sys_os):
-        print(u"  Downloading binary: {0:s}".format(bin_url))
         response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
             from six import BytesIO
@@ -96,8 +95,7 @@ class CustomInstall(_install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print(fpath)
-
+        print(f"  Downloaded binary: {bin_url} to {fpath}")
 
 setup(name='tomato',
       version=__version__,
