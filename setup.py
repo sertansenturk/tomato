@@ -95,7 +95,8 @@ class CustomInstall(_install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print(f"  Downloaded binary {bin_url} to {fpath}")
+        print(u"  Downloaded binary %s to %s" % (bin_url, fpath))
+
 
 setup(name='tomato',
       version=__version__,
@@ -126,8 +127,7 @@ discovery/recommendation and musicological analysis.
           'Intended Audience :: Information Technology',
           'License :: OSI Approved :: GNU Affero General Public License v3 or '
           'later (AGPLv3+)',
-          'Natural Language :: English'
-          'Operating System :: MacOS :: MacOS X',
+          'Natural Language :: English',
           'Operating System :: POSIX :: Linux',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.5',
@@ -136,7 +136,7 @@ discovery/recommendation and musicological analysis.
           'Topic :: Multimedia :: Sound/Audio :: Analysis',
           'Topic :: Scientific/Engineering :: Information Analysis',
           ],
-      platforms='Linux, MacOS X',
+      platforms='Linux',
       license='agpl 3.0',
       keywords=(
           "music-scores analysis tomato audio-recordings lilypond tonic "
