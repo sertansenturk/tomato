@@ -95,7 +95,7 @@ class CustomInstall(_install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print(f"  Downloaded binary: {bin_url} to {fpath}")
+        print(f"  Downloaded binary {bin_url} to {fpath}")
 
 setup(name='tomato',
       version=__version__,
