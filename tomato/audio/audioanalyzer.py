@@ -143,7 +143,6 @@ class AudioAnalyzer(Analyzer):
         return audio_f
 
     def _call_audio_metadata(self, audio_meta, filepath):
-
         if audio_meta is False:  # metadata crawling is disabled
             audio_meta = None
         elif audio_meta is None:  # no MBID is given, attempt to get

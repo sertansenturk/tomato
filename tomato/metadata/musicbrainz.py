@@ -25,9 +25,9 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+from urllib.parse import urlparse
 
 import musicbrainzngs
-from six.moves.urllib.parse import urlparse
 
 from .recording import Recording as RecordingMetadata
 from .work import Work as WorkMetadata

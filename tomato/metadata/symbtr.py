@@ -27,8 +27,7 @@
 import codecs
 import json
 import warnings
-
-from six.moves.urllib.request import urlopen
+from urllib.request import urlopen
 
 from ..io import IO
 from .musicbrainz import MusicBrainz

@@ -27,7 +27,7 @@
 import os
 import subprocess
 
-from six.moves import configparser
+import configparser
 
 from .io import IO
 

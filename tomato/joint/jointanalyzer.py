@@ -32,7 +32,7 @@ import warnings
 from copy import deepcopy
 
 from scipy.io import savemat
-from six import BytesIO
+from io import BytesIO
 
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
