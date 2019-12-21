@@ -182,12 +182,7 @@ class AudioAnalyzer(Analyzer):
             'models', 'makam_tonic_estimation',
             'training_model--pcd--7_5--15_0--dlfm2016.pkl')
 
-        try:  # python 3
-            # the pickle was made via python 2, we have to specify the encoding
-            return pickle.load(open(makam_tonic_training_file, 'rb'),
-                               encoding='latin1')
-        except TypeError:  # python 2
-            return pickle.load(open(makam_tonic_training_file, 'rb'))
+        return pickle.load(open(makam_tonic_training_file, 'rb'))
 
     def crawl_musicbrainz_metadata(self, rec_in):
         try:
