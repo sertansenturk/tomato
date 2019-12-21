@@ -186,9 +186,9 @@ Any data (the music scores, extracted features, training models, figures, output
 
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
-5. **`ScoreConverter` says that "The lilypond path is not found." How can I fix the error?**
+5. **`ScoreConverter` fails to convert music scores with an error saying "The LilyPond path is not found." How can I fix this problem?**
 
-    There can be similar problems regarding this issue:
+    There can be several reasons regarding this problem:
 
     - The user-provided file path (the music score input) does not exist.
 
@@ -196,11 +196,11 @@ Any data (the music scores, extracted features, training models, figures, output
 
     - LilyPond is not installed.
 
-        [Install](#installing-lilypond) the latest stable version for your OS.
+        Install the appropriate version of LilyPondby following [the instructions](#installing-lilypond).
 
     - The binary path exists, but it is not used.
 
-        The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
+        Add the path of the LilyPond binary to the "custom" section in the configuration file: `./tomato/config/lilypond.cfg`.
 
 6. Is `tomato` a fruit or vegetable?
 
