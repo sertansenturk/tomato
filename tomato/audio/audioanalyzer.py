@@ -31,7 +31,6 @@ import timeit
 import warnings
 
 import numpy as np
-import six
 from musicbrainzngs import NetworkError, ResponseError
 
 from ..analyzer import Analyzer
@@ -148,7 +147,7 @@ class AudioAnalyzer(Analyzer):
         elif audio_meta is None:  # no MBID is given, attempt to get
             # it from id3 tag
             audio_meta = self.crawl_musicbrainz_metadata(filepath)
-        elif isinstance(audio_meta, (six.string_types, six.binary_type)):
+        elif isinstance(audio_meta, (str, bytes)):
             # MBID is given
             audio_meta = self.crawl_musicbrainz_metadata(audio_meta)
         elif not isinstance(audio_meta, dict):
