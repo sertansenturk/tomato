@@ -1,36 +1,19 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import configparser
 import os
 import subprocess
 import zipfile
+from io import BytesIO
+from urllib.request import urlopen
 
+from setuptools import find_packages, setup
+from setuptools.command.install import install as _install
 from tomato import __version__
-
-try:
-    import ConfigParser  # python 2
-except ImportError:
-    import configparser as ConfigParser  # python 3
-try:
-    from urllib2 import urlopen  # python 2
-except ImportError:
-    from urllib.request import urlopen  # python 3
-
-try:
-    from setuptools import setup
-    from setuptools import find_packages
-    from setuptools.command.install import install as _install
-except ImportError:
-    from distutils.core import setup
-    from setuptools import find_packages  # no replacement in distutils
-    from distutils.command.install import install as _install
 
 
 class CustomInstall(_install):
     def run(self):
-        # install requirements.txt
-        subprocess.call(["pip install -r requirements.txt"], shell=True)
-
         # download the binaries
         self.execute(self._setup_binaries, (),
                      msg="Downloaded the binaries from tomato_binaries.")
@@ -54,7 +37,7 @@ class CustomInstall(_install):
         config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                    'tomato', 'config', 'bin.cfg')
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.optionxform = str
         config.read(config_file)
 
@@ -81,11 +64,9 @@ class CustomInstall(_install):
     def _download_binary(fpath, bin_url, sys_os):
         response = urlopen(bin_url)
         if fpath.endswith('.zip'):  # binary in zip
-            from six import BytesIO
-
             with zipfile.ZipFile(BytesIO(response.read())) as z:
                 z.extractall(os.path.dirname(fpath))
-            if sys_os == 'macosx':  # mac executables are actually in an app
+            if sys_os == 'macosx':  # mac executables are in .app
                 fpath = os.path.splitext(fpath)[0] + '.app'
             else:  # remove the zip extension
                 fpath = os.path.splitext(fpath)[0]
