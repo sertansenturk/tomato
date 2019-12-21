@@ -174,7 +174,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
     - `tomato` is fully supported **only in Linux**. It is tested against *Ubuntu 16.04* and *18.04*.
     - We suggest people to use the [tomato docker image](#running-tomato-using-docker) for other operating systems.
-    - If you *really* want to run `tomato` on *Mac OSX*, please install [v0.13.0](https://github.com/sertansenturk/tomato/releases/tag/v0.13.0) or below.
+    - `tomato` was tested on *Mac OSX Sierra* until version [v0.10.1](https://github.com/sertansenturk/tomato/releases/tag/v0.10.1). You can still install `tomato` on *Mac OSX* by referring to the [Linux installation instructions](#installation), but you need to install and configure [Essentia](https://essentia.upf.edu/installing.html#mac-osx) & [MATLAB Compiler Runtime](https://ssd.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip) by yourself.
 
 3. **What are the supported Python versions?**
 
@@ -186,7 +186,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
-5. ```ScoreConverter``` says that "The lilypond path is not found." How can I fix the error?
+5. **`ScoreConverter` says that "The lilypond path is not found." How can I fix the error?**
 
     There can be similar problems regarding this issue:
 
