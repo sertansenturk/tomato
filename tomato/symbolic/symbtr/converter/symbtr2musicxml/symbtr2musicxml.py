@@ -221,12 +221,8 @@ class SymbTrScore(object):
         # obtaining the symbtr from its header
 
         # musicbrainz unique identifier (there can be more than one MBID)
-        try:  # python 2
-            self.mbid_url = [mbid_url] if isinstance(mbid_url, basestring) \
-                else mbid_url
-        except NameError:  # python 3
-            self.mbid_url = [mbid_url] if isinstance(mbid_url, str) \
-                else mbid_url
+        self.mbid_url = [mbid_url] if isinstance(mbid_url, str) else mbid_url
+
         self.siraintervals = []
 
         if verbose is None:
