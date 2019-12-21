@@ -25,8 +25,6 @@
 # Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
 # New York, NY, USA
 
-from __future__ import division
-
 from typing import Union
 
 import numpy as np
