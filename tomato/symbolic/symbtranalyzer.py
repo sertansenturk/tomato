@@ -60,8 +60,6 @@ class SymbTrAnalyzer(Analyzer):
     def analyze(self, txt_filepath, mu2_filepath=None, symbtr_name=None,
                 **kwargs):
         score_data = self._parse_inputs(**kwargs)
-        txt_filepath = IO.make_unicode(txt_filepath)
-        mu2_filepath = IO.make_unicode(mu2_filepath)
 
         # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:
@@ -134,7 +132,6 @@ class SymbTrAnalyzer(Analyzer):
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
-        txt_filename = IO.make_unicode(txt_filename)
         self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
                     u"{0:s}".format(txt_filename))
 

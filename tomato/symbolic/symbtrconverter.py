@@ -66,10 +66,6 @@ class SymbTrConverter(object):
     @classmethod
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
                             symbtr_name=None, mbid=None):
-        txt_file = IO.make_unicode(txt_file)
-        mu2_file = IO.make_unicode(mu2_file)
-        xml_out = IO.make_unicode(xml_out)
-
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(txt_file)
 
@@ -88,9 +84,6 @@ class SymbTrConverter(object):
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, flags=None,
                         midi_instrument=None):
-        mu2_file = IO.make_unicode(mu2_file)
-        xml_out = IO.make_unicode(xml_out)
-
         # MusikiToMusicXml saves the output to the same folder of the
         # mu2_file, by only changing the extension to xml. To avoid this
         # behaviour:
@@ -177,9 +170,6 @@ class SymbTrConverter(object):
 
     @classmethod
     def musicxml_to_lilypond(cls, xml_in, ly_out=None, render_metadata=True):
-        xml_in = IO.make_unicode(xml_in)
-        ly_out = IO.make_unicode(ly_out)
-
         ly_stream, mapping_tuple = cls._xml2ly_converter.convert(
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
@@ -196,9 +186,6 @@ class SymbTrConverter(object):
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
                         ly_txt_mapping=None):
-        ly_in = IO.make_unicode(ly_in)
-        svg_out = IO.make_unicode(svg_out)
-
         if os.path.isfile(ly_in):
             temp_in_file = ly_in
         else:

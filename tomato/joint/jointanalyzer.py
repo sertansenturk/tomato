@@ -65,8 +65,6 @@ class JointAnalyzer(Analyzer):
     def analyze(self, symbtr_txt_filename='', score_features=None,
                 audio_filename='', audio_pitch=None, **kwargs):
         input_f = self._parse_inputs(**kwargs)
-        audio_filename = IO.make_unicode(audio_filename)
-        symbtr_txt_filename = IO.make_unicode(symbtr_txt_filename)
 
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
@@ -182,8 +180,6 @@ class JointAnalyzer(Analyzer):
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
         tic = timeit.default_timer()
-        score_filename = IO.make_unicode(score_filename)
-        audio_filename = IO.make_unicode(audio_filename)
         self.vprint(u"- Extracting score-informed tonic and tempo of {0:s}"
                     .format(audio_filename))
 
@@ -254,8 +250,6 @@ class JointAnalyzer(Analyzer):
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
         tic = timeit.default_timer()
-        score_filename = IO.make_unicode(score_filename)
-        audio_filename = IO.make_unicode(audio_filename)
         self.vprint(u"- Aligning audio recording {0:s} and music score {1:s}."
                     .format(audio_filename, score_filename))
 

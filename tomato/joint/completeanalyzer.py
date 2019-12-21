@@ -94,10 +94,6 @@ class CompleteAnalyzer(Analyzer):
             Features that are related to both the music scores and audio
             recordings.
         """
-        symbtr_txt_filename = IO.make_unicode(symbtr_txt_filename)
-        symbtr_mu2_filename = IO.make_unicode(symbtr_mu2_filename)
-        audio_filename = IO.make_unicode(audio_filename)
-
         # score analysis
         score_features = self._symbtr_analyzer.analyze(
             symbtr_txt_filename, symbtr_mu2_filename, symbtr_name=symbtr_name)

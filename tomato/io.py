@@ -29,7 +29,6 @@ import os
 import pickle
 import re
 import subprocess
-import sys
 import tempfile
 import unicodedata
 
@@ -37,19 +36,6 @@ import json_tricks as json
 
 
 class IO(object):
-    @staticmethod
-    def make_unicode(input_str):
-        try:
-            return input_str.decode('utf-8')
-        except AttributeError as ae:
-            if ae.args[0] == "'NoneType' object has no attribute 'decode'":
-                return None  # None input
-            elif ae.args[0] == "'str' object has no attribute 'decode'":
-                return input_str  # Python 3 str
-            else:  # other; re-throw error
-                traceback = sys.exc_info()[2]
-                raise(AttributeError, ae.args[0], traceback)
-
     @staticmethod
     def slugify_tr(str_val):
         value_slug = str_val.replace(u'\u0131', 'i')
