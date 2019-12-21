@@ -1,5 +1,4 @@
 # coding=utf-8
-from __future__ import division, unicode_literals
 
 import os
 import sqlite3
@@ -254,7 +253,7 @@ class ScoreConverter(object):
             measures, makam, usul, form, time_sigs, keysig,
             render_metadata, work_title, composer, poet)
 
-        ly_stream = u''.join(ly_stream)
+        ly_stream = ''.join(ly_stream)
         # save to file
         if ly_out is not None:
             with open(ly_out, 'w', encoding='utf-8') as outfile:

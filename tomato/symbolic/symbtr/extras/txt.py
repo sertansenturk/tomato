@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import os
 import warnings
 
@@ -87,7 +85,7 @@ class Txt(object):
             cls._chk_usul_attrib(row, mu2_usul_dict[usul_name], 'mertebe',
                                  symbtr_name, index, usul_name)
         else:
-            warnstr = u'{0:s}, line {1:s}: {2:s} and {3:s} does not match.'.\
+            warnstr = '{0:s}, line {1:s}: {2:s} and {3:s} does not match.'.\
                 format(symbtr_name, str(index), usul_name, str(usul_id))
             warnings.warn(warnstr.encode('utf-8'))
 
@@ -95,10 +93,10 @@ class Txt(object):
     def _chk_usul_by_id(cls, index, inv_mu2_usul_dict, row, symbtr_name,
                         usul_id, usul_name, row_changed):
         if usul_id == -1:
-            warnings.warn(u'{0:s}, line {1:s}: Missing usul info'.format(
+            warnings.warn('{0:s}, line {1:s}: Missing usul info'.format(
                 symbtr_name, str(index)).encode('utf-8'))
         else:
-            warnstr = u'{0:s}, line {1:d}: Filling missing {2:s}'.format(
+            warnstr = '{0:s}, line {1:d}: Filling missing {2:s}'.format(
                 symbtr_name, index, inv_mu2_usul_dict[usul_id]['mu2_name'])
             warnings.warn(warnstr.encode('utf-8'))
             row['Soz1'] = inv_mu2_usul_dict[usul_id]['mu2_name']
@@ -127,9 +125,9 @@ class Txt(object):
             row_str = 'Pay'
         else:
             raise ValueError(
-                u'Unexpected usul attribute: {0:s}'.format(attr_str))
+                'Unexpected usul attribute: {0:s}'.format(attr_str))
         if not usul[attr_str] == row[row_str]:
-            warnstr = u'{0:s}, line {1:s}: {2:s} and {3:s} does not match.'\
+            warnstr = '{0:s}, line {1:s}: {2:s} and {3:s} does not match.'\
                 .format(symbtr_name, str(index), usul_name, attr_str)
             warnings.warn(warnstr.encode('utf-8'))
 
@@ -167,12 +165,12 @@ class Txt(object):
                 [usul_row, df], ignore_index=True)[cls.symbtr_cols]
         else:
             if not df.iloc[0]["LNS"] == usul_row.iloc[0]["LNS"]:
-                print(u"{0:s} starts with a different usul row. Correcting...".
+                print("{0:s} starts with a different usul row. Correcting...".
                       format(data['symbtr_name']).encode('utf-8'))
                 df_usul = pd.concat(
                     [usul_row, df.ix[1:]], ignore_index=True)[cls.symbtr_cols]
             else:
-                print(u"{0:s} starts with the usul row. Skipping...".format(
+                print("{0:s} starts with the usul row. Skipping...".format(
                     data['symbtr_name']).encode('utf-8'))
                 df_usul = df
 
@@ -258,7 +256,7 @@ class Txt(object):
             if v['mu2_name'] == data['usul']['mu2_name']:
                 return v
 
-        assert False, u'The usul variant {0:s} is not found'.format(
+        assert False, 'The usul variant {0:s} is not found'.format(
             data['usul']['mu2_name'])
 
     @staticmethod
@@ -269,8 +267,8 @@ class Txt(object):
                 if uv['mu2_name'] == data['usul']['mu2_name']:
                     return uv['mertebe'], uv['num_pulses']
 
-        assert False, u'Zaman and mertebe for the usul variant {0:s} is not ' \
-                      u'available'.format(data['usul']['mu2_name'])
+        assert False, 'Zaman and mertebe for the usul variant {0:s} is not ' \
+                      'available'.format(data['usul']['mu2_name'])
 
     @staticmethod
     def _change_null_to_empty_str(row):
