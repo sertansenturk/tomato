@@ -26,7 +26,6 @@
 
 from ..analyzer import Analyzer
 from ..audio.audioanalyzer import AudioAnalyzer
-from ..io import IO
 from ..symbolic.symbtranalyzer import SymbTrAnalyzer
 from .jointanalyzer import JointAnalyzer
 
