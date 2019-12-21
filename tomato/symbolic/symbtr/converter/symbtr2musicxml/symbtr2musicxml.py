@@ -224,7 +224,7 @@ class SymbTrScore(object):
         try:  # python 2
             self.mbid_url = [mbid_url] if isinstance(mbid_url, basestring) \
                 else mbid_url
-        except NameError:  # python
+        except NameError:  # python 3
             self.mbid_url = [mbid_url] if isinstance(mbid_url, str) \
                 else mbid_url
         self.siraintervals = []
