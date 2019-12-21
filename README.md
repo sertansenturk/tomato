@@ -4,6 +4,22 @@
 
 [![Build Status](https://travis-ci.com/sertansenturk/tomato.svg?branch=master)](https://travis-ci.com/sertansenturk/tomato) [![GitHub version](https://badge.fury.io/gh/sertansenturk%2Ftomato.svg)](https://badge.fury.io/gh/sertansenturk%2Ftomato) [![Code Climate](https://codeclimate.com/github/sertansenturk/tomato/badges/gpa.svg)](https://codeclimate.com/github/sertansenturk/tomato) [![DOI](https://zenodo.org/badge/21104/sertansenturk/tomato.svg)](https://zenodo.org/badge/latestdoi/21104/sertansenturk/tomato) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-ff69b4.svg)](http://www.gnu.org/licenses/agpl-3.0) [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-ff69b4.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
+## Table of contents
+
+- [Introduction](#introduction)
+- [tomato in a nutshell](#tomato-in-a-nutshell)
+- [Installation](#installation)
+  - [Installing tomato](#installing-tomato)
+  - [Installing MATLAB runtime](#installing-matlab-runtime)
+  - [Installing LilyPond](#installing-lilypond)
+- [Running tomato using docker](#running-tomato-using-docker)
+- [Documentation](#documentation)
+- [License](#license)
+- [FAQ](#faq)
+- [Authors](#authors)
+- [Acknowledgements](#acknowledgements)
+- [References](#references)
+
 ## Introduction
 
 `tomato` is a comprehensive and easy-to-use toolbox in Python for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied to this music tradition. The analysis tasks include:
@@ -22,7 +38,7 @@ For the sake of __reproducibility__, please also state the version you used as i
 
 For the descriptions of the methodologies in the toolbox, please refer to the papers listed in the [References](#references).
 
-## tomato in a Nutshell
+## tomato in a nutshell
 
 ```python
 # import ...
@@ -59,12 +75,11 @@ You can refer to the jupyter notebooks in [demos](https://github.com/sertansentu
 
 ## Installation
 
-There are four steps in the installation:
+There are three steps in the installation:
 
 1. [Installing tomato](#installing-tomato)
-2. [Installing Essentia](#installing-essentia)
-3. [Installing MATLAB Runtime](#installing-matlab-runtime)
-4. [Installing LilyPond](#installing-lilypond) (optional)
+2. [Installing MATLAB runtime](#installing-matlab-runtime)
+3. [Installing LilyPond](#installing-lilypond) (optional)
 
 ### Installing tomato
 
@@ -101,33 +116,21 @@ cd path/to/tomato
 pip install -e .
 ```
 
-### Installing Essentia
+### Installing MATLAB runtime
 
-__tomato__ uses several audio signal processing modules in *Essentia*. **Linux** users can skip this section, since the library is automatically installed during setup.
-
-For **Mac OSX**, please follow the [instructions](https://essentia.upf.edu/installing.html#mac-osx) to install the library.
-
-If you are running `tomato` on a `virtualenv`, you might need to link the python bindings of Essentia:
-
-```bash
-ln -s path_to_essentia_bindings path_to_env/lib/python3.x/site-packages
-```
-
-Don't forget to change the `path_to_essentia_bindings`, `path_to_env`, and `python3.x` with the actual path of the installed Essentia Python bindings, the path of your virtualenv, and your Python version in the virtual environment, respectively. Depending on the Essentia version, the default installation path of the Essentia bindings is either `/usr/local/lib/python3.x/dist-packages/essentia` or `/usr/local/lib/python3.x/site-packages/essentia`.
-
-### Installing MATLAB Runtime
-
-The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking, and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime for R2015a (8.5)** to run. You should download and install this specific version  (links for [Linux](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip) and [Mac OSX](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip)).
+The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking, and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime for R2015a (8.5)** to run. You must download and install this specific version ([Linux installer](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip)).
 
 We recommend you to install MATLAB Runtime in the default installation path, as `tomato` searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
 ### Installing LilyPond
 
-`tomato` uses LilyPond under the hood to convert the music scores to SVG format. To install LilyPond in Mac OSX, go to the [Download](http://lilypond.org/download.html) page on the LilyPond website and follow the instructions for your operating system.
+`tomato` uses LilyPond under the hood to convert the music scores to SVG format.
 
-In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g. `sudo apt install lilypond` in Debian-based distributions). However, the version might be outdated. If the version is below 2.18.2, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you should enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
+In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g. `sudo apt install lilypond` in Debian-based distributions).
 
-## Running tomato using Docker
+`tomato` requires *LilyPond* version 2.18.2 or above. If your distribution comes with an older version, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you may need to enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
+
+## Running tomato using docker
 
 For the reproducility and maintability's sake, `tomato` also comes with `docker` support.
 
@@ -169,9 +172,9 @@ Any data (the music scores, extracted features, training models, figures, output
 
 2. **Which operating systems are supported?**
 
-    The algorithms, which are written purely in Python, are platform-independent. However, [compiling Essentia in Windows](http://essentia.upf.edu/documentation/installing.html#building-essentia-on-windows) is not straightforward yet. Therefore we have only compiled the MATLAB binaries for **Mac OSX** and **Linux**. Alternatively, you may want to [run tomato using docker](running-tomato-using-docker).
-
-    If you compiled Essentia for Windows somehow or if you have any OS-specific problems, please let us know by submitting an [issue](https://github.com/sertansenturk/tomato/issues).
+    - `tomato` is fully supported **only in Linux**. It is tested against *Ubuntu 16.04* and *18.04*.
+    - We suggest people to use the [tomato docker image](#running-tomato-using-docker) for other operating systems.
+    - `tomato` was tested on *Mac OSX Sierra* until version [v0.10.1](https://github.com/sertansenturk/tomato/releases/tag/v0.10.1). You can still install `tomato` on *Mac OSX* by referring to the [Linux installation instructions](#installation), but you need to install and configure [Essentia](https://essentia.upf.edu/installing.html#mac-osx) & [MATLAB Compiler Runtime](https://ssd.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip) by yourself.
 
 3. **What are the supported Python versions?**
 
@@ -183,9 +186,9 @@ Any data (the music scores, extracted features, training models, figures, output
 
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
-5. ```ScoreConverter``` says that "The lilypond path is not found." How can I fix the error?
+5. **`ScoreConverter` fails to convert music scores with an error saying "The LilyPond path is not found." How can I fix this problem?**
 
-    There can be similar problems regarding this issue:
+    There can be several reasons regarding this problem:
 
     - The user-provided file path (the music score input) does not exist.
 
@@ -193,11 +196,11 @@ Any data (the music scores, extracted features, training models, figures, output
 
     - LilyPond is not installed.
 
-        [Install](#installing-lilypond) the latest stable version for your OS.
+        Install the appropriate version of LilyPondby following [the instructions](#installing-lilypond).
 
     - The binary path exists, but it is not used.
 
-        The path is not searched by the defaults defined in ```tomato/config/lilypond.cfg```. Add the path of the LilyPond binary to the configuration file.
+        Add the path of the LilyPond binary to the "custom" section in the configuration file: `./tomato/config/lilypond.cfg`.
 
 6. Is `tomato` a fruit or vegetable?
 
