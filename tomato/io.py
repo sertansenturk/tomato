@@ -34,7 +34,6 @@ import tempfile
 import unicodedata
 
 import json_tricks as json
-from future.utils import raise_
 
 
 class IO(object):
@@ -49,7 +48,7 @@ class IO(object):
                 return input_str  # Python 3 str
             else:  # other; re-throw error
                 traceback = sys.exc_info()[2]
-                raise_(AttributeError, ae.args[0], traceback)
+                raise(AttributeError, ae.args[0], traceback)
 
     @staticmethod
     def slugify_tr(str_val):
