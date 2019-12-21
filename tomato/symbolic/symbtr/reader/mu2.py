@@ -86,26 +86,14 @@ class Mu2Reader(SymbTrReader):
             symbtr_name = Mu2Reader.get_symbtr_name_from_filepath(score_file)
 
         makam_slug = symbtr_name.split('--')[0]
-
         with open(score_file, encoding='utf-8') as f:
             reader = csv.reader(f, delimiter='\t')
-
             header_row = next(reader, None)
-            try:  # python 2
-                header_row = [unicode(cell, 'utf-8') for cell in
-                              header_row]
-            except NameError:  # python 3
-                pass
 
             header = dict()
             is_tempo_unit_valid = True
             is_key_sig_valid = True
-            for row_temp in reader:
-                try:  # python 2
-                    row = [unicode(cell, 'utf-8') for cell in row_temp]
-                except NameError:  # python 3
-                    row = row_temp
-
+            for row in reader:
                 code = int(row[0])
                 if code == 50:
                     is_key_sig_valid = Mu2Reader.read_makam_key_signature_row(
@@ -118,9 +106,9 @@ class Mu2Reader(SymbTrReader):
                     is_tempo_unit_valid = cls._read_tempo_row(
                         row, symbtr_name, header, is_tempo_unit_valid)
                 elif code == 56:
-                    header['usul']['subdivision'] = {'mertebe': int(row[3]),
-                                                     'number_of_pulses':
-                                                         int(row[2])}
+                    header['usul']['subdivision'] = {
+                        'mertebe': int(row[3]),
+                        'number_of_pulses': int(row[2])}
                 elif code == 57:
                     header['form'] = {'mu2_name': row[7]}
                 elif code == 58:

@@ -236,12 +236,8 @@ class StructureLabeler(object):
     @staticmethod
     def _get_basenames(similar_cliques):
         # define the upper case unicode letters for semiotic labeling
-        try:  # python 2
-            unicode_letters = [unichr(i) for i in range(0, 1000)
-                               if unicode.isupper(unichr(i))]
-        except NameError:  # python 3
-            unicode_letters = [chr(i) for i in range(0, 1000)
-                               if chr(i).isupper()]
+        unicode_letters = [chr(i) for i in range(0, 1000)
+                           if chr(i).isupper()]
 
         # similar cliques give us the base structure
         basenames = [unicode_letters[i]

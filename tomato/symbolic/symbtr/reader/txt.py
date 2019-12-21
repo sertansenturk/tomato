@@ -95,10 +95,7 @@ class TxtReader(SymbTrReader):
                 score['duration'].append(int(row[duration_col]))
                 score['lns'].append(int(row[lns_col]))
                 score['bas'].append(int(row[bas_col]))
-                try:  # python 2
-                    score['lyrics'].append(row[lyrics_col].decode('utf-8'))
-                except AttributeError:  # python 3
-                    score['lyrics'].append(row[lyrics_col])
+                score['lyrics'].append(row[lyrics_col])
                 score['offset'].append(float(row[offset_col]))
 
         # shift offset such that the first note of each measure has an
