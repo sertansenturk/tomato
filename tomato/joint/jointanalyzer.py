@@ -30,9 +30,9 @@ import tempfile
 import timeit
 import warnings
 from copy import deepcopy
+from io import BytesIO
 
 from scipy.io import savemat
-from io import BytesIO
 
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
