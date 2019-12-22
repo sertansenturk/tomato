@@ -29,7 +29,7 @@ import logging
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Instrumentation(object):
+class Instrumentation:
     """
     This class decides the instrumentation (incl. vocal instrumentation) of an
     audio recording from the related artists

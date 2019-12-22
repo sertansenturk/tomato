@@ -34,7 +34,7 @@ from ..pitchfilter import PitchFilter
 from ...converter import Converter
 
 
-class TonicLastNote(object):
+class TonicLastNote:
     def __init__(self, stable_pitch_dev=25, kernel_width=7.5, step_size=7.5,
                  min_freq=64, max_freq=1024, lower_interval_thres=0.965,
                  upper_interval_thres=1.035, min_chunk_size=60):

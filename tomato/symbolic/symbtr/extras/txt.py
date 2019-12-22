@@ -7,7 +7,7 @@ import pandas as pd
 from ....io import IO
 
 
-class Txt(object):
+class Txt:
     symbtr_cols = ['Sira', 'Kod', 'Nota53', 'NotaAE', 'Koma53', 'KomaAE',
                    'Pay', 'Payda', 'Ms', 'LNS', 'Bas', 'Soz1', 'Offset']
 

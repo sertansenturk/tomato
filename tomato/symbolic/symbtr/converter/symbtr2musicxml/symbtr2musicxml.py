@@ -213,7 +213,7 @@ def get_key_signature(piecemakam, keysig):
             keyaccidental.text = get_accidental_name(temp_key[-2:])
 
 
-class SymbTrScore(object):
+class SymbTrScore:
     def __init__(self, txtpath, mu2path, symbtrname='', mbid_url='',
                  verbose=None):
         self.txtpath = txtpath  # filepath for the txt score

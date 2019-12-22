@@ -33,7 +33,7 @@ from ..io import IO
 from .musicbrainz import MusicBrainz
 
 
-class SymbTr(object):
+class SymbTr:
     @classmethod
     def from_musicbrainz(cls, score_name, mbid=None):
         metadata = MusicBrainz.crawl(mbid)

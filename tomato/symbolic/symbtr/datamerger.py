@@ -27,7 +27,7 @@
 import warnings
 
 
-class DataMerger(object):
+class DataMerger:
     @classmethod
     def merge(cls, data1, data2, verbose=True):
         """
@@ -57,7 +57,7 @@ class DataMerger(object):
             data2_dict['recording'] = data2_dict.pop('title')
         else:
             if verbose:
-                warnings.warn("There is no information about whether the "
+                warnings.warn("There is no information whether the "
                               "score is related to a composition or a "
                               "performance. The title key is skipped.",
                               stacklevel=2)

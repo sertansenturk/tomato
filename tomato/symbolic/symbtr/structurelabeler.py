@@ -32,7 +32,7 @@ from .graph import GraphOperations
 from .scoreprocessor import ScoreProcessor
 
 
-class StructureLabeler(object):
+class StructureLabeler:
     """
 
     """

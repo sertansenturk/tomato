@@ -32,7 +32,7 @@ import numpy as np
 _NUM_CENTS_IN_OCTAVE = 1200.0
 
 
-class Converter(object):
+class Converter:
     @staticmethod
     def hz_to_cent(hz_track: Union[list, np.array],
                    ref_freq: Union[float, np.float],

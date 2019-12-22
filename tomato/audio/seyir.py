@@ -34,7 +34,7 @@ from ..converter import Converter
 from .pitchdistribution import PitchDistribution
 
 
-class Seyir(object):
+class Seyir:
     _dummy_ref_freq = 440.0  # hz
     citation = u"B. Bozkurt, Computational analysis of overall melodic " \
                u"progression for Turkish Makam Music, in Penser " \

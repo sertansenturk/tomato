@@ -28,7 +28,7 @@ from .scoreprocessor import ScoreProcessor
 from .structurelabeler import StructureLabeler
 
 
-class SegmentExtractor(object):
+class SegmentExtractor:
     """
 
     """

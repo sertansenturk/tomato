@@ -32,7 +32,7 @@ import configparser
 from .io import IO
 
 
-class BinCaller(object):
+class BinCaller:
     def __init__(self):
         self.mcr_filepath = IO.get_abspath_from_relpath_in_tomato(
             'config', 'mcr_path.cfg')

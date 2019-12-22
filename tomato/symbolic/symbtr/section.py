@@ -34,7 +34,7 @@ from .scoreprocessor import ScoreProcessor
 from .structurelabeler import StructureLabeler
 
 
-class SectionExtractor(object):
+class SectionExtractor:
     """
 
     """

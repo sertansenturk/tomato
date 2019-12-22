@@ -8,7 +8,7 @@ from .musicxmlreader import MusicXMLReader
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
 
 
-class ScoreConverter(object):
+class ScoreConverter:
     _octaves = {"2": ",", "3": "", "4": "\'", "5": "\'\'", "6": "\'\'\'",
                 "7": "\'\'\'\'", "r": ""}
 

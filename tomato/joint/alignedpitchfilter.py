@@ -29,7 +29,7 @@ import copy
 import numpy as np
 
 
-class AlignedPitchFilter(object):
+class AlignedPitchFilter:
     def __init__(self):
         self.max_boundary_tol = 3  # seconds
 
@@ -73,6 +73,10 @@ class AlignedPitchFilter(object):
     @staticmethod
     def _get_pitch_trajectories(notes_corrected, pitch_corrected):
         for nc in notes_corrected:
+            # TODO: Fix FutureWarning: arrays to stack must be passed as a 
+            # "sequence" type such as list or tuple. Support for non-sequence 
+            # iterables such as generators is deprecated as of NumPy 1.16 and 
+            # will raise an error in the future.
             trajectory = np.vstack(
                 p[1] for p in pitch_corrected
                 if nc['Interval'][0] <= p[0] <= nc['Interval'][1])

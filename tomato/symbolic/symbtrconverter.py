@@ -43,7 +43,7 @@ from .symbtr.reader.symbtr import SymbTrReader
 _bin_caller = BinCaller()
 
 
-class SymbTrConverter(object):
+class SymbTrConverter:
     _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
     @classmethod

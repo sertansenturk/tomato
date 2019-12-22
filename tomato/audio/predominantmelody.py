@@ -34,7 +34,7 @@ from essentia import Pool
 from essentia import array as e_array
 
 
-class PredominantMelody(object):
+class PredominantMelody:
     def __init__(self, hop_size=128, frame_size=2048, bin_resolution=1.0,
                  min_frequency=55, max_frequency=1760, magnitude_threshold=0,
                  peak_distribution_threshold=1.4, filter_pitch=True,

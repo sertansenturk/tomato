@@ -33,7 +33,7 @@ from .io import IO
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Analyzer(object):
+class Analyzer:
     __metaclass__ = ABCMeta
 
     def __init__(self, verbose):

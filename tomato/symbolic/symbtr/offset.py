@@ -27,7 +27,7 @@
 import warnings
 
 
-class OffsetProcessor(object):
+class OffsetProcessor:
     """
 
     """

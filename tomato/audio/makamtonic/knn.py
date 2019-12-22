@@ -32,7 +32,7 @@ import numpy as np
 from scipy.spatial import distance as spdistance
 
 
-class KNN(object):
+class KNN:
     @classmethod
     def generate_distance_matrix(cls, distrib, peak_idx, training_distribs,
                                  distance_method='bhat'):

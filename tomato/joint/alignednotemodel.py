@@ -37,7 +37,7 @@ from ..io import IO
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class AlignedNoteModel(object):
+class AlignedNoteModel:
     def __init__(self, kernel_width=7.5, step_size=7.5, pitch_threshold=50):
         self.kernel_width = kernel_width
         self.step_size = step_size

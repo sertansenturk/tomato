@@ -33,7 +33,7 @@ sectionList = [u"1. HANE", u"2. HANE", u"3. HANE", u"4. HANE", u"TESLİM",
                u"1. SELAM", u"2. SELAM", u"3. SELAM", u"4. SELAM", u"TERENNÜM"]
 
 
-class Note(object):
+class Note:
     def __init__(self, info, verbose=None):
         # base attributes
         self.sira = None

@@ -30,7 +30,7 @@ from ..converter import Converter
 from ..io import IO
 
 
-class Ahenk(object):
+class Ahenk:
     CENTS_IN_OCTAVE = 1200  # cents
 
     @classmethod

@@ -34,7 +34,7 @@ from ..io import IO
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
 
-class Work(object):
+class Work:
     @classmethod
     def from_musicbrainz(cls, mbid, get_recording_rels=True,
                          print_warnings=None):

@@ -46,7 +46,7 @@ except AttributeError:
     eyed3.log.setLevel("ERROR")
 
 
-class Recording(object):
+class Recording:
     @classmethod
     def from_musicbrainz(cls, audio_in, get_work_attributes=True):
         try:  # audio file input

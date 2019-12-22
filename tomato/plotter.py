@@ -38,7 +38,7 @@ from .audio.seyir import Seyir as AudioSeyirAnalyzer
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Plotter(object):
+class Plotter:
     @classmethod
     def plot_audio_features(cls, pitch=None, pitch_distribution=None,
                             sections=None, notes=None, note_models=None,

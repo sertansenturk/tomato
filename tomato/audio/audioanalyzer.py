@@ -162,6 +162,7 @@ class AudioAnalyzer(Analyzer):
         try:  # try to get the makam from the metadata
             makams = list(set(m['attribute_key'] for m in metadata['makam']))
 
+            import pdb; pdb.set_trace()
             assert makams  # if empty list, attempt automatic makam recognition
         except (TypeError, KeyError, AssertionError):
             # metadata is not available or the makam is not known

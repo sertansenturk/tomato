@@ -29,7 +29,7 @@ import networkx as nx
 from numpy import matrix
 
 
-class GraphOperations(object):
+class GraphOperations:
     _metrics = ['norm_levenshtein']
     """
 

@@ -33,7 +33,7 @@ from ..io import IO
 from .makamtonic.toniclastnote import TonicLastNote
 
 
-class NoteModel(object):
+class NoteModel:
     note_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     def __init__(self, pitch_threshold=50):

@@ -32,7 +32,7 @@ import numpy as np
 from ...io import IO
 
 
-class ScoreProcessor(object):
+class ScoreProcessor:
     """
 
     """

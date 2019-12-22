@@ -35,7 +35,7 @@ import unicodedata
 import json_tricks as json
 
 
-class IO(object):
+class IO:
     @staticmethod
     def slugify_tr(str_val):
         value_slug = str_val.replace(u'\u0131', 'i')

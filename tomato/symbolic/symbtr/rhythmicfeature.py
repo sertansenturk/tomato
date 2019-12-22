@@ -29,7 +29,7 @@ import warnings
 from ...io import IO
 
 
-class RhythmicFeatureExtractor(object):
+class RhythmicFeatureExtractor:
     @classmethod
     def extract_rhythmic_structure(cls, score):
         usul_bounds = [ii for ii, code in enumerate(score['code'])
