@@ -40,7 +40,7 @@ class MusicBrainz:
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}}
 
-        # TODO: mbid input is actually the musicbrainz url, e.g. 
+        # TODO: mbid input is actually the musicbrainz url, e.g.
         # http://musicbrainz.org/work/[mbid], so:
         # We already know if we should crawl a work or a recording.
         # We should add the work/recording key even if musicbrainz is not

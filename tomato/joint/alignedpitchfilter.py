@@ -73,9 +73,9 @@ class AlignedPitchFilter:
     @staticmethod
     def _get_pitch_trajectories(notes_corrected, pitch_corrected):
         for nc in notes_corrected:
-            # TODO: Fix FutureWarning: arrays to stack must be passed as a 
-            # "sequence" type such as list or tuple. Support for non-sequence 
-            # iterables such as generators is deprecated as of NumPy 1.16 and 
+            # TODO: Fix FutureWarning: arrays to stack must be passed as a
+            # "sequence" type such as list or tuple. Support for non-sequence
+            # iterables such as generators is deprecated as of NumPy 1.16 and
             # will raise an error in the future.
             trajectory = np.vstack(
                 p[1] for p in pitch_corrected
