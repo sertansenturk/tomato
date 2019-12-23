@@ -13,6 +13,12 @@ from tomato import __version__
 
 
 class CustomInstall(_install):
+    """
+    Custom installer for tomato.
+
+    - Downloads the binaries from relevant git repositories
+    - Installs the requirements, and sets up tomato
+    """
     def run(self):
         # download the binaries
         self.execute(self._setup_binaries, (),
@@ -24,8 +30,7 @@ class CustomInstall(_install):
     @classmethod
     def _setup_binaries(cls):
         """
-        Downloads the binaries compiled by MATLAB Runtime Compiler from
-        tomato_binaries
+        Downloads compiled binaries
         """
         bin_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                   'tomato', 'bin')
