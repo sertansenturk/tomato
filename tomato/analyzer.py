@@ -89,7 +89,7 @@ class Analyzer:
     def _partial_caller(flag, func, *input_args, **input_kwargs):
         if flag is False:  # call skipped
             return None
-        elif flag is None:  # call method
+        if flag is None:  # call method
             try:
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,

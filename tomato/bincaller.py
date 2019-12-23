@@ -42,14 +42,14 @@ class BinCaller:
         config = configparser.SafeConfigParser()
         config.read(self.mcr_filepath)
         try:
-            op_sys, env_var, mcr_path, set_paths = \
+            op_sys, env_var, _, set_paths = \
                 self._get_mcr_config(config, 'custom')
         except (IOError, ValueError):
             try:
-                op_sys, env_var, mcr_path, set_paths = \
+                op_sys, env_var, _, set_paths = \
                     self._get_mcr_config(config, 'linux_default')
             except (IOError, ValueError):
-                op_sys, env_var, mcr_path, set_paths = \
+                op_sys, env_var, _, set_paths = \
                     self._get_mcr_config(config, 'macosx_default')
 
         subprocess_env = os.environ.copy()

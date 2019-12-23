@@ -13,11 +13,11 @@ from tomato import __version__
 
 
 class CustomInstall(_install):
-    """
-    Custom installer for tomato.
+    """Custom installer for tomato: downloads the binaries from relevant
+    git repositories, installs the requirements, and sets up tomato
 
-    - Downloads the binaries from relevant git repositories
-    - Installs the requirements, and sets up tomato
+    Raises:
+        OSError: if the OS is not supported.
     """
     def run(self):
         # download the binaries

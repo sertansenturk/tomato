@@ -40,10 +40,17 @@ logger = logging.Logger(__name__, level=logging.INFO)
 
 class Plotter:
     @classmethod
-    def plot_audio_features(cls, pitch=None, pitch_distribution=None,
-                            sections=None, notes=None, note_models=None,
-                            melodic_progression=None, makam=None, tonic=None,
-                            transposition=None, tempo=None):
+    def plot_audio_features(cls,
+                            pitch=None,
+                            pitch_distribution=None,
+                            sections=None,
+                            notes=None,
+                            note_models=None,
+                            melodic_progression=None,
+                            makam=None,
+                            tonic=None,
+                            transposition=None,
+                            tempo=None):
         # parse inputs
         p_in = cls._parse_inputs(
             pitch=pitch, pitch_distribution=pitch_distribution,
@@ -370,7 +377,7 @@ class Plotter:
 
     @staticmethod
     def _plot_note_distributions(ax, note_models):
-        for note_symbol, note in note_models.items():
+        for note_symbol, _ in note_models.items():
             try:
                 ax.plot(note_models[note_symbol]['distribution'].vals,
                         note_models[note_symbol]['distribution'].bins,

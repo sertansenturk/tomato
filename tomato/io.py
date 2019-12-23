@@ -130,15 +130,15 @@ class IO:
     def to_pickle(features, filepath=None):
         if filepath is None:
             return pickle.dumps(features)
-        else:
-            pickle.dump(features, open(filepath, 'wb'))
+
+        return pickle.dump(features, open(filepath, 'wb'))
 
     @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
             return json.dumps(features, indent=2, allow_nan=True)
-        else:
-            json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
+
+        return json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
@@ -151,8 +151,8 @@ class IO:
     def from_json(input_str):
         if os.path.exists(input_str):  # file given
             return json.load(open(input_str), preserve_order=False)
-        else:  # string given
-            return json.loads(input_str, preserve_order=False)
+
+        return json.loads(input_str, preserve_order=False)
 
     @staticmethod
     def get_filenames_in_dir(dir_name, keyword='*', skip_foldername='',
