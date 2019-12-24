@@ -1,4 +1,3 @@
-
 # Copyright 2016 - 2018 Miraç Atıcı & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/

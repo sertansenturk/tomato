@@ -1,4 +1,3 @@
-
 # Copyright 2014 - 2018 Hasan Sercan Atlı & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/

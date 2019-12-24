@@ -1,4 +1,3 @@
-
 # Copyright 2014 - 2018 Music Technology Group - Universitat Pompeu Fabra
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/

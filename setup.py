@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import configparser
 import os
 import subprocess
@@ -22,7 +20,7 @@ class CustomInstall(_install):
     def run(self):
         # download the binaries
         self.execute(self._setup_binaries, (),
-                     msg="Downloaded the binaries from tomato_binaries.")
+                     msg="downloading the binaries from tomato_binaries.")
 
         # install tomato
         _install.run(self)
