@@ -79,7 +79,7 @@ class CustomInstall(_install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print(u"  Downloaded binary %s to %s" % (bin_url, fpath))
+        print(u"  downloaded %s to %s" % (bin_url, fpath))
 
 
 setup(name='tomato',
@@ -90,7 +90,7 @@ setup(name='tomato',
       maintainer_email='contact AT sertansenturk DOT com',
       url='http://sertansenturk.com',
       description='Turkish-Ottoman Makam (M)usic Analysis TOolbox',
-      long_description="""\
+      long_description="""
 Turkish-Ottoman Makam (M)usic Analysis TOolbox
 ----------------------------------------------
 tomato is a comprehensive and easy-to-use toolbox for the analysis of audio
@@ -130,14 +130,14 @@ discovery/recommendation and musicological analysis.
       include_package_data=True,
       python_requires='>=3.5, <3.8',
       install_requires=[
-          "numpy>=1.9.0"  # numerical operations
+          "numpy>=1.9.0",  # numerical operations
           "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
           "pandas>=0.18.0",  # tabular data processing
           "matplotlib>=1.5.1",  # plotting
           "json_tricks>=3.12.1",  # saving json files with classes and numpy
           "eyeD3>=0.7.5",  # reading metadata embedded in the audio recordings
           "python-Levenshtein>=0.12.0",  # semiotic structure labeling
-          "networkx>=1.11"  # semiotic structure labeling clique computation
+          "networkx>=1.11",  # semiotic structure labeling clique computation
           "lxml>=3.6.0",  # musicxml conversion
           "musicbrainzngs>=0.6"  # metadata crawling from musicbrainz
           "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
