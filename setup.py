@@ -23,7 +23,7 @@ class CustomInstall(_install):
                      msg="downloading the binaries from tomato_binaries.")
 
         # install tomato
-        _install.run(self)
+        self.do_egg_install()
 
     @classmethod
     def _setup_binaries(cls):
@@ -132,14 +132,14 @@ discovery/recommendation and musicological analysis.
       install_requires=[
           "numpy>=1.9.0",  # numerical operations
           "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
-          "pandas>=0.18.0",  # tabular data processing
-          "matplotlib>=1.5.1",  # plotting
+          "pandas>=0.18.0,<=0.24.2",  # tabular data processing
+          "matplotlib>=1.5.1,<=3.0.3",  # plotting
           "json_tricks>=3.12.1",  # saving json files with classes and numpy
-          "eyeD3>=0.7.5",  # reading metadata embedded in the audio recordings
+          "eyeD3>=0.7.5,<=0.8.11",  # reading metadata embedded in the audio recordings
           "python-Levenshtein>=0.12.0",  # semiotic structure labeling
           "networkx>=1.11",  # semiotic structure labeling clique computation
           "lxml>=3.6.0",  # musicxml conversion
-          "musicbrainzngs>=0.6"  # metadata crawling from musicbrainz
+          "musicbrainzngs>=0.6",  # metadata crawling from musicbrainz
           "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
           ],
       cmdclass={'install': CustomInstall},
