@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # Copyright 2016 - 2018 Miraç Atıcı & Sertan Şentürk
 #
