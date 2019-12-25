@@ -133,14 +133,14 @@ discovery/recommendation and musicological analysis.
           "computational-analysis"),
       packages=find_packages(exclude=['docs', 'tests']),
       include_package_data=True,
-      python_requires='>=3.5, <3.8',
+      python_requires='>=3.5,<3.8',
       install_requires=[
           "numpy>=1.9.0",  # numerical operations
           "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
           "pandas>=0.18.0,<=0.24.2",  # tabular data processing
           "matplotlib>=1.5.1,<=3.0.3",  # plotting
           "json_tricks>=3.12.1",  # saving json files with classes and numpy
-          "eyeD3>=0.7.5,<=0.8.11",  # reading metadata embedded in the audio recordings
+          "eyeD3>=0.7.5,<=0.8.11",  # reading metadata embedded in recordings
           "python-Levenshtein>=0.12.0",  # semiotic structure labeling
           "networkx>=1.11",  # semiotic structure labeling clique computation
           "lxml>=3.6.0",  # musicxml conversion
