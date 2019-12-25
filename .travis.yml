@@ -1,12 +1,30 @@
 language: python
 matrix:
   include:
-    - name: "Docker build"
+    - name: "docker build"
       services: docker
       python: 3.6
       env: TOX_ENV=docker
       before_install:
         - docker --version
+        - pip install -U pip
+        - pip install tox-travis
+      install: # installed by tox
+      script: tox -e $TOX_ENV
+      after_success: # do nothing
+    - name: "pylint"
+      python: 3.6
+      env: TOX_ENV=pylint
+      before_install:
+        - pip install -U pip
+        - pip install tox-travis
+      install: # installed by tox
+      script: tox -e $TOX_ENV
+      after_success: # do nothing
+    - name: "flake8"
+      python: 3.6
+      env: TOX_ENV=flake8
+      before_install:
         - pip install -U pip
         - pip install tox-travis
       install: # installed by tox
@@ -21,15 +39,6 @@ matrix:
     - name: "Python 3.7"
       python: 3.7
       env: TOX_PYTHON_ENV=py37
-    - name: "Linting"
-      python: 3.6
-      env: TOX_ENV=pylint
-      before_install:
-        - pip install -U pip
-        - pip install tox-travis
-      install: # installed by tox
-      script: tox -e $TOX_ENV
-      after_success: # do nothing
 before_install:
   - ls -la
   - pip install -U pip
@@ -39,6 +48,6 @@ install:
   - python setup.py install
   - pip show tomato
 script:
-  - tox -e $TOX_PYTHON_ENV, flake8
+  - tox -e $TOX_PYTHON_ENV
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/
