@@ -21,6 +21,15 @@ matrix:
     - name: "Python 3.7"
       python: 3.7
       env: TOX_PYTHON_ENV=py37
+    - name: "Linting"
+      python: 3.6
+      env: TOX_ENV=pylint
+      before_install:
+        - pip install -U pip
+        - pip install tox-travis
+      install: # installed by tox
+      script: tox -e $TOX_ENV
+      after_success: # do nothing
 before_install:
   - ls -la
   - pip install -U pip
@@ -30,6 +39,6 @@ install:
   - python setup.py install
   - pip show tomato
 script:
-  - tox -e $TOX_PYTHON_ENV, flake8, pylint
+  - tox -e $TOX_PYTHON_ENV, flake8
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/
