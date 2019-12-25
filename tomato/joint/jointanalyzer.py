@@ -38,7 +38,8 @@ from ..plotter import Plotter
 from .alignednotemodel import AlignedNoteModel
 from .alignedpitchfilter import AlignedPitchFilter
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 # instantiate a mcr_caller
 _mcr_caller = BinCaller()

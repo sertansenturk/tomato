@@ -31,7 +31,8 @@ from ..io import IO
 from .instrumentation import Instrumentation
 from .work import Work as WorkMetadata
 
-logger = logging.Logger(__name__, level=logging.WARNING)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")

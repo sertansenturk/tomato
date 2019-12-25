@@ -31,7 +31,8 @@ from ..audio.pitchdistribution import PitchDistribution
 from ..converter import Converter
 from ..io import IO
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class AlignedNoteModel:

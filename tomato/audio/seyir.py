@@ -25,6 +25,7 @@
 import copy
 import json
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 from ..converter import Converter
@@ -128,8 +129,8 @@ class Seyir:
 
         if json_out is None:
             return json.dumps(seyir_copy)
-        else:
-            json.dump(seyir_copy, open(json_out, 'w'))
+
+        return json.dump(seyir_copy, open(json_out, 'w'))
 
     @staticmethod
     def from_json(json_in):
@@ -165,8 +166,6 @@ class Seyir:
     @staticmethod
     def plot(seyir_features, ax=None, plot_average_pitch=True,
              plot_stable_pitches=True, plot_distribution=False):
-        import matplotlib.pyplot as plt
-
         if ax is None:
             fig, ax = plt.subplots()
 
@@ -183,6 +182,8 @@ class Seyir:
                      seyir_features[-1]['time_interval'][1]])
         ax.set_xlabel('Time (sec)')
         ax.set_ylabel('Frequency (Hz)')
+
+        return fig, ax
 
     @staticmethod
     def _average_pitch_plotter(ax, seyir_features):

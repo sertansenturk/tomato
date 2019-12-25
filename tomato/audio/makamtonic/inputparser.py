@@ -30,7 +30,8 @@ import numpy as np
 from ..pitchdistribution import PitchDistribution
 from ...converter import Converter
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class InputParser:

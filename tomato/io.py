@@ -169,9 +169,6 @@ class IO:
                 - fullnames (list): List of the fullpaths of the files found
                 - folder (list): List of the folders of the files
                 - names (list): List of the filenames without the foldername
-        Examples:
-            >>> get_filenames_in_dir('/path/to/dir/', '*.mp3')  #doctest: +SKIP
-            (['/path/to/dir/file1.mp3', '/path/to/dir/folder1/file2.mp3'], ['/path/to/dir/', '/path/to/dir/folder1'], ['file1.mp3', 'file2.mp3'])  # noqa
         """
         names = []
         folders = []
