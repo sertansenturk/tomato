@@ -150,3 +150,4 @@ class Work:
         for attr_key, attr_val in attr_dict.items():
             if attr_val['dunya_name'] == attr_str:
                 return attr_key
+        raise ValueError("Unknown MusicBrainz key: %s", attr_str)

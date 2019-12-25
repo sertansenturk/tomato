@@ -165,4 +165,4 @@ class KNN:
                 sorted_pair = [pp for pp in sorted_pair if pp[0] != p[0]]
                 return estimated_pair, sorted_pair
 
-        assert False, 'No pair selected, this should be impossible!'
+        raise ValueError('No pair selected, this should be impossible!')

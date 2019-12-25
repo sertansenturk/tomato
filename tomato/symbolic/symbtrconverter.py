@@ -74,9 +74,9 @@ class SymbTrConverter:
         xmlstr = piece.convertsymbtr2xml()  # outputs the xml score as string
         if xml_out is None:   # return string
             return xmlstr
-        else:
-            piece.writexml(xml_out)  # save to filename
-            return xml_out  # return filename
+
+        piece.writexml(xml_out)  # save to filename
+        return xml_out  # return filename
 
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, flags=None,
@@ -119,11 +119,11 @@ class SymbTrConverter:
         # 6. return/write the MusicXML contents
         if xml_out is None:   # return string
             return xmlstr
-        else:
-            with open(xml_out, 'w', encoding='utf-8') as f:
-                f.write(xmlstr)
 
-            return xml_out  # return filename
+        with open(xml_out, 'w', encoding='utf-8') as f:
+            f.write(xmlstr)
+
+        return xml_out  # return filename
 
     @staticmethod
     def _parse_musikitomusicxml_inputs(temp_in_file, midi_instrument, flags):
@@ -177,8 +177,9 @@ class SymbTrConverter:
 
         if ly_out is None:
             return ly_stream, ly_txt_mapping
-        else:  # ly_stream is already saved to the user-specified file
-            return ly_out, ly_txt_mapping
+
+        # ly_stream is already saved to the user-specified file
+        return ly_out, ly_txt_mapping
 
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
@@ -209,9 +210,9 @@ class SymbTrConverter:
 
         if svg_out is None:  # return string
             return svg_pages
-        else:
-            fnames = cls._write_svgs(svg_pages, svg_out, ly_in)
-            return fnames  # output path
+
+        fnames = cls._write_svgs(svg_pages, svg_out, ly_in)
+        return fnames  # output path
 
     @classmethod
     def _get_svg_pages(cls, tmp_dir, ly_txt_mapping):
@@ -249,8 +250,8 @@ class SymbTrConverter:
                 except KeyError:
                     # the vector is not a note, hence it is not in the mapping
                     return r'<a>'
-            else:
-                return r'<a id="{0:s}">'.format
+
+            return r'<a id="{0:s}">'.format
 
         # get the svg strings and organize the labels inside with regular
         # expression substitution according to the pattern and rule defined

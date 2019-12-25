@@ -30,9 +30,6 @@ from ...io import IO
 
 
 class ScoreProcessor:
-    """
-
-    """
     @staticmethod
     def get_true_lyrics(score_fragments):
         copy_fragments = deepcopy(score_fragments)

@@ -24,11 +24,13 @@
 
 from copy import deepcopy
 
+import matplotlib.pyplot as plt
+import matplotlib.ticker
 import numpy as np
 
+from ...converter import Converter
 from ..pitchdistribution import PitchDistribution
 from ..pitchfilter import PitchFilter
-from ...converter import Converter
 
 
 class TonicLastNote:
@@ -156,9 +158,6 @@ class TonicLastNote:
 
     @staticmethod
     def plot(pitch, tonic, pitch_chunks, distribution):
-        import matplotlib.pyplot as plt
-        import matplotlib.ticker
-
         _, (ax1, ax2, ax3) = plt.subplots(3, num=None, figsize=(18, 8), dpi=80)
         plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
                             wspace=0, hspace=0.4)

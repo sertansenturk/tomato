@@ -30,10 +30,6 @@ from .scoreprocessor import ScoreProcessor
 
 
 class StructureLabeler:
-    """
-
-    """
-
     def __init__(self, lyrics_sim_thres=0.7, melody_sim_thres=0.7,
                  save_structure_sim=True):
         self.lyrics_sim_thres = lyrics_sim_thres

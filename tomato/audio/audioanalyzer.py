@@ -349,7 +349,6 @@ class AudioAnalyzer(Analyzer):
     def set_note_modeler_params(self, **kwargs):
         self._set_params('_note_modeler', **kwargs)
 
-    # plot
     @staticmethod
     def plot(audio_features):
         pitch = audio_features['pitch_filtered']['pitch']

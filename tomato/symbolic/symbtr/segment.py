@@ -26,9 +26,6 @@ from .structurelabeler import StructureLabeler
 
 
 class SegmentExtractor:
-    """
-
-    """
     def __init__(self, lyrics_sim_thres=0.70, melody_sim_thres=0.70,
                  save_structure_sim=True, crop_consecutive_bounds=True):
         """

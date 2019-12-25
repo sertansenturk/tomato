@@ -32,9 +32,6 @@ from .structurelabeler import StructureLabeler
 
 
 class SectionExtractor:
-    """
-
-    """
     def __init__(self, lyrics_sim_thres=0.7, melody_sim_thres=0.7,
                  save_structure_sim=True, extract_all_labels=False,
                  print_warnings=True):
@@ -133,8 +130,8 @@ class SectionExtractor:
     def _locate_section_boundaries(self, sections, score, measure_start_idx):
         if not sections:  # no sections
             return sections
-        else:
-            sections = self._sort_sections(sections)
+
+        sections = self._sort_sections(sections)
 
         real_lyrics_idx = ScoreProcessor.get_true_lyrics_idx(
             score['lyrics'], score['duration'])
@@ -219,12 +216,12 @@ class SectionExtractor:
                              score['lyrics'][prev_closest_end_ind],
                              score['lyrics'][curr_lyrics_start_ind]))
             return curr_lyrics_start_ind
-        else:  # The section starts on the first measure the lyrics
-            # start
-            first_note_idx = ScoreProcessor.get_first_note_index(score)
-            return max([OffsetProcessor.get_measure_offset_id(
-                curr_lyrics_measure_offset, score['offset'],
-                measure_start_idx), first_note_idx])
+
+        # The section starts on the first measure the lyrics start
+        first_note_idx = ScoreProcessor.get_first_note_index(score)
+        return max([OffsetProcessor.get_measure_offset_id(
+            curr_lyrics_measure_offset, score['offset'],
+            measure_start_idx), first_note_idx])
 
     @staticmethod
     def find_prev_closest_bound(bound_note_idx, end_note):

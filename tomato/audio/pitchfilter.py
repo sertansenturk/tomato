@@ -130,10 +130,9 @@ class PitchFilter:
 
         if av == 0:
             return True
-        elif (d / av) < 0.2:
+        if (d / av) < 0.2:
             return True
-        else:
-            return False
+        return False
 
     def correct_octave_errors_by_chunks(self, pitch):
         pitch_chunks = self.decompose_into_chunks(pitch=pitch)
