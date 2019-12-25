@@ -59,11 +59,11 @@ class PredominantMelody:
 
     def get_settings(self):
         from essentia import __version__ as essentia_version
-        citation = u"Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
-                   u"and Serra, X. (2014). Audio feature extraction for " \
-                   u"exploring Turkish makam music. In Proceedings of 3rd " \
-                   u"International Conference on Audio Technologies for " \
-                   u"Music and Media, Ankara, Turkey."
+        citation = "Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
+                   "and Serra, X. (2014). Audio feature extraction for " \
+                   "exploring Turkish makam music. In Proceedings of 3rd " \
+                   "International Conference on Audio Technologies for " \
+                   "Music and Media, Ankara, Turkey."
 
         return {'hopSize': self.hop_size, 'frameSize': self.frame_size,
                 'pitchUnit': 'Hz', 'binResolution': self.bin_resolution,

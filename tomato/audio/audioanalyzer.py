@@ -181,7 +181,7 @@ class AudioAnalyzer(Analyzer):
     def crawl_musicbrainz_metadata(self, rec_in):
         try:
             tic = timeit.default_timer()
-            self.vprint(u"- Getting relevant metadata of {0:s}".format(rec_in))
+            self.vprint("- Getting relevant metadata of {0:s}".format(rec_in))
             audio_meta = RecordingMetadata.from_musicbrainz(rec_in)
 
             self.vprint_time(tic, timeit.default_timer())
@@ -194,7 +194,7 @@ class AudioAnalyzer(Analyzer):
 
     def extract_pitch(self, filename):
         tic = timeit.default_timer()
-        self.vprint(u"- Extracting predominant melody of {0:s}".
+        self.vprint("- Extracting predominant melody of {0:s}".
                     format(filename))
 
         results = self._pitch_extractor.run(filename)
@@ -206,7 +206,7 @@ class AudioAnalyzer(Analyzer):
 
     def filter_pitch(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Filtering predominant melody of {0:s}".
+        self.vprint("- Filtering predominant melody of {0:s}".
                     format(pitch['source']))
 
         pitch_filt = copy.deepcopy(pitch)
@@ -220,7 +220,7 @@ class AudioAnalyzer(Analyzer):
 
     def compute_melodic_progression(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Computing the melodic progression model of {0:s}"
+        self.vprint("- Computing the melodic progression model of {0:s}"
                     .format(pitch['source']))
 
         if self._mel_prog_params['frame_dur'] is None:
@@ -246,7 +246,7 @@ class AudioAnalyzer(Analyzer):
 
     def identify_tonic(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Identifying tonic from the predominant melody of {0:s}"
+        self.vprint("- Identifying tonic from the predominant melody of {0:s}"
                     .format(pitch['source']))
 
         tonic = self._tonic_identifier.identify(pitch['pitch'])[0]
@@ -259,7 +259,7 @@ class AudioAnalyzer(Analyzer):
 
     def compute_pitch_distribution(self, pitch):
         tic = timeit.default_timer()
-        self.vprint(u"- Computing pitch distribution of {0:s}".
+        self.vprint("- Computing pitch distribution of {0:s}".
                     format(pitch['source']))
 
         pitch_distribution = PitchDistribution.from_hz_pitch(
@@ -272,8 +272,8 @@ class AudioAnalyzer(Analyzer):
     def compute_pitch_class_distribution(self, p_in):
         tic = timeit.default_timer()
         try:  # predominant melody input
-            self.vprint(u"- Computing pitch class distribution of {0:s}"
-                        u"".format(p_in['source']))
+            self.vprint("- Computing pitch class distribution of {0:s}"
+                        "".format(p_in['source']))
 
             pitch_class_distribution = self.compute_pitch_distribution(p_in)
             pitch_class_distribution.to_pcd()
@@ -286,7 +286,7 @@ class AudioAnalyzer(Analyzer):
 
     def recognize_makam(self, pitch, tonic):
         tic = timeit.default_timer()
-        self.vprint(u"- Recognizing the makam of {0:s}".format(
+        self.vprint("- Recognizing the makam of {0:s}".format(
             tonic['source']))
 
         makam = self._makam_recognizer.estimate_mode(
@@ -297,7 +297,7 @@ class AudioAnalyzer(Analyzer):
 
     def identify_transposition(self, tonic, makam_tonic_str):
         tic = timeit.default_timer()
-        self.vprint(u"- Identifying the transposition of {0:s}".format(
+        self.vprint("- Identifying the transposition of {0:s}".format(
             tonic['source']))
         transposition = Ahenk.identify(
             tonic['value'], makam_tonic_str)
@@ -308,7 +308,7 @@ class AudioAnalyzer(Analyzer):
 
     def compute_note_models(self, pitch_distribution, tonic, makamstr):
         tic = timeit.default_timer()
-        self.vprint(u"- Computing the note models for {0:s}".
+        self.vprint("- Computing the note models for {0:s}".
                     format(tonic['source']))
 
         note_models = self._note_modeler.calculate_notes(

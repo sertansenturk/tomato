@@ -33,10 +33,10 @@ from .pitchdistribution import PitchDistribution
 
 class Seyir:
     _dummy_ref_freq = 440.0  # hz
-    citation = u"B. Bozkurt, Computational analysis of overall melodic " \
-               u"progression for Turkish Makam Music, in Penser " \
-               u"l’improvisation edited by Mondher Ayari, pp. 289-298, " \
-               u"ISBN: 9782752102485, 2015, Delatour France, Sampzon."
+    citation = "B. Bozkurt, Computational analysis of overall melodic " \
+               "progression for Turkish Makam Music, in Penser " \
+               "l’improvisation edited by Mondher Ayari, pp. 289-298, " \
+               "ISBN: 9782752102485, 2015, Delatour France, Sampzon."
 
     def __init__(self, kernel_width=7.5, step_size=7.5):
         self.kernel_width = kernel_width

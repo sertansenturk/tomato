@@ -68,7 +68,7 @@ class RhythmicFeatureExtractor:
 
         # Keep it as a warning, not assertion, so we can also process faulty
         # scores
-        warnstr = u'{0:s} in location {1:d} is missing in usul_dict'.format(
+        warnstr = '{0:s} in location {1:d} is missing in usul_dict'.format(
             score['lyrics'][usul_bound], usul_bound + 1)
         warnings.warn(warnstr.encode('utf-8'), stacklevel=2)
         return None

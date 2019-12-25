@@ -35,7 +35,7 @@ import json_tricks as json
 class IO:
     @staticmethod
     def slugify_tr(str_val):
-        value_slug = str_val.replace(u'\u0131', 'i')
+        value_slug = str_val.replace('\u0131', 'i')
         value_slug = unicodedata.normalize('NFKD', value_slug)
         value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
         value_slug = re.sub(r'[^\w\s-]', '', value_slug).strip()
@@ -81,7 +81,7 @@ class IO:
                 out_dict[exp] = json.load(open(fpath))
                 os.unlink(fpath)  # remove file created in the temporary folder
             else:
-                raise Exception(u'Missing output {0:s} file'.format(exp))
+                raise Exception('Missing output {0:s} file'.format(exp))
 
         return out_dict
 

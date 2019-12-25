@@ -49,7 +49,7 @@ class Instrumentation:
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logger.info(u"{} is not related to instrumentation.".format(
+                logger.info("{} is not related to instrumentation.".format(
                     iv))
                 instrument_vocal_list.pop(ii)
 
@@ -143,7 +143,7 @@ class Instrumentation:
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logging.info(u"{} is not related to performance.".format(iv))
+                logging.info("{} is not related to performance.".format(iv))
                 instrument_vocal_list.pop(ii)
 
         if cls.solo_instrumental(instrument_vocal_list):

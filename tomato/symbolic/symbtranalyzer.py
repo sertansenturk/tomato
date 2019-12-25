@@ -129,8 +129,8 @@ class SymbTrAnalyzer(Analyzer):
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
-        self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
-                    u"{0:s}".format(txt_filename))
+        self.vprint("- Automatic phrase segmentation on the SymbTr-txt file: "
+                    "{0:s}".format(txt_filename))
 
         # attempt to get the symbtrname from the filename, if it is not given
         if symbtr_name is None:
@@ -146,8 +146,8 @@ class SymbTrAnalyzer(Analyzer):
 
         # call the binary
         callstr = [u'"{0:s}" "segmentWrapper" "{1:s}" "{2:s}" "{3:s}" "{4:s}"'
-                   u''.format(self._phrase_segmenter, bound_stat_file,
-                              fld_model_file, temp_in_file, temp_out_file)]
+                   ''.format(self._phrase_segmenter, bound_stat_file,
+                             fld_model_file, temp_in_file, temp_out_file)]
 
         out, err = _mcr_caller.call(callstr)
         out = out.decode("utf-8")  # convert from byte to urf-8 str

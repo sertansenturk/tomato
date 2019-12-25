@@ -59,7 +59,7 @@ class AlignedNoteModel:
                         'Unit': 'cent'}, 'theoretical_pitch': []}
             except KeyError:
                 logger.warning(
-                    u"The note {0:s} is not in the note_dict.".format(nn))
+                    "The note {0:s} is not in the note_dict.".format(nn))
 
         # compute note trajectories and add to each model
         self._distribute_pitch_trajectories(alignednotes_ext, note_models,
@@ -145,8 +145,8 @@ class AlignedNoteModel:
                 try:
                     note_models[an['Symbol']]['notes'].append(notetemp)
                 except KeyError:
-                    logger.info(u"The note {0:s} is not in the "
-                                u"note_dict.".format(an['Symbol']))
+                    logger.info("The note {0:s} is not in the "
+                                "note_dict.".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,
                                       theoretical_interval, ref_freq=None):

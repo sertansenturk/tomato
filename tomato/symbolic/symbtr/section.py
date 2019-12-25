@@ -124,8 +124,8 @@ class SectionExtractor:
                                  'lyrics': ''})
             elif '  ' in l:  # lyrics end marker
                 # lyrics will be updated in locate_section_boundaries
-                sections.append({'name': u"VOCAL_SECTION",
-                                 'slug': u"VOCAL_SECTION", 'start_note': [],
+                sections.append({'name': "VOCAL_SECTION",
+                                 'slug': "VOCAL_SECTION", 'start_note': [],
                                  'end_note': i, 'lyrics': ''})
 
         return sections
@@ -150,7 +150,7 @@ class SectionExtractor:
             end_note_idx = self._section_end_note_idx(sections)
 
             # find the start index of the vocal section
-            if se['slug'] == u'VOCAL_SECTION':
+            if se['slug'] == 'VOCAL_SECTION':
                 # estimate the start of the lyrics sections
                 next_lyrics_start_ind = self._find_vocal_section_start_idx(
                     se, score, start_note_idx, end_note_idx, measure_start_idx,
@@ -174,8 +174,8 @@ class SectionExtractor:
         first_note_idx = ScoreProcessor.get_first_note_index(score)
         if sections[0]['start_note'] > first_note_idx:
             end_note = sections[0]['start_note'] - 1
-            sections.insert(0, {'name': u'INSTRUMENTAL_SECTION',
-                                'slug': u'INSTRUMENTAL_SECTION',
+            sections.insert(0, {'name': 'INSTRUMENTAL_SECTION',
+                                'slug': 'INSTRUMENTAL_SECTION',
                                 'start_note': first_note_idx,
                                 'end_note': end_note})
 
@@ -214,7 +214,7 @@ class SectionExtractor:
             if self.print_warnings:
                 # This is not a warning but a indication to the user as it can
                 # happen occasionally especially in the folk forms
-                print(u'{0!s}: {1!s} and {2!s} are in the same measure!'.
+                print('{0!s}: {1!s} and {2!s} are in the same measure!'.
                       format(str(curr_lyrics_measure_offset),
                              score['lyrics'][prev_closest_end_ind],
                              score['lyrics'][curr_lyrics_start_ind]))
@@ -255,7 +255,7 @@ class SectionExtractor:
         # treat some of these are warning; they'll be made stricter later
         if not sections:  # check section presence
             if self.print_warnings:
-                warnings.warn(u"{0!s}, Missing section info in lyrics.".format(
+                warnings.warn("{0!s}, Missing section info in lyrics.".format(
                     symbtrname), stacklevel=2)
             valid_bool = True  # nothing to validate
         else:  # check section continuity
@@ -281,11 +281,11 @@ class SectionExtractor:
         section_bound_bool = True
         for s in sections:
             if s['start_note'] > s['end_note']:
-                warnstr = u'{0!s}, {1!s} -> {2!s}, {3!s} ends before it ' \
-                          u'starts: {4!s}' \
-                          u''.format(symbtrname, str(s['start_note']),
-                                     str(s['end_note']), s['slug'],
-                                     str(score['offset'][s['start_note']]))
+                warnstr = '{0!s}, {1!s} -> {2!s}, {3!s} ends before it ' \
+                          'starts: {4!s}' \
+                          ''.format(symbtrname, str(s['start_note']),
+                                    str(s['end_note']), s['slug'],
+                                    str(score['offset'][s['start_note']]))
                 warnings.warn(warnstr, stacklevel=2)
                 section_bound_bool = False
 
@@ -312,7 +312,7 @@ class SectionExtractor:
             for label in all_labels:
                 # invalid lyrics end
                 if ll in [label + ' ', label + '  ']:
-                    warnings.warn(u'{0!s}, {1!d}: Extra space in {2!s}'.format(
+                    warnings.warn('{0!s}, {1!d}: Extra space in {2!s}'.format(
                         symbtrname, i, ll), stacklevel=2)
                     no_space_bool = False
 
@@ -327,9 +327,9 @@ class SectionExtractor:
         for s, e in zip(start_note_idx, ends):
             if not s - e == 1:
                 if self.print_warnings:
-                    warnings.warn(u'{0!s}, {1!s} -> {2!s}, Gap between the '
-                                  u'sections'.format(symbtrname,
-                                                     str(e), str(s)),
+                    warnings.warn('{0!s}, {1!s} -> {2!s}, Gap between the '
+                                  'sections'.format(symbtrname,
+                                                    str(e), str(s)),
                                   stacklevel=2)
                 section_continuity_bool = False
 

@@ -98,7 +98,7 @@ class SymbTr:
                                 cls._compare_accidentals(k1, k2))
 
         if not is_key_sig_valid:
-            warnings.warn(u'{0!s}: Key signature is different! {1!s} -> {2!s}'.
+            warnings.warn('{0!s}: Key signature is different! {1!s} -> {2!s}'.
                           format(symbtr_name, ' '.join(key_signature),
                                  ' '.join(key_sig_makam)), stacklevel=2)
 
@@ -157,7 +157,7 @@ class SymbTr:
             has_slug
             and score_attrib['symbtr_slug'] != attrib_dict['symbtr_slug'])
         if not_valid:
-            warnings.warn(u'{0!s}, {1!s}: The slug does not match.'.
+            warnings.warn('{0!s}, {1!s}: The slug does not match.'.
                           format(score_name, score_attrib['symbtr_slug']),
                           stacklevel=2)
             return False
@@ -166,7 +166,6 @@ class SymbTr:
 
     @classmethod
     def _validate_mu2_attribute(cls, score_attrib, attrib_dict, score_name):
-
         is_attrib_valid = True
         if 'mu2_name' in score_attrib.keys():  # work
             try:  # usul
@@ -175,9 +174,9 @@ class SymbTr:
 
                 if not mu2_name:  # no matching variant
                     is_attrib_valid = False
-                    warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not ' \
-                               u'match.'.format(score_name,
-                                                score_attrib['mu2_name'])
+                    warn_str = '{0!s}, {1!s}: The Mu2 attribute does not ' \
+                               'match.'.format(score_name,
+                                               score_attrib['mu2_name'])
                     warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 
             except KeyError:  # makam, form
@@ -190,7 +189,7 @@ class SymbTr:
     def _validate_mu2_makam_form(score_attrib, attrib_dict, score_name):
         mu2_name = attrib_dict['mu2_name']
         if not score_attrib['mu2_name'] == mu2_name:
-            warn_str = u'{0!s}, {1!s}: The Mu2 attribute does not match.'.\
+            warn_str = '{0!s}, {1!s}: The Mu2 attribute does not match.'.\
                 format(score_name, score_attrib['mu2_name'])
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
@@ -209,10 +208,10 @@ class SymbTr:
                     # found variant
                     if not uv[v_key] == score_attrib[v_key]:
                         is_usul_valid = False
-                        warn_str = u'{0:s}, {1:s}: The {2:s} of the usul in ' \
-                                   u'the score does not ' \
-                                   u'match.'.format(score_name,
-                                                    uv['mu2_name'], v_key)
+                        warn_str = '{0:s}, {1:s}: The {2:s} of the usul in ' \
+                                   'the score does not ' \
+                                   'match.'.format(score_name,
+                                                   uv['mu2_name'], v_key)
                         warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
 
                     return is_usul_valid, mu2_name
@@ -226,8 +225,8 @@ class SymbTr:
             skip_makam_slug = ['12212212', '22222221', '223', '232223', '262',
                                '3223323', '3334', '14_4']
             if score_attrib['symbtr_slug'] in skip_makam_slug:
-                warnings.warn(u'{0:s}: The usul attribute is not stored in '
-                              u'MusicBrainz.'.format(score_name), stacklevel=2)
+                warnings.warn('{0:s}: The usul attribute is not stored in '
+                              'MusicBrainz.'.format(score_name), stacklevel=2)
             else:
                 if not score_attrib['mb_attribute'] == \
                         attrib_dict['dunya_name']:
@@ -235,15 +234,15 @@ class SymbTr:
                     # musicbrainz attributes
                     is_attribute_valid = False
                     if score_attrib['mb_attribute']:
-                        warn_str = u'{0:s}, {1:s}: The MusicBrainz ' \
-                                   u'attribute does not match.' \
-                                   u''.format(score_name,
-                                              score_attrib['mb_attribute'])
+                        warn_str = '{0:s}, {1:s}: The MusicBrainz ' \
+                                   'attribute does not match.' \
+                                   ''.format(score_name,
+                                             score_attrib['mb_attribute'])
 
                         warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
                     else:
-                        warnings.warn(u'{0:s}: The MusicBrainz attribute does'
-                                      u' not exist.'.format(score_name),
+                        warnings.warn('{0:s}: The MusicBrainz attribute does'
+                                      ' not exist.'.format(score_name),
                                       stacklevel=2)
         return is_attribute_valid
 
@@ -255,7 +254,7 @@ class SymbTr:
         if has_mb_tag and score_attrib['mb_tag'] not in attrib_dict['mb_tag']:
             is_attribute_valid = False
 
-            warn_str = u'{0!s}, {1!s}: The MusicBrainz tag does not match.'.\
+            warn_str = '{0!s}, {1!s}: The MusicBrainz tag does not match.'.\
                 format(score_name, score_attrib['mb_tag'])
 
             warnings.warn(warn_str.encode('utf-8'), stacklevel=2)
@@ -279,7 +278,7 @@ class SymbTr:
             if e['name'] == symbtr_name:
                 mbids.append(e['uuid'])
         if not mbids:
-            warnings.warn(u"No MBID returned for {0:s}".format(symbtr_name),
+            warnings.warn("No MBID returned for {0:s}".format(symbtr_name),
                           RuntimeWarning, )
         return mbids
 

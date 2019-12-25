@@ -40,8 +40,8 @@ class ScoreProcessor:
         for sf in copy_fragments:
             real_lyrics_idx = ScoreProcessor.get_true_lyrics_idx(
                 sf['lyrics'], sf['durs'])
-            sf['lyrics'] = u''.join([sf['lyrics'][i].replace(u' ', u'')
-                                     for i in real_lyrics_idx])
+            sf['lyrics'] = ''.join([sf['lyrics'][i].replace(' ', '')
+                                    for i in real_lyrics_idx])
 
         return [sf['lyrics'] for sf in copy_fragments]
 

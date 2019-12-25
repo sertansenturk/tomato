@@ -135,5 +135,5 @@ class BinCaller:
 
     @staticmethod
     def check_bin_exists(bin_path):
-        assert os.path.exists(bin_path), u'Binary does not exist: {0:s}'.\
+        assert os.path.exists(bin_path), 'Binary does not exist: {0:s}'.\
             format(bin_path)

@@ -74,9 +74,9 @@ class Analyzer:
                                     for f in self._inputs)
         for feature, val in kwargs.items():
             if feature not in self._inputs:
-                warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
-                           u'but will not be used in the analysis.' \
-                           u''.format(feature)
+                warn_str = 'Unrelated feature {0:s}: It will be kept, ' \
+                           'but will not be used in the analysis.' \
+                           ''.format(feature)
                 warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
 
@@ -112,5 +112,5 @@ class Analyzer:
             print(vstr)
 
     def vprint_time(self, tic, toc):
-        self.vprint(u"  The call took {0:.2f} seconds to execute.".
+        self.vprint("  The call took {0:.2f} seconds to execute.".
                     format(toc - tic))

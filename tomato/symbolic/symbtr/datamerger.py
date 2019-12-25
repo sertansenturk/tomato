@@ -95,6 +95,6 @@ class DataMerger:
     def _chk_dict_key_override(key, result, val):
         if not result[key] == val:
             # overwrite
-            warnings.warn(u'{0:s} already exists! Overwriting...'.format(key),
+            warnings.warn('{0:s} already exists! Overwriting...'.format(key),
                           stacklevel=2)
             result[key] = val
