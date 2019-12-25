@@ -167,7 +167,7 @@ class Seyir:
     def plot(seyir_features, ax=None, plot_average_pitch=True,
              plot_stable_pitches=True, plot_distribution=False):
         if ax is None:
-            fig, ax = plt.subplots()
+            _, ax = plt.subplots()
 
         if plot_distribution:
             Seyir._pitch_distrib_plotter(ax, seyir_features)
@@ -182,8 +182,6 @@ class Seyir:
                      seyir_features[-1]['time_interval'][1]])
         ax.set_xlabel('Time (sec)')
         ax.set_ylabel('Frequency (Hz)')
-
-        return fig, ax
 
     @staticmethod
     def _average_pitch_plotter(ax, seyir_features):
