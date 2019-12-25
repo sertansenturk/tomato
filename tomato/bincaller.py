@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -24,15 +21,14 @@
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
+import configparser
 import os
 import subprocess
-
-from six.moves import configparser
 
 from .io import IO
 
 
-class BinCaller(object):
+class BinCaller:
     def __init__(self):
         self.mcr_filepath = IO.get_abspath_from_relpath_in_tomato(
             'config', 'mcr_path.cfg')
@@ -43,14 +39,14 @@ class BinCaller(object):
         config = configparser.SafeConfigParser()
         config.read(self.mcr_filepath)
         try:
-            op_sys, env_var, mcr_path, set_paths = \
+            op_sys, env_var, _, set_paths = \
                 self._get_mcr_config(config, 'custom')
         except (IOError, ValueError):
             try:
-                op_sys, env_var, mcr_path, set_paths = \
+                op_sys, env_var, _, set_paths = \
                     self._get_mcr_config(config, 'linux_default')
             except (IOError, ValueError):
-                op_sys, env_var, mcr_path, set_paths = \
+                op_sys, env_var, _, set_paths = \
                     self._get_mcr_config(config, 'macosx_default')
 
         subprocess_env = os.environ.copy()
@@ -139,5 +135,5 @@ class BinCaller(object):
 
     @staticmethod
     def check_bin_exists(bin_path):
-        assert os.path.exists(bin_path), u'Binary does not exist: {0:s}'.\
+        assert os.path.exists(bin_path), 'Binary does not exist: {0:s}'.\
             format(bin_path)

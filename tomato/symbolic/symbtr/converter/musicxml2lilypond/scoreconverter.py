@@ -1,5 +1,4 @@
 # coding=utf-8
-from __future__ import division, unicode_literals
 
 import os
 import sqlite3
@@ -9,7 +8,7 @@ from .musicxmlreader import MusicXMLReader
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
 
 
-class ScoreConverter(object):
+class ScoreConverter:
     _octaves = {"2": ",", "3": "", "4": "\'", "5": "\'\'", "6": "\'\'\'",
                 "7": "\'\'\'\'", "r": ""}
 
@@ -254,13 +253,10 @@ class ScoreConverter(object):
             measures, makam, usul, form, time_sigs, keysig,
             render_metadata, work_title, composer, poet)
 
-        ly_stream = u''.join(ly_stream)
+        ly_stream = ''.join(ly_stream)
         # save to file
         if ly_out is not None:
             with open(ly_out, 'w', encoding='utf-8') as outfile:
-                try:  # python 2
-                    outfile.write(ly_stream.encode('utf-8'))
-                except TypeError:  # python 3
-                    outfile.write(ly_stream)
+                outfile.write(ly_stream)
 
         return ly_stream, mapping

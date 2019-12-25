@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Miraç Atıcı & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -33,7 +30,7 @@ from ..io import IO
 from .makamtonic.toniclastnote import TonicLastNote
 
 
-class NoteModel(object):
+class NoteModel:
     note_letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     def __init__(self, pitch_threshold=50):

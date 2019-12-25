@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -37,7 +34,7 @@ from ..io import IO
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class AlignedNoteModel(object):
+class AlignedNoteModel:
     def __init__(self, kernel_width=7.5, step_size=7.5, pitch_threshold=50):
         self.kernel_width = kernel_width
         self.step_size = step_size
@@ -62,7 +59,7 @@ class AlignedNoteModel(object):
                         'Unit': 'cent'}, 'theoretical_pitch': []}
             except KeyError:
                 logger.warning(
-                    u"The note {0:s} is not in the note_dict.".format(nn))
+                    "The note {0:s} is not in the note_dict.".format(nn))
 
         # compute note trajectories and add to each model
         self._distribute_pitch_trajectories(alignednotes_ext, note_models,
@@ -148,8 +145,8 @@ class AlignedNoteModel(object):
                 try:
                     note_models[an['Symbol']]['notes'].append(notetemp)
                 except KeyError:
-                    logger.info(u"The note {0:s} is not in the "
-                                u"note_dict.".format(an['Symbol']))
+                    logger.info("The note {0:s} is not in the "
+                                "note_dict.".format(an['Symbol']))
 
     def _get_stablepitch_distribution(self, note_trajectories,
                                       theoretical_interval, ref_freq=None):

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -27,7 +24,7 @@
 import warnings
 
 
-class DataMerger(object):
+class DataMerger:
     @classmethod
     def merge(cls, data1, data2, verbose=True):
         """
@@ -57,7 +54,7 @@ class DataMerger(object):
             data2_dict['recording'] = data2_dict.pop('title')
         else:
             if verbose:
-                warnings.warn("There is no information about whether the "
+                warnings.warn("There is no information whether the "
                               "score is related to a composition or a "
                               "performance. The title key is skipped.",
                               stacklevel=2)
@@ -98,6 +95,6 @@ class DataMerger(object):
     def _chk_dict_key_override(key, result, val):
         if not result[key] == val:
             # overwrite
-            warnings.warn(u'{0:s} already exists! Overwriting...'.format(key),
+            warnings.warn('{0:s} already exists! Overwriting...'.format(key),
                           stacklevel=2)
             result[key] = val

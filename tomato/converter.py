@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -25,8 +22,6 @@
 # Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
 # New York, NY, USA
 
-from __future__ import division
-
 from typing import Union
 
 import numpy as np
@@ -34,7 +29,7 @@ import numpy as np
 _NUM_CENTS_IN_OCTAVE = 1200.0
 
 
-class Converter(object):
+class Converter:
     @staticmethod
     def hz_to_cent(hz_track: Union[list, np.array],
                    ref_freq: Union[float, np.float],

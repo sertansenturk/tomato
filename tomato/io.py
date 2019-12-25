@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -29,31 +26,16 @@ import os
 import pickle
 import re
 import subprocess
-import sys
 import tempfile
 import unicodedata
 
 import json_tricks as json
-from future.utils import raise_
 
 
-class IO(object):
-    @staticmethod
-    def make_unicode(input_str):
-        try:
-            return input_str.decode('utf-8')
-        except AttributeError as ae:
-            if ae.args[0] == "'NoneType' object has no attribute 'decode'":
-                return None  # None input
-            elif ae.args[0] == "'str' object has no attribute 'decode'":
-                return input_str  # Python 3 str
-            else:  # other; re-throw error
-                traceback = sys.exc_info()[2]
-                raise_(AttributeError, ae.args[0], traceback)
-
+class IO:
     @staticmethod
     def slugify_tr(str_val):
-        value_slug = str_val.replace(u'\u0131', 'i')
+        value_slug = str_val.replace('\u0131', 'i')
         value_slug = unicodedata.normalize('NFKD', value_slug)
         value_slug = value_slug.encode('ascii', 'ignore').decode('ascii')
         value_slug = re.sub(r'[^\w\s-]', '', value_slug).strip()
@@ -99,7 +81,7 @@ class IO(object):
                 out_dict[exp] = json.load(open(fpath))
                 os.unlink(fpath)  # remove file created in the temporary folder
             else:
-                raise Exception(u'Missing output {0:s} file'.format(exp))
+                raise Exception('Missing output {0:s} file'.format(exp))
 
         return out_dict
 
@@ -145,15 +127,18 @@ class IO(object):
     def to_pickle(features, filepath=None):
         if filepath is None:
             return pickle.dumps(features)
-        else:
-            pickle.dump(features, open(filepath, 'wb'))
+
+        return pickle.dump(features, open(filepath, 'wb'))
 
     @staticmethod
     def to_json(features, filepath=None):
         if filepath is None:
             return json.dumps(features, indent=2, allow_nan=True)
-        else:
-            json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
+
+        return json.dump(features,
+                         open(filepath, 'w'),
+                         indent=2,
+                         allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
@@ -166,8 +151,8 @@ class IO(object):
     def from_json(input_str):
         if os.path.exists(input_str):  # file given
             return json.load(open(input_str), preserve_order=False)
-        else:  # string given
-            return json.loads(input_str, preserve_order=False)
+
+        return json.loads(input_str, preserve_order=False)
 
     @staticmethod
     def get_filenames_in_dir(dir_name, keyword='*', skip_foldername='',

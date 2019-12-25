@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -28,7 +25,7 @@ from .scoreprocessor import ScoreProcessor
 from .structurelabeler import StructureLabeler
 
 
-class SegmentExtractor(object):
+class SegmentExtractor:
     """
 
     """
@@ -150,11 +147,11 @@ class SegmentExtractor(object):
     @staticmethod
     def _name_segment(lyrics, segment_str):
         if lyrics:
-            name = u"VOCAL_" + segment_str
-            slug = u"VOCAL_" + segment_str
+            name = "VOCAL_" + segment_str
+            slug = "VOCAL_" + segment_str
         else:
-            name = u"INSTRUMENTAL_" + segment_str
-            slug = u"INSTRUMENTAL_" + segment_str
+            name = "INSTRUMENTAL_" + segment_str
+            slug = "INSTRUMENTAL_" + segment_str
 
         return name, slug
 

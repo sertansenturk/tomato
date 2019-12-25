@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -30,9 +27,9 @@ import tempfile
 import timeit
 import warnings
 from copy import deepcopy
+from io import BytesIO
 
 from scipy.io import savemat
-from six import BytesIO
 
 from ..analyzer import Analyzer
 from ..bincaller import BinCaller
@@ -65,8 +62,6 @@ class JointAnalyzer(Analyzer):
     def analyze(self, symbtr_txt_filename='', score_features=None,
                 audio_filename='', audio_pitch=None, **kwargs):
         input_f = self._parse_inputs(**kwargs)
-        audio_filename = IO.make_unicode(audio_filename)
-        symbtr_txt_filename = IO.make_unicode(symbtr_txt_filename)
 
         # joint score-informed tonic identification and tempo estimation
         try:  # if both are given in advance don't recompute
@@ -182,9 +177,7 @@ class JointAnalyzer(Analyzer):
     def extract_tonic_tempo(self, score_filename='', score_data=None,
                             audio_filename='', audio_pitch=None):
         tic = timeit.default_timer()
-        score_filename = IO.make_unicode(score_filename)
-        audio_filename = IO.make_unicode(audio_filename)
-        self.vprint(u"- Extracting score-informed tonic and tempo of {0:s}"
+        self.vprint("- Extracting score-informed tonic and tempo of {0:s}"
                     .format(audio_filename))
 
         # create the temporary input and output files wanted by the binary
@@ -254,9 +247,7 @@ class JointAnalyzer(Analyzer):
                           audio_filename='', audio_pitch=None,
                           audio_tonic=None, audio_tempo=None):
         tic = timeit.default_timer()
-        score_filename = IO.make_unicode(score_filename)
-        audio_filename = IO.make_unicode(audio_filename)
-        self.vprint(u"- Aligning audio recording {0:s} and music score {1:s}."
+        self.vprint("- Aligning audio recording {0:s} and music score {1:s}."
                     .format(audio_filename, score_filename))
 
         # create the temporary input and output files wanted by the binary
@@ -292,12 +283,12 @@ class JointAnalyzer(Analyzer):
         temp_out_folder = tempfile.mkdtemp()
 
         # call the binary
-        callstr = [u'"{0:s}" "{1:s}" "{2:s}" "" "{3:s}" "{4:s}" "{5:s}" '
-                   u'"{6:s}" "" "{7:s}"'
-                   u''.format(self._audio_score_aligner, score_filename,
-                              temp_score_data_file, audio_filename,
-                              temp_pitch_file, temp_tonic_file,
-                              temp_tempo_file, temp_out_folder)]
+        callstr = ['"{0:s}" "{1:s}" "{2:s}" "" "{3:s}" "{4:s}" "{5:s}" '
+                   '"{6:s}" "" "{7:s}"'
+                   ''.format(self._audio_score_aligner, score_filename,
+                             temp_score_data_file, audio_filename,
+                             temp_pitch_file, temp_tonic_file,
+                             temp_tempo_file, temp_out_folder)]
 
         out, err = _mcr_caller.call(callstr)
 
@@ -328,8 +319,8 @@ class JointAnalyzer(Analyzer):
 
     def filter_pitch(self, pitch, aligned_notes):
         tic = timeit.default_timer()
-        self.vprint(u"- Filtering predominant melody of {0:s} after "
-                    u"audio-score alignment.".format(pitch['source']))
+        self.vprint("- Filtering predominant melody of {0:s} after "
+                    "audio-score alignment.".format(pitch['source']))
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
@@ -352,7 +343,7 @@ class JointAnalyzer(Analyzer):
 
     def compute_note_models(self, pitch, aligned_notes, tonic_symbol):
         tic = timeit.default_timer()
-        self.vprint(u"- Computing the note models for {0:s}".
+        self.vprint("- Computing the note models for {0:s}".
                     format(pitch['source']))
 
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)

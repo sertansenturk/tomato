@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -29,7 +26,7 @@ import warnings
 from ...io import IO
 
 
-class RhythmicFeatureExtractor(object):
+class RhythmicFeatureExtractor:
     @classmethod
     def extract_rhythmic_structure(cls, score):
         usul_bounds = [ii for ii, code in enumerate(score['code'])
@@ -71,7 +68,7 @@ class RhythmicFeatureExtractor(object):
 
         # Keep it as a warning, not assertion, so we can also process faulty
         # scores
-        warnstr = u'{0:s} in location {1:d} is missing in usul_dict'.format(
+        warnstr = '{0:s} in location {1:d} is missing in usul_dict'.format(
             score['lyrics'][usul_bound], usul_bound + 1)
         warnings.warn(warnstr.encode('utf-8'), stacklevel=2)
         return None

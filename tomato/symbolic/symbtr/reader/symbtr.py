@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -27,7 +24,7 @@
 import os
 
 
-class SymbTrReader(object):
+class SymbTrReader:
     @staticmethod
     def get_symbtr_name_from_filepath(score_file):
         return os.path.splitext(os.path.basename(score_file))[0]

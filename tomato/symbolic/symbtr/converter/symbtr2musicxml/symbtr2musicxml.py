@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 import copy
 import os
 
@@ -24,21 +24,21 @@ d_kmucennep = 'slash-quarter-sharp'  # slash-quarter-sharp
 d_bmucennep = 'slash-sharp'
 
 # section list
-section_list = [u"1. HANE", u"2. HANE", u"3. HANE", u"4. HANE", u"TESLİM",
-                u"TESLİM ", u"MÜLÂZİME", u"SERHÂNE", u"HÂNE-İ SÂNİ",
-                u"HÂNE-İ SÂLİS", u"SERHANE", u"ORTA HANE", u"SON HANE",
-                u"1. HANEYE", u"2. HANEYE", u"3. HANEYE", u"4. HANEYE",
-                u"KARAR", u"1. HANE VE MÜLÂZİME", u"2. HANE VE MÜLÂZİME",
-                u"3. HANE VE MÜLÂZİME", u"4. HANE VE MÜLÂZİME",
-                u"1. HANE VE TESLİM", u"2. HANE VE TESLİM",
-                u"3. HANE VE TESLİM", u"4. HANE VE TESLİM", u"ARANAĞME",
-                u"ZEMİN", u"NAKARAT", u"MEYAN", u"SESLERLE NİNNİ",
-                u"OYUN KISMI", u"ZEYBEK KISMI", u"GİRİŞ SAZI",
-                u"GİRİŞ VE ARA SAZI", u"GİRİŞ", u"FİNAL", u"SAZ",
-                u"ARA SAZI", u"SUSTA", u"KODA", u"DAVUL", u"RİTM", u"BANDO",
-                u"MÜZİK", u"SERBEST", u"ARA TAKSİM", u"GEÇİŞ TAKSİMİ",
-                u"KÜŞAT", u"1. SELAM", u"2. SELAM", u"3. SELAM", u"4. SELAM",
-                u"TERENNÜM"]
+section_list = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
+                "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
+                "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
+                "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
+                "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
+                "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
+                "1. HANE VE TESLİM", "2. HANE VE TESLİM",
+                "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
+                "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
+                "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
+                "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ",
+                "ARA SAZI", "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO",
+                "MÜZİK", "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ",
+                "KÜŞAT", "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM",
+                "TERENNÜM"]
 
 kodlist = []
 koddict = dict()
@@ -213,7 +213,7 @@ def get_key_signature(piecemakam, keysig):
             keyaccidental.text = get_accidental_name(temp_key[-2:])
 
 
-class SymbTrScore(object):
+class SymbTrScore:
     def __init__(self, txtpath, mu2path, symbtrname='', mbid_url='',
                  verbose=None):
         self.txtpath = txtpath  # filepath for the txt score
@@ -221,12 +221,8 @@ class SymbTrScore(object):
         # obtaining the symbtr from its header
 
         # musicbrainz unique identifier (there can be more than one MBID)
-        try:  # python 2
-            self.mbid_url = [mbid_url] if isinstance(mbid_url, basestring) \
-                else mbid_url
-        except NameError:  # python
-            self.mbid_url = [mbid_url] if isinstance(mbid_url, str) \
-                else mbid_url
+        self.mbid_url = [mbid_url] if isinstance(mbid_url, str) else mbid_url
+
         self.siraintervals = []
 
         if verbose is None:

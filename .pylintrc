@@ -1,0 +1,6 @@
+[MASTER]
+disable=
+    C0114, # missing-module-docstring
+
+variable-rgx=^([a-z]|([a-z][a-z0-9])|([a-z_][a-z0-9_]{2,})|(_[a-z0-9_]*)|(__[a-z][a-z0-9_]+__))$
+argument-rgx=^([a-z]|([a-z][a-z0-9])|([a-z_][a-z0-9_]{2,})|(_[a-z0-9_]*)|(__[a-z][a-z0-9_]+__))$

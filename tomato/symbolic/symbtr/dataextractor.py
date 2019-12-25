@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -225,8 +222,8 @@ class DataExtractor(DataMerger):
         segment_sim_thres = getattr(self._segment_extractor, p)
         section_sim_thres = getattr(self._section_extractor, p)
         assert segment_sim_thres == section_sim_thres, \
-            u'The {0:s} of the _segmentExtractor and _sectionExtractor ' \
-            u'should have the same value'.format(p)
+            'The {0:s} of the _segmentExtractor and _sectionExtractor ' \
+            'should have the same value'.format(p)
 
     def _set_sim_thres(self, value, name):
         self._chk_sim_thres_val(value)

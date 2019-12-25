@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -33,7 +30,7 @@ from .io import IO
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Analyzer(object):
+class Analyzer:
     __metaclass__ = ABCMeta
 
     def __init__(self, verbose):
@@ -77,9 +74,9 @@ class Analyzer(object):
                                     for f in self._inputs)
         for feature, val in kwargs.items():
             if feature not in self._inputs:
-                warn_str = u'Unrelated feature {0:s}: It will be kept, ' \
-                           u'but will not be used in the analysis.' \
-                           u''.format(feature)
+                warn_str = 'Unrelated feature {0:s}: It will be kept, ' \
+                           'but will not be used in the analysis.' \
+                           ''.format(feature)
                 warnings.warn(warn_str, stacklevel=2)
             precomputed_features[feature] = val
 
@@ -89,7 +86,7 @@ class Analyzer(object):
     def _partial_caller(flag, func, *input_args, **input_kwargs):
         if flag is False:  # call skipped
             return None
-        elif flag is None:  # call method
+        if flag is None:  # call method
             try:
                 return func(*input_args, **input_kwargs)
             except (RuntimeError, KeyError, IndexError, ValueError,
@@ -115,5 +112,5 @@ class Analyzer(object):
             print(vstr)
 
     def vprint_time(self, tic, toc):
-        self.vprint(u"  The call took {0:.2f} seconds to execute.".
+        self.vprint("  The call took {0:.2f} seconds to execute.".
                     format(toc - tic))

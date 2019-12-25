@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -32,7 +29,7 @@ import numpy as np
 from ...io import IO
 
 
-class ScoreProcessor(object):
+class ScoreProcessor:
     """
 
     """
@@ -43,8 +40,8 @@ class ScoreProcessor(object):
         for sf in copy_fragments:
             real_lyrics_idx = ScoreProcessor.get_true_lyrics_idx(
                 sf['lyrics'], sf['durs'])
-            sf['lyrics'] = u''.join([sf['lyrics'][i].replace(u' ', u'')
-                                     for i in real_lyrics_idx])
+            sf['lyrics'] = ''.join([sf['lyrics'][i].replace(' ', '')
+                                    for i in real_lyrics_idx])
 
         return [sf['lyrics'] for sf in copy_fragments]
 

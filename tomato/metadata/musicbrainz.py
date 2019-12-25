@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -25,21 +22,28 @@
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
 
 import warnings
+from urllib.parse import urlparse
 
 import musicbrainzngs
-from six.moves.urllib.parse import urlparse
 
 from .recording import Recording as RecordingMetadata
 from .work import Work as WorkMetadata
 
 
-class MusicBrainz(object):
+class MusicBrainz:
     @classmethod
     def crawl(cls, mbid):
         if mbid is None:  # empty mbid
             return {'makam': {}, 'form': {}, 'usul': {}, 'name': {},
                     'composer': {}, 'lyricist': {}}
 
+        # TODO: mbid input is actually the musicbrainz url, e.g.
+        # http://musicbrainz.org/work/[mbid], so:
+        # We already know if we should crawl a work or a recording.
+        # We should add the work/recording key even if musicbrainz is not
+        # acailable.
+        # The code below is lso  very entangled. Refactor this method and
+        # what is called by it.
         try:  # attempt crawling
             mbid = cls._parse_mbid_from_url(mbid)
             try:  # assume mbid is a work
@@ -77,7 +81,8 @@ class MusicBrainz(object):
         o = urlparse(mbid)
 
         # if the url is given get the mbid, which is the last field
-        o_split = o.path.split('/')
-        mbid = o_split[-1]
+        mbid = o.path.split('/')[-1]
+
+        # TODO: validate mbid
 
         return mbid

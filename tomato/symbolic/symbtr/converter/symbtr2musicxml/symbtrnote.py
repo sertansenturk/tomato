@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 
 # koma definitions
 # flats
@@ -17,23 +17,23 @@ altervalues = {'quarter-flat': "-0.5", 'slash-flat': None, 'flat': '-1',
                'slash-sharp': None, 'sharp': "+1", 'slash-quarter-sharp': None}
 
 # section list
-sectionList = [u"1. HANE", u"2. HANE", u"3. HANE", u"4. HANE", u"TESLİM",
-               u"TESLİM ", u"MÜLÂZİME", u"SERHÂNE", u"HÂNE-İ SÂNİ",
-               u"HÂNE-İ SÂLİS", u"SERHANE", u"ORTA HANE", u"SON HANE",
-               u"1. HANEYE", u"2. HANEYE", u"3. HANEYE", u"4. HANEYE",
-               u"KARAR", u"1. HANE VE MÜLÂZİME", u"2. HANE VE MÜLÂZİME",
-               u"3. HANE VE MÜLÂZİME", u"4. HANE VE MÜLÂZİME",
-               u"1. HANE VE TESLİM", u"2. HANE VE TESLİM",
-               u"3. HANE VE TESLİM", u"4. HANE VE TESLİM", u"ARANAĞME",
-               u"ZEMİN", u"NAKARAT", u"MEYAN", u"SESLERLE NİNNİ",
-               u"OYUN KISMI", u"ZEYBEK KISMI", u"GİRİŞ SAZI",
-               u"GİRİŞ VE ARA SAZI", u"GİRİŞ", u"FİNAL", u"SAZ", u"ARA SAZI",
-               u"SUSTA", u"KODA", u"DAVUL", u"RİTM", u"BANDO", u"MÜZİK",
-               u"SERBEST", u"ARA TAKSİM", u"GEÇİŞ TAKSİMİ", u"KÜŞAT",
-               u"1. SELAM", u"2. SELAM", u"3. SELAM", u"4. SELAM", u"TERENNÜM"]
+sectionList = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
+               "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
+               "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
+               "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
+               "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
+               "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
+               "1. HANE VE TESLİM", "2. HANE VE TESLİM",
+               "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
+               "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
+               "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
+               "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ", "ARA SAZI",
+               "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO", "MÜZİK",
+               "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ", "KÜŞAT",
+               "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM", "TERENNÜM"]
 
 
-class Note(object):
+class Note:
     def __init__(self, info, verbose=None):
         # base attributes
         self.sira = None
@@ -59,7 +59,7 @@ class Note(object):
         self.accidental = None  # get_accidental
         self.alter = None  # get_accidental
 
-        self.lyric = u''
+        self.lyric = ''
         self.syllabic = None
         self.wordend = 0
         self.lineend = 0
@@ -89,7 +89,6 @@ class Note(object):
         self.fetchsymbtrinfo(info)
 
     def fetchsymbtrinfo(self, info):
-        # print info
         self.sira = info[0]
         self.kod = info[1]
         self.nota53 = info[2]
@@ -101,12 +100,8 @@ class Note(object):
         self.ms = info[8]
         self.LNS = info[9]
         self.velOn = info[10]
-        try:  # python 2
-            self.soz1 = info[11].decode('utf-8')
-        except AttributeError:  # python 3
-            self.soz1 = info[11]
+        self.soz1 = info[11]
         self.offset = info[12]
-
         if self.kod not in ['35', '51', '53', '54', '55']:
             self.get_rest()
             self.get_grace()
@@ -172,8 +167,8 @@ class Note(object):
         self.step = self.notaAE[0]
         self.octave = self.notaAE[1]
         # except:
-        #     raise ValueError(u'Pitch at line {0:s} with the value "{1:s}" '
-        #                      u'is invalid.'.format(self.sira, self.notaAE))
+        #     raise ValueError('Pitch at line {0:s} with the value "{1:s}" '
+        #                      'is invalid.'.format(self.sira, self.notaAE))
 
     def get_note_type(self):
         # print(self.sira, self.kod, "symbtrnote.get_note_type")

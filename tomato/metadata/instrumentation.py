@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -29,7 +26,7 @@ import logging
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Instrumentation(object):
+class Instrumentation:
     """
     This class decides the instrumentation (incl. vocal instrumentation) of an
     audio recording from the related artists
@@ -52,7 +49,7 @@ class Instrumentation(object):
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logger.info(u"{} is not related to instrumentation.".format(
+                logger.info("{} is not related to instrumentation.".format(
                     iv))
                 instrument_vocal_list.pop(ii)
 
@@ -146,7 +143,7 @@ class Instrumentation(object):
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logging.info(u"{} is not related to performance.".format(iv))
+                logging.info("{} is not related to performance.".format(iv))
                 instrument_vocal_list.pop(ii)
 
         if cls.solo_instrumental(instrument_vocal_list):

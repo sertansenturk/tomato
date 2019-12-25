@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -27,7 +24,7 @@
 import warnings
 
 
-class OffsetProcessor(object):
+class OffsetProcessor:
     """
 
     """
@@ -60,8 +57,8 @@ class OffsetProcessor(object):
             if self.print_warnings:
                 warn_str = ', '.join(str(e) for e in noninteger_measure_starts)
 
-                warnings.warn(u"Some measures are skipped by the offsets: "
-                              u"{0!s}".format(warn_str), stacklevel=2)
+                warnings.warn("Some measures are skipped by the offsets: "
+                              "{0!s}".format(warn_str), stacklevel=2)
 
         return is_measure_start_valid
 

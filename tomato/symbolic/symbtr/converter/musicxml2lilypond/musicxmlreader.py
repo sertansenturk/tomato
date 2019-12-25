@@ -1,5 +1,4 @@
 # coding=utf-8
-from __future__ import division, unicode_literals
 
 import warnings
 
@@ -8,7 +7,7 @@ from lxml import etree
 __author__ = 'hsercanatli', 'burakuyar', 'andresferrero', 'sertansenturk'
 
 
-class MusicXMLReader(object):
+class MusicXMLReader:
     makam_accidentals = {'quarter-flat': '-1',
                          'slash-flat': '-4',
                          'flat': '-5',

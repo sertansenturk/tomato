@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -95,10 +92,7 @@ class TxtReader(SymbTrReader):
                 score['duration'].append(int(row[duration_col]))
                 score['lns'].append(int(row[lns_col]))
                 score['bas'].append(int(row[bas_col]))
-                try:  # python 2
-                    score['lyrics'].append(row[lyrics_col].decode('utf-8'))
-                except AttributeError:  # python 3
-                    score['lyrics'].append(row[lyrics_col])
+                score['lyrics'].append(row[lyrics_col])
                 score['offset'].append(float(row[offset_col]))
 
         # shift offset such that the first note of each measure has an
@@ -170,7 +164,7 @@ class TxtReader(SymbTrReader):
     @staticmethod
     def _validate_index_jump(score_idx, jump_ii, is_index_valid, score_name):
         if score_idx - jump_ii != 1:
-            warnings.warn(u"{0!s}: {1!s}, note index jump.".format(
+            warnings.warn("{0!s}: {1!s}, note index jump.".format(
                 score_name, str(score_idx)), stacklevel=2)
             is_index_valid = False
 
@@ -183,7 +177,7 @@ class TxtReader(SymbTrReader):
     def _starts_with_usul_row(score, score_name):
         # check usul row in the start
         if not score['code'][0] == 51:
-            warnings.warn(u'{0!s} Missing the usul row in the start'.format(
+            warnings.warn('{0!s} Missing the usul row in the start'.format(
                 score_name), stacklevel=2)
             start_usul_row = False
         else:
@@ -205,7 +199,7 @@ class TxtReader(SymbTrReader):
 
         if any(v1 != v2 for v1, v2 in zip(val_list, [9, -1, -1, 'Es', 'Es'])):
             is_rest_valid = False
-            warnings.warn(u'{0!s} {1!s}: Invalid Rest'.format(
+            warnings.warn('{0!s} {1!s}: Invalid Rest'.format(
                 score_name, str(score['index'][ii])), stacklevel=2)
 
         return is_rest_valid

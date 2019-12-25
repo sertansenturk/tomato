@@ -28,10 +28,8 @@ before_install:
   - pip install codecov
 install:
   - python setup.py install
-  # - pip install . # install package
-  # - pip install -r requirements.txt
   - pip show tomato
 script:
-  - tox -e $TOX_PYTHON_ENV,flake8 #,pylint
+  - tox -e $TOX_PYTHON_ENV, flake8, pylint
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/

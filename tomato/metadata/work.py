@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -34,7 +31,7 @@ from ..io import IO
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
 
 
-class Work(object):
+class Work:
     @classmethod
     def from_musicbrainz(cls, mbid, get_recording_rels=True,
                          print_warnings=None):
@@ -81,30 +78,30 @@ class Work(object):
     def _check_language(metadata):
         if metadata['lyricist']:  # lyricist available
             warnings.warn(
-                u'http://musicbrainz.org/work/{0:s} Language of the vocal '
-                u'work is not entered!'.format(metadata['mbid']), stacklevel=2)
+                'http://musicbrainz.org/work/{0:s} Language of the vocal '
+                'work is not entered!'.format(metadata['mbid']), stacklevel=2)
         else:
-            warnings.warn(u'http://musicbrainz.org/work/{0:s} Language is not '
-                          u'entered!'.format(metadata['mbid']), stacklevel=2)
+            warnings.warn('http://musicbrainz.org/work/{0:s} Language is not '
+                          'entered!'.format(metadata['mbid']), stacklevel=2)
 
     @staticmethod
     def _check_lyricist(metadata):
         if metadata['language'] == "zxx":  # no lyrics
             if metadata['lyricist']:
-                warnings.warn(u'http://musicbrainz.org/work/{0:s} Lyricist is '
-                              u'entered to the instrumental work!'.
+                warnings.warn('http://musicbrainz.org/work/{0:s} Lyricist is '
+                              'entered to the instrumental work!'.
                               format(metadata['mbid']), stacklevel=2)
         else:  # has lyrics
             if not metadata['lyricist']:
-                warnings.warn(u'http://musicbrainz.org/work/{0:s} Lyricist is '
-                              u'not entered!'.format(metadata['mbid']),
+                warnings.warn('http://musicbrainz.org/work/{0:s} Lyricist is '
+                              'not entered!'.format(metadata['mbid']),
                               stacklevel=2)
 
     @staticmethod
     def _data_key_exists(metadata, dkey):
         if not metadata[dkey]:
-            warnings.warn(u'http://musicbrainz.org/work/{0:s} {1:s} is not '
-                          u'entered!'.format(metadata['mbid'], dkey.title()),
+            warnings.warn('http://musicbrainz.org/work/{0:s} {1:s} is not '
+                          'entered!'.format(metadata['mbid'], dkey.title()),
                           stacklevel=2)
 
     @staticmethod

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -30,7 +27,7 @@ from ..converter import Converter
 from ..io import IO
 
 
-class Ahenk(object):
+class Ahenk:
     CENTS_IN_OCTAVE = 1200  # cents
 
     @classmethod

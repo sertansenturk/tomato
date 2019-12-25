@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2014 - 2018 Music Technology Group - Universitat Pompeu Fabra
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -34,7 +31,7 @@ from essentia import Pool
 from essentia import array as e_array
 
 
-class PredominantMelody(object):
+class PredominantMelody:
     def __init__(self, hop_size=128, frame_size=2048, bin_resolution=1.0,
                  min_frequency=55, max_frequency=1760, magnitude_threshold=0,
                  peak_distribution_threshold=1.4, filter_pitch=True,
@@ -62,11 +59,11 @@ class PredominantMelody(object):
 
     def get_settings(self):
         from essentia import __version__ as essentia_version
-        citation = u"Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
-                   u"and Serra, X. (2014). Audio feature extraction for " \
-                   u"exploring Turkish makam music. In Proceedings of 3rd " \
-                   u"International Conference on Audio Technologies for " \
-                   u"Music and Media, Ankara, Turkey."
+        citation = "Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
+                   "and Serra, X. (2014). Audio feature extraction for " \
+                   "exploring Turkish makam music. In Proceedings of 3rd " \
+                   "International Conference on Audio Technologies for " \
+                   "Music and Media, Ankara, Turkey."
 
         return {'hopSize': self.hop_size, 'frameSize': self.frame_size,
                 'pitchUnit': 'Hz', 'binResolution': self.bin_resolution,

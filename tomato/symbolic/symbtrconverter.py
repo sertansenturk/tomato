@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -43,7 +40,7 @@ from .symbtr.reader.symbtr import SymbTrReader
 _bin_caller = BinCaller()
 
 
-class SymbTrConverter(object):
+class SymbTrConverter:
     _xml2ly_converter = musicxml2lilypond.ScoreConverter()
 
     @classmethod
@@ -66,10 +63,6 @@ class SymbTrConverter(object):
     @classmethod
     def txt_mu2_to_musicxml(cls, txt_file, mu2_file, xml_out=None,
                             symbtr_name=None, mbid=None):
-        txt_file = IO.make_unicode(txt_file)
-        mu2_file = IO.make_unicode(mu2_file)
-        xml_out = IO.make_unicode(xml_out)
-
         if symbtr_name is None:
             symbtr_name = SymbTrReader.get_symbtr_name_from_filepath(txt_file)
 
@@ -88,9 +81,6 @@ class SymbTrConverter(object):
     @classmethod
     def mu2_to_musicxml(cls, mu2_file, xml_out=None, flags=None,
                         midi_instrument=None):
-        mu2_file = IO.make_unicode(mu2_file)
-        xml_out = IO.make_unicode(xml_out)
-
         # MusikiToMusicXml saves the output to the same folder of the
         # mu2_file, by only changing the extension to xml. To avoid this
         # behaviour:
@@ -109,12 +99,12 @@ class SymbTrConverter(object):
             # 4. call MusikiToMusicXml ...
             bin_path = _bin_caller.get_musikitomusicxml_binary_path()
 
-            callstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
-                                                        flag_str, midi_str)
+            callstr = '{0:s} {1:s} {2:s} {3:s}'.format(bin_path, temp_in_file,
+                                                       flag_str, midi_str)
 
             # print process
-            printstr = u'{0:s} {1:s} {2:s} {3:s}'.format(bin_path, mu2_file,
-                                                         flag_str, midi_str)
+            printstr = '{0:s} {1:s} {2:s} {3:s}'.format(bin_path, mu2_file,
+                                                        flag_str, midi_str)
             print(printstr)
             subprocess.call(callstr, shell=True)
 
@@ -139,7 +129,7 @@ class SymbTrConverter(object):
     def _parse_musikitomusicxml_inputs(temp_in_file, midi_instrument, flags):
         # specify the output filename
         if flags is not None and 'P' in flags:  # Musescore pretty print
-            out_file = u'{0:s}.musescore-print.xml'.format(
+            out_file = '{0:s}.musescore-print.xml'.format(
                 os.path.splitext(temp_in_file)[0])
         else:
             # 3. define the temporary xml file with the same name
@@ -148,15 +138,15 @@ class SymbTrConverter(object):
 
         # specify midi instrument
         if midi_instrument is None:
-            midi_str = u''
+            midi_str = ''
         else:
-            midi_str = u'-I {0:d}'.format(midi_instrument)
+            midi_str = '-I {0:d}'.format(midi_instrument)
 
         # parse MusikiToMusicXml flags
         if flags is None:
-            flag_str = u''
+            flag_str = ''
         else:
-            flag_str = u'-{0:s}'.format(flags)
+            flag_str = '-{0:s}'.format(flags)
         return out_file, midi_str, flag_str
 
     @classmethod
@@ -177,9 +167,6 @@ class SymbTrConverter(object):
 
     @classmethod
     def musicxml_to_lilypond(cls, xml_in, ly_out=None, render_metadata=True):
-        xml_in = IO.make_unicode(xml_in)
-        ly_out = IO.make_unicode(ly_out)
-
         ly_stream, mapping_tuple = cls._xml2ly_converter.convert(
             xml_in, ly_out=ly_out, render_metadata=render_metadata)
 
@@ -196,9 +183,6 @@ class SymbTrConverter(object):
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
                         ly_txt_mapping=None):
-        ly_in = IO.make_unicode(ly_in)
-        svg_out = IO.make_unicode(svg_out)
-
         if os.path.isfile(ly_in):
             temp_in_file = ly_in
         else:
@@ -210,9 +194,9 @@ class SymbTrConverter(object):
 
         # call lilypond ...
         lilypond_path = _bin_caller.get_lilypond_bin_path()
-        callstr = u'{0:s} -dpaper-size=\\"{1:s}\\" -dbackend=svg ' \
-                  u'-o {2:s} {3:s}'.format(lilypond_path, paper_size, tmp_dir,
-                                           temp_in_file)
+        callstr = '{0:s} -dpaper-size=\\"{1:s}\\" -dbackend=svg ' \
+                  '-o {2:s} {3:s}'.format(lilypond_path, paper_size, tmp_dir,
+                                          temp_in_file)
 
         subprocess.call(callstr, shell=True)
 
@@ -309,9 +293,9 @@ class SymbTrConverter(object):
         for pp, page in enumerate(svg_pages):
             if len(svg_pages) == 1:  # if there is a single page don't
                 # append "-page-1"
-                fnames.append(u'{0:s}.svg'.format(template))
+                fnames.append('{0:s}.svg'.format(template))
             else:  # append page numbers
-                fnames.append(u'{0:s}-page-{1:d}.svg'.format(template, pp + 1))
+                fnames.append('{0:s}-page-{1:d}.svg'.format(template, pp + 1))
             with open(fnames[-1], 'w', encoding='utf-8') as f:
                 f.write(page)
         return fnames  # return filepaths

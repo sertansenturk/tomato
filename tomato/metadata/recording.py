@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -46,7 +43,7 @@ except AttributeError:
     eyed3.log.setLevel("ERROR")
 
 
-class Recording(object):
+class Recording:
     @classmethod
     def from_musicbrainz(cls, audio_in, get_work_attributes=True):
         try:  # audio file input
@@ -57,7 +54,7 @@ class Recording(object):
                           'bit_rate': bit_rate}
         except (IOError, AttributeError):
             audio_meta = {'mbid': audio_in}
-        audio_meta['url'] = u'http://musicbrainz.org/recording/{}'.format(
+        audio_meta['url'] = 'http://musicbrainz.org/recording/{}'.format(
             audio_meta['mbid'])
 
         meta = mb.get_recording_by_id(audio_meta['mbid'], includes=[
@@ -127,8 +124,8 @@ class Recording(object):
                     try:  # attempt to assign the tag to the attribute key
                         cls._assign_attribute(attributes, k, t)
                     except ValueError:
-                        logger.debug(u'{0:s} is not a makam/form/usul tag; '
-                                     u'skipped'.format(t))
+                        logger.debug('{0:s} is not a makam/form/usul tag; '
+                                     'skipped'.format(t))
         return attributes
 
     @classmethod

@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -25,8 +22,6 @@
 # Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
 # New York, NY, USA
 
-from __future__ import division
-
 import copy
 import json
 import logging
@@ -44,7 +39,7 @@ from ..io import IO
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class PitchDistribution(object):
+class PitchDistribution:
     def __init__(self, pd_bins, pd_vals, kernel_width=7.5, ref_freq=440.0):
         """-------------------------------------------------------------------
         The main data structure that wraps all the relevant information about a

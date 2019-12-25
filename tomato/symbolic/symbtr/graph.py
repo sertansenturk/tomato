@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -29,7 +26,7 @@ import networkx as nx
 from numpy import matrix
 
 
-class GraphOperations(object):
+class GraphOperations:
     _metrics = ['norm_levenshtein']
     """
 

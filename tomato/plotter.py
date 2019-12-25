@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -38,12 +35,19 @@ from .audio.seyir import Seyir as AudioSeyirAnalyzer
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class Plotter(object):
+class Plotter:
     @classmethod
-    def plot_audio_features(cls, pitch=None, pitch_distribution=None,
-                            sections=None, notes=None, note_models=None,
-                            melodic_progression=None, makam=None, tonic=None,
-                            transposition=None, tempo=None):
+    def plot_audio_features(cls,
+                            pitch=None,
+                            pitch_distribution=None,
+                            sections=None,
+                            notes=None,
+                            note_models=None,
+                            melodic_progression=None,
+                            makam=None,
+                            tonic=None,
+                            transposition=None,
+                            tempo=None):
         # parse inputs
         p_in = cls._parse_inputs(
             pitch=pitch, pitch_distribution=pitch_distribution,
@@ -353,8 +357,8 @@ class Plotter(object):
                 dists = np.array([abs(note['stable_pitch']['value'] - dist_bin)
                                   for dist_bin in pitch_distribution.bins])
             except TypeError:
-                logger.info(u'The stable pitch for {0:s} is not '
-                            u'computed'.format(note_symbol))
+                logger.info('The stable pitch for {0:s} is not '
+                            'computed'.format(note_symbol))
                 # use the max peak even if it's weak, far from theoretical etc.
                 peak_idx, heights = note['distribution'].detect_peaks()
                 max_peak_ind = peak_idx[np.argmax(heights)]
@@ -370,13 +374,13 @@ class Plotter(object):
 
     @staticmethod
     def _plot_note_distributions(ax, note_models):
-        for note_symbol, note in note_models.items():
+        for note_symbol, _ in note_models.items():
             try:
                 ax.plot(note_models[note_symbol]['distribution'].vals,
                         note_models[note_symbol]['distribution'].bins,
                         label=note_symbol)
             except KeyError:
-                logger.debug(u'note model is not available for {0:s}'.format(
+                logger.debug('note model is not available for {0:s}'.format(
                     note_symbol))
 
     @staticmethod
@@ -385,29 +389,29 @@ class Plotter(object):
 
         # makam
         if makam is not None:
-            anno_str.append(u'{0:s} makam'.format(makam))
+            anno_str.append('{0:s} makam'.format(makam))
 
         # don't append it yet, it will be after tonic
         if transposition is not None:
             tonic_symbol = transposition['tonic_symbol']
-            anno_str.append(u'{0:s} ahenk'.format(transposition['name']))
+            anno_str.append('{0:s} ahenk'.format(transposition['name']))
         else:
             tonic_symbol = '?'
 
         if tonic is not None:
             # insert before transposition
-            anno_str.insert(1, u'{0:s} = {1:.1f} Hz'.
+            anno_str.insert(1, '{0:s} = {1:.1f} Hz'.
                             format(tonic_symbol, tonic['value']))
 
         if tempo is not None:
-            anno_str.append(u'Av. Tempo: {0:d} bpm'.
+            anno_str.append('Av. Tempo: {0:d} bpm'.
                             format(int(tempo['average']['value'])))
 
             rel_tempo_percentage = int(100 * (tempo['relative']['value'] - 1))
-            anno_str.append(u'Performed {0:d}% faster'.
+            anno_str.append('Performed {0:d}% faster'.
                             format(rel_tempo_percentage))
 
-        anno_str = u'\n'.join(anno_str)
+        anno_str = '\n'.join(anno_str)
 
         ax.set_xlim([-1, 1])
         ax.set_ylim([-1, 1])

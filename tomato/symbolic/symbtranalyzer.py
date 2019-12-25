@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2016 - 2018 Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -60,8 +57,6 @@ class SymbTrAnalyzer(Analyzer):
     def analyze(self, txt_filepath, mu2_filepath=None, symbtr_name=None,
                 **kwargs):
         score_data = self._parse_inputs(**kwargs)
-        txt_filepath = IO.make_unicode(txt_filepath)
-        mu2_filepath = IO.make_unicode(mu2_filepath)
 
         # attempt to get the symbtr_name from the filename, if it is not given
         if symbtr_name is None:
@@ -134,9 +129,8 @@ class SymbTrAnalyzer(Analyzer):
 
     def segment_phrase(self, txt_filename, symbtr_name=None):
         tic = timeit.default_timer()
-        txt_filename = IO.make_unicode(txt_filename)
-        self.vprint(u"- Automatic phrase segmentation on the SymbTr-txt file: "
-                    u"{0:s}".format(txt_filename))
+        self.vprint("- Automatic phrase segmentation on the SymbTr-txt file: "
+                    "{0:s}".format(txt_filename))
 
         # attempt to get the symbtrname from the filename, if it is not given
         if symbtr_name is None:
@@ -152,8 +146,8 @@ class SymbTrAnalyzer(Analyzer):
 
         # call the binary
         callstr = [u'"{0:s}" "segmentWrapper" "{1:s}" "{2:s}" "{3:s}" "{4:s}"'
-                   u''.format(self._phrase_segmenter, bound_stat_file,
-                              fld_model_file, temp_in_file, temp_out_file)]
+                   ''.format(self._phrase_segmenter, bound_stat_file,
+                             fld_model_file, temp_in_file, temp_out_file)]
 
         out, err = _mcr_caller.call(callstr)
         out = out.decode("utf-8")  # convert from byte to urf-8 str

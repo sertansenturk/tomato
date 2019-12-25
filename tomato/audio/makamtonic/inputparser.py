@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -36,7 +33,7 @@ from ...converter import Converter
 logger = logging.Logger(__name__, level=logging.INFO)
 
 
-class InputParser(object):
+class InputParser:
     _dummy_ref_freq = 220.0
 
     def __init__(self, step_size=7.5, kernel_width=7.5, feature_type='pcd',

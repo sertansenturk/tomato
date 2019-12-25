@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Copyright 2015 - 2018 Altuğ Karakurt & Sertan Şentürk
 #
 # This file is part of tomato: https://github.com/sertansenturk/tomato/
@@ -25,8 +22,6 @@
 # Digital Libraries for Musicology Workshop (DLfM 2016). pages 9-16,
 # New York, NY, USA
 
-from __future__ import division
-
 import collections
 import copy
 
@@ -34,7 +29,7 @@ import numpy as np
 from scipy.spatial import distance as spdistance
 
 
-class KNN(object):
+class KNN:
     @classmethod
     def generate_distance_matrix(cls, distrib, peak_idx, training_distribs,
                                  distance_method='bhat'):
