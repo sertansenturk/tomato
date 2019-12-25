@@ -135,7 +135,10 @@ class IO:
         if filepath is None:
             return json.dumps(features, indent=2, allow_nan=True)
 
-        return json.dump(features, open(filepath, 'w'), indent=2, allow_nan=True)
+        return json.dump(features,
+                         open(filepath, 'w'),
+                         indent=2,
+                         allow_nan=True)
 
     @staticmethod
     def from_pickle(input_str):
