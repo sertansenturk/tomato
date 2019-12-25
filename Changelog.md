@@ -4,6 +4,7 @@
 
 - Added `tomato` docker image: Pull request [#107](https://github.com/sertansenturk/tomato/pull/107)
 - Added Github issue templates: Pull request [#101](https://github.com/sertansenturk/tomato/pull/101)
+- Dropped Python 2 support; users are encouraged to switch to `tomato` docker: Pull request [#110](https://github.com/sertansenturk/tomato/pull/110)
 - Dropped Mac OSX support; users are encouraged to switch to `tomato` docker: Pull request [#108](https://github.com/sertansenturk/tomato/pull/108)
 
 ## tomato v0.13.0
