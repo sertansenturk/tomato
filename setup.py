@@ -2,15 +2,17 @@ import configparser
 import os
 import subprocess
 import zipfile
+from distutils.command import install as orig
 from io import BytesIO
 from urllib.request import urlopen
 
 from setuptools import find_packages, setup
-from setuptools.command.install import install as _install
+from setuptools.command.install import install
+
 from tomato import __version__
 
 
-class CustomInstall(_install):
+class CustomInstall(install):
     """Custom installer for tomato: downloads the binaries from relevant
     git repositories, installs the requirements, and sets up tomato
 
@@ -23,7 +25,7 @@ class CustomInstall(_install):
                      msg="downloading the binaries from tomato_binaries.")
 
         # install tomato
-        self.do_egg_install()
+        orig.install.run(self)
 
     @classmethod
     def _setup_binaries(cls):
@@ -102,8 +104,11 @@ necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
       """,
-      download_url='https://github.com/sertansenturk/tomato/releases/tag/'
-                   'v{0:s}'.format(__version__),
+      download_url=(
+          'https://github.com/sertansenturk/tomato.git'
+          if 'dev' in __version__ else
+          'https://github.com/sertansenturk/tomato/releases/tag/'
+          'v{0:s}'.format(__version__)),
       classifiers=[
           'Development Status :: 4 - Beta',
           'Environment :: Console',
@@ -126,7 +131,7 @@ discovery/recommendation and musicological analysis.
           "music-scores analysis tomato audio-recordings lilypond tonic "
           "makam-music score music-information-retrieval "
           "computational-analysis"),
-      packages=find_packages(exclude=['contrib', 'docs', 'tests']),
+      packages=find_packages(exclude=['docs', 'tests']),
       include_package_data=True,
       python_requires='>=3.5, <3.8',
       install_requires=[
