@@ -33,7 +33,6 @@ import numpy as np
 class PitchFilter:
     def __init__(self, lower_interval_thres=0.7, upper_interval_thres=1.3,
                  min_chunk_size=40, min_freq=64, max_freq=1024):
-
         # the smallest value the interval can stay before a new chunk is formed
         self.lower_interval_thres = lower_interval_thres
         # the highest value the interval can stay before a new chunk is formed
@@ -50,21 +49,21 @@ class PitchFilter:
         deletes the chunks smaller than 50 samples(default)
         """
         # deleting Zero chunks
-        zero_chunks = [i for i in range(0, len(pitch_chunks))
-                       if pitch_chunks[i][0][1] == 0]
+        zero_chunks = [i for i, p_chk in enumerate(pitch_chunks)
+                       if p_chk[0][1] == 0]
         if zero_chunks:
             pitch_chunks = np.delete(pitch_chunks, zero_chunks)
 
         # deleting small Chunks
-        small_chunks = [i for i in range(0, len(pitch_chunks))
-                        if len(pitch_chunks[i]) <= self.min_chunk_size]
+        small_chunks = [i for i, p_chk in enumerate(pitch_chunks)
+                        if len(p_chk) <= self.min_chunk_size]
         if small_chunks:
             pitch_chunks = np.delete(pitch_chunks, small_chunks)
 
         # frequency limit
-        limit_chunks = [i for i in range(0, len(pitch_chunks))
-                        if pitch_chunks[i][0][1] >= self.max_freq or
-                        pitch_chunks[i][0][1] <= self.min_freq]
+        limit_chunks = [i for i, p_chk in enumerate(pitch_chunks)
+                        if p_chk[0][1] >= self.max_freq or
+                        p_chk[0][1] <= self.min_freq]
         if limit_chunks:
             pitch_chunks = np.delete(pitch_chunks, limit_chunks)
 
@@ -78,7 +77,7 @@ class PitchFilter:
         temp_pitch = []
 
         # starts at the first sample
-        for i in range(0, len(pitch) - 1):
+        for i in range(len(pitch) - 1):
             # separation of the zero chunks
             if pitch[i][1] == 0:
                 if pitch[i + 1][1] == 0:
@@ -119,7 +118,8 @@ class PitchFilter:
         """
         recomposes the given pitch chunks as a new pitch track
         """
-        pitch = [pitch_chunks[i][j] for i in range(len(pitch_chunks))
+        pitch = [pitch_chunks[i][j]
+                 for i in range(len(pitch_chunks))
                  for j in range(len(pitch_chunks[i]))]
         return np.array(pitch)
 
@@ -162,7 +162,7 @@ class PitchFilter:
                       pitch_chunks[i + 1][0][1])) or
                     (self.are_close(med_chunk_i / 2., med_chunk_prev) and
                      med_chunk_i / 1.5 > med_chunk_follow)):
-                    for j in range(0, len(pitch_chunks[i])):
+                    for j in range(len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] /= 2.
 
                 elif (self.are_close(pitch_chunks[i][-1][1] / 2.,
@@ -171,7 +171,7 @@ class PitchFilter:
                        pitch_chunks[i - 1][-1][1])) or \
                      (self.are_close(med_chunk_i / 2., med_chunk_follow) and
                       med_chunk_i / 1.5 > med_chunk_prev):
-                    for j in range(0, len(pitch_chunks[i])):
+                    for j in range(len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] /= 2.
 
                 # other condition
@@ -181,7 +181,7 @@ class PitchFilter:
                        pitch_chunks[i + 1][0][1])) or \
                      (self.are_close(med_chunk_i * 2., med_chunk_prev) and
                       med_chunk_prev * 1.5 < med_chunk_follow):
-                    for j in range(0, len(pitch_chunks[i])):
+                    for j in range(len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] *= 2.
 
                 elif ((pitch_chunks[i][0][1] * 1.5 <
@@ -190,7 +190,7 @@ class PitchFilter:
                                       pitch_chunks[i + 1][0][1])) or
                       (self.are_close(med_chunk_prev * 2, med_chunk_follow)
                        and med_chunk_i * 1.5 < med_chunk_prev)):
-                    for j in range(0, len(pitch_chunks[i])):
+                    for j in range(len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] *= 2.
 
         for z_chk in zero_chunks:
@@ -278,7 +278,7 @@ class PitchFilter:
 
         n = list(np.histogram(pitch_series, 100))
 
-        for i in range(0, len(n[1]) - 1):
+        for i in range(len(n[1]) - 1):
             if n[0][i] == 0 and n[0][i + 1] == 0:
                 if sum(n[0][0: i + 1]) > 0.9 * sum(n[0]):
                     pitch_max = (n[1][i] + n[1][i + 1]) / 2.
@@ -287,14 +287,14 @@ class PitchFilter:
         pitch_max = min(pitch_max, pitch_max_cand)
 
         # max values filter
-        for j in range(0, len(pitch)):
+        for j, _ in enumerate(pitch):
             if pitch[j][1] >= pitch_max:
                 pitch[j][1] = 0
                 pitch[j][2] = 0
 
         # min values filter
         pitch_min = pitch_mean / 4.
-        for j in range(0, len(pitch)):
+        for j, _ in enumerate(pitch):
             if pitch[j][1] <= pitch_min:
                 pitch[j][1] = 0
                 pitch[j][2] = 0
@@ -302,8 +302,7 @@ class PitchFilter:
         return pitch
 
     def filter_noise_region(self, pitch):
-        for i in range(0, 3):
-
+        for i in range(3):
             for j in range(1, len(pitch) - 2):
                 if not self.are_close(pitch[i - 1][1], pitch[i][1]) and \
                         self.are_close(pitch[i][1], pitch[i + 1][1]):
