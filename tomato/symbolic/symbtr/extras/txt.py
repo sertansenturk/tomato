@@ -5,6 +5,8 @@ import warnings
 import pandas as pd
 
 from ....io import IO
+from ..dataextractor import DataExtractor
+from ..reader.mu2 import Mu2Reader
 
 
 class Txt:
@@ -130,6 +132,15 @@ class Txt:
             warnstr = '{0:s}, line {1:s}: {2:s} and {3:s} does not match.'\
                 .format(symbtr_name, str(index), usul_name, attr_str)
             warnings.warn(warnstr.encode('utf-8'))
+
+    @staticmethod
+    def get_symbtr_data(txt_file, mu2_file):
+        extractor = DataExtractor()
+        txt_data = extractor.extract(txt_file)[0]
+
+        mu2_header = Mu2Reader.read_header(mu2_file)[0]
+
+        return extractor.merge(txt_data, mu2_header, verbose=False)
 
     @classmethod
     def add_usul_to_first_row(cls, txt_file, mu2_file):
