@@ -376,14 +376,14 @@ class SymbTrScore:
             if self.notes[-1].rest == 1 and self.notes[-1].pay == '0':
                 if self.verbose:
                     print("Warning! Note deleted. Rest with Pay:0. Sira:",
-                            self.notes[-1].sira)
+                          self.notes[-1].sira)
                 del self.notes[-1]
             # DONE READING
 
             lastnote = self.notes[-1]
             if lastnote.graceerror == 1 and self.verbose:
                 print("\tgrace error:", lastnote.sira, lastnote.kod,
-                        lastnote.pay, lastnote.payda)
+                      lastnote.pay, lastnote.payda)
 
             if lastnote.kod in koddict:
                 koddict[lastnote.kod] += 1
