@@ -343,14 +343,14 @@ class PitchFilter:
         energy = [element[2] for element in longest_chunk]
         min_energy = (sum(energy) / len(energy)) / 6.
 
-        for i in range(0, len(pitch_chunks)):
-            temp_energy = [element[2] for element in pitch_chunks[i]]
+        for p_chk in pitch_chunks:
+            temp_energy = [element[2] for element in p_chk]
             ave_energy = sum(temp_energy) / len(temp_energy)
 
             if ave_energy != 0 and (
-                    len(pitch_chunks[i]) <= self.min_chunk_size or
+                    len(p_chk) <= self.min_chunk_size or
                     ave_energy <= min_energy):
-                for element in pitch_chunks[i]:
+                for element in p_chk:
                     element[1] = 0
                     element[2] = 0
         pitch = self.recompose_chunks(pitch_chunks=pitch_chunks)

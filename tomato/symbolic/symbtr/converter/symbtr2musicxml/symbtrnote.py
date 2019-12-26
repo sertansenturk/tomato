@@ -15,7 +15,8 @@ D_BMUCENNEP = 'slash-sharp'
 
 ALTER_VALUES = {'quarter-flat': "-0.5", 'slash-flat': None, 'flat': '-1',
                 'double-slash-flat': None, 'quarter-sharp': '+0.5',
-                'slash-sharp': None, 'sharp': "+1", 'slash-quarter-sharp': None}
+                'slash-sharp': None, 'sharp': "+1",
+                'slash-quarter-sharp': None}
 
 # section list
 SECTION_LIST = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
