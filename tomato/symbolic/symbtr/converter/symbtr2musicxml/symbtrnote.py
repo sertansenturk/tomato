@@ -252,14 +252,17 @@ class Note:
             self.alter = ALTER_VALUES[self.accidental]
 
     def get_word(self):
-        if 1:  # self.soz1 not in section_list:
-            self.lyric = self.soz1
-            self.syllabic = ""  # remove NoneType
-            if '  ' in self.lyric:  # line endings
-                self.lineend = 1
-                self.wordend = 1
-            elif ' ' in self.lyric:  # word endings
-                self.wordend = 1
+        # we read the lyrics line even if the composition in instrumental to
+        # write the secions and other structural info to the score
 
-            if self.lineend or self.wordend:
-                self.syllabic = "end"
+        # if self.soz1 not in SECTION_LIST:
+        self.lyric = self.soz1
+        self.syllabic = ""  # remove NoneType
+        if '  ' in self.lyric:  # line endings
+            self.lineend = 1
+            self.wordend = 1
+        elif ' ' in self.lyric:  # word endings
+            self.wordend = 1
+
+        if self.lineend or self.wordend:
+            self.syllabic = "end"
