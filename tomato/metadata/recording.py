@@ -146,7 +146,7 @@ class Recording:
         for attr_key, attr_val in attr_dict.items():
             if attr_str in attr_val['mb_tag']:
                 return attr_key
-        raise ValueError("Unknown Musicbrainz key: %s", attr_str)
+        raise ValueError("Unknown Musicbrainz key: %s" % attr_str)
 
     @staticmethod
     def get_file_metadata(filepath):

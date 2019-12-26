@@ -37,7 +37,7 @@ from .symbtr.converter.musicxml2lilypond import \
 from .symbtr.converter.symbtr2musicxml import symbtr2musicxml
 from .symbtr.reader.symbtr import SymbTrReader
 
-_bin_caller = BinCaller()
+_bin_caller = BinCaller()  # pylint: disable-msg=C0103
 
 
 class SymbTrConverter:
@@ -172,7 +172,7 @@ class SymbTrConverter:
 
         # mappings
         ly_txt_mapping = {}
-        for s, c, r in mapping_tuple:
+        for s, _, r in mapping_tuple:
             ly_txt_mapping[r] = s
 
         if ly_out is None:

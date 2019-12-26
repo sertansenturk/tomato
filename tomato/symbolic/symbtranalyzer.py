@@ -37,7 +37,7 @@ from .symbtr.section import SectionExtractor
 from .symbtr.segment import SegmentExtractor
 
 # instantiate a mcr_caller
-_mcr_caller = BinCaller()
+_mcr_caller = BinCaller()  # pylint: disable-msg=C0103
 
 
 class SymbTrAnalyzer(Analyzer):
@@ -88,7 +88,7 @@ class SymbTrAnalyzer(Analyzer):
             score_data['score']['duration'])
 
         if mu2_filepath is not None:
-            mu2_header, header_row, is_mu2_header_valid = \
+            mu2_header, _, is_mu2_header_valid = \
                 Mu2Reader.read_header(mu2_filepath, symbtr_name=symbtr_name)
 
             score_data['metadata'] = DataExtractor.merge(

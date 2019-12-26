@@ -32,8 +32,9 @@ class Ahenk:
 
     @classmethod
     def identify(cls, tonic_freq, symbol_in):
-        assert 20.0 <= tonic_freq <= 20000.0, "The input tonic frequency " \
-                                              "must be between and 20000 Hz"
+        if (tonic_freq < 20) or (tonic_freq > 20000):
+            raise ValueError("The input tonic frequency must be between "
+                             "and 20000 Hz.")
 
         tonic_dict = IO.load_music_data('tonic')
         ahenks = IO.load_music_data('ahenk')
@@ -73,6 +74,8 @@ class Ahenk:
                 ahenk_dict['name'] = val['name']
                 ahenk_dict['slug'] = ahenk_slug
                 return ahenk_dict
+
+        raise ValueError("Unknown error: could not identify the ahenk.")
 
     @classmethod
     def _get_tonic_symbol(cls, symbol_in, tonic_dict):

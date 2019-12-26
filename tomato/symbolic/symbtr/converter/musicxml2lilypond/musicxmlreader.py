@@ -129,7 +129,7 @@ class MusicXMLReader:
             # read notes/rests
             temp_measure = []
             # all notes in the current measure
-            for note_index, note in enumerate(measure.findall('note')):
+            for note in measure.findall('note'):
                 # symbtr-txt id, which is stored in MusicXML
                 symbtr_txt_id = cls._get_symbtr_txt_id(note)
 

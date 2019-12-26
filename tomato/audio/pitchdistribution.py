@@ -417,7 +417,7 @@ class PitchDistribution:
         plt.plot(self.bins, self.vals)
         self._label_figure()
 
-    def bar(self):
+    def bar(self):  # pylint: disable-msg=C0102
         bars = plt.bar(self.bins, self.vals, width=self.step_size,
                        align='center')
         self._label_figure()

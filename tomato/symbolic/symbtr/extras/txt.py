@@ -38,7 +38,7 @@ class Txt:
         mu2_usul_dict = {}
         inv_mu2_usul_dict = {}
         usul_dict = IO.load_music_data('usul')
-        for key, val in usul_dict.items():
+        for _, val in usul_dict.items():
             for vrt in val['variants']:
                 if vrt['mu2_name']:  # if it doesn't have a mu2 name, the usul
                     # is not in symbtr collection
@@ -256,8 +256,8 @@ class Txt:
             if v['mu2_name'] == data['usul']['mu2_name']:
                 return v
 
-        assert False, 'The usul variant {0:s} is not found'.format(
-            data['usul']['mu2_name'])
+        raise ValueError('The usul variant {0:s} is not found'.format(
+            data['usul']['mu2_name']))
 
     @staticmethod
     def _get_zaman_mertebe(data):
@@ -267,8 +267,8 @@ class Txt:
                 if uv['mu2_name'] == data['usul']['mu2_name']:
                     return uv['mertebe'], uv['num_pulses']
 
-        assert False, 'Zaman and mertebe for the usul variant {0:s} is not ' \
-                      'available'.format(data['usul']['mu2_name'])
+        raise ValueError('Zaman and mertebe for the usul variant {0:s} is not '
+                         'available'.format(data['usul']['mu2_name']))
 
     @staticmethod
     def _change_null_to_empty_str(row):

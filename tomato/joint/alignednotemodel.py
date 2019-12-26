@@ -20,11 +20,11 @@
 # Şentürk, S. (2016). Computational analysis of audio recordings and music
 # scores for the description and discovery of Ottoman-Turkish makam music.
 # PhD thesis, Universitat Pompeu Fabra, Barcelona, Spain.
-
 import json
 import logging
 from copy import deepcopy
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 from ..audio.pitchdistribution import PitchDistribution
@@ -231,13 +231,11 @@ class AlignedNoteModel:
 
         if json_path is None:
             return json.dumps(note_models_ser, indent=4)
-        else:
-            json.dump(note_models_ser, open(json_path, 'w'), indent=4)
+
+        return json.dump(note_models_ser, open(json_path, 'w'), indent=4)
 
     @staticmethod
     def plot(note_models, pitch_distribution, alignednotes, pitch):
-        import matplotlib.pyplot as plt
-
         pitch = np.array(pitch)
 
         fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)

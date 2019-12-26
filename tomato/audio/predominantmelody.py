@@ -28,7 +28,10 @@ from math import ceil
 import essentia.standard as estd
 import numpy as np
 from essentia import Pool
+from essentia import __version__ as essentia_version
 from essentia import array as e_array
+
+from .pitchfilter import PitchFilter
 
 
 class PredominantMelody:
@@ -58,7 +61,6 @@ class PredominantMelody:
         self.sample_rate = 44100
 
     def get_settings(self):
-        from essentia import __version__ as essentia_version
         citation = "Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., " \
                    "and Serra, X. (2014). Audio feature extraction for " \
                    "exploring Turkish makam music. In Proceedings of 3rd " \
@@ -182,7 +184,6 @@ class PredominantMelody:
             pitch = run_pitch_filter(pitch, pitch_salience)
 
         except AttributeError:  # fall back to python implementation
-            from pitchfilter.pitchfilter import PitchFilter
             run_pitch_filter = PitchFilter()
 
             # generate time stamps
