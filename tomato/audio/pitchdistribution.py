@@ -483,10 +483,10 @@ class PitchDistribution:
 
     def to_dict(self):
         pdict = self.__dict__
-        for key in pdict.keys():
+        for key, val in pdict.items():
             try:
                 # convert to list from np array
-                pdict[key] = pdict[key].tolist()
+                pdict[key] = val.tolist()
             except AttributeError:
                 pass
 
