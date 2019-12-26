@@ -83,7 +83,7 @@ class AlignedPitchFilter:
     def _notes_to_synth_pitch(self, notes, time_stamps):
         synth_pitch = np.array([0] * len(time_stamps))
 
-        for i in range(0, len(notes)):
+        for i, _ in enumerate(notes):
             prevlabel = ([] if i == 0 else
                          notes[i - 1]['Label'].split('--')[0])
             label = notes[i]['Label'].split('--')[0]

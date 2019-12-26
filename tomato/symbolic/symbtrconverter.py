@@ -312,5 +312,5 @@ class SymbTrConverter:
         svg_files = [s for s in svg_files if s.endswith('.svg')]
 
         # sort the pages according to creation time
-        svg_files.sort(key=lambda x: os.path.getmtime(x))
+        svg_files.sort(key=os.path.getmtime)
         return svg_files

@@ -125,6 +125,10 @@ class SymbTrAnalyzer(Analyzer):
         score_data['is_data_valid'] = all(
             [is_metadata_valid, is_section_data_valid, is_score_content_valid])
 
+        if mu2_filepath is not None:
+            score_data['is_data_valid'] = all(
+                [score_data['is_data_valid'], is_mu2_header_valid])
+
         return score_data
 
     def segment_phrase(self, txt_filename, symbtr_name=None):

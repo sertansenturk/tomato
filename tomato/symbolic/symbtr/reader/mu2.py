@@ -29,12 +29,6 @@ from .symbtr import SymbTrReader
 
 
 class Mu2Reader(SymbTrReader):
-    def __init__(self):
-        """
-        Class constructor
-        """
-        pass
-
     @classmethod
     def read(cls, score_file, symbtr_name=None):
         """

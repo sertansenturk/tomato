@@ -133,8 +133,8 @@ class ScoreConverter:
                 key = cls.sort_rule_notes_sharps[queue[0]]
             else:
                 key = cls.sort_rule_notes_flats[queue[0]]
-            accidentals_check.append(key + cls._makam_accidentals[keysig[key].
-                                     replace("+", "")])
+            accidentals_check.append(
+                key + cls._makam_accidentals[keysig[key].replace("+", "")])
             temp_keysig += "("
             temp_keysig += (cls._notes_western2lily[key.lower()] + " . ," +
                             cls._key_sig_accidentals[keysig[key]])

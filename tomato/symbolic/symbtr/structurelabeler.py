@@ -109,8 +109,8 @@ class StructureLabeler:
         melody_labels = self._semiotize(cliques)
 
         # label the structures
-        for i in range(0, len(melody_labels)):
-            structures[i]['melodic_structure'] = melody_labels[i]
+        for i, mel_lbl in enumerate(melody_labels):
+            structures[i]['melodic_structure'] = mel_lbl
             if self.save_structure_sim:
                 structures[i]['melodic_similarities'] = \
                     (1 - dists[i, :]).tolist()[0]
@@ -159,12 +159,12 @@ class StructureLabeler:
     def _apply_labels_to_lyrics_structure(
             self, structures, lyrics_labels, score_fragments, dists):
 
-        for i in range(0, len(lyrics_labels)):
+        for i, lyr_lbl in enumerate(lyrics_labels):
             # if there's no lyrics, label instrumental
             if not score_fragments[i]['lyrics']:
                 structures[i]['lyrics_structure'] = 'INSTRUMENTAL'
             else:
-                structures[i]['lyrics_structure'] = lyrics_labels[i]
+                structures[i]['lyrics_structure'] = lyr_lbl
 
             if self.save_structure_sim:
                 structures[i]['lyrics_similarities'] = \

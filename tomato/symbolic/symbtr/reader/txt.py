@@ -28,12 +28,6 @@ from .symbtr import SymbTrReader
 
 
 class TxtReader(SymbTrReader):
-    def __init__(self):
-        """
-        Class constructor
-        """
-        pass
-
     @classmethod
     def read(cls, score_file, symbtr_name=None):
         """

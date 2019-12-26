@@ -9,22 +9,22 @@ from ...reader.mu2 import Mu2Reader
 from .symbtrnote import Note
 
 # koma definitions
-n_natural = 'natural'
+N_NATURAL = 'natural'
 
 # flats
-b_koma = 'quarter-flat'  # 'flat-down'
-b_bakiyye = 'slash-flat'
-b_kmucennep = 'flat'
-b_bmucennep = 'double-slash-flat'
+B_KOMA = 'quarter-flat'  # 'flat-down'
+B_BAKIYYE = 'slash-flat'
+B_KMUCENNEP = 'flat'
+B_BMUCENNEP = 'double-slash-flat'
 
 # sharps
-d_koma = 'quarter-sharp'  # quarter-sharp    SWAP 1ST AND 3RD SHARPS
-d_bakiyye = 'sharp'
-d_kmucennep = 'slash-quarter-sharp'  # slash-quarter-sharp
-d_bmucennep = 'slash-sharp'
+D_KOMA = 'quarter-sharp'  # quarter-sharp    SWAP 1ST AND 3RD SHARPS
+D_BAKIYYE = 'sharp'
+D_KMUCENNEP = 'slash-quarter-sharp'  # slash-quarter-sharp
+D_BMUCENNEP = 'slash-sharp'
 
 # section list
-section_list = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
+SECTION_LIST = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
                 "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
                 "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
                 "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
@@ -126,49 +126,47 @@ def get_usul(usul):
 
         if len(temp_line) == 0:
             break
-        else:
-            temp_line = temp_line.split('\t')
-            temp_line.reverse()
 
-            usul_id.append(temp_line.pop())
-            usul_name.append(temp_line.pop())
-            num_beats.append(temp_line.pop())
-            beat_type.append(temp_line.pop())
-            accents.append(temp_line.pop())
+        temp_line = temp_line.split('\t')
+        temp_line.reverse()
 
-    f.close()
-    # eof filepath read
-    '''
-    print(usulID[usulID.index(usul)])
-    print(usulName)
-    print(nofBeats[usulID.index(usul)])
-    print(beatType[usulID.index(usul)])
-    print(accents)
-    print(len(usulID),len(usulName),len(nofBeats),len(beatType),len(accents))
-    '''
+        usul_id.append(temp_line.pop())
+        usul_name.append(temp_line.pop())
+        num_beats.append(temp_line.pop())
+        beat_type.append(temp_line.pop())
+        accents.append(temp_line.pop())
+
+    f.close()  # eof filepath read
+
+    # print(usulID[usulID.index(usul)])
+    # print(usulName)
+    # print(nofBeats[usulID.index(usul)])
+    # print(beatType[usulID.index(usul)])
+    # print(accents)
+    # print(len(usulID),len(usulName),len(nofBeats),len(beatType),len(accents))
 
     return int(num_beats[usul_id.index(usul)]), int(
         beat_type[usul_id.index(usul)])
 
 
 def get_accidental_name(alter):
-    acc_name = n_natural
+    acc_name = N_NATURAL
     if alter in ['+1', '+2']:
-        acc_name = d_koma
+        acc_name = D_KOMA
     elif alter in ['+3', '+4']:
-        acc_name = d_bakiyye
+        acc_name = D_BAKIYYE
     elif alter in ['+5', '+6']:
-        acc_name = d_kmucennep
+        acc_name = D_KMUCENNEP
     elif alter in ['+7', '+8']:
-        acc_name = d_bmucennep
+        acc_name = D_BMUCENNEP
     elif alter in ['-1', '-2']:
-        acc_name = b_koma
+        acc_name = B_KOMA
     elif alter in ['-3', '-4']:
-        acc_name = b_bakiyye
+        acc_name = B_BAKIYYE
     elif alter in ['-5', '-6']:
-        acc_name = b_kmucennep
+        acc_name = B_KMUCENNEP
     elif alter in ['-7', '-8']:
-        acc_name = b_bmucennep
+        acc_name = B_BMUCENNEP
 
     return acc_name
 
@@ -411,7 +409,7 @@ class SymbTrScore:
     def addwordinfo(xmllyric, templyric, word, e):
         # lyrics word information
         if (len(templyric) > 0 and templyric != "." and
-                templyric not in section_list):
+                templyric not in SECTION_LIST):
             syllabic = etree.SubElement(xmllyric, 'syllabic')
             if e.syllabic is not None and word == 1:
                 syllabic.text = "end"
