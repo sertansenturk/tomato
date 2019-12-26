@@ -1,6 +1,6 @@
-
-
 # koma definitions
+N_NATURAL = 'natural'
+
 # flats
 B_KOMA = 'quarter-flat'  # 'flat-down'
 B_BAKIYYE = 'slash-flat'

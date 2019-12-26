@@ -6,39 +6,9 @@ from lxml import etree
 
 from ...dataextractor import DataExtractor
 from ...reader.mu2 import Mu2Reader
-from .symbtrnote import Note
-
-# koma definitions
-N_NATURAL = 'natural'
-
-# flats
-B_KOMA = 'quarter-flat'  # 'flat-down'
-B_BAKIYYE = 'slash-flat'
-B_KMUCENNEP = 'flat'
-B_BMUCENNEP = 'double-slash-flat'
-
-# sharps
-D_KOMA = 'quarter-sharp'  # quarter-sharp    SWAP 1ST AND 3RD SHARPS
-D_BAKIYYE = 'sharp'
-D_KMUCENNEP = 'slash-quarter-sharp'  # slash-quarter-sharp
-D_BMUCENNEP = 'slash-sharp'
-
-# section list
-SECTION_LIST = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
-                "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
-                "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
-                "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
-                "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
-                "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
-                "1. HANE VE TESLİM", "2. HANE VE TESLİM",
-                "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
-                "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
-                "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
-                "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ",
-                "ARA SAZI", "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO",
-                "MÜZİK", "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ",
-                "KÜŞAT", "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM",
-                "TERENNÜM"]
+from .symbtrnote import (B_BAKIYYE, B_BMUCENNEP, B_KMUCENNEP, B_KOMA,
+                         D_BAKIYYE, D_BMUCENNEP, D_KMUCENNEP, D_KOMA,
+                         N_NATURAL, SECTION_LIST, Note)
 
 kodlist = []
 koddict = dict()
