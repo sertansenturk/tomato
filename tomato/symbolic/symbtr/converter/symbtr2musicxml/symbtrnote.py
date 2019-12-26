@@ -41,17 +41,17 @@ class Note:
         self.sira = None
         self.kod = None
         self.nota53 = None
-        self.notaAE = None
+        self.notaae = None
         self.koma53 = None
-        self.komaAE = None
+        self.komaae = None
         self.pay = None
         self.payda = None
         self.ms = None
-        self.LNS = None
-        self.velOn = None
+        self.lns = None
+        self.velon = None
         self.soz1 = None
         self.offset = None
-        self.nof_divs = 0
+        self.nofdivs = 0
 
         # xml attributes
         self.step = None  # get_pitch
@@ -94,14 +94,14 @@ class Note:
         self.sira = info[0]
         self.kod = info[1]
         self.nota53 = info[2]
-        self.notaAE = info[3]
+        self.notaae = info[3]
         self.koma53 = info[4]
-        self.komaAE = info[5]
+        self.komaae = info[5]
         self.pay = info[6]
         self.payda = info[7]
         self.ms = info[8]
-        self.LNS = info[9]
-        self.velOn = info[10]
+        self.lns = info[9]
+        self.velon = info[10]
         self.soz1 = info[11]
         self.offset = info[12]
         if self.kod not in ['35', '51', '53', '54', '55']:
@@ -166,8 +166,8 @@ class Note:
 
     def get_pitch(self):
         # try:
-        self.step = self.notaAE[0]
-        self.octave = self.notaAE[1]
+        self.step = self.notaae[0]
+        self.octave = self.notaae[1]
         # except:
         #     raise ValueError('Pitch at line {0:s} with the value "{1:s}" '
         #                      'is invalid.'.format(self.sira, self.notaAE))
@@ -230,7 +230,7 @@ class Note:
             # temp_remainder)
 
     def get_accidental(self):
-        acc = self.notaAE[2:]
+        acc = self.notaae[2:]
         if acc != '':
             if acc in ['#1', '#2']:
                 self.accidental = D_KOMA

@@ -83,8 +83,8 @@ class PredominantMelody:
     def run(self, fname):
         # load audio and eqLoudness
         # Note: MonoLoader resamples the audio signal to 44100 Hz by default
-        audio = estd.MonoLoader(filename=fname)()
-        audio = estd.EqualLoudness()(audio)
+        audio = estd.MonoLoader(filename=fname)()  # pylint: disable-msg=E1101
+        audio = estd.EqualLoudness()(audio)  # pylint: disable-msg=E1101
 
         contours_bins, contours_start_times, contour_saliences, duration = \
             self._extract_pitch_contours(audio)
@@ -129,27 +129,33 @@ class PredominantMelody:
 
     def _extract_pitch_contours(self, audio):
         # Hann window with x4 zero padding
-        run_windowing = estd.Windowing(zeroPadding=3 * self.frame_size)
-        run_spectrum = estd.Spectrum(size=self.frame_size * 4)
-        run_spectral_peaks = estd.SpectralPeaks(
+        run_windowing = estd.Windowing(  # pylint: disable-msg=E1101
+            zeroPadding=3 * self.frame_size)
+        run_spectrum = estd.Spectrum(  # pylint: disable-msg=E1101
+            size=self.frame_size * 4)
+        run_spectral_peaks = estd.SpectralPeaks(  # pylint: disable-msg=E1101
             minFrequency=self.min_frequency, maxFrequency=self.max_frequency,
             magnitudeThreshold=self.magnitude_threshold,
             sampleRate=self.sample_rate, orderBy='magnitude')
 
         # convert unit to cents, PitchSalienceFunction takes 55 Hz as the
         # default reference
-        run_pitch_salience_function = estd.PitchSalienceFunction(
-            binResolution=self.bin_resolution)
-        run_pitch_salience_function_peaks = estd.PitchSalienceFunctionPeaks(
-            binResolution=self.bin_resolution, minFrequency=self.min_frequency,
-            maxFrequency=self.max_frequency)
-        run_pitch_contours = estd.PitchContours(
+        run_pitch_salience_function = \
+            estd.PitchSalienceFunction(  # pylint: disable-msg=E1101
+                binResolution=self.bin_resolution)
+        run_pitch_salience_function_peaks = \
+            estd.PitchSalienceFunctionPeaks(  # pylint: disable-msg=E1101
+                binResolution=self.bin_resolution,
+                minFrequency=self.min_frequency,
+                maxFrequency=self.max_frequency)
+        run_pitch_contours = estd.PitchContours(  # pylint: disable-msg=E1101
             hopSize=self.hop_size, binResolution=self.bin_resolution,
             peakDistributionThreshold=self.peak_distribution_threshold)
 
         # compute frame by frame
         pool = Pool()
-        for frame in estd.FrameGenerator(audio, frameSize=self.frame_size,
+        for frame in estd.FrameGenerator(audio,  # pylint: disable-msg=E1101
+                                         frameSize=self.frame_size,
                                          hopSize=self.hop_size):
             frame = run_windowing(frame)
             spectrum = run_spectrum(frame)
@@ -278,20 +284,18 @@ class PredominantMelody:
         # accumulate pitch and salience
         pitch = np.array([0.] * num_samples)
         salience = np.array([0.] * num_samples)
-        for i in range(0, len(pitch_contours_no_overlap)):
+        for i, pc_no in enumerate(pitch_contours_no_overlap):
             start_samp = start_samples_no_overlap[i]
-            end_samp = start_samples_no_overlap[i] + len(
-                pitch_contours_no_overlap[i])
+            end_samp = start_samples_no_overlap[i] + len(pc_no)
 
             try:
-                pitch[start_samp:end_samp] = pitch_contours_no_overlap[i]
+                pitch[start_samp:end_samp] = pc_no
                 salience[start_samp:end_samp] = contour_saliences_no_overlap[i]
             except ValueError:
                 warnings.warn("The last pitch contour exceeds the audio "
                               "length. Trimming...")
 
-                pitch[start_samp:] = pitch_contours_no_overlap[i][:len(
-                    pitch) - start_samp]
+                pitch[start_samp:] = pc_no[:len(pitch) - start_samp]
                 salience[start_samp:] = contour_saliences_no_overlap[i][:len(
                     salience) - start_samp]
         return pitch, salience
@@ -301,10 +305,10 @@ class PredominantMelody:
                          lens, acc_idx):
         # remove overlaps
         rmv_idx = []
-        for i in range(0, len(start_samples)):
+        for i, st_samp in enumerate(start_samples):
             # print '_' + str(i)
             # create the sample index vector for the checked pitch contour
-            curr_samp_idx = range(start_samples[i], start_samples[i] + lens[i])
+            curr_samp_idx = range(st_samp, st_samp + lens[i])
 
             # get the non-overlapping samples
             curr_samp_idx_no_overlap = list(set(curr_samp_idx) -
@@ -312,9 +316,9 @@ class PredominantMelody:
 
             if curr_samp_idx_no_overlap:
                 temp = min(curr_samp_idx_no_overlap)
-                keep_idx = range(temp - start_samples[i],
+                keep_idx = range(temp - st_samp,
                                  (max(curr_samp_idx_no_overlap) -
-                                  start_samples[i]) + 1)
+                                  st_samp) + 1)
 
                 # remove all overlapping values
                 pitch_contours[i] = np.array(pitch_contours[i])[keep_idx]

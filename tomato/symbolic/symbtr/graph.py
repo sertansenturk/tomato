@@ -33,7 +33,8 @@ class GraphOperations:
         max_len = float(max([len(str1), len(str2)]))
 
         try:
-            return Levenshtein.distance(str1, str2) / max_len
+            return Levenshtein.distance(  # pylint: disable-msg=E1101
+                str1, str2) / max_len
         except ZeroDivisionError:  # both sections are instrumental
             return 0
 

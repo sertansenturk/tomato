@@ -139,9 +139,9 @@ class PitchFilter:
 
         zero_chunks = []
         zero_ind = []
-        for j in range(len(pitch_chunks)):
-            if float(pitch_chunks[j][0][1]) == 0.:
-                zero_chunks.append([j, pitch_chunks[j]])
+        for j, p_chk in enumerate(pitch_chunks):
+            if float(p_chk[0][1]) == 0.:
+                zero_chunks.append([j, p_chk])
                 zero_ind.append(j)
         pitch_chunks = list(np.delete(pitch_chunks, zero_ind))
 
@@ -156,13 +156,12 @@ class PitchFilter:
                 med_chunk_prev = np.median(
                     [element[1] for element in pitch_chunks[i - 1]])
 
-                if (self.are_close(pitch_chunks[i][0][1] / 2.,
-                                   pitch_chunks[i - 1][-1][1]) and
-                    (pitch_chunks[i][-1][1] / 1.5 >
-                     pitch_chunks[i + 1][0][1])) or \
-                        (self.are_close(med_chunk_i / 2., med_chunk_prev) and
-                         med_chunk_i / 1.5 > med_chunk_follow):
-
+                if ((self.are_close(pitch_chunks[i][0][1] / 2.,
+                                    pitch_chunks[i - 1][-1][1]) and
+                     (pitch_chunks[i][-1][1] / 1.5 >
+                      pitch_chunks[i + 1][0][1])) or
+                    (self.are_close(med_chunk_i / 2., med_chunk_prev) and
+                     med_chunk_i / 1.5 > med_chunk_follow)):
                     for j in range(0, len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] /= 2.
 
@@ -185,17 +184,17 @@ class PitchFilter:
                     for j in range(0, len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] *= 2.
 
-                elif (pitch_chunks[i][0][1] * 1.5 < pitch_chunks[i - 1][-1][
-                    1] and self.are_close(pitch_chunks[i][-1][1] * 2.,
-                                          pitch_chunks[i + 1][0][1])) or \
-                        (self.are_close(med_chunk_prev * 2,
-                                        med_chunk_follow) and
-                         med_chunk_i * 1.5 < med_chunk_prev):
+                elif ((pitch_chunks[i][0][1] * 1.5 <
+                       pitch_chunks[i - 1][-1][1] and
+                       self.are_close(pitch_chunks[i][-1][1] * 2.,
+                                      pitch_chunks[i + 1][0][1])) or
+                      (self.are_close(med_chunk_prev * 2, med_chunk_follow)
+                       and med_chunk_i * 1.5 < med_chunk_prev)):
                     for j in range(0, len(pitch_chunks[i])):
                         pitch_chunks[i][j][1] *= 2.
 
-        for k in range(len(zero_chunks)):
-            pitch_chunks.insert(zero_chunks[k][0], zero_chunks[k][1])
+        for z_chk in zero_chunks:
+            pitch_chunks.insert(z_chk[0], z_chk[1])
         pitch = self.recompose_chunks(pitch_chunks=pitch_chunks)
         return pitch
 

@@ -274,7 +274,7 @@ class PitchDistribution:
             '1 (keep only the highest peak)'
 
         # Peak detection is handled by Essentia
-        detector = std.PeakDetection()
+        detector = std.PeakDetection()  # pylint: disable-msg=E1101
         peak_bins, peak_vals = detector(essentia.array(self.vals))
 
         # Essentia normalizes the positions to 1, they are converted here
