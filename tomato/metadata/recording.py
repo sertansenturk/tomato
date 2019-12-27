@@ -31,7 +31,8 @@ from ..io import IO
 from .instrumentation import Instrumentation
 from .work import Work as WorkMetadata
 
-logger = logging.Logger(__name__, level=logging.WARNING)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.WARNING)
 
 # set the agent to communicate with MusicBrainz
 mb.set_useragent("tomato", __version__, "compmusic.upf.edu")
@@ -136,8 +137,8 @@ class Recording:
                 attributes[k] = []
 
             attributes[k].append(
-                {'mb_tag': val, 'attribute_key':
-                    cls._get_key_from_musicbrainz_tag(val, k)})
+                {'mb_tag': val,
+                 'attribute_key': cls._get_key_from_musicbrainz_tag(val, k)})
 
     @staticmethod
     def _get_key_from_musicbrainz_tag(attr_str, attr_type):
@@ -145,6 +146,7 @@ class Recording:
         for attr_key, attr_val in attr_dict.items():
             if attr_str in attr_val['mb_tag']:
                 return attr_key
+        raise ValueError("Unknown Musicbrainz key: %s" % attr_str)
 
     @staticmethod
     def get_file_metadata(filepath):

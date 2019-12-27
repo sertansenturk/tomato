@@ -23,7 +23,8 @@
 
 import logging
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class Instrumentation:
@@ -49,8 +50,7 @@ class Instrumentation:
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logger.info("{} is not related to instrumentation.".format(
-                    iv))
+                logger.info("%s is not related to instrumentation.", iv)
                 instrument_vocal_list.pop(ii)
 
         return cls._identify_instrumentation(instrument_vocal_list)
@@ -59,22 +59,21 @@ class Instrumentation:
     def _identify_instrumentation(cls, instrument_vocal_list):
         if cls.solo_instrumental(instrument_vocal_list):
             return "solo instrumental"
-        elif cls.duo_instrumental(instrument_vocal_list):
+        if cls.duo_instrumental(instrument_vocal_list):
             return "duo instrumental"
-        elif cls.trio_instrumental(instrument_vocal_list):
+        if cls.trio_instrumental(instrument_vocal_list):
             return "trio instrumental"
-        elif cls.ensemble(instrument_vocal_list):
+        if cls.ensemble(instrument_vocal_list):
             return "ensemble instrumental"
-        elif cls.solo_vocal_wo_acc(instrument_vocal_list):
+        if cls.solo_vocal_wo_acc(instrument_vocal_list):
             return "solo vocal without accompaniment"
-        elif cls.solo_vocal_w_acc(instrument_vocal_list):
+        if cls.solo_vocal_w_acc(instrument_vocal_list):
             return "solo vocal with accompaniment"
-        elif cls.duet(instrument_vocal_list):
+        if cls.duet(instrument_vocal_list):
             return "duet"
-        elif cls.choir(instrument_vocal_list):
+        if cls.choir(instrument_vocal_list):
             return "choir"
-        else:
-            assert False, "Unidentified instrumentation"
+        raise ValueError("Unidentified instrumentation")
 
     # Solo Vocal Without Accompaniment
     # There is only vocal and no instruments
@@ -143,27 +142,27 @@ class Instrumentation:
         for ii, iv in reversed(list(enumerate(instrument_vocal_list))):
             if iv not in ['vocal', 'instrument', 'performing orchestra',
                           'performer', 'choir_vocals']:
-                logging.info("{} is not related to performance.".format(iv))
+                logging.info("%s is not related to performance.", iv)
                 instrument_vocal_list.pop(ii)
 
         if cls.solo_instrumental(instrument_vocal_list):
             return "solo instrumental"
-        elif cls.duo_instrumental(instrument_vocal_list):
+        if cls.duo_instrumental(instrument_vocal_list):
             return "duo instrumental"
-        elif cls.trio_instrumental(instrument_vocal_list):
+        if cls.trio_instrumental(instrument_vocal_list):
             return "trio instrumental"
-        elif cls.ensemble(instrument_vocal_list):
+        if cls.ensemble(instrument_vocal_list):
             return "ensemble instrumental"
-        elif cls.solo_vocal_wo_acc(instrument_vocal_list):
+        if cls.solo_vocal_wo_acc(instrument_vocal_list):
             return "solo vocal without accompaniment"
-        elif cls.solo_vocal_w_acc(instrument_vocal_list):
+        if cls.solo_vocal_w_acc(instrument_vocal_list):
             return "solo vocal with accompaniment"
-        elif cls.duet(instrument_vocal_list):
+        if cls.duet(instrument_vocal_list):
             return "duet"
-        elif cls.choir(instrument_vocal_list):
+        if cls.choir(instrument_vocal_list):
             return "choir"
-        else:
-            assert False, "Unidentified voicing/instrumentation"
+
+        raise ValueError("Unidentified voicing/instrumentation")
 
     @classmethod
     def get_voicing_instrumentation(cls, audio_meta):

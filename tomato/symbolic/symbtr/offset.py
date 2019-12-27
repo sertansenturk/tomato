@@ -25,9 +25,6 @@ import warnings
 
 
 class OffsetProcessor:
-    """
-
-    """
     def __init__(self, print_warnings=True):
         self.print_warnings = print_warnings
 

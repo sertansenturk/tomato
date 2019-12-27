@@ -23,6 +23,8 @@
 
 from copy import deepcopy
 
+import matplotlib.pyplot as plt
+import matplotlib.ticker
 import numpy as np
 
 from ..converter import Converter
@@ -53,7 +55,7 @@ class NoteModel:
             pass
 
         # Calculate stable pitches
-        peak_idx, peak_heights = pd_copy.detect_peaks(
+        peak_idx, _ = pd_copy.detect_peaks(
             min_peak_ratio=min_peak_ratio)
 
         stable_pitches_hz = pd_copy.bins[peak_idx]
@@ -187,10 +189,7 @@ class NoteModel:
 
     @staticmethod
     def plot(pitch_distribution, stable_notes):
-        import matplotlib.pyplot as plt
-        import matplotlib.ticker
-
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
         plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
                             wspace=0, hspace=0.4)
 

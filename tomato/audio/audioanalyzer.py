@@ -43,7 +43,8 @@ from .pitchfilter import PitchFilter
 from .predominantmelody import PredominantMelody
 from .seyir import Seyir
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class AudioAnalyzer(Analyzer):
@@ -348,7 +349,6 @@ class AudioAnalyzer(Analyzer):
     def set_note_modeler_params(self, **kwargs):
         self._set_params('_note_modeler', **kwargs)
 
-    # plot
     @staticmethod
     def plot(audio_features):
         pitch = audio_features['pitch_filtered']['pitch']

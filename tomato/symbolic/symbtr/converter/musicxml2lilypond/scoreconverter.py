@@ -28,15 +28,6 @@ class ScoreConverter:
                             'sharp': "BAKIYE",
                             'quarter-sharp': "KOMA"}
 
-    _makam_accidentals = {'quarter-flat': '-1',
-                          'slash-flat': '-4',
-                          'flat': '-5',
-                          'double-slash-flat': '-8',
-                          'quarter-sharp': '+1',
-                          'sharp': '+4',
-                          'slash-quarter-sharp': '+5',
-                          'slash-sharp': '+8'}
-
     # sorting rules of key signatures
     sort_rule_sharps = {'F': 0, 'C': 1, 'G': 2, 'D': 3, 'A': 4, 'E': 5,
                         'B': 6}
@@ -121,7 +112,7 @@ class ScoreConverter:
         accidentals_check = []
         rule = []
         for queue in keysig.keys():
-            if cls._makam_accidentals[keysig[queue]][0] == "+":
+            if MusicXMLReader.makam_accidentals[keysig[queue]][0] == "+":
                 rule.append([cls.sort_rule_sharps[queue], 's'])
             else:
                 rule.append([cls.sort_rule_flats[queue], 'f'])
@@ -133,8 +124,9 @@ class ScoreConverter:
                 key = cls.sort_rule_notes_sharps[queue[0]]
             else:
                 key = cls.sort_rule_notes_flats[queue[0]]
-            accidentals_check.append(key + cls._makam_accidentals[keysig[key].
-                                     replace("+", "")])
+            accidentals_check.append(
+                key + MusicXMLReader.makam_accidentals[keysig[key].replace(
+                    "+", "")])
             temp_keysig += "("
             temp_keysig += (cls._notes_western2lily[key.lower()] + " . ," +
                             cls._key_sig_accidentals[keysig[key]])

@@ -32,7 +32,8 @@ from matplotlib.ticker import FixedLocator
 
 from .audio.seyir import Seyir as AudioSeyirAnalyzer
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class Plotter:

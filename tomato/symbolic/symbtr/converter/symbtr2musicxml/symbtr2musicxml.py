@@ -6,39 +6,9 @@ from lxml import etree
 
 from ...dataextractor import DataExtractor
 from ...reader.mu2 import Mu2Reader
-from .symbtrnote import Note
-
-# koma definitions
-n_natural = 'natural'
-
-# flats
-b_koma = 'quarter-flat'  # 'flat-down'
-b_bakiyye = 'slash-flat'
-b_kmucennep = 'flat'
-b_bmucennep = 'double-slash-flat'
-
-# sharps
-d_koma = 'quarter-sharp'  # quarter-sharp    SWAP 1ST AND 3RD SHARPS
-d_bakiyye = 'sharp'
-d_kmucennep = 'slash-quarter-sharp'  # slash-quarter-sharp
-d_bmucennep = 'slash-sharp'
-
-# section list
-section_list = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
-                "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
-                "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
-                "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
-                "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
-                "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
-                "1. HANE VE TESLİM", "2. HANE VE TESLİM",
-                "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
-                "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
-                "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
-                "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ",
-                "ARA SAZI", "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO",
-                "MÜZİK", "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ",
-                "KÜŞAT", "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM",
-                "TERENNÜM"]
+from .symbtrnote import (B_BAKIYYE, B_BMUCENNEP, B_KMUCENNEP, B_KOMA,
+                         D_BAKIYYE, D_BMUCENNEP, D_KMUCENNEP, D_KOMA,
+                         N_NATURAL, SECTION_LIST, Note)
 
 kodlist = []
 koddict = dict()
@@ -126,49 +96,47 @@ def get_usul(usul):
 
         if len(temp_line) == 0:
             break
-        else:
-            temp_line = temp_line.split('\t')
-            temp_line.reverse()
 
-            usul_id.append(temp_line.pop())
-            usul_name.append(temp_line.pop())
-            num_beats.append(temp_line.pop())
-            beat_type.append(temp_line.pop())
-            accents.append(temp_line.pop())
+        temp_line = temp_line.split('\t')
+        temp_line.reverse()
 
-    f.close()
-    # eof filepath read
-    '''
-    print(usulID[usulID.index(usul)])
-    print(usulName)
-    print(nofBeats[usulID.index(usul)])
-    print(beatType[usulID.index(usul)])
-    print(accents)
-    print(len(usulID),len(usulName),len(nofBeats),len(beatType),len(accents))
-    '''
+        usul_id.append(temp_line.pop())
+        usul_name.append(temp_line.pop())
+        num_beats.append(temp_line.pop())
+        beat_type.append(temp_line.pop())
+        accents.append(temp_line.pop())
+
+    f.close()  # eof filepath read
+
+    # print(usulID[usulID.index(usul)])
+    # print(usulName)
+    # print(nofBeats[usulID.index(usul)])
+    # print(beatType[usulID.index(usul)])
+    # print(accents)
+    # print(len(usulID),len(usulName),len(nofBeats),len(beatType),len(accents))
 
     return int(num_beats[usul_id.index(usul)]), int(
         beat_type[usul_id.index(usul)])
 
 
 def get_accidental_name(alter):
-    acc_name = n_natural
+    acc_name = N_NATURAL
     if alter in ['+1', '+2']:
-        acc_name = d_koma
+        acc_name = D_KOMA
     elif alter in ['+3', '+4']:
-        acc_name = d_bakiyye
+        acc_name = D_BAKIYYE
     elif alter in ['+5', '+6']:
-        acc_name = d_kmucennep
+        acc_name = D_KMUCENNEP
     elif alter in ['+7', '+8']:
-        acc_name = d_bmucennep
+        acc_name = D_BMUCENNEP
     elif alter in ['-1', '-2']:
-        acc_name = b_koma
+        acc_name = B_KOMA
     elif alter in ['-3', '-4']:
-        acc_name = b_bakiyye
+        acc_name = B_BAKIYYE
     elif alter in ['-5', '-6']:
-        acc_name = b_kmucennep
+        acc_name = B_KMUCENNEP
     elif alter in ['-7', '-8']:
-        acc_name = b_bmucennep
+        acc_name = B_BMUCENNEP
 
     return acc_name
 
@@ -286,11 +254,11 @@ class SymbTrScore:
     def sectionextractor(self):
         extractor = DataExtractor(
             extract_all_labels=True, print_warnings=False)
-        data, is_data_valid = extractor.extract(
+        data, _ = extractor.extract(
             self.txtpath, symbtr_name=self.symbtrname)
 
-        mu2_header, header_row, is_header_valid = \
-            Mu2Reader.read_header(self.mu2path, symbtr_name=self.symbtrname)
+        mu2_header, _, _ = Mu2Reader.read_header(
+            self.mu2path, symbtr_name=self.symbtrname)
 
         # data = extractor.merge(txtdata, Mu2header)
         for item in data['sections']:
@@ -339,59 +307,59 @@ class SymbTrScore:
             temp_line = f.readline()  # column headers line
             if len(temp_line) == 0:
                 break
-            else:
-                temp_line = temp_line.split('\t')
-                # NOTE CLASS
-                self.notes.append(
-                    Note(temp_line, verbose=self.verbose))
 
-                if self.notes[-1].kod not in ['51']:
-                    if self.notes[-1].pay in ['5', '10']:  # seperating notes
-                        temppay = int(self.notes[-1].pay)
+            temp_line = temp_line.split('\t')
+            # NOTE CLASS
+            self.notes.append(
+                Note(temp_line, verbose=self.verbose))
 
-                        del self.notes[-1]
-                        firstpart = temppay * 2 / 5
-                        lastpart = temppay - firstpart
+            if self.notes[-1].kod not in ['51']:
+                if self.notes[-1].pay in ['5', '10']:  # seperating notes
+                    temppay = int(self.notes[-1].pay)
 
-                        temp_line[6] = str(firstpart)
-                        self.notes.append(Note(
-                            temp_line, verbose=self.verbose))
-                        temp_line[6] = str(lastpart)
-                        temp_line[11] = '_'
-                        self.notes.append(Note(
-                            temp_line, verbose=self.verbose))
-                    elif self.notes[-1].pay in ['9', '11']:
-                        temppay = int(self.notes[-1].pay)
-                        del self.notes[-1]
-
-                        temp_line[6] = str(3)
-                        self.notes.append(Note(
-                            temp_line, verbose=self.verbose))
-                        temp_line[6] = str(temppay - 3)
-                        temp_line[11] = '_'
-                        self.notes.append(Note(
-                            temp_line, verbose=self.verbose))
-
-                # removing rests with 0 duration
-                if self.notes[-1].rest == 1 and self.notes[-1].pay == '0':
-                    if self.verbose:
-                        print("Warning! Note deleted. Rest with Pay:0. Sira:",
-                              self.notes[-1].sira)
                     del self.notes[-1]
-                # DONE READING
+                    firstpart = temppay * 2 / 5
+                    lastpart = temppay - firstpart
 
-                lastnote = self.notes[-1]
-                if lastnote.graceerror == 1 and self.verbose:
-                    print("\tgrace error:", lastnote.sira, lastnote.kod,
-                          lastnote.pay, lastnote.payda)
+                    temp_line[6] = str(firstpart)
+                    self.notes.append(Note(
+                        temp_line, verbose=self.verbose))
+                    temp_line[6] = str(lastpart)
+                    temp_line[11] = '_'
+                    self.notes.append(Note(
+                        temp_line, verbose=self.verbose))
+                elif self.notes[-1].pay in ['9', '11']:
+                    temppay = int(self.notes[-1].pay)
+                    del self.notes[-1]
 
-                if lastnote.kod in koddict:
-                    koddict[lastnote.kod] += 1
-                else:
-                    koddict[lastnote.kod] = 1
+                    temp_line[6] = str(3)
+                    self.notes.append(Note(
+                        temp_line, verbose=self.verbose))
+                    temp_line[6] = str(temppay - 3)
+                    temp_line[11] = '_'
+                    self.notes.append(Note(
+                        temp_line, verbose=self.verbose))
 
-                self.scorenotes.append(self.notes[-1].kod)
-                kodlist.append(self.scorenotes[-1])
+            # removing rests with 0 duration
+            if self.notes[-1].rest == 1 and self.notes[-1].pay == '0':
+                if self.verbose:
+                    print("Warning! Note deleted. Rest with Pay:0. Sira:",
+                          self.notes[-1].sira)
+                del self.notes[-1]
+            # DONE READING
+
+            lastnote = self.notes[-1]
+            if lastnote.graceerror == 1 and self.verbose:
+                print("\tgrace error:", lastnote.sira, lastnote.kod,
+                      lastnote.pay, lastnote.payda)
+
+            if lastnote.kod in koddict:
+                koddict[lastnote.kod] += 1
+            else:
+                koddict[lastnote.kod] = 1
+
+            self.scorenotes.append(self.notes[-1].kod)
+            kodlist.append(self.scorenotes[-1])
 
         kodlist = list(set(kodlist))
         if '53' in self.scorenotes:
@@ -411,7 +379,7 @@ class SymbTrScore:
     def addwordinfo(xmllyric, templyric, word, e):
         # lyrics word information
         if (len(templyric) > 0 and templyric != "." and
-                templyric not in section_list):
+                templyric not in SECTION_LIST):
             syllabic = etree.SubElement(xmllyric, 'syllabic')
             if e.syllabic is not None and word == 1:
                 syllabic.text = "end"
@@ -439,13 +407,13 @@ class SymbTrScore:
             # accidental XML create
             accidental = etree.SubElement(xmlnote, 'accidental')
             accidental.text = e.accidental
-            '''
-            alter = etree.SubElement(pitch, 'alter')
-            if int(acc) > 0:
-                alter.text = '1'
-            else:
-                alter.text = '-1'
-            '''
+
+            # alter = etree.SubElement(pitch, 'alter')
+            # if int(acc) > 0:
+            #     alter.text = '1'
+            # else:
+            #     alter.text = '-1'
+
             self.addalter(xmlpitch, e)
 
     @staticmethod
@@ -456,7 +424,7 @@ class SymbTrScore:
 
     def adddot(self, xmlnote, e):
         # adding dots
-        for i in range(0, e.dot):
+        for _ in range(0, e.dot):
             etree.SubElement(xmlnote, 'dot')
             if self.verbose:
                 print("DOT ADDED", e.sira)
@@ -1034,13 +1002,11 @@ class SymbTrScore:
 
                 # this part will be active after musescore supports measure
                 # repetition
-                '''
-                xmlmeasurestyle = etree.SubElement(tempatts, 'measure-style')
-                xmlmeasurerepeat = etree.SubElement(xmlmeasurestyle,
-                                                    'measure-repeat')
-                xmlmeasurerepeat.set('type', 'start')
-                xmlmeasurerepeat.text = '1'
-                '''
+                # xmlmeasurestyle = etree.SubElement(tempatts, 'measure-style')
+                # xmlmeasurerepeat = etree.SubElement(xmlmeasurestyle,
+                #                                     'measure-repeat')
+                # xmlmeasurerepeat.set('type', 'start')
+                # xmlmeasurerepeat.text = '1'
 
                 p1.append(xmeasure)  # add copied measure to the score
                 measure[-1] = xmeasure

@@ -82,6 +82,7 @@ class SymbTr:
         for attr_key, attr_val in attr_dict.items():
             if attr_val['symbtr_slug'] == attr_str:
                 return attr_key
+        raise ValueError("Unknown attribute key %s" % attr_str)
 
     @classmethod
     def validate_key_signature(cls, key_signature, makam_slug, symbtr_name):

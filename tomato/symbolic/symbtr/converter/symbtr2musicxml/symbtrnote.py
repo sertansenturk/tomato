@@ -1,36 +1,38 @@
-
-
 # koma definitions
-# flats
-b_koma = 'quarter-flat'  # 'flat-down'
-b_bakiyye = 'slash-flat'
-b_kmucennep = 'flat'
-b_bmucennep = 'double-slash-flat'
-# sharps
-d_koma = 'quarter-sharp'  # quarter-sharp, SWAP 1ST AND 3RD SHARPS
-d_bakiyye = 'sharp'
-d_kmucennep = 'slash-quarter-sharp'  # slash-quarter-sharp
-d_bmucennep = 'slash-sharp'
+N_NATURAL = 'natural'
 
-altervalues = {'quarter-flat': "-0.5", 'slash-flat': None, 'flat': '-1',
-               'double-slash-flat': None, 'quarter-sharp': '+0.5',
-               'slash-sharp': None, 'sharp': "+1", 'slash-quarter-sharp': None}
+# flats
+B_KOMA = 'quarter-flat'  # 'flat-down'
+B_BAKIYYE = 'slash-flat'
+B_KMUCENNEP = 'flat'
+B_BMUCENNEP = 'double-slash-flat'
+
+# sharps
+D_KOMA = 'quarter-sharp'  # quarter-sharp, SWAP 1ST AND 3RD SHARPS
+D_BAKIYYE = 'sharp'
+D_KMUCENNEP = 'slash-quarter-sharp'  # slash-quarter-sharp
+D_BMUCENNEP = 'slash-sharp'
+
+ALTER_VALUES = {'quarter-flat': "-0.5", 'slash-flat': None, 'flat': '-1',
+                'double-slash-flat': None, 'quarter-sharp': '+0.5',
+                'slash-sharp': None, 'sharp': "+1",
+                'slash-quarter-sharp': None}
 
 # section list
-sectionList = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
-               "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
-               "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
-               "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
-               "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
-               "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
-               "1. HANE VE TESLİM", "2. HANE VE TESLİM",
-               "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
-               "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
-               "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
-               "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ", "ARA SAZI",
-               "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO", "MÜZİK",
-               "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ", "KÜŞAT",
-               "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM", "TERENNÜM"]
+SECTION_LIST = ["1. HANE", "2. HANE", "3. HANE", "4. HANE", "TESLİM",
+                "TESLİM ", "MÜLÂZİME", "SERHÂNE", "HÂNE-İ SÂNİ",
+                "HÂNE-İ SÂLİS", "SERHANE", "ORTA HANE", "SON HANE",
+                "1. HANEYE", "2. HANEYE", "3. HANEYE", "4. HANEYE",
+                "KARAR", "1. HANE VE MÜLÂZİME", "2. HANE VE MÜLÂZİME",
+                "3. HANE VE MÜLÂZİME", "4. HANE VE MÜLÂZİME",
+                "1. HANE VE TESLİM", "2. HANE VE TESLİM",
+                "3. HANE VE TESLİM", "4. HANE VE TESLİM", "ARANAĞME",
+                "ZEMİN", "NAKARAT", "MEYAN", "SESLERLE NİNNİ",
+                "OYUN KISMI", "ZEYBEK KISMI", "GİRİŞ SAZI",
+                "GİRİŞ VE ARA SAZI", "GİRİŞ", "FİNAL", "SAZ", "ARA SAZI",
+                "SUSTA", "KODA", "DAVUL", "RİTM", "BANDO", "MÜZİK",
+                "SERBEST", "ARA TAKSİM", "GEÇİŞ TAKSİMİ", "KÜŞAT",
+                "1. SELAM", "2. SELAM", "3. SELAM", "4. SELAM", "TERENNÜM"]
 
 
 class Note:
@@ -39,17 +41,17 @@ class Note:
         self.sira = None
         self.kod = None
         self.nota53 = None
-        self.notaAE = None
+        self.notaae = None
         self.koma53 = None
-        self.komaAE = None
+        self.komaae = None
         self.pay = None
         self.payda = None
         self.ms = None
-        self.LNS = None
-        self.velOn = None
+        self.lns = None
+        self.velon = None
         self.soz1 = None
         self.offset = None
-        self.nof_divs = 0
+        self.nofdivs = 0
 
         # xml attributes
         self.step = None  # get_pitch
@@ -92,14 +94,14 @@ class Note:
         self.sira = info[0]
         self.kod = info[1]
         self.nota53 = info[2]
-        self.notaAE = info[3]
+        self.notaae = info[3]
         self.koma53 = info[4]
-        self.komaAE = info[5]
+        self.komaae = info[5]
         self.pay = info[6]
         self.payda = info[7]
         self.ms = info[8]
-        self.LNS = info[9]
-        self.velOn = info[10]
+        self.lns = info[9]
+        self.velon = info[10]
         self.soz1 = info[11]
         self.offset = info[12]
         if self.kod not in ['35', '51', '53', '54', '55']:
@@ -164,8 +166,8 @@ class Note:
 
     def get_pitch(self):
         # try:
-        self.step = self.notaAE[0]
-        self.octave = self.notaAE[1]
+        self.step = self.notaae[0]
+        self.octave = self.notaae[1]
         # except:
         #     raise ValueError('Pitch at line {0:s} with the value "{1:s}" '
         #                      'is invalid.'.format(self.sira, self.notaAE))
@@ -228,36 +230,39 @@ class Note:
             # temp_remainder)
 
     def get_accidental(self):
-        acc = self.notaAE[2:]
+        acc = self.notaae[2:]
         if acc != '':
             if acc in ['#1', '#2']:
-                self.accidental = d_koma
+                self.accidental = D_KOMA
             elif acc in ['#3', '#4']:
-                self.accidental = d_bakiyye
+                self.accidental = D_BAKIYYE
             elif acc in ['#5', '#6']:
-                self.accidental = d_kmucennep
+                self.accidental = D_KMUCENNEP
             elif acc in ['#7', '#8']:
-                self.accidental = d_bmucennep
+                self.accidental = D_BMUCENNEP
             elif acc in ['b1', 'b2']:
-                self.accidental = b_koma
+                self.accidental = B_KOMA
             elif acc in ['b3', 'b4']:
-                self.accidental = b_bakiyye
+                self.accidental = B_BAKIYYE
             elif acc in ['b5', 'b6']:
-                self.accidental = b_kmucennep
+                self.accidental = B_KMUCENNEP
             elif acc in ['b7', 'b8']:
-                self.accidental = b_bmucennep
+                self.accidental = B_BMUCENNEP
             # print(self.sira)
-            self.alter = altervalues[self.accidental]
+            self.alter = ALTER_VALUES[self.accidental]
 
     def get_word(self):
-        if 1:  # self.soz1 not in section_list:
-            self.lyric = self.soz1
-            self.syllabic = ""  # remove NoneType
-            if '  ' in self.lyric:  # line endings
-                self.lineend = 1
-                self.wordend = 1
-            elif ' ' in self.lyric:  # word endings
-                self.wordend = 1
+        # we read the lyrics line even if the composition in instrumental to
+        # write the secions and other structural info to the score
 
-            if self.lineend or self.wordend:
-                self.syllabic = "end"
+        # if self.soz1 not in SECTION_LIST:
+        self.lyric = self.soz1
+        self.syllabic = ""  # remove NoneType
+        if '  ' in self.lyric:  # line endings
+            self.lineend = 1
+            self.wordend = 1
+        elif ' ' in self.lyric:  # word endings
+            self.wordend = 1
+
+        if self.lineend or self.wordend:
+            self.syllabic = "end"

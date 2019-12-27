@@ -26,9 +26,6 @@ from .structurelabeler import StructureLabeler
 
 
 class SegmentExtractor:
-    """
-
-    """
     def __init__(self, lyrics_sim_thres=0.70, melody_sim_thres=0.70,
                  save_structure_sim=True, crop_consecutive_bounds=True):
         """
@@ -54,7 +51,7 @@ class SegmentExtractor:
         self.save_structure_sim = save_structure_sim
         self.crop_consecutive_bounds = crop_consecutive_bounds
 
-        self.segmentLabeler = StructureLabeler(
+        self.segment_labeler = StructureLabeler(
             save_structure_sim=self.save_structure_sim,
             lyrics_sim_thres=self.lyrics_sim_thres,
             melody_sim_thres=self.melody_sim_thres)
@@ -137,10 +134,10 @@ class SegmentExtractor:
                              'start_note': start_note_idx,
                              'end_note': end_note_idx})
 
-        segments = self.segmentLabeler.label_structures(segments, score)
+        segments = self.segment_labeler.label_structures(segments, score)
 
         # map the python indices in start_note and end_note to SymbTr index
-        self.segmentLabeler.python_idx_to_symbtr_idx(segments, score)
+        self.segment_labeler.python_idx_to_symbtr_idx(segments, score)
 
         return segments
 

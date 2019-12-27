@@ -58,11 +58,12 @@ class KNNClassifier(InputParser):
         if model_type == 'single':
             return self._train_single_distrib_per_mode(
                 pitches, tonics, modes, sources=sources)
-        elif model_type == 'multi':
+
+        if model_type == 'multi':
             return self._train_multi_distrib_per_mode(
                 pitches, tonics, modes, sources=sources)
-        else:
-            raise ValueError("Unknown training model")
+
+        raise ValueError("Unknown training model")
 
     def _train_single_distrib_per_mode(self, pitches, tonics, modes,
                                        sources=None):
@@ -346,8 +347,8 @@ class KNNClassifier(InputParser):
     def model_to_pickle(model, file_name=None):
         if file_name is None:
             return pickle.dumps(model)
-        else:
-            pickle.dump(model, open(file_name, 'wb'))
+
+        return pickle.dump(model, open(file_name, 'wb'))
 
     def model_from_json(self, file_name):
         """--------------------------------------------------------------------
@@ -387,5 +388,5 @@ class KNNClassifier(InputParser):
 
         if file_name is None:
             return json.dumps(temp_model, indent=4)
-        else:
-            json.dump(temp_model, open(file_name, 'w'), indent=4)
+
+        return json.dump(temp_model, open(file_name, 'w'), indent=4)

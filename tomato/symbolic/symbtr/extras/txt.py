@@ -5,6 +5,8 @@ import warnings
 import pandas as pd
 
 from ....io import IO
+from ..dataextractor import DataExtractor
+from ..reader.mu2 import Mu2Reader
 
 
 class Txt:
@@ -38,7 +40,7 @@ class Txt:
         mu2_usul_dict = {}
         inv_mu2_usul_dict = {}
         usul_dict = IO.load_music_data('usul')
-        for key, val in usul_dict.items():
+        for _, val in usul_dict.items():
             for vrt in val['variants']:
                 if vrt['mu2_name']:  # if it doesn't have a mu2 name, the usul
                     # is not in symbtr collection
@@ -130,6 +132,15 @@ class Txt:
             warnstr = '{0:s}, line {1:s}: {2:s} and {3:s} does not match.'\
                 .format(symbtr_name, str(index), usul_name, attr_str)
             warnings.warn(warnstr.encode('utf-8'))
+
+    @staticmethod
+    def get_symbtr_data(txt_file, mu2_file):
+        extractor = DataExtractor()
+        txt_data = extractor.extract(txt_file)[0]
+
+        mu2_header = Mu2Reader.read_header(mu2_file)[0]
+
+        return extractor.merge(txt_data, mu2_header, verbose=False)
 
     @classmethod
     def add_usul_to_first_row(cls, txt_file, mu2_file):
@@ -256,8 +267,8 @@ class Txt:
             if v['mu2_name'] == data['usul']['mu2_name']:
                 return v
 
-        assert False, 'The usul variant {0:s} is not found'.format(
-            data['usul']['mu2_name'])
+        raise ValueError('The usul variant {0:s} is not found'.format(
+            data['usul']['mu2_name']))
 
     @staticmethod
     def _get_zaman_mertebe(data):
@@ -267,8 +278,8 @@ class Txt:
                 if uv['mu2_name'] == data['usul']['mu2_name']:
                     return uv['mertebe'], uv['num_pulses']
 
-        assert False, 'Zaman and mertebe for the usul variant {0:s} is not ' \
-                      'available'.format(data['usul']['mu2_name'])
+        raise ValueError('Zaman and mertebe for the usul variant {0:s} is not '
+                         'available'.format(data['usul']['mu2_name']))
 
     @staticmethod
     def _change_null_to_empty_str(row):

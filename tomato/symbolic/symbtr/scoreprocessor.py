@@ -30,9 +30,6 @@ from ...io import IO
 
 
 class ScoreProcessor:
-    """
-
-    """
     @staticmethod
     def get_true_lyrics(score_fragments):
         copy_fragments = deepcopy(score_fragments)
@@ -82,6 +79,7 @@ class ScoreProcessor:
         for ii, code in enumerate(score['code']):
             if code not in range(50, 57):
                 return ii
+        raise ValueError("The score does not have any note!")
 
     @staticmethod
     def synth_melody(score, max_denum):

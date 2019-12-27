@@ -29,6 +29,7 @@ import numbers
 
 import essentia
 import essentia.standard as std
+import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate
 import scipy.stats
@@ -36,7 +37,8 @@ import scipy.stats
 from ..converter import Converter
 from ..io import IO
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 
 class PitchDistribution:
@@ -84,11 +86,12 @@ class PitchDistribution:
                   '(bin unit is Hz) or a number greater than 0.'
         if self.ref_freq is None:
             return 'Hz'
-        elif isinstance(self.ref_freq, (numbers.Number, np.ndarray)):
+
+        if isinstance(self.ref_freq, (numbers.Number, np.ndarray)):
             assert self.ref_freq > 0, err_str
             return 'cent'
-        else:
-            return ValueError(err_str)
+
+        return ValueError(err_str)
 
     @staticmethod
     def from_cent_pitch(cent_track, ref_freq=440.0, kernel_width=7.5,
@@ -227,13 +230,11 @@ class PitchDistribution:
         if self.has_cent_bin():  # cent bins; compare directly
             return np.isclose(max(self.bins) - min(self.bins),
                               1200 - self.step_size)
-        else:
-            dummy_d = copy.deepcopy(self)
 
-            dummy_d.hz_to_cent(dummy_d.bins[0])
-
-            return np.isclose(max(dummy_d.bins) - min(dummy_d.bins),
-                              1200 - dummy_d.step_size)
+        dummy_d = copy.deepcopy(self)
+        dummy_d.hz_to_cent(dummy_d.bins[0])
+        return np.isclose(max(dummy_d.bins) - min(dummy_d.bins),
+                          1200 - dummy_d.step_size)
 
     def is_pdf(self):
         return np.isclose(np.sum(self.vals), 1)
@@ -273,7 +274,7 @@ class PitchDistribution:
             '1 (keep only the highest peak)'
 
         # Peak detection is handled by Essentia
-        detector = std.PeakDetection()
+        detector = std.PeakDetection()  # pylint: disable-msg=E1101
         peak_bins, peak_vals = detector(essentia.array(self.vals))
 
         # Essentia normalizes the positions to 1, they are converted here
@@ -413,14 +414,10 @@ class PitchDistribution:
             self.normalize()
 
     def plot(self):
-        import matplotlib.pyplot as plt
-
         plt.plot(self.bins, self.vals)
         self._label_figure()
 
-    def bar(self):
-        import matplotlib.pyplot as plt
-
+    def bar(self):  # pylint: disable-msg=C0102
         bars = plt.bar(self.bins, self.vals, width=self.step_size,
                        align='center')
         self._label_figure()
@@ -428,8 +425,6 @@ class PitchDistribution:
         return bars
 
     def _label_figure(self):
-        import matplotlib.pyplot as plt
-
         if self.is_pcd():
             plt.title('Pitch class distribution')
             ref_freq_str = 'Hz x 2^n'
@@ -477,8 +472,8 @@ class PitchDistribution:
 
         if file_name is None:
             return json.dumps(dist_json, indent=4)
-        else:
-            json.dump(dist_json, open(file_name, 'w'), indent=4)
+
+        return json.dump(dist_json, open(file_name, 'w'), indent=4)
 
     @staticmethod
     def from_dict(distrib_dict):
@@ -488,10 +483,10 @@ class PitchDistribution:
 
     def to_dict(self):
         pdict = self.__dict__
-        for key in pdict.keys():
+        for key, val in pdict.items():
             try:
                 # convert to list from np array
-                pdict[key] = pdict[key].tolist()
+                pdict[key] = val.tolist()
             except AttributeError:
                 pass
 

@@ -32,9 +32,6 @@ from .structurelabeler import StructureLabeler
 
 
 class SectionExtractor:
-    """
-
-    """
     def __init__(self, lyrics_sim_thres=0.7, melody_sim_thres=0.7,
                  save_structure_sim=True, extract_all_labels=False,
                  print_warnings=True):
@@ -67,9 +64,9 @@ class SectionExtractor:
         self.print_warnings = print_warnings
         self.save_structure_sim = save_structure_sim
 
-        self.offsetProcessor = OffsetProcessor(
+        self.offset_processor = OffsetProcessor(
             print_warnings=self.print_warnings)
-        self.sectionLabeler = StructureLabeler(
+        self.section_labeler = StructureLabeler(
             lyrics_sim_thres=self.lyrics_sim_thres,
             melody_sim_thres=self.melody_sim_thres,
             save_structure_sim=self.save_structure_sim)
@@ -78,7 +75,7 @@ class SectionExtractor:
         all_labels, struct_lbl = self._get_structure_labels()
 
         measure_start_idx, is_measure_start_valid = \
-            self.offsetProcessor.find_measure_start_idx(score['offset'])
+            self.offset_processor.find_measure_start_idx(score['offset'])
 
         # Check lyrics information
         is_all_lyrics_empty = all(sl == '' for sl in score['lyrics'])
@@ -92,7 +89,7 @@ class SectionExtractor:
                 sections, score, measure_start_idx)
 
             # the refine section names according to the lyrics, pitch and durs
-            sections = self.sectionLabeler.label_structures(sections, score)
+            sections = self.section_labeler.label_structures(sections, score)
 
         sections_valid = self._validate_sections(
             sections, score, set(all_labels) - set(struct_lbl), symbtrname)
@@ -133,8 +130,8 @@ class SectionExtractor:
     def _locate_section_boundaries(self, sections, score, measure_start_idx):
         if not sections:  # no sections
             return sections
-        else:
-            sections = self._sort_sections(sections)
+
+        sections = self._sort_sections(sections)
 
         real_lyrics_idx = ScoreProcessor.get_true_lyrics_idx(
             score['lyrics'], score['duration'])
@@ -219,12 +216,12 @@ class SectionExtractor:
                              score['lyrics'][prev_closest_end_ind],
                              score['lyrics'][curr_lyrics_start_ind]))
             return curr_lyrics_start_ind
-        else:  # The section starts on the first measure the lyrics
-            # start
-            first_note_idx = ScoreProcessor.get_first_note_index(score)
-            return max([OffsetProcessor.get_measure_offset_id(
-                curr_lyrics_measure_offset, score['offset'],
-                measure_start_idx), first_note_idx])
+
+        # The section starts on the first measure the lyrics start
+        first_note_idx = ScoreProcessor.get_first_note_index(score)
+        return max([OffsetProcessor.get_measure_offset_id(
+            curr_lyrics_measure_offset, score['offset'],
+            measure_start_idx), first_note_idx])
 
     @staticmethod
     def find_prev_closest_bound(bound_note_idx, end_note):

@@ -23,6 +23,7 @@
 
 import copy
 
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -82,7 +83,7 @@ class AlignedPitchFilter:
     def _notes_to_synth_pitch(self, notes, time_stamps):
         synth_pitch = np.array([0] * len(time_stamps))
 
-        for i in range(0, len(notes)):
+        for i, _ in enumerate(notes):
             prevlabel = ([] if i == 0 else
                          notes[i - 1]['Label'].split('--')[0])
             label = notes[i]['Label'].split('--')[0]
@@ -202,8 +203,6 @@ class AlignedPitchFilter:
 
     @staticmethod
     def plot(pitch, pitch_corrected, notes_corrected):
-        import matplotlib.pyplot as plt
-
         # remove zeros for plotting
         pitch_plot = np.copy(pitch)
         pitch_plot[pitch_plot[:, 1] == 0, 1] = np.NAN
@@ -211,7 +210,7 @@ class AlignedPitchFilter:
         pitch_corrected_plot = np.copy(pitch_corrected)
         pitch_corrected_plot[pitch_corrected_plot[:, 1] == 0, 1] = np.NAN
 
-        fig, ax = plt.subplots()
+        _, ax = plt.subplots()
 
         # plot pitch tracks
         ax.plot(pitch_plot[:, 0], pitch_plot[:, 1], 'g', label='Pitch',

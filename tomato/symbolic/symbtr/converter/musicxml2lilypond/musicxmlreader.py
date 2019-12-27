@@ -129,7 +129,7 @@ class MusicXMLReader:
             # read notes/rests
             temp_measure = []
             # all notes in the current measure
-            for note_index, note in enumerate(measure.findall('note')):
+            for note in measure.findall('note'):
                 # symbtr-txt id, which is stored in MusicXML
                 symbtr_txt_id = cls._get_symbtr_txt_id(note)
 
@@ -201,17 +201,17 @@ class MusicXMLReader:
     def _get_normal_dur(note, divisions, quarter_note_len):
         if note.find('duration') is None:  # grace note
             return None
-        else:
-            dur = note.find('duration').text  # get the true duration
-            return (int(quarter_note_len * float(dur) / divisions) /
-                    quarter_note_len)
+
+        dur = note.find('duration').text  # get the true duration
+        return (int(quarter_note_len * float(dur) / divisions) /
+                quarter_note_len)
 
     @classmethod
     def _get_accidental(cls, note):
         if note.find('accidental') is not None:
             return cls.makam_accidentals[note.find('accidental').text]
-        else:
-            return 0
+
+        return 0
 
     @staticmethod
     def _chk_dotted(note):
@@ -225,8 +225,8 @@ class MusicXMLReader:
     def _get_lyrics(note):
         if note.find('lyric/text').text is not None:
             return note.find('lyric/text').text
-        else:
-            return ''
+
+        return ''
 
 # class _XMLCommentHandler(XMLTreeBuilder):
 #     def __init__(self):

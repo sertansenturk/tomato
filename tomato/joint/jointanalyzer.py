@@ -38,10 +38,11 @@ from ..plotter import Plotter
 from .alignednotemodel import AlignedNoteModel
 from .alignedpitchfilter import AlignedPitchFilter
 
-logger = logging.Logger(__name__, level=logging.INFO)
+logger = logging.Logger(  # pylint: disable-msg=C0103
+    __name__, level=logging.INFO)
 
 # instantiate a mcr_caller
-_mcr_caller = BinCaller()
+_mcr_caller = BinCaller()  # pylint: disable-msg=C0103
 
 
 class JointAnalyzer(Analyzer):
@@ -324,7 +325,7 @@ class JointAnalyzer(Analyzer):
         aligned_notes_ = [IO.dict_keys_to_camel_case(n)
                           for n in deepcopy(aligned_notes)]
 
-        pitch_temp, notes_filtered, synth_pitch = \
+        pitch_temp, notes_filtered, _ = \
             self._aligned_pitch_filter.filter(pitch['pitch'], aligned_notes_)
 
         notes_filtered = [IO.dict_keys_to_snake_case(n)
