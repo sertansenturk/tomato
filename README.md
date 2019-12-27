@@ -105,13 +105,12 @@ Then change the current directory to the repository folder and install by:
 
 ```bash
 cd path/to/tomato
-python -m pip install .
+python setup.py install
 ```
 
-If you want to edit files in the package and have the changes reflected, you should call instead:
+If you want to edit files in the package and have the changes reflected, you can call:
 
 ```bash
-cd path/to/tomato
 python -m pip install -e .
 ```
 
