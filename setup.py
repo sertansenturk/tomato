@@ -2,13 +2,11 @@ import configparser
 import os
 import subprocess
 import zipfile
-from distutils.command import install as orig
 from io import BytesIO
 from urllib.request import urlopen
 
 from setuptools import find_packages, setup
 from setuptools.command.install import install
-
 from tomato import __version__
 
 
@@ -25,7 +23,7 @@ class CustomInstall(install):
                      msg="downloading the binaries from tomato_binaries.")
 
         # install tomato
-        orig.install.run(self)
+        self.do_egg_install()
 
     @classmethod
     def _setup_binaries(cls):
