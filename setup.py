@@ -10,30 +10,18 @@ from setuptools.command.install import install
 from tomato import __version__
 
 
-class CustomInstall(install):
-    """Custom installer for tomato: downloads the binaries from relevant
-    git repositories, installs the requirements, and sets up tomato
-
-    Raises:
-        OSError: if the OS is not supported.
-    """
-    def run(self):
-        # download the binaries
-        self.execute(self._setup_binaries, (),
-                     msg="downloading the binaries from tomato_binaries.")
-
-        # install tomato
-        self.do_egg_install()
-
+class BinarySetup:
     @classmethod
-    def _setup_binaries(cls):
-        """
-        Downloads compiled binaries
+    def setup(cls):
+        """Downloads compiled binaries for the OS from the relevant git repos
+
+        Raises:
+            OSError: if the OS is not supported.
         """
         bin_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                   'tomato', 'bin')
 
-        # find os, linux or macosx
+        # find os
         sys_os = cls._get_os()
 
         # read configuration file
@@ -79,7 +67,24 @@ class CustomInstall(install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print("  downloaded %s to %s" % (bin_url, fpath))
+        print("downloaded %s to %s" % (bin_url, fpath))
+
+
+# download binaries in advance so they are detected as package data during
+# instalation
+BinarySetup.setup()
+
+
+class CustomInstall(install):
+    """Custom installer for tomato
+    """
+    def run(self):
+        if 'pip' in __file__:
+            print('installing tomato via `pip`')
+            install.run(self)
+        elif __file__ == "setup.py":
+            print('installing tomato via `python setup.py install`')
+            self.do_egg_install()
 
 
 setup(name='tomato',
