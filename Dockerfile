@@ -25,7 +25,7 @@ RUN apt-get -qq update && \
 
 # Install Python dependencies from requirements.txt in advance
 # Useful for development since changes in code will not trigger a layer re-build
-COPY requirements.txt /code/
+COPY requirements.txt README.md /code/
 RUN python3 -m pip install --upgrade pip && \
     pip3 install -r /code/requirements.txt
 

@@ -118,6 +118,7 @@ setup(name='tomato',
           "computational-analysis"),
       packages=find_packages(exclude=['docs', 'tests']),
       include_package_data=True,
+      data_files=[('', ['README.md', 'LICENSE'])],
       python_requires='>=3.5,<3.8',
       install_requires=[
           "numpy>=1.9.0",  # numerical operations
