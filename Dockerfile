@@ -21,7 +21,8 @@ RUN apt-get -qq update && \
     cd / && \
     rm -rf mcr-install
 
-# Install dependencies
+# Install dependencies before tomato
+# Useful for development since changes in code will not trigger a re-build of this layer
 COPY requirements.txt /code/
 RUN apt-get -qq install -y \
         lilypond \
