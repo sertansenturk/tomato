@@ -71,7 +71,7 @@ ax[0].set_ylim([50, 500])
 plt.show()
 ```
 
-You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
+You can refer to the Jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
 
 ## Installation
 
@@ -112,6 +112,12 @@ If you want to edit files in the package and have the changes reflected, instead
 
 ```bash
 python -m pip install -e .
+```
+
+If you want to run the demo Jupyter notebooks and/or make development, you may include the extras to the installation by:
+
+```bash
+python -m pip install -e .[demos,development]
 ```
 
 The requirements are installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
