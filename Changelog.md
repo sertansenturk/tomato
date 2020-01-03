@@ -3,7 +3,7 @@
 ## tomato v0.14.0
 
 - Added dockerfile (Pull request [#107](https://github.com/sertansenturk/tomato/pull/107))
-- Improved `tomato` setup (Pull request [#110](https://github.com/sertansenturk/tomato/pull/110))
+- Simplified `tomato` setup (Pull requests [#110](https://github.com/sertansenturk/tomato/pull/110) and [#118](https://github.com/sertansenturk/tomato/pull/118))
 - Dropped Python 2 support; users are encouraged to switch to `tomato` docker (Pull request [#110](https://github.com/sertansenturk/tomato/pull/110))
 - Dropped Mac OSX support; users are encouraged to switch to `tomato` docker (Pull request [#108](https://github.com/sertansenturk/tomato/pull/108))
 - Introduced code linting (Pull request [#117](https://github.com/sertansenturk/tomato/pull/117))
