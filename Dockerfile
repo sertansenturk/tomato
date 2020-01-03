@@ -1,12 +1,14 @@
 FROM ubuntu:18.04
 
-# Install Matlab Compiler Runtime 2015a
-# Adopted from a Dockerfile by Stanford Vistalab: 
+# Install pip, LilyPond, and Matlab Compiler Runtime 2015a
+# MCR installation is adopted from a Dockerfile by Stanford Vistalab: 
 # https://raw.githubusercontent.com/vistalab/docker/master/matlab/runtime/2015b/Dockerfile
 RUN apt-get -qq update && \
     apt-get -qq install -y \
         unzip \
-        wget && \
+        wget \
+        python3-pip \
+        lilypond && \
     mkdir /mcr-install && \
     cd /mcr-install && \
     wget --progress=bar:force http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip && \
@@ -21,13 +23,10 @@ RUN apt-get -qq update && \
     cd / && \
     rm -rf mcr-install
 
-# Install dependencies before tomato
-# Useful for development since changes in code will not trigger a re-build of this layer
+# Install Python dependencies from requirements.txt in advance
+# Useful for development since changes in code will not trigger a layer re-build
 COPY requirements.txt /code/
-RUN apt-get -qq install -y \
-        lilypond \
-        python3-pip && \
-    python3 -m pip install --upgrade pip && \
+RUN python3 -m pip install --upgrade pip && \
     pip3 install -r /code/requirements.txt
 
 # Install tomato
@@ -37,7 +36,7 @@ RUN cd /code && \
     cd / && \
     rm -rf code
     
-# Set user, workdir etc.
+# Set user & workdir
 RUN useradd --create-home -s /bin/bash tomato_user
 USER tomato_user
 WORKDIR /home/tomato_user/
