@@ -6,7 +6,6 @@ from io import BytesIO
 from urllib.request import urlopen
 
 from setuptools import find_packages, setup
-from setuptools.command.install import install
 from tomato import __version__
 
 
@@ -75,27 +74,16 @@ class BinarySetup:
 BinarySetup.setup()
 
 
-class CustomInstall(install):
-    """Custom installer for tomato
-    """
-    def run(self):
-        if 'pip' in __file__:
-            print('installing tomato via `pip`')
-            install.run(self)
-        elif __file__ == "setup.py":
-            print('installing tomato via `python setup.py install`')
-            self.do_egg_install()
-
-
-setup(name='tomato',
-      version=__version__,
-      author='Sertan Senturk',
-      author_email='contact AT sertansenturk DOT com',
-      maintainer='Sertan Senturk',
-      maintainer_email='contact AT sertansenturk DOT com',
-      url='http://sertansenturk.com',
-      description='Turkish-Ottoman Makam (M)usic Analysis TOolbox',
-      long_description="""
+setup(
+    name='tomato',
+    version=__version__,
+    author='Sertan Senturk',
+    author_email='contact AT sertansenturk DOT com',
+    maintainer='Sertan Senturk',
+    maintainer_email='contact AT sertansenturk DOT com',
+    url='http://sertansenturk.com',
+    description='Turkish-Ottoman Makam (M)usic Analysis TOolbox',
+    long_description="""
 Turkish-Ottoman Makam (M)usic Analysis TOolbox
 ----------------------------------------------
 tomato is a comprehensive and easy-to-use toolbox for the analysis of audio
@@ -106,49 +94,47 @@ using the state of the art methodologies specifically designed for the
 necessities of this tradition. The analysis results can then be further used
 for several tasks such as automatic content description, music
 discovery/recommendation and musicological analysis.
-      """,
-      download_url=(
-          'https://github.com/sertansenturk/tomato.git'
-          if 'dev' in __version__ else
-          'https://github.com/sertansenturk/tomato/releases/tag/'
-          'v{0:s}'.format(__version__)),
-      classifiers=[
-          'Development Status :: 4 - Beta',
-          'Environment :: Console',
-          'Intended Audience :: Science/Research',
-          'Intended Audience :: Information Technology',
-          'License :: OSI Approved :: GNU Affero General Public License v3 or '
-          'later (AGPLv3+)',
-          'Natural Language :: English',
-          'Operating System :: POSIX :: Linux',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.5',
-          'Programming Language :: Python :: 3.6',
-          'Programming Language :: Python :: 3.7',
-          'Topic :: Multimedia :: Sound/Audio :: Analysis',
-          'Topic :: Scientific/Engineering :: Information Analysis',
-          ],
-      platforms='Linux',
-      license='agpl 3.0',
-      keywords=(
-          "music-scores analysis tomato audio-recordings lilypond tonic "
-          "makam-music score music-information-retrieval "
-          "computational-analysis"),
-      packages=find_packages(exclude=['docs', 'tests']),
-      include_package_data=True,
-      python_requires='>=3.5,<3.8',
-      install_requires=[
-          "numpy>=1.9.0",  # numerical operations
-          "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
-          "pandas>=0.18.0,<=0.24.2",  # tabular data processing
-          "matplotlib>=1.5.1,<=3.0.3",  # plotting
-          "json_tricks>=3.12.1",  # saving json files with classes and numpy
-          "eyeD3>=0.7.5,<=0.8.11",  # reading metadata embedded in recordings
-          "python-Levenshtein>=0.12.0",  # semiotic structure labeling
-          "networkx>=1.11",  # semiotic structure labeling clique computation
-          "lxml>=3.6.0",  # musicxml conversion
-          "musicbrainzngs>=0.6",  # metadata crawling from musicbrainz
-          "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
-          ],
-      cmdclass={'install': CustomInstall},
-      )
+    """,
+    download_url=(
+        'https://github.com/sertansenturk/tomato.git'
+        if 'dev' in __version__ else
+        'https://github.com/sertansenturk/tomato/releases/tag/'
+        'v{0:s}'.format(__version__)),
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Environment :: Console',
+        'Intended Audience :: Science/Research',
+        'Intended Audience :: Information Technology',
+        'License :: OSI Approved :: GNU Affero General Public License v3 or '
+        'later (AGPLv3+)',
+        'Natural Language :: English',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Topic :: Multimedia :: Sound/Audio :: Analysis',
+        'Topic :: Scientific/Engineering :: Information Analysis',
+        ],
+    platforms='Linux',
+    license='agpl 3.0',
+    keywords=(
+        "music-scores analysis tomato audio-recordings lilypond tonic "
+        "makam-music score music-information-retrieval "
+        "computational-analysis"),
+    packages=find_packages(exclude=['docs', 'tests']),
+    include_package_data=True,
+    python_requires='>=3.5,<3.8',
+    install_requires=[
+        "numpy>=1.9.0",  # numerical operations
+        "scipy>=0.17.0",  # temporary mat file saving for MCR binary inputs
+        "pandas>=0.18.0,<=0.24.2",  # tabular data processing
+        "matplotlib>=1.5.1,<=3.0.3",  # plotting
+        "json_tricks>=3.12.1",  # saving json files with classes and numpy
+        "eyeD3>=0.7.5,<=0.8.11",  # reading metadata embedded in recordings
+        "python-Levenshtein>=0.12.0",  # semiotic structure labeling
+        "networkx>=1.11",  # semiotic structure labeling clique computation
+        "lxml>=3.6.0",  # musicxml conversion
+        "musicbrainzngs>=0.6",  # metadata crawling from musicbrainz
+        "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
+        ])
