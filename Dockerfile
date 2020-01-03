@@ -32,7 +32,7 @@ RUN apt-get -qq install -y \
 # Install tomato
 COPY . /code/
 RUN cd /code && \
-    python3 setup.py install && \ 
+    python3 -m pip install . && \
     cd / && \
     rm -rf code
     
