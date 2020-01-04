@@ -44,9 +44,7 @@ before_install:
   - pip install -U pip
   - pip install tox-travis
   - pip install codecov
-install:
-  - python setup.py install
-  - pip show tomato
+install: # installed by tox
 script:
   - tox -e $TOX_PYTHON_ENV
 after_success:
