@@ -6,34 +6,26 @@ from io import BytesIO
 from urllib.request import urlopen
 
 from setuptools import find_packages, setup
-from setuptools.command.install import install
 from tomato import __version__
 
+# Get the long description from the README file
+here = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
-class CustomInstall(install):
-    """Custom installer for tomato: downloads the binaries from relevant
-    git repositories, installs the requirements, and sets up tomato
 
-    Raises:
-        OSError: if the OS is not supported.
-    """
-    def run(self):
-        # download the binaries
-        self.execute(self._setup_binaries, (),
-                     msg="downloading the binaries from tomato_binaries.")
-
-        # install tomato
-        self.do_egg_install()
-
+class BinarySetup:
     @classmethod
-    def _setup_binaries(cls):
-        """
-        Downloads compiled binaries
+    def setup(cls):
+        """Downloads compiled binaries for the OS from the relevant git repos
+
+        Raises:
+            OSError: if the OS is not supported.
         """
         bin_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                   'tomato', 'bin')
 
-        # find os, linux or macosx
+        # find os
         sys_os = cls._get_os()
 
         # read configuration file
@@ -79,7 +71,12 @@ class CustomInstall(install):
 
         # make the binary executable
         subprocess.call(["chmod -R +x " + fpath], shell=True)
-        print("  downloaded %s to %s" % (bin_url, fpath))
+        print("downloaded %s to %s" % (bin_url, fpath))
+
+
+# download binaries in advance so they are detected as package data during
+# instalation
+BinarySetup.setup()
 
 
 setup(name='tomato',
@@ -88,20 +85,10 @@ setup(name='tomato',
       author_email='contact AT sertansenturk DOT com',
       maintainer='Sertan Senturk',
       maintainer_email='contact AT sertansenturk DOT com',
-      url='http://sertansenturk.com',
+      url='https://github.com/sertansenturk/tomato',
       description='Turkish-Ottoman Makam (M)usic Analysis TOolbox',
-      long_description="""
-Turkish-Ottoman Makam (M)usic Analysis TOolbox
-----------------------------------------------
-tomato is a comprehensive and easy-to-use toolbox for the analysis of audio
-recordings and music scores of Turkish-Ottoman makam music.
-The aim of the toolbox is to allow the user to easily analyze large-scale
-audio recording and music score collections of Turkish-Ottoman makam music,
-using the state of the art methodologies specifically designed for the
-necessities of this tradition. The analysis results can then be further used
-for several tasks such as automatic content description, music
-discovery/recommendation and musicological analysis.
-      """,
+      long_description=long_description,
+      long_description_content_type='text/markdown',
       download_url=(
           'https://github.com/sertansenturk/tomato.git'
           if 'dev' in __version__ else
@@ -145,5 +132,7 @@ discovery/recommendation and musicological analysis.
           "musicbrainzngs>=0.6",  # metadata crawling from musicbrainz
           "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
           ],
-      cmdclass={'install': CustomInstall},
-      )
+      extras_require={
+          "development": ["tox", "pylint", "flake8"],
+          "demos": ["jupyter"]
+      })

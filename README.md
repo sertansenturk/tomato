@@ -71,7 +71,7 @@ ax[0].set_ylim([50, 500])
 plt.show()
 ```
 
-You can refer to the jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
+You can refer to the Jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
 
 ## Installation
 
@@ -83,7 +83,7 @@ There are three steps in the installation:
 
 ### Installing tomato
 
-`tomato` may require several packages to be installed depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
+`tomato` may require several packages to be installed, depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
 
 ```bash
 sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
@@ -101,17 +101,23 @@ Activate the virtual environment:
 source env/bin/activate
 ```
 
-Then change the current directory to the repository folder and install by:
+Then, change the current directory to the repository folder and install by:
 
 ```bash
 cd path/to/tomato
-python setup.py install
+python -m pip install .
 ```
 
-If you want to edit files in the package and have the changes reflected, you can call:
+If you want to edit files in the package and have the changes reflected, instead, you can call:
 
 ```bash
 python -m pip install -e .
+```
+
+If you want to run the demo Jupyter notebooks and/or make development, you may include the extras to the installation by:
+
+```bash
+python -m pip install -e .[demos,development]
 ```
 
 The requirements are installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
@@ -130,13 +136,13 @@ We recommend you to install MATLAB Runtime in the default installation path, as 
 
 `tomato` uses LilyPond under the hood to convert the music scores to SVG format.
 
-In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g. `sudo apt install lilypond` in Debian-based distributions).
+In most Linux distributions, you can install LilyPond from the software repository of your distribution (e.g., `sudo apt install lilypond` in Debian-based distributions).
 
-`tomato` requires *LilyPond* version 2.18.2 or above. If your distribution comes with an older version, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you may need to enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
+`tomato` requires *LilyPond* version 2.18.2 or above. If your distribution comes with an older version, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you might need to enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
 
 ## Running tomato using docker
 
-For the reproducility and maintability's sake, `tomato` also comes with `docker` support.
+For the reproducibility and maintability's sake, `tomato` also comes with `docker` support.
 
 To build the docker image simply go to the base folder of the repository and run:
 
@@ -168,7 +174,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
 1. **The notes aligned by `JointAnalyzer.align_audio_score(...)` seems shifted. What is the problem?**
 
-    Your audio input is probably a compressed format such as *mp3*. There are typically shifts between different decoders (and even different versions of the same decoder) when they decode the same compressed audio file. In the predominant melody extraction step (`AudioAnalyzer.extract_pitch(...)`), Essentia has to decode the recording for processing. You observe a shift when the application you use another decoder.
+    Your audio input is probably a compressed format, such as *mp3*. There are typically shifts between different decoders (and even different versions of the same decoder) when they decode the same compressed audio file. In the predominant melody extraction step (`AudioAnalyzer.extract_pitch(...)`), Essentia has to decode the recording for processing. You observe a shift when the application you use another decoder.
 
     These shifts are typically small (e.g., 50 samples ~1ms), so they are not very problematic. Nevertheless, there is no guarantee that the shift will be prominent. If you need "perfect" synchronization, you should use an uncompressed format such as *wav* as the audio input.
 
@@ -177,7 +183,7 @@ Any data (the music scores, extracted features, training models, figures, output
 2. **Which operating systems are supported?**
 
     - `tomato` is fully supported **only in Linux**. It is tested against *Ubuntu 16.04* and *18.04*.
-    - We suggest people to use the [tomato docker image](#running-tomato-using-docker) for other operating systems.
+    - We suggest people use the [tomato docker image](#running-tomato-using-docker) for other operating systems.
     - `tomato` was tested on *Mac OSX Sierra* until version [v0.10.1](https://github.com/sertansenturk/tomato/releases/tag/v0.10.1). You can still install `tomato` on *Mac OSX* by referring to the [Linux installation instructions](#installation), but you need to install and configure [Essentia](https://essentia.upf.edu/installing.html#mac-osx) & [MATLAB Compiler Runtime](https://ssd.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/maci64/MCR_R2015a_maci64_installer.zip) by yourself.
 
 3. **What are the supported Python versions?**
@@ -206,7 +212,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
         Add the path of the LilyPond binary to the "custom" section in the configuration file: `./tomato/config/lilypond.cfg`.
 
-6. Is `tomato` a fruit or vegetable?
+6. Is `tomato` a fruit or a vegetable?
 
     It has a culture-specific answer.
 
@@ -215,7 +221,7 @@ Any data (the music scores, extracted features, training models, figures, output
 Sertan Şentürk
 contact@sertansenturk.com
 
-## Acknowledgements
+## Acknowledgments
 
 We would like to thank [Harold Hagopian](https://en.wikipedia.org/wiki/Harold_Hagopian), the founder of [Traditional Crossroads](http://traditionalcrossroads.com/About-Us), for allowing us to use Tanburi Cemil Bey's performance of [Uşşak Sazsemaisi](http://musicbrainz.org/recording/f970f1e0-0be9-4914-8302-709a0eac088e) in our demos.
 
@@ -223,44 +229,44 @@ We would like to thank [Harold Hagopian](https://en.wikipedia.org/wiki/Harold_Ha
 
 _The toolbox has been realized as part of the thesis:_
 
-[1] Şentürk, S. (2016). *Computational analysis of audio recordings and music scores for the description and discovery of Ottoman-Turkish makam music.* Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.  
+**[1]** Şentürk, S. (2016). *Computational analysis of audio recordings and music scores for the description and discovery of Ottoman-Turkish makam music.* Ph.D. thesis, Universitat Pompeu Fabra, Barcelona, Spain.  
 
 _The methods used in the toolbox are described in the papers:_
 
 __Score Phrase Segmentation__  
-[1] Bozkurt, B., Karaosmanoğlu, M. K., Karaçalı, B., and Ünal, E. (2014). *Usul and makam driven automatic melodic segmentation for Turkish music.* Journal of New Music Research. 43(4):375–389.
+**[2]** Bozkurt, B., Karaosmanoğlu, M. K., Karaçalı, B., and Ünal, E. (2014). *Usul and makam driven automatic melodic segmentation for Turkish music.* Journal of New Music Research. 43(4):375–389.
 
 __Score Section Extraction; Semiotic Section and Phrase Analysis__  
-[2] Şentürk S., and Serra X. (2016). *A method for structural analysis of Ottoman-Turkish makam music scores.* In Proceedings of 6th International Workshop on Folk Music Analysis (FMA 2016), pages 39–46, Dublin, Ireland.
+**[3]** Şentürk S., and Serra X. (2016). *A method for structural analysis of Ottoman-Turkish makam music scores.* In Proceedings of 6th International Workshop on Folk Music Analysis (FMA 2016), pages 39–46, Dublin, Ireland.
 
-__Audio Predominant Melody Extraction__
-[3] Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). *Audio feature extraction for exploring Turkish makam music.* In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey.
+__Audio Predominant Melody Extraction__  
+**[4]** Atlı, H. S., Uyar, B., Şentürk, S., Bozkurt, B., and Serra, X. (2014). *Audio feature extraction for exploring Turkish makam music.* In Proceedings of 3rd International Conference on Audio Technologies for Music and Media (ATMM 2014), pages 142–153, Ankara, Turkey.
 
 __Audio Pitch Filter__  
-[4] Bozkurt, B. (2008). *An automatic pitch analysis method for Turkish maqam music.* Journal of New Music Research. 37(1):1–13.
+**[5]** Bozkurt, B. (2008). *An automatic pitch analysis method for Turkish maqam music.* Journal of New Music Research. 37(1):1–13.
 
 __Audio Tonic and Transposition Identification, Makam Recognition, Pitch Distribution Computation, Tuning Analysis__  
-[4] Bozkurt, B. (2008). *An automatic pitch analysis method for Turkish maqam music.* Journal of New Music Research. 37(1):1–13.
-[5] Gedik, A. C., and Bozkurt, B. (2010). *Pitch-frequency histogram-based music information retrieval for Turkish music.* Signal Processing. 90(4):1049–1063.  
-[6] Chordia, P. and Şentürk, S. (2013). *Joint recognition of raag and tonic in North Indian music.* Computer Music Journal. 37(3):82–98.  
+**[6]** Bozkurt, B. (2008). *An automatic pitch analysis method for Turkish maqam music.* Journal of New Music Research. 37(1):1–13.  
+**[7]** Gedik, A. C., and Bozkurt, B. (2010). *Pitch-frequency histogram-based music information retrieval for Turkish music.* Signal Processing. 90(4):1049–1063.  
+**[8]** Chordia, P., and Şentürk, S. (2013). *Joint recognition of raag and tonic in North Indian music.* Computer Music Journal. 37(3):82–98.  
 
 __Audio Tonic Identification from the Last Note__  
-[7] Atlı, H. S., Bozkurt, B., and Şentürk, S. (2015). *A method for tonic frequency identification of Turkish makam music recordings.* In Proceedings of 5th International Workshop on Folk Music Analysis (FMA 2015), pages 119–122, Paris, France.
+**[9]** Atlı, H. S., Bozkurt, B., and Şentürk, S. (2015). *A method for tonic frequency identification of Turkish makam music recordings.* In Proceedings of 5th International Workshop on Folk Music Analysis (FMA 2015), pages 119–122, Paris, France.
 
 __Audio Melodic Progression (Seyir) Analysis__  
-[8] Bozkurt B. (2015). *Computational analysis of overall melodic progression for Turkish Makam Music.* In Penser l’improvisation, pages 289–298, Delatour France, Sampzon.
+**[10]** Bozkurt B. (2015). *Computational analysis of overall melodic progression for Turkish Makam Music.* In Penser l’improvisation, pages 289–298, Delatour France, Sampzon.
 
 __Score-Informed Audio Tonic Identification__  
-[9] Şentürk, S., Gulati, S., and Serra, X. (2013). *Score informed tonic identification for makam music of Turkey.* In Proceedings of 14th International Society for Music Information Retrieval Conference (ISMIR 2013), pages 175–180, Curitiba, Brazil.
+**[11]** Şentürk, S., Gulati, S., and Serra, X. (2013). *Score informed tonic identification for makam music of Turkey.* In Proceedings of 14th International Society for Music Information Retrieval Conference (ISMIR 2013), pages 175–180, Curitiba, Brazil.
 
 __Score-Informed Audio Tempo Estimation__  
-[10] Holzapfel, A., Şimşekli U., Şentürk S., and Cemgil A. T. (2015). *Section-level modeling of musical audio for linking performances to scores in Turkish makam music.* In Proceedings of 40th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2015), pages 141–145, Brisbane, Australia.
+**[12]** Holzapfel, A., Şimşekli U., Şentürk S., and Cemgil A. T. (2015). *Section-level modeling of musical audio for linking performances to scores in Turkish makam music.* In Proceedings of 40th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP 2015), pages 141–145, Brisbane, Australia.
 
 __Audio-Score Section Linking__  
-[11] Şentürk, S., Holzapfel, A., and Serra, X. (2014). *Linking scores and audio recordings in makam music of Turkey.* Journal of New Music Research, 43(1):34–52.
+**[13]** Şentürk, S., Holzapfel, A., and Serra, X. (2014). *Linking scores and audio recordings in makam music of Turkey.* Journal of New Music Research, 43(1):34–52.
 
 __Note-Level Audio-Score Aligment__  
-[12] Şentürk, S., Gulati, S., and Serra, X. (2014). *Towards alignment of score and audio recordings of Ottoman-Turkish makam music.* In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), pages 57–60, Istanbul, Turkey.
+**[14]** Şentürk, S., Gulati, S., and Serra, X. (2014). *Towards alignment of score and audio recordings of Ottoman-Turkish makam music.* In Proceedings of 4th International Workshop on Folk Music Analysis (FMA 2014), pages 57–60, Istanbul, Turkey.
 
 __Score-Informed Audio Predominant Melody Correction; Note Modeling__  
-[13] Şentürk, S., Koduri G. K., and Serra X. (2016). *A score-informed computational description of svaras using a statistical model.* In Proceedings of 13th Sound and Music Computing Conference (SMC 2016), pages 427–433, Hamburg, Germany.
+**[15]** Şentürk, S., Koduri G. K., and Serra X. (2016). *A score-informed computational description of svaras using a statistical model.* In Proceedings of 13th Sound and Music Computing Conference (SMC 2016), pages 427–433, Hamburg, Germany.
