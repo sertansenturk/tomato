@@ -2,7 +2,7 @@ language: python
 jobs:
   include:
     - name: "integration"
-      if: branch IN (master)
+      if: branch IN (master, dev)
       services: docker
       python: 3.6
       env: TOX_ENV=docker
