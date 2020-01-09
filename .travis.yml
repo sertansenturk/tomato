@@ -30,6 +30,6 @@ install:
   - pip install tox-travis
   - pip install codecov
 script:
-  - tox -e $TOX_PYTHON_ENV -e flake8 -e pylint
+  - tox -e $TOX_PYTHON_ENV -e lint
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/
