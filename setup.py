@@ -133,6 +133,6 @@ setup(name='tomato',
           "essentia>=2.1b5;platform_system=='Linux'"  # audio signal processing
           ],
       extras_require={
-          "development": ["tox", "pylint", "flake8"],
+          "development": ["tox", "pylint", "pylint-fail-under", "flake8"],
           "demos": ["jupyter"]
       })
