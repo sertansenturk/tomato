@@ -26,8 +26,9 @@ RUN apt-get -qq update && \
 # Install Python dependencies from requirements.txt in advance
 # Useful for development since changes in code will not trigger a layer re-build
 COPY requirements.txt /code/
+ARG extra_pip_packages
 RUN python3 -m pip install --upgrade pip && \
-    pip3 install -r /code/requirements.txt
+    pip3 install -r /code/requirements.txt $extra_pip_packages
 
 # Install tomato
 COPY . /code/
