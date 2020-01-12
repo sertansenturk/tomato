@@ -25,7 +25,3 @@ def test_smoke_complete_analyzer():
         audio_metadata=audio_mbid)
 
     assert complete_features is not None
-
-
-def test_dummy_fail():
-    assert False
