@@ -24,7 +24,9 @@ RUN apt-get -qq update && \
     rm -rf mcr-install
 
 # Install Python dependencies from requirements.txt in advance
-# Useful for development since changes in code will not trigger a layer re-build
+# - Useful for development since changes in code will not trigger a layer re-build
+# Also install extra pip packages, if requested by the user
+# - Used for injecting the `pytest` dependency in travis.ci docker job
 COPY requirements.txt /code/
 ARG extra_pip_packages
 RUN python3 -m pip install --upgrade pip && \
