@@ -9,4 +9,4 @@ services:
       - ./demos/:/home/tomato_user/demos/
       - ./tests/:/home/tomato_user/tests/
     command: 
-      python3 -m pytest tests -m "not smoke"
+      python3 -m pytest testserror
