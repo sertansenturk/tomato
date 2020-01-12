@@ -1,6 +1,6 @@
 version: "2"
 services:
-  tomato:
+  tomato_tests:
     build:
       context: .
       args:
