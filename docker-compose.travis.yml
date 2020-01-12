@@ -1,0 +1,12 @@
+version: "2"
+services:
+  tomato:
+    build:
+      context: .
+      args:
+        extra_pip_packages: pytest
+    volumes:
+      - ./demos/:/home/tomato_user/demos/
+      - ./tests/:/home/tomato_user/tests/
+    command: 
+      python3 -m pytest tests -m "not smoke"
