@@ -25,20 +25,18 @@ RUN apt-get -qq update && \
 
 # Install Python dependencies from requirements.txt in advance
 # - Useful for development since changes in code will not trigger a layer re-build
-# Also install extra pip packages, if requested by the user
-# - Used for injecting the `pytest` dependency in travis.ci docker job
 COPY requirements.txt /code/
-ARG extra_pip_packages
 RUN python3 -m pip install --upgrade pip && \
-    pip3 install -r /code/requirements.txt $extra_pip_packages
+    pip3 install -r /code/requirements.txt
 
 # Install tomato
-COPY . /code/
+COPY MANIFEST.in setup.py /code/
+COPY tomato /code/tomato
 RUN cd /code && \
     python3 -m pip install . && \
     cd / && \
     rm -rf code
-    
+
 # Set user & workdir
 RUN useradd --create-home -s /bin/bash tomato_user
 USER tomato_user

@@ -10,8 +10,11 @@ from tomato import __version__
 
 # Get the long description from the README file
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+try:
+    with open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+        long_description = f.read()
+except FileNotFoundError:  # not necessary, e.g. in Docker
+    long_description = ""
 
 
 class BinarySetup:
