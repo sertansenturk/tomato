@@ -5,6 +5,7 @@ services:
       context: .
       args:
         extra_pip_packages: pytest
+    user: "${UID}:${GID}"
     volumes:
       - ./demos/:/home/tomato_user/demos/
       - ./tests/:/home/tomato_user/tests/
