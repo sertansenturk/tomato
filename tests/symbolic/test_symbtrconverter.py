@@ -33,3 +33,5 @@ def test_smoke_symbtr_converter():
         ly_out=ly_filename,
         svg_out=svg_filename_template,
         svg_paper_size=svg_paper_size)
+
+    assert svg_out is not None

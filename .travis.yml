@@ -1,11 +1,11 @@
 language: python
 jobs:
   include:
-    - name: "docker build" # smoke test end-to-end installation
+    - name: "docker smoke tests" # smoke test end-to-end installation
       if: branch IN (master, dev)
       services: docker
       python: 3.6
-      env: TOX_ENV=docker
+      env: TOX_ENV=docker-travis
       before_install:
         - docker --version
       install: 
