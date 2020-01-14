@@ -6,7 +6,7 @@ create-virtualenv:
 
 pip-install-development:
 	pip install --upgrade pip
-	python -m pip install -e .[development] -v
+	python -m pip install -e .[development]
 
 build-docker-image:
 	docker build . -t sertansenturk/tomato:latest
@@ -20,3 +20,6 @@ docker-run-tests:
 	make build-docker-image && \
     docker build . -f docker/tests/Dockerfile.smoke -t sertansenturk/tomato-smoke:latest && \
     docker run sertansenturk/tomato-smoke python3 -m pytest tests
+
+black:
+	black --line-length 79 ./
