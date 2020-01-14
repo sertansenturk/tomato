@@ -7,7 +7,6 @@ COPY demos /code/demos
 
 USER root
 RUN chown -R tomato_user:tomato_user /code
-RUN chown -R tomato_user:tomato_user /tmp
 USER tomato_user
 
 WORKDIR /code
