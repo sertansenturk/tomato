@@ -1,38 +1,16 @@
 language: python
-matrix:
+jobs:
   include:
-    - name: "docker build"
+    - name: "docker smoke tests"
+      if: branch IN (master, dev)
       services: docker
       python: 3.6
-      env: TOX_ENV=docker
       before_install:
         - docker --version
       install: 
         - pip install -U pip
         - pip install tox-travis
-      script: tox -e $TOX_ENV
-      after_success:
-        -
-    - name: "pylint"
-      python: 3.6
-      env: TOX_ENV=pylint
-      before_install:
-        -
-      install:
-        - pip install -U pip
-        - pip install tox-travis
-      script: tox -e $TOX_ENV
-      after_success:
-        -
-    - name: "flake8"
-      python: 3.6
-      env: TOX_ENV=flake8
-      before_install:
-        -
-      install:
-        - pip install -U pip
-        - pip install tox-travis
-      script: tox -e $TOX_ENV
+      script: tox -e docker-run-tests
       after_success:
         -
     - name: "Python 3.5"
@@ -51,6 +29,6 @@ install:
   - pip install tox-travis
   - pip install codecov
 script:
-  - tox -e $TOX_PYTHON_ENV
+  - tox -e $TOX_PYTHON_ENV -e lint
 after_success:
   - codecov # submit coverage to https://codecov.io/gh/sertansenturk/tomato/

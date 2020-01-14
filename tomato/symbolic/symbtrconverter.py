@@ -184,9 +184,9 @@ class SymbTrConverter:
     @classmethod
     def lilypond_to_svg(cls, ly_in, svg_out=None, paper_size='a4',
                         ly_txt_mapping=None):
-        if os.path.isfile(ly_in):
-            temp_in_file = ly_in
-        else:
+        if os.path.isfile(ly_in):  # filepath
+            temp_in_file = os.path.abspath(ly_in)
+        else:  # string
             # create the temporary input to write the lilypond file
             temp_in_file = IO.create_temp_file('.ly', ly_in.encode('utf-8'))
 
