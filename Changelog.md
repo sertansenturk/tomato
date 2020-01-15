@@ -7,7 +7,8 @@
 - Dropped Python 2 support; users are encouraged to switch to `tomato` docker (Pull request [#110](https://github.com/sertansenturk/tomato/pull/110))
 - Dropped Mac OSX support; users are encouraged to switch to `tomato` docker (Pull request [#108](https://github.com/sertansenturk/tomato/pull/108))
 - Introduced code linting (Pull request [#117](https://github.com/sertansenturk/tomato/pull/117))
-- Added dockerized smoke tests for completeanalyzer and scoreconverter classes (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
+- Introduced `Makefile` (Pull request [#121](https://github.com/sertansenturk/tomato/pull/121))
+- Introduced dockerized tests for completeanalyzer and scoreconverter classes (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
 - Added Github issue templates (Pull request [#101](https://github.com/sertansenturk/tomato/pull/101))
 
 ## tomato v0.13.0
