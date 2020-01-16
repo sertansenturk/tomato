@@ -152,6 +152,6 @@ setup(
             "flake8",
             "black",
         ],
-        "demos": ["jupyter"],
+        "demo": ["jupyter"],
     },
 )

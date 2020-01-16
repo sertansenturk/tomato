@@ -1,9 +1,14 @@
 .PHONY: purge \
-	clean clean-pyc clean-build clean-test clean-$(VENV_NAME) clean-bin \
-	docker-build docker-build-test docker-run-import docker-run-tests
+	clean-pyc clean-build clean-test clean-$(VENV_NAME) clean-bin \
+	docker-build docker-build-test docker-run-import docker-run-tests \
+	install
 
-VENV_PY_VER = 3.6
-VENV_NAME = env
+VENV_INTERP = python3.6
+VENV_NAME ?= venv
+
+# PIP_DEV = development
+# PIP_DEMO = demo
+# PIP_ALL = $(PIP_DEV), $(PIP_DEMO)
 
 DOCKER_TAG = sertansenturk/tomato
 DOCKER_VER = latest
@@ -11,24 +16,27 @@ DOCKER_TEST_TAG = $(DOCKER_TAG)-test
 DOCKER_TEST_VER = $(DOCKER_VER)
 DOCKER_TEST_FILE = docker/tests/Dockerfile
 
+HELP_PADDING = 18
 help:
-	@echo "===== Cleanup ====="
-	@echo "purge             : remove all (see: clean), plus the virtualenv and tomato binaries"
-	@echo "clean             : remove all build, test, coverage and Python artifacts"
-	@echo "clean-build       : remove build artifacts"
-	@echo "clean-pyc         : remove Python file artifacts"
-	@echo "clean-test        : remove test artifacts"
-	@echo "clean-env         : remove Python virtualenv folder"
-	@echo "clean-bin         : remove tomato binaries downloaded during setup"
-	@echo "===== Python ====="
-	@echo "env               : create a virtualenv (by default) called env"
-	@echo "===== Docker ====="
-	@echo "docker-build      : build docker image"
-	@echo "docker-build-test : build a docker image with tests included"
-	@echo "docker-run-import : run the docker image with a dummy analyzer import"
-	@echo "docker-run-tests  : run the docker image the tests"
+	@printf "===== Cleanup =====\n"
+	@printf "clean             : remove all build, test, coverage and Python artifacts\n"
+	@printf "clean-all, purge  : remove all (see: clean), plus virtualenv, and tomato binaries. (virtualenv name: \"VENV_NAME ?= $(VENV_NAME)\")\n"
+	@printf "clean-build       : remove build artifacts\n"
+	@printf "clean-pyc         : remove Python file artifacts\n"
+	@printf "clean-test        : remove test artifacts\n"
+	@printf "%-$(HELP_PADDING)s: remove Python virtualenv folder. (virtualenv name: \"VENV_NAME ?= $(VENV_NAME)\")\n" clean-$(VENV_NAME)
+	@printf "clean-bin         : remove tomato binaries\n"
+	@printf "===== Python ======\n"
+	@printf "%-$(HELP_PADDING)s: create a virtualenv. (virtualenv name: \"VENV_NAME ?= $(VENV_NAME)\", Python interpreter: \"VENV_INTERP = $(VENV_INTERP)\")\n" $(VENV_NAME)
+	@printf "===== Docker ======\n"
+	@printf "docker-build      : build docker image. (tag: \"DOCKER_TAG = $(DOCKER_TAG)\", version: \"DOCKER_VER = $(DOCKER_VER)\")\n"
+	@printf "docker-build-test : build a docker image with tests. (tag: \"DOCKER_TEST_TAG = $(DOCKER_TEST_TAG)\", version: \"DOCKER_TEST_VER = $(DOCKER_TEST_VER)\")\n"
+	@printf "docker-run-import : run a dummy import script inside docker\n"
+	@printf "docker-run-tests  : run the tests inside docker\n"
 
-purge: clean-pyc clean-build clean-test clean-VENV_NAME clean-bin
+purge: clean-all
+
+clean-all: clean-pyc clean-build clean-test clean-$(VENV_NAME) clean-bin
 
 clean: clean-pyc clean-build clean-test
 
@@ -58,7 +66,7 @@ clean-bin:
 	rm -rf tomato/bin/phraseSeg tomato/bin/extractTonicTempoTuning tomato/bin/alignAudioScore tomato/bin/MusikiToMusicXml	
 
 $(VENV_NAME):
-	python3 -m virtualenv -p python$(VENV_PY_VER) $(VENV_NAME)
+	python3 -m virtualenv -p $(VENV_INTERP) $(VENV_NAME)
 
 # isort:
 # 	sh -c "isort --skip-glob=.tox --recursive . "
@@ -72,9 +80,14 @@ $(VENV_NAME):
 # test: clean-pyc
 # 	py.test --verbose --color=yes $(TEST_PATH)
 
-# pip-install-development:
-# 	pip install --upgrade pip
-# 	python -m pip install -e .[development]
+# install: 
+# 	. $(VENV_NAME)/bin/activate ; \
+# 	pip install --upgrade pip ; \
+# 	if [ "${${PIP_EXTRA}})" = "" ]; then \
+#         python -m pip install -e .; \
+# 	else \
+# 	    python -m pip install -e .[$(PIP_EXTRA)] ; \
+#     fi
 
 docker-build:
 	docker build . -t $(DOCKER_TAG):$(DOCKER_VER)
@@ -88,7 +101,11 @@ docker-run-import: docker-build
 	docker run \
 		$(DOCKER_TAG):$(DOCKER_VER) \
 		python3 -c \
-			"import tomato.symbolic.symbtrconverter; import tomato.joint.completeanalyzer"
+			"import tomato.symbolic.symbtrconverter; \
+			import tomato.symbolic.symbtranalyzer; \
+			import tomato.audio.audioanalyzer; \
+			import tomato.joint.jointanalyzer; \
+			import tomato.joint.completeanalyzer"
 
 docker-run-tests: docker-build-test
 	docker run \

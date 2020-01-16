@@ -92,13 +92,13 @@ sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev 
 It is recommended to install `tomato` and its dependencies into a virtualenv. In the terminal, do the following:
 
 ```bash
-virtualenv -p python3 env
+virtualenv -p python3 venv
 ```
 
 Activate the virtual environment:
 
 ```bash
-source env/bin/activate
+source venv/bin/activate
 ```
 
 Then, change the current directory to the repository folder and install by:
@@ -117,7 +117,7 @@ python -m pip install -e .
 If you want to run the demo Jupyter notebooks and/or make development, you may include the extras to the installation by:
 
 ```bash
-python -m pip install -e .[demos,development]
+python -m pip install -e .[demo,development]
 ```
 
 The requirements are installed during the setup. If that step does not work for some reason, you can install the requirements by calling:
