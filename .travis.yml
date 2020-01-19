@@ -1,7 +1,7 @@
 language: python
 jobs:
   include:
-    - name: "docker smoke tests"
+    - name: "docker"
       if: branch IN (master, dev)
       services: docker
       python: 3.6

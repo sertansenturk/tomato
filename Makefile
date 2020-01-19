@@ -1,11 +1,12 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := default
 .PHONY: \
+	default all-editable
 	clean clean-all clean-bin clean-build clean-pyc clean-test clean-$(VENV_NAME) purge\
 	install install-all install-all-editable install-mcr install-tomato \
 	install-tomato-$(PIP_INST_DEV) install-tomato-$(PIP_INST_DEMO) \
 	docker-build docker-run-import docker-run-tests \
-	default all-editable
+	test test-docker lint pylint flake8
 
 VENV_INTERP = python3.6
 VENV_NAME ?= venv
@@ -92,6 +93,11 @@ help:
 	@printf "$(padded_str)DOCKER_VER, docker image version (default: $(DOCKER_VER))\n"
 	@printf "\n"
 	@printf "======= Testing and linting =======\n"
+	@printf "$(pretty_command): run all testing and linting automations using tox\n" test
+	@printf "$(pretty_command): run docker build and test automation using tox\n" test-docker
+	@printf "$(pretty_command): run all style checking and linting automation using tox \n" lint
+	@printf "$(pretty_command): run flake8 for style guide (PEP8) checking using tox\n" flake8
+	@printf "$(pretty_command): run pylint using tox\n" pylint
 	@printf "$(pretty_command): sorts python imports\n" isort
 
 default: clean-all $(VENV_NAME) install
@@ -179,6 +185,21 @@ docker-build:
 
 isort:
 	isort --skip-glob=.tox --recursive . 
+
+test:
+	tox
+
+test-docker:
+	tox -e docker
+
+lint:
+	tox -e lint
+
+flake8:
+	tox -e flake8
+
+pylint:
+	tox -e pylint
 
 # black:
 # 	black --line-length 79 ./
