@@ -28,10 +28,10 @@ import pickle
 
 import numpy as np
 
+from ...converter import Converter
+from ..pitchdistribution import PitchDistribution
 from .inputparser import InputParser
 from .knn import KNN
-from ..pitchdistribution import PitchDistribution
-from ...converter import Converter
 
 
 class KNNClassifier(InputParser):

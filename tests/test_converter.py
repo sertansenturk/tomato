@@ -1,6 +1,6 @@
 import numpy as np
-import pytest
 
+import pytest
 from tomato.converter import Converter
 
 

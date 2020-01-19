@@ -6,6 +6,7 @@ from io import BytesIO
 from urllib.request import urlopen
 
 from setuptools import find_packages, setup
+
 from tomato import __version__
 
 # Get the long description from the README file
