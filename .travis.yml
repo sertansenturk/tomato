@@ -10,7 +10,7 @@ jobs:
       install: 
         - pip install -U pip
         - pip install tox-travis
-      script: tox -e docker-run-tests
+      script: tox -e docker
       after_success:
         -
     - name: "Python 3.5"
