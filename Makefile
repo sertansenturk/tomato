@@ -25,9 +25,7 @@ MCR_PATH = $(MCR_INST_PATH)v85
 
 DOCKER_TAG = sertansenturk/tomato
 DOCKER_VER = latest
-DOCKER_TEST_VER = $(DOCKER_VER)
-DOCKER_TEST_TAG = $(DOCKER_TAG)-test
-DOCKER_TEST_FILE = docker/tests/Dockerfile
+DOCKER_FILE = Dockerfile
 
 HELP_PADDING = 28
 bold := $(shell tput bold)
@@ -92,11 +90,6 @@ help:
 	@printf "$(pretty_command): build docker image\n" docker-build
 	@printf "$(padded_str)DOCKER_TAG, docker image tag (default: $(DOCKER_TAG))\n"
 	@printf "$(padded_str)DOCKER_VER, docker image version (default: $(DOCKER_VER))\n"
-	@printf "$(pretty_command): build an extended docker image with pytests \n" docker-build-test
-	@printf "$(padded_str)DOCKER_TEST_TAG, test docker image tag (default: $(DOCKER_TEST_TAG))\n"
-	@printf "$(padded_str)DOCKER_TEST_VER, test docker image version (default $(DOCKER_TEST_VER))\n"
-	@printf "$(pretty_command): run a dummy import script inside docker, build the docker image if it does not exist\n" docker-run-import
-	@printf "$(pretty_command): run the tests inside docker, build the docker image with tests if it does not exist\n" docker-run-tests
 	@printf "\n"
 	@printf "======= Testing and linting =======\n"
 	@printf "$(pretty_command): sorts python imports\n" isort
@@ -180,33 +173,12 @@ install-mcr:
     fi
 
 docker-build:
-	docker build . -t $(DOCKER_TAG):$(DOCKER_VER)
-
-docker-build-test: docker-build
 	docker build . \
-		-f $(DOCKER_TEST_FILE) \
-		-t $(DOCKER_TEST_TAG):$(DOCKER_TEST_VER); \
-
-docker-run-import: docker-build
-	docker run \
-		$(DOCKER_TAG):$(DOCKER_VER) \
-		python3 -c \
-			"import tomato.symbolic.symbtrconverter; \
-			import tomato.symbolic.symbtranalyzer; \
-			import tomato.audio.audioanalyzer; \
-			import tomato.joint.jointanalyzer; \
-			import tomato.joint.completeanalyzer"
-
-docker-run-tests: docker-build-test
-	docker run \
-		$(DOCKER_TEST_TAG):$(DOCKER_TEST_VER) \
-		python3 -m pytest tests
+		-f $(DOCKER_FILE) \
+		-t $(DOCKER_TAG):$(DOCKER_VER)
 
 isort:
 	isort --skip-glob=.tox --recursive . 
-
-# lint:
-# 	flake8 --exclude=.tox
 
 # black:
 # 	black --line-length 79 ./
