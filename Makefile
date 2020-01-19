@@ -82,8 +82,8 @@ help:
 	@printf "$(padded_str)DOCKER_TAG, docker image tag (default: $(DOCKER_TAG))\n"
 	@printf "$(padded_str)DOCKER_VER, docker image version (default: $(DOCKER_VER))\n"
 	@printf "\n"
-	@printf "======= Testing and linting =======\n"
-	@printf "$(pretty_command): run all testing and linting automations using tox\n" test
+	@printf "======= Test and linting =======\n"
+	@printf "$(pretty_command): run all test and linting automations using tox\n" test
 	@printf "$(pretty_command): run docker build and test automation using tox\n" test-docker
 	@printf "$(pretty_command): run all style checking and linting automation using tox \n" lint
 	@printf "$(pretty_command): run flake8 for style guide (PEP8) checking using tox\n" flake8
