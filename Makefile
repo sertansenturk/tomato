@@ -6,6 +6,8 @@ SHELL := /bin/bash
 	install install-all install-all-editable install-mcr install-tomato \
 	docker-build test test-docker lint flake8 pylint isort
 
+BIN_DOWN_DIR = src/tomato/bin
+
 VENV_INTERP = python3.6
 VENV_NAME ?= venv
 
@@ -25,6 +27,7 @@ MCR_PATH = $(MCR_INST_PATH)v85
 DOCKER_TAG = sertansenturk/tomato
 DOCKER_VER = latest
 DOCKER_FILE = Dockerfile
+DOCKER_FLAG = 
 
 HELP_PADDING = 28
 bold := $(shell tput bold)
@@ -81,6 +84,7 @@ help:
 	@printf "$(pretty_command): build docker image\n" docker-build
 	@printf "$(padded_str)DOCKER_TAG, docker image tag (default: $(DOCKER_TAG))\n"
 	@printf "$(padded_str)DOCKER_VER, docker image version (default: $(DOCKER_VER))\n"
+	@printf "$(padded_str)DOCKER_FLAG, additional docker build flags (default: $(DOCKER_FLAG))\n"
 	@printf "\n"
 	@printf "======= Test and linting =======\n"
 	@printf "$(pretty_command): run all test and linting automations using tox\n" test
@@ -106,7 +110,10 @@ clean-pyc:
 	find . -name '__pycache__' -exec rm -fr {} +
 
 clean-bin:
-	rm -rf tomato/bin/phraseSeg tomato/bin/extractTonicTempoTuning tomato/bin/alignAudioScore tomato/bin/MusikiToMusicXml	
+	rm -rf $(BIN_DOWN_DIR)/phraseSeg \
+		$(BIN_DOWN_DIR)/extractTonicTempoTuning \
+		$(BIN_DOWN_DIR)/alignAudioScore \
+		$(BIN_DOWN_DIR)/MusikiToMusicXml
 
 clean-build: ## remove build artifacts
 	rm -rf build/
@@ -165,7 +172,8 @@ install-mcr:
 docker-build:
 	docker build . \
 		-f $(DOCKER_FILE) \
-		-t $(DOCKER_TAG):$(DOCKER_VER)
+		-t $(DOCKER_TAG):$(DOCKER_VER) \
+		$(DOCKER_FLAG)
 
 test:
 	tox

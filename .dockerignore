@@ -4,7 +4,7 @@
 # Allow files and directories
 !demos
 !tests
-!tomato
+!src
 !setup.py
 !requirements.txt
 !MANIFEST.in

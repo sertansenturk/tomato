@@ -1,9 +1,9 @@
-recursive-include tomato *.json
-recursive-include tomato/bin *
-recursive-include tomato/config *.cfg
-recursive-include tomato/models *
-recursive-include tomato/music_data *
+recursive-include src/tomato *.json
+recursive-include src/tomato/bin *
+recursive-include src/tomato/config *.cfg
+recursive-include src/tomato/models *
+recursive-include src/tomato/music_data *
 
 # temporary to be removed later
-recursive-include tomato/symbolic/symbtr/converter/symbtr2musicxml/makams_usuls *
-recursive-include tomato/symbolic/symbtr/converter/musicxml2lilypond/data *
+recursive-include src/tomato/symbolic/symbtr/converter/symbtr2musicxml/makams_usuls *
+recursive-include src/tomato/symbolic/symbtr/converter/musicxml2lilypond/data *
