@@ -1,0 +1,5 @@
+tox
+pylint
+pylint-fail-under
+flake8
+black
