@@ -36,7 +36,7 @@ padded_str := %-$(HELP_PADDING)s
 pretty_command := $(bold)$(padded_str)$(sgr0)
 
 help:
-	@printf "======= Default ======\n"
+	@printf "======= General ======\n"
 	@printf "$(pretty_command): run \"default\" (see below)\n"
 	@printf "$(pretty_command): run \"clean-all\", \"$(VENV_NAME)\", and \"install\" sequentially\n" default
 	@printf "$(pretty_command): run \"clean-all\", \"$(VENV_NAME)\", and \"install-all-editable\" sequentially\n" all-editable
@@ -97,6 +97,9 @@ help:
 	@printf "$(padded_str)DOCKER_TEST_VER, test docker image version (default $(DOCKER_TEST_VER))\n"
 	@printf "$(pretty_command): run a dummy import script inside docker, build the docker image if it does not exist\n" docker-run-import
 	@printf "$(pretty_command): run the tests inside docker, build the docker image with tests if it does not exist\n" docker-run-tests
+	@printf "\n"
+	@printf "======= Testing and linting =======\n"
+	@printf "$(pretty_command): sorts python imports\n" isort
 
 default: clean-all $(VENV_NAME) install
 all-editable: clean-all $(VENV_NAME) install-all-editable
@@ -199,8 +202,8 @@ docker-run-tests: docker-build-test
 		$(DOCKER_TEST_TAG):$(DOCKER_TEST_VER) \
 		python3 -m pytest tests
 
-# isort:
-# 	sh -c "isort --skip-glob=.tox --recursive . "
+isort:
+	isort --skip-glob=.tox --recursive . 
 
 # lint:
 # 	flake8 --exclude=.tox
