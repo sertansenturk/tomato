@@ -1,12 +1,10 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := default
 .PHONY: \
-	default all-editable
-	clean clean-all clean-bin clean-build clean-pyc clean-test clean-$(VENV_NAME) purge\
+	help default all-editable
+	clean clean-all clean-bin clean-build clean-pyc clean-test clean-$(VENV_NAME) purge \
 	install install-all install-all-editable install-mcr install-tomato \
-	install-tomato-$(PIP_INST_DEV) install-tomato-$(PIP_INST_DEMO) \
-	docker-build docker-run-import docker-run-tests \
-	test test-docker lint pylint flake8
+	docker-build test test-docker lint flake8 pylint isort
 
 VENV_INTERP = python3.6
 VENV_NAME ?= venv
@@ -147,12 +145,6 @@ install-tomato: $(VENV_NAME)
 	    python -m pip $(PIP_FLAG) install $(PIP_INST_FLAG) .[$(PIP_INST_EXTRA)]; \
     fi
 
-install-tomato-$(PIP_INST_DEV): PIP_INST_EXTRA:=$(PIP_INST_DEV)
-install-tomato-$(PIP_INST_DEV): install-tomato
-
-install-tomato-$(PIP_INST_DEMO): PIP_INST_EXTRA:=$(PIP_INST_DEMO)
-install-tomato-$(PIP_INST_DEMO): install-tomato
-
 install-mcr:
 	if [ -z "$$(ls -A $(MCR_PATH))" ]; then \
 		echo "Installing MCR to $(MCR_PATH)..."; \
@@ -175,9 +167,6 @@ docker-build:
 		-f $(DOCKER_FILE) \
 		-t $(DOCKER_TAG):$(DOCKER_VER)
 
-isort:
-	isort --skip-glob=.tox --recursive . 
-
 test:
 	tox
 
@@ -193,8 +182,5 @@ flake8:
 pylint:
 	tox -e pylint
 
-# black:
-# 	black --line-length 79 ./
-
-# test: clean-pyc
-# 	py.test --verbose --color=yes $(TEST_PATH)
+isort:
+	isort --skip-glob=.tox --recursive . 
