@@ -58,12 +58,12 @@ help:
 	@printf "$(padded_str)MCR_INST_PATH, path to install MCR (default: $(MCR_INST_PATH))\n"
 	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
 	@printf "$(padded_str)PIP_INST_FLAG, pip install flags (default: $(PIP_INST_FLAG))\n"
-	@printf "$(pretty_command): install tomato in a virtualenv with all python dependencies, and install MCR\n" install-all
+	@printf "$(pretty_command): install tomato in a virtualenv with all extra dependencies, and install MCR\n" install-all
 	@printf "$(padded_str)VENV_NAME, virtualenv name to install (default: $(VENV_NAME))\n"
 	@printf "$(padded_str)MCR_INST_PATH, path to install MCR (default: $(MCR_INST_PATH))\n"
 	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
 	@printf "$(padded_str)PIP_INST_FLAG, pip install flags (default: $(PIP_INST_FLAG))\n"
-	@printf "$(pretty_command): install tomato in editable mode and in a virtualenv with all python dependencies, and install MCR\n" install-all-editable
+	@printf "$(pretty_command): install tomato in editable mode and in a virtualenv with all extra dependencies, and install MCR\n" install-all-editable
 	@printf "$(padded_str)VENV_NAME, virtualenv name to install (default: $(VENV_NAME))\n"
 	@printf "$(padded_str)MCR_INST_PATH, path to install MCR (default: $(MCR_INST_PATH))\n"
 	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
@@ -75,14 +75,6 @@ help:
 	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
 	@printf "$(padded_str)PIP_INST_FLAG, pip install flags (default: $(PIP_INST_FLAG))\n"
 	@printf "$(padded_str)PIP_INST_EXTRA, install from extras_require (default: $(PIP_INST_EXTRA), possible values: $(PIP_INST_ALL))\n"
-	@printf "$(pretty_command): install tomato in a virtualenv with python development dependencies\n" install-tomato-$(PIP_INST_DEV)
-	@printf "$(padded_str)VENV_NAME, virtualenv name to install (default: $(VENV_NAME))\n"
-	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
-	@printf "$(padded_str)PIP_INST_FLAG, pip install flags (default: $(PIP_INST_FLAG))\n"
-	@printf "$(pretty_command): install tomato in a virtualenv with python demo dependencies\n" install-tomato-$(PIP_INST_DEMO)
-	@printf "$(padded_str)VENV_NAME, virtualenv name to install (default: $(VENV_NAME))\n"
-	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
-	@printf "$(padded_str)PIP_INST_FLAG, pip install flags (default: $(PIP_INST_FLAG))\n"
 	@printf "$(pretty_command): create a virtualenv\n" $(VENV_NAME)
 	@printf "$(padded_str)VENV_NAME, virtualenv name (default: $(VENV_NAME))\n"
 	@printf "$(padded_str)VENV_INTERP, python interpreter (default: $(VENV_INTERP))\n"
@@ -206,4 +198,3 @@ pylint:
 
 # test: clean-pyc
 # 	py.test --verbose --color=yes $(TEST_PATH)
-
