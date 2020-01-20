@@ -7,8 +7,11 @@ from urllib.request import urlopen
 
 from setuptools import find_packages, setup
 
-__version__ = "0.14.0.dev6"
 TOMATO_DIR = "src"
+
+# Get version
+with open(os.path.join(TOMATO_DIR, "tomato", "__init__.py")) as version_file:
+    __version__ = version_file.read().strip()
 
 # Get the long description from the README file
 here = os.path.abspath(os.path.dirname(__file__))

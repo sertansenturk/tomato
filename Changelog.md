@@ -9,6 +9,7 @@
 - Introduced code linting (Pull request [#117](https://github.com/sertansenturk/tomato/pull/117))
 - Introduced `Makefile` (Pull request [#121](https://github.com/sertansenturk/tomato/pull/121))
 - Introduced dockerized tests for completeanalyzer and scoreconverter classes (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
+- Moved `tomato/` to `src/tomato/`
 - Added Github issue templates (Pull request [#101](https://github.com/sertansenturk/tomato/pull/101))
 
 ## tomato v0.13.0

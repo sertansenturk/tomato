@@ -91,6 +91,7 @@ sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev 
 You can install `tomato` and all its dependencies by running:
 
 ```bash
+cd path/to/tomato
 make
 ```
 
@@ -100,6 +101,11 @@ If you want to install `tomato` in editable mode and with the extra Python requi
 
 ```bash
 make all-editable
+```
+
+For more options, please refer to the help by running:
+```bash
+make help
 ```
 
 ### 3.3. Running tomato using docker
