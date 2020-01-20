@@ -15,7 +15,7 @@
   - [3.4. Step-by-step installation](#34-step-by-step-installation)
     - [3.4.1. Installing tomato](#341-installing-tomato)
     - [3.4.2. Installing MATLAB runtime](#342-installing-matlab-runtime)
-    - [3.4.3. Installing LilyPond](343-installing-lilypond)
+    - [3.4.3. Installing LilyPond](#343-installing-lilypond)
 - [4. Documentation](#4-documentation)
 - [5. License](#5-license)
 - [6. FAQ](#6-faq)
