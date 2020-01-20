@@ -84,6 +84,7 @@ help:
 	@printf "$(padded_str)VENV_NAME, virtualenv name to install (default: $(VENV_NAME))\n"
 	@printf "$(padded_str)MCR_INST_PATH, path to install MCR (default: $(MCR_INST_PATH))\n"
 	@printf "$(padded_str)PIP_FLAG, pip flags (default: $(PIP_FLAG))\n"
+	@printf "$(pretty_command): install LilyPond\n" install-lilypond
 	@printf "$(pretty_command): install MATLAB Runtime Compiler (MCR)\n" install-mcr
 	@printf "$(padded_str)MCR_DOWNLOAD_PATH, temporary folder to download MCR into (default: $(MCR_DOWNLOAD_PATH))\n"
 	@printf "$(padded_str)MCR_INST_PATH, path to install MCR (default: $(MCR_INST_PATH))\n"
@@ -163,10 +164,10 @@ $(VENV_NAME):
 $(DEV_VENV_NAME):
 	python3 -m virtualenv -p $(VENV_INTERP) $(DEV_VENV_NAME)
 
-install: install-tomato install-mcr 
+install: install-lilypond install-mcr install-tomato
 
 install-all: PIP_INST_EXTRA:=$(PIP_INST_ALL)
-install-all: install-tomato install-mcr 
+install-all: install
 
 install-all-editable: PIP_INST_FLAG:=$(PIP_INST_EDIT)
 install-all-editable: install-all
@@ -204,6 +205,9 @@ install-mcr:
 	else \
 		echo "MCR is already installed to $(MCR_PATH). Skipping..."; \
     fi
+
+install-lilypond:
+	sudo apt -qq install -y lilypond
 
 docker-build:
 	docker build . \

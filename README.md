@@ -6,21 +6,24 @@
 
 ## Table of contents
 
-- [Introduction](#introduction)
-- [tomato in a nutshell](#tomato-in-a-nutshell)
-- [Installation](#installation)
-  - [Installing tomato](#installing-tomato)
-  - [Installing MATLAB runtime](#installing-matlab-runtime)
-  - [Installing LilyPond](#installing-lilypond)
-- [Running tomato using docker](#running-tomato-using-docker)
-- [Documentation](#documentation)
-- [License](#license)
-- [FAQ](#faq)
-- [Authors](#authors)
-- [Acknowledgements](#acknowledgements)
-- [References](#references)
+- [1. Introduction](#1-introduction)
+- [2. tomato in a nutshell](#2-tomato-in-a-nutshell)
+- [3. Installation](#3-installation)
+  - [3.1. Prequisites](#31-prequisites)
+  - [3.2. Install tomato using make](#32-install-tomato-using-gnu-make)
+  - [3.3. Running tomato using docker](#33-running-tomato-using-docker)
+  - [3.4. Step-by-step installation](#34-step-by-step-installation)
+    - [3.4.1. Installing tomato](#341-installing-tomato)
+    - [3.4.2. Installing MATLAB runtime](#342-installing-matlab-runtime)
+    - [3.4.3. Installing LilyPond](343-installing-lilypond)
+- [4. Documentation](#4-documentation)
+- [5. License](#5-license)
+- [6. FAQ](#6-faq)
+- [7. Authors](7-authors)
+- [8. Acknowledgments](#8-acknowledgments)
+- [9. References](#9-references)
 
-## Introduction
+## 1. Introduction
 
 `tomato` is a comprehensive and easy-to-use toolbox in Python for the analysis of audio recordings and music scores of Turkish-Ottoman makam music. The toolbox includes the state of art methodologies applied to this music tradition. The analysis tasks include:
 
@@ -38,7 +41,7 @@ For the sake of __reproducibility__, please also state the version you used as i
 
 For the descriptions of the methodologies in the toolbox, please refer to the papers listed in the [References](#references).
 
-## tomato in a nutshell
+## 2. tomato in a nutshell
 
 ```python
 # import ...
@@ -73,21 +76,57 @@ plt.show()
 
 You can refer to the Jupyter notebooks in [demos](https://github.com/sertansenturk/tomato/blob/master/demos) folder for detailed, interactive examples.
 
-## Installation
+## 3. Installation
 
-There are three steps in the installation:
-
-1. [Installing tomato](#installing-tomato)
-2. [Installing MATLAB runtime](#installing-matlab-runtime)
-3. [Installing LilyPond](#installing-lilypond) (optional)
-
-### Installing tomato
+### 3.1. Prequisites
 
 `tomato` may require several packages to be installed, depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
 
 ```bash
 sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
 ```
+
+### 3.2. Install tomato using GNU make
+
+You can install `tomato` and all its dependencies by running:
+
+```bash
+make
+```
+
+The above command installs `tomato` to a virtual environment called `./venv`.
+
+If you want to install `tomato` in editable mode and with the extra Python requirements (namely `demo` and `development` requirements), you can call:
+
+```bash
+make all-editable
+```
+
+### 3.3. Running tomato using docker
+
+For the reproducibility and maintability's sake, `tomato` also comes with `docker` support.
+
+To build the docker image simply go to the base folder of the repository and run:
+
+```bash
+docker build . -t sertansenturk/tomato:latest
+```
+
+You may interact with the docker image in many different ways. Below, we run a container by mounting the `demos` folder in tomato and start an interactive `bash` session:
+
+```bash
+docker run -v "$PWD/demos/":/home/tomato_user/demos/ -it sertansenturk/tomato bash
+```
+
+Then, you can work on the command line, like you are on your local machine. Any changes you make to the `demos` folder will be reflected back to your local folder.
+
+For more information on working with `docker`, please refer to the [official documentation](https://docs.docker.com/get-started/).
+
+### 3.4. Step-by-step installation
+
+If the above options do not work for you, you need to complete the three steps below:
+
+#### 3.4.1. Installing tomato
 
 It is recommended to install `tomato` and its dependencies into a virtualenv. In the terminal, do the following:
 
@@ -126,13 +165,13 @@ The requirements are installed during the setup. If that step does not work for 
 pip install -r requirements.txt
 ```
 
-### Installing MATLAB runtime
+#### 3.4.2. Installing MATLAB runtime
 
 The score phrase segmentation, score-informed joint tonic identification and tempo estimation, section linking, and note-level audio-score alignment algorithms are implemented in MATLAB and compiled as binaries. They need **MATLAB Runtime for R2015a (8.5)** to run. You must download and install this specific version ([Linux installer](http://www.mathworks.com/supportfiles/downloads/R2015a/deployment_files/R2015a/installers/glnxa64/MCR_R2015a_glnxa64_installer.zip)).
 
 We recommend you to install MATLAB Runtime in the default installation path, as `tomato` searches them automatically. Otherwise, you have to specify your own path in the MATLAB Runtime configuration file, [tomato/config/mcr_path.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/mcr_path.cfg).
 
-### Installing LilyPond
+#### 3.4.3. Installing LilyPond
 
 `tomato` uses LilyPond under the hood to convert the music scores to SVG format.
 
@@ -140,37 +179,17 @@ In most Linux distributions, you can install LilyPond from the software reposito
 
 `tomato` requires *LilyPond* version 2.18.2 or above. If your distribution comes with an older version, we recommend you to download the latest stable version from the [LilyPond website](http://lilypond.org/download.html). If you had to install LilyPond this way, you might need to enter the LilyPond binary path to the "custom" field in [tomato/config/lilypond.cfg](https://github.com/sertansenturk/tomato/tree/master/tomato/config) (the default location is ```$HOME/bin/lilypond```).
 
-## Running tomato using docker
-
-For the reproducibility and maintability's sake, `tomato` also comes with `docker` support.
-
-To build the docker image simply go to the base folder of the repository and run:
-
-```bash
-docker build . -t sertansenturk/tomato:latest
-```
-
-You may interact with the docker image in many different ways. Below, we run a container by mounting the `demos` folder in tomato and start an interactive `bash` session:
-
-```bash
-docker run -v "$PWD/demos/":/home/tomato_user/demos/ -it sertansenturk/tomato bash
-```
-
-Then, you can work on the command line, like you are on your local machine. Any changes you make to the `demos` folder will be reflected back to your local folder.
-
-For more information on working with `docker`, please refer to the [official documentation](https://docs.docker.com/get-started/).
-
-## Documentation
+## 4. Documentation
 
 Coming soon...
 
-## License
+## 5. License
 
 The source code hosted in this repository is licensed under [Affero GPL version 3](https://www.gnu.org/licenses/agpl-3.0.en.html).
 
 Any data (the music scores, extracted features, training models, figures, outputs, etc.) are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
 
-## FAQ
+## 6. FAQ
 
 1. **The notes aligned by `JointAnalyzer.align_audio_score(...)` seems shifted. What is the problem?**
 
@@ -216,16 +235,16 @@ Any data (the music scores, extracted features, training models, figures, output
 
     It has a culture-specific answer.
 
-## Authors
+## 7. Authors
 
 Sertan Şentürk
 contact@sertansenturk.com
 
-## Acknowledgments
+## 8. Acknowledgments
 
 We would like to thank [Harold Hagopian](https://en.wikipedia.org/wiki/Harold_Hagopian), the founder of [Traditional Crossroads](http://traditionalcrossroads.com/About-Us), for allowing us to use Tanburi Cemil Bey's performance of [Uşşak Sazsemaisi](http://musicbrainz.org/recording/f970f1e0-0be9-4914-8302-709a0eac088e) in our demos.
 
-## References
+## 9. References
 
 _The toolbox has been realized as part of the thesis:_
 
