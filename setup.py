@@ -160,6 +160,7 @@ setup(
             "flake8",
             "pylint",
             "pylint-fail-under",
+            "pytest",
             "rope",
             "tox"
         ],
