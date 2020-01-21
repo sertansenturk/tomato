@@ -9,7 +9,7 @@ def test_smoke_symbtr_converter():
 
     # inputs
     symbtr_name = "ussak--sazsemaisi--aksaksemai----neyzen_aziz_dede"
-    score_folder = os.path.join("demos", symbtr_name)
+    score_folder = os.path.join("sample-data", symbtr_name)
     txt_score_filename = os.path.join(score_folder, symbtr_name + ".txt")
     mu2_score_filename = os.path.join(score_folder, symbtr_name + ".mu2")
     work_mbid = "e7924b0d-c8a0-4b4a-b253-8eec898eac1e"

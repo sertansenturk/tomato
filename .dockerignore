@@ -3,11 +3,12 @@
 
 # Allow files and directories
 !demos
-!tests
-!src
-!setup.py
-!requirements.txt
 !MANIFEST.in
+!tests
+!requirements.txt
+!sample-data
+!setup.py
+!src
 
 # ignore unnecessary files inside the folders
 **/*~

@@ -156,11 +156,12 @@ setup(
     ],
     extras_require={
         "development": [
-            "tox",
+            "black",
+            "flake8",
             "pylint",
             "pylint-fail-under",
-            "flake8",
-            "black",
+            "rope",
+            "tox"
         ],
         "demo": ["jupyter"],
     },
