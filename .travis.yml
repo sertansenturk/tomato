@@ -18,6 +18,9 @@ jobs:
       python: 3.6
       before_install:
         - ls -la
+      addons:
+        apt:
+          update: true
       install: 
         - pip install -U pip
         - pip install tox-travis
