@@ -3,7 +3,7 @@ FROM sertansenturk/tomato:latest
 RUN pip3 install --user pytest
 
 COPY tests /code/tests
-COPY demos /code/demos
+COPY sample-data /code/sample-data
 
 USER root
 RUN chown -R tomato_user:tomato_user /code

@@ -31,9 +31,9 @@ RUN python3 -m pip install --upgrade pip && \
 
 # Install tomato
 COPY MANIFEST.in setup.py /code/
-COPY tomato /code/tomato
+COPY src /code/src
 RUN cd /code && \
-    python3 -m pip install . && \
+    python3 -m pip install . -v && \
     cd / && \
     rm -rf code
 

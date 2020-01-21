@@ -9,13 +9,13 @@ def test_smoke_complete_analyzer():
 
     # score input
     symbtr_name = "ussak--sazsemaisi--aksaksemai----neyzen_aziz_dede"
-    demo_folder = os.path.join("demos", symbtr_name)
-    txt_score_filename = os.path.join(demo_folder, symbtr_name + ".txt")
-    mu2_score_filename = os.path.join(demo_folder, symbtr_name + ".mu2")
+    score_folder = os.path.join("sample-data", symbtr_name)
+    txt_score_filename = os.path.join(score_folder, symbtr_name + ".txt")
+    mu2_score_filename = os.path.join(score_folder, symbtr_name + ".mu2")
 
     # audio input
     audio_mbid = "f970f1e0-0be9-4914-8302-709a0eac088e"
-    audio_filename = os.path.join(demo_folder, audio_mbid, audio_mbid + ".mp3")
+    audio_filename = os.path.join(score_folder, audio_mbid, audio_mbid + ".mp3")
     complete_analyzer = CompleteAnalyzer()
 
     complete_features = complete_analyzer.analyze(

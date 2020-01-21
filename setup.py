@@ -7,7 +7,11 @@ from urllib.request import urlopen
 
 from setuptools import find_packages, setup
 
-from tomato import __version__
+TOMATO_DIR = "src"
+
+# Get version
+with open(os.path.join(TOMATO_DIR, "tomato", "__init__.py")) as version_file:
+    __version__ = version_file.read().strip()
 
 # Get the long description from the README file
 here = os.path.abspath(os.path.dirname(__file__))
@@ -27,7 +31,10 @@ class BinarySetup:
             OSError: if the OS is not supported.
         """
         bin_folder = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "tomato", "bin"
+            os.path.dirname(os.path.abspath(__file__)),
+            TOMATO_DIR,
+            "tomato",
+            "bin"
         )
 
         # find os
@@ -36,6 +43,7 @@ class BinarySetup:
         # read configuration file
         config_file = os.path.join(
             os.path.dirname(os.path.abspath(__file__)),
+            TOMATO_DIR,
             "tomato",
             "config",
             "bin.cfg",
@@ -129,7 +137,8 @@ setup(
         "makam-music score music-information-retrieval "
         "computational-analysis"
     ),
-    packages=find_packages(exclude=["docs", "tests"]),
+    packages=find_packages(TOMATO_DIR),
+    package_dir={"": TOMATO_DIR},
     include_package_data=True,
     python_requires=">=3.5,<3.8",
     install_requires=[
@@ -147,11 +156,13 @@ setup(
     ],
     extras_require={
         "development": [
-            "tox",
+            "black",
+            "flake8",
             "pylint",
             "pylint-fail-under",
-            "flake8",
-            "black",
+            "pytest",
+            "rope",
+            "tox"
         ],
         "demo": ["jupyter"],
     },
