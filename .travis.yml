@@ -17,7 +17,7 @@ jobs:
       if: branch IN (master, dev)
       python: 3.6
       before_install:
-        - ls -la
+        - ls -A /usr/local/MATLAB/MATLAB_Runtime/v85
       addons:
         apt:
           update: true
