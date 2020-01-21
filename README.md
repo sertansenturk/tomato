@@ -6,22 +6,19 @@
 
 ## Table of contents
 
-- [1. Introduction](#1-introduction)
-- [2. tomato in a nutshell](#2-tomato-in-a-nutshell)
-- [3. Installation](#3-installation)
-  - [3.1. Prequisites](#31-prequisites)
-  - [3.2. Install tomato using make](#32-install-tomato-using-gnu-make)
-  - [3.3. Running tomato using docker](#33-running-tomato-using-docker)
-  - [3.4. Step-by-step installation](#34-step-by-step-installation)
-    - [3.4.1. Installing tomato](#341-installing-tomato)
-    - [3.4.2. Installing MATLAB runtime](#342-installing-matlab-runtime)
-    - [3.4.3. Installing LilyPond](#343-installing-lilypond)
-- [4. Documentation](#4-documentation)
-- [5. License](#5-license)
-- [6. FAQ](#6-faq)
-- [7. Authors](7-authors)
-- [8. Acknowledgments](#8-acknowledgments)
-- [9. References](#9-references)
+1. [Introduction](#1-introduction)
+2. [tomato in a nutshell](#2-tomato-in-a-nutshell)
+3. [Installation](#3-installation)
+   1. [Prequisites](#31-prequisites)
+   2. [Install tomato using GNU make](#32-install-tomato-using-gnu-make)
+   3. [Running tomato using docker](#33-running-tomato-using-docker)
+   4. [Step-by-step installation](#34-step-by-step-installation)
+4. [Documentation](#4-documentation)
+5. [License](#5-license)
+6. [FAQ](#6-faq)
+7. [Authors](7-authors)
+8. [Acknowledgments](#8-acknowledgments)
+9. [References](#9-references)
 
 ## 1. Introduction
 
@@ -80,7 +77,7 @@ You can refer to the Jupyter notebooks in [demos](https://github.com/sertansentu
 
 ### 3.1. Prequisites
 
-`tomato` may require several packages to be installed, depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
+`tomato` may require several packages before installation, depending on your operating system. For example, in *Ubuntu 16.04* using *Python 3.5*, you have to install the _python 3_, _libxml2, libxslt1, freetype_, and _png_ development packages. You can install them by:
 
 ```bash
 sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev libfreetype6-dev libpng12-dev
@@ -88,29 +85,30 @@ sudo apt-get install python3 python3.5-dev python3-pip libxml2-dev libxslt1-dev 
 
 ### 3.2. Install tomato using GNU make
 
-You can install `tomato` and all its dependencies by running:
+You can install `tomato` and all its dependencies by running in the terminal:
 
 ```bash
 cd path/to/tomato
 make
 ```
 
-The above command installs `tomato` to a virtual environment called `./venv`.
+The above command installs `tomato` to a virtual environment called `./venv`, as well as *LilyPond* and *MATLAB Compiler Runtime*.
 
-If you want to install `tomato` in editable mode and with the extra Python requirements (namely `demo` and `development` requirements), you can call:
+If you want to install `tomato` in editable mode with the extra Python requirements (i.e., `demo` and `development`), you can run:
 
 ```bash
 make all-editable
 ```
 
 For more options, please refer to the help by running:
+
 ```bash
 make help
 ```
 
 ### 3.3. Running tomato using docker
 
-For the reproducibility and maintability's sake, `tomato` also comes with `docker` support.
+For the reproducibility and maintability's sake, `tomato` comes with `docker` support.
 
 To build the docker image simply go to the base folder of the repository and run:
 
@@ -130,7 +128,7 @@ For more information on working with `docker`, please refer to the [official doc
 
 ### 3.4. Step-by-step installation
 
-If the above options do not work for you, you need to complete the three steps below:
+If the above options do not work for you, you need to complete the steps below:
 
 #### 3.4.1. Installing tomato
 
@@ -217,7 +215,7 @@ Any data (the music scores, extracted features, training models, figures, output
 
 4. **Where are the MATLAB binaries?**
 
-    The binaries are not stored in `tomato` because they are relatively big. It would take too much space to store them here, including the versions introduced in each modification. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation.
+    The binaries are not stored in `tomato` because it would take too much space to store these large files and their old versions here. Instead, the binaries are provided within the releases of the relevant packages. The binaries are downloaded to [tomato/bin](https://github.com/sertansenturk/tomato/blob/master/tomato/bin) during the installation.
 
     Please refer to [tomato/config/bin.cfg](https://github.com/sertansenturk/tomato/blob/master/tomato/config/bin.cfg) for the relevant releases.
 
