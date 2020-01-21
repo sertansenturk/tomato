@@ -13,6 +13,17 @@ jobs:
       script: tox -e docker
       after_success:
         -
+    - name: "make"
+      if: branch IN (master, dev)
+      python: 3.6
+      before_install:
+        - ls -la
+      install: 
+        - pip install -U pip
+        - pip install tox-travis
+      script: tox -e make
+      after_success:
+        -
     - name: "Python 3.5"
       python: 3.5
       env: TOX_PYTHON_ENV=py35
