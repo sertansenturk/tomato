@@ -8,7 +8,7 @@
 - Stopped active Mac OSX support; users are encouraged to switch to `tomato` docker (Pull request [#108](https://github.com/sertansenturk/tomato/pull/108))
 - Introduced code linting (Pull request [#117](https://github.com/sertansenturk/tomato/pull/117))
 - Introduced `Makefile` (Pull request [#121](https://github.com/sertansenturk/tomato/pull/121))
-- Introduced docker and test for completeanalyzer and scoreconverter classes (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
+- Created end-to-end tests for completeanalyzer and scoreconverter classes, running on docker environment (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
 - Moved package to `src/tomato/` and data to `sample-data/` (Pull request [#122](https://github.com/sertansenturk/tomato/pull/122))
 - Added Github issue templates (Pull request [#101](https://github.com/sertansenturk/tomato/pull/101))
 
