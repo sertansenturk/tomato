@@ -24,7 +24,7 @@ jobs:
       install: 
         - pip install -U pip
       script:
-        - make all
+        - make install-all
         - source venv/bin/activate; pytest tests
       after_success:
         -
