@@ -1,5 +1,6 @@
 import configparser
 import os
+import re
 import subprocess
 import zipfile
 from io import BytesIO
@@ -11,7 +12,16 @@ TOMATO_DIR = "src"
 
 # Get version
 with open(os.path.join(TOMATO_DIR, "tomato", "__init__.py")) as version_file:
-    __version__ = version_file.read().strip()
+    init_contents = version_file.read().strip()
+
+    exp = r"^__version__ = ['\"]([^'\"]*)['\"]"
+    mo = re.search(exp, init_contents, re.M)
+    if mo:
+        __version__ = mo.group(1)
+    else:
+        raise RuntimeError("Unable to find version string in %s."
+                           % (version_file,))
+
 
 # Get the long description from the README file
 here = os.path.abspath(os.path.dirname(__file__))
