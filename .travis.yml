@@ -17,7 +17,7 @@ jobs:
       if: branch IN (master, dev)
       python: 3.6
       before_install:
-        - ls -A /usr/local/MATLAB/MATLAB_Runtime/v85
+        - if [ -z "$(/usr/local/MATLAB/MATLAB_Runtime/v85)" ]; then echo "Installing MCR to /usr/local/MATLAB/MATLAB_Runtime/v85..."; fi
       addons:
         apt:
           update: true
