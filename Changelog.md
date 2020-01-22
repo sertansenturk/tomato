@@ -2,31 +2,40 @@
 
 ## tomato v0.14.0
 
-- Added Github issue templates
+- Added docker support (Pull request [#107](https://github.com/sertansenturk/tomato/pull/107))
+- Improved `tomato` setup (Pull request [#118](https://github.com/sertansenturk/tomato/pull/118))
+- Dropped Python 2 support; users must to switch to Python 3.5 to 3.7 (Pull request [#110](https://github.com/sertansenturk/tomato/pull/110))
+- Stopped active Mac OSX support; users are encouraged to switch to `tomato` docker (Pull request [#108](https://github.com/sertansenturk/tomato/pull/108))
+- Introduced code linting (Pull request [#117](https://github.com/sertansenturk/tomato/pull/117))
+- Introduced `Makefile` (Pull request [#121](https://github.com/sertansenturk/tomato/pull/121))
+- Introduced docker and test for completeanalyzer and scoreconverter classes (Pull request [#120](https://github.com/sertansenturk/tomato/pull/120))
+- Moved package to `src/tomato/` and data to `sample-data/` (Pull request [#122](https://github.com/sertansenturk/tomato/pull/122))
+- Added Github issue templates (Pull request [#101](https://github.com/sertansenturk/tomato/pull/101))
 
 ## tomato v0.13.0
 
-- Refactored the code (in particular metadata and score processing), which was previously ported from different makam analysis libraries in v0.11.0: Pull requests [#84](https://github.com/sertansenturk/tomato/pull/84) and [#94](https://github.com/sertansenturk/tomato/pull/94)
+- Refactored the code (in particular metadata and score processing), which was previously ported from different makam analysis libraries in v0.11.0 (Pull requests [#84](https://github.com/sertansenturk/tomato/pull/84) and [#94](https://github.com/sertansenturk/tomato/pull/94))
+- Introduced `tox` to local automation and travis-ci (Pull request [#94](https://github.com/sertansenturk/tomato/pull/94))
 
 ## tomato v0.12.3
 
-- Solved the problem with loading the makam/tonic estimation model from pickle (removed `morty` dependency): [Pull request #91](https://github.com/sertansenturk/tomato/pull/#91)
+- Solved the problem with loading the makam/tonic estimation model from pickle (removed `morty` dependency) ([Pull request #91](https://github.com/sertansenturk/tomato/pull/#91))
 
 ## tomato v0.12.2
 
-- Solved the pool error occurring in Essentia version 2.1-beta5-dev: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#88) (by [Miguel García Casado](https://github.com/miguelgcasado))
+- Solved the pool error occurring in Essentia version 2.1-beta5-dev ([Pull request #86](https://github.com/sertansenturk/tomato/pull/#88) by [Miguel García Casado](https://github.com/miguelgcasado))
 
 ## tomato v0.12.1
 
-- Added missing makam & tonic estimation model: [Pull request #86](https://github.com/sertansenturk/tomato/pull/#86)
+- Added missing makam & tonic estimation model ([Pull request #86](https://github.com/sertansenturk/tomato/pull/#86))
 
 ## tomato v0.12.0
 
-- Made the package Python 3 compatible: [Pull request #78](https://github.com/sertansenturk/tomato/pull/78)
+- Made the package Python 3 compatible ([Pull request #78](https://github.com/sertansenturk/tomato/pull/78))
 
 ## tomato v0.11.0
 
-- Ported all makam analysis libraries into tomato: [Pull request #77](https://github.com/sertansenturk/tomato/pull/77)
+- Ported all makam analysis libraries into tomato ([Pull request #77](https://github.com/sertansenturk/tomato/pull/77))
 
 ## tomato v0.10.1
 

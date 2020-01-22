@@ -1,0 +1,34 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!demos
+!MANIFEST.in
+!tests
+!requirements.txt
+!sample-data
+!setup.py
+!src
+
+# ignore unnecessary files inside the folders
+**/*~
+**/*.log
+**/.DS_Store
+**/Thumbs.Distribution
+**/.idea
+**/*.pyc
+
+# binaries
+**/*alignAudioScore*
+**/*extractTonicTempoTuning*
+**/*phraseSeg*
+**/*MusikiToMusicXml*
+
+# score outputs
+**/*.svg
+**/*.xml
+!**/makams_usuls/Makamlar.xml
+**/*.ly
+
+# Jupyter Notebook
+**/.ipynb_checkpoints
