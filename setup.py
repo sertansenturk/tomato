@@ -8,28 +8,42 @@ from urllib.request import urlopen
 
 from setuptools import find_packages, setup
 
+HERE = os.path.abspath(os.path.dirname(__file__))
 TOMATO_DIR = "src"
 
-# Get version
-with open(os.path.join(TOMATO_DIR, "tomato", "__init__.py")) as version_file:
-    init_contents = version_file.read().strip()
 
-    exp = r"^__version__ = ['\"]([^'\"]*)['\"]"
-    mo = re.search(exp, init_contents, re.M)
-    if mo:
-        __version__ = mo.group(1)
-    else:
-        raise RuntimeError("Unable to find version string in %s."
-                           % (version_file,))
+def get_version():
+    """ Read version from __init__.py
+
+    Raises:
+        ValueError: if __init__ is not read, or __version__ is not in __init__
+
+    Returns:
+        str -- value of __version__ as defined in __init__.py
+    """
+    version_file2 = os.path.join(HERE, TOMATO_DIR, "tomato", "__init__.py")
+    with open(version_file2) as f:
+        init_contents = f.read().strip()
+
+        exp = r"^__version__ = ['\"]([^'\"]*)['\"]"
+        mo = re.search(exp, init_contents, re.M)
+        if mo:
+            return mo.group(1)
+        else:
+            raise ValueError("Unable to find version string in %s." % (f,))
 
 
-# Get the long description from the README file
-here = os.path.abspath(os.path.dirname(__file__))
-try:
-    with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
-        long_description = f.read()
-except FileNotFoundError:  # not necessary, e.g. in Docker
-    long_description = ""
+def get_long_description():
+    """Get the long description from the README file
+
+    Returns:
+        str -- the README content in the markdown format
+    """
+    try:
+        with open(os.path.join(HERE, "README.md"), encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:  # not necessary, e.g. in Docker
+        return ""
 
 
 class BinarySetup:
@@ -109,20 +123,20 @@ BinarySetup.setup()
 
 setup(
     name="tomato",
-    version=__version__,
+    version=get_version(),
     author="Sertan Senturk",
     author_email="contact AT sertansenturk DOT com",
     maintainer="Sertan Senturk",
     maintainer_email="contact AT sertansenturk DOT com",
     url="https://github.com/sertansenturk/tomato",
     description="Turkish-Ottoman Makam (M)usic Analysis TOolbox",
-    long_description=long_description,
+    long_description=get_long_description(),
     long_description_content_type="text/markdown",
     download_url=(
         "https://github.com/sertansenturk/tomato.git"
-        if "dev" in __version__
+        if "dev" in get_version()
         else "https://github.com/sertansenturk/tomato/releases/tag/"
-        "v{0:s}".format(__version__)
+        "v{0:s}".format(get_version())
     ),
     classifiers=[
         "Development Status :: 4 - Beta",
