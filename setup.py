@@ -29,8 +29,8 @@ def get_version():
         mo = re.search(exp, init_contents, re.M)
         if mo:
             return mo.group(1)
-        else:
-            raise ValueError("Unable to find version string in %s." % (f,))
+
+        raise ValueError("Unable to find version string in %s." % (f,))
 
 
 def get_long_description():
