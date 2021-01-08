@@ -28,6 +28,7 @@ from numpy import matrix
 
 class GraphOperations:
     _metrics = ['norm_levenshtein']
+
     @staticmethod
     def norm_levenshtein(str1, str2):
         max_len = float(max([len(str1), len(str2)]))

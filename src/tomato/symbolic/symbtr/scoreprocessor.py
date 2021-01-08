@@ -68,9 +68,10 @@ class ScoreProcessor:
 
     @staticmethod
     def get_all_symbtr_labels():
-        all_labels = [l for sub_list in
-                      IO.load_music_data('symbtr_labels').values()
-                      for l in sub_list]
+        all_labels = [
+            sl
+            for sub_list in IO.load_music_data('symbtr_labels').values()
+            for sl in sub_list]
 
         return all_labels
 
