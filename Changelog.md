@@ -3,6 +3,7 @@
 ## tomato v0.14.1
 
 - Bump lxml from 4.4.2 to 4.6.2 (Pull request [#127](https://github.com/sertansenturk/tomato/pull/127))
+- Fix flake8 path
 
 ## tomato v0.14.0
 
