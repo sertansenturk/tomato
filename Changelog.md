@@ -1,7 +1,8 @@
 # Changelog
 
 ## tomato v0.14.2
-- Fix ``theoretical_pitch`` units in ``NoteModel`` class (Pull request [#128](https://github.com/sertansenturk/tomato/pull/128))
+
+- Fix `theoretical_pitch` unit in `NoteModel` class (Pull request [#128](https://github.com/sertansenturk/tomato/pull/128))
 
 ## tomato v0.14.1
 
