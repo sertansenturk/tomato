@@ -1,5 +1,10 @@
 # Changelog
 
+## tomato v0.14.2
+
+- Fix `theoretical_pitch` unit in `NoteModel` class (Pull request [#128](https://github.com/sertansenturk/tomato/pull/128))
+- Minor linting improvements (Pull request [#129](https://github.com/sertansenturk/tomato/pull/129))
+
 ## tomato v0.14.1
 
 - Bump lxml from 4.4.2 to 4.6.2 (Pull request [#127](https://github.com/sertansenturk/tomato/pull/127))

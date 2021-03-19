@@ -86,7 +86,7 @@ class NoteModel:
                             "theoretical_interval": {"value": note_cent,
                                                      "unit": "cent"},
                             "theoretical_pitch": {"value": theoretical_pitch,
-                                                  "unit": "cent"},
+                                                  "unit": "Hz"},
                             "stable_pitch": {"value": stable_pitch_hz,
                                              "unit": "Hz"}}
                         break
@@ -115,8 +115,8 @@ class NoteModel:
         try:
             key_signature = self._get_extended_key_signature(
                 makam_dict[makam]["key_signature"], note_dict)
-        except KeyError:
-            raise KeyError('Unknown makam')
+        except KeyError as err:
+            raise KeyError('Unknown makam') from err
         natural_notes = self._get_natural_notes(key_signature, note_dict)
 
         # Remove the notes neighboring the scale notes
@@ -181,8 +181,8 @@ class NoteModel:
         key_signature = deepcopy(key_sig_in)
         for note in list(note_dict.keys()):  # extend the key signature to
             # octaves
-            if any([self._is_same_pitch_class(note, ks)
-                    for ks in key_signature]):
+            if any(self._is_same_pitch_class(note, ks)
+                   for ks in key_signature):
                 key_signature.append(note)
 
         return list(set(key_signature))
