@@ -86,7 +86,7 @@ class NoteModel:
                             "theoretical_interval": {"value": note_cent,
                                                      "unit": "cent"},
                             "theoretical_pitch": {"value": theoretical_pitch,
-                                                  "unit": "cent"},
+                                                  "unit": "Hz"},
                             "stable_pitch": {"value": stable_pitch_hz,
                                              "unit": "Hz"}}
                         break
