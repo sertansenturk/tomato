@@ -241,5 +241,6 @@ class IO:
                               + " -t UTF-8 " + filepath + " > tmp.txt "
                               "&& mv -f tmp.txt " + filepath)
                 subprocess.check_output(commandstr, shell=True)
-        except IndexError:  # mac
-            raise OSError('Call this method in Linux for reliable results.')
+        except IndexError as err:  # mac
+            raise OSError(
+                'Call this method in Linux for reliable results.') from err

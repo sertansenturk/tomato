@@ -137,11 +137,12 @@ class Plotter:
             makam = makam_in['mb_attribute']
             if not makam:
                 raise ValueError('MusicBrainz attribute is empty.')
-        except (KeyError, ValueError):
+        except (KeyError, ValueError) as err:
             try:  # attempt to get the name in mu2
                 makam = makam_in['mu2_name']
                 if not makam:
-                    raise ValueError('MusicBrainz attribute is empty.')
+                    raise ValueError(
+                        'MusicBrainz attribute is empty.') from err
             except (KeyError, ValueError):  # use the slug in symbtr name
                 makam = makam_in['symbtr_slug']
         except TypeError:  # string
