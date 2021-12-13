@@ -6,6 +6,6 @@ json_tricks==3.12.1  # saving json files with classes and numpy arrays
 eyeD3==0.8.11  # reading metadata embedded in the audio recordings
 python-Levenshtein==0.12.0  # semiotic structure labeling similarity
 networkx==1.11  # semiotic structure labeling clique computation
-lxml==4.6.3  # musicxml conversion
+lxml==4.6.5  # musicxml conversion
 musicbrainzngs==0.6  # metadata crawling from musicbrainz
 essentia==2.1b5;platform_system=='Linux'  # music signal processing
